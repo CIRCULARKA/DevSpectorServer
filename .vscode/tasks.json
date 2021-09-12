@@ -9,11 +9,20 @@
 				"build",
 				"${workspaceFolder}/Server/InvMan.Server.UI/InvMan.Server.UI.csproj",
 			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Stage current file",
+			"command": "git",
+			"type": "process",
+			"args": [
+				"add",
+				"${file}"
+			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
-			},
-			"problemMatcher": "$msCompile"
+			}
 		}
 	]
 }

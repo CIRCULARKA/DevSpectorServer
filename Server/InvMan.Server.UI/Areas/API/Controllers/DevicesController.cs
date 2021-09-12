@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections;
 using InvMan.Server.Domain;
+using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
@@ -28,5 +29,20 @@ namespace InvMan.Server.UI.API.Controllers
 					IpAddresses = d.IPAddresses.Select(ip => ip.Address)
 				});
 
+		[HttpGet("{id}")]
+		public IActionResult Get(int id)
+		{
+			var result = _repository.GetDeviceByID(id);
+
+			return Json(
+				new {
+					ID = result.ID,
+					InventoryNumber = result.InventoryNumber,
+					NetworkName = result.NetworkName,
+					Type = result.Type,
+					IPAddresses = result.IPAddresses.Select(ip => ip.Address)
+				}
+			);
+		}
 	}
 }

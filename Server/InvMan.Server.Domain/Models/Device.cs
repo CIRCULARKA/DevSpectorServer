@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace InvMan.Server.Domain.Models
 {
 	public class Device
@@ -6,14 +8,12 @@ namespace InvMan.Server.Domain.Models
 
 		public string InventoryNumber { get; set; }
 
-		public int DeviceTypeID { get; set; }
-
-		public DeviceType DeviceType { get; set; }
+		public DeviceType Type { get; set; }
 
 		public string NetworkName { get; set; }
 
-		public int CabinetID { get; set; }
+		public Location Location { get; set; }
 
-		public Cabinet Cabinet { get; set; }
+		public List<IPAddress> IPAddresses { get; set; }
 	}
 }

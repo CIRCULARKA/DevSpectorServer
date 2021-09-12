@@ -9,7 +9,6 @@ namespace InvMan.Server.Database
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
-			Database.EnsureDeleted();
 			Database.EnsureCreated();
 		}
 
@@ -18,6 +17,8 @@ namespace InvMan.Server.Database
 		public DbSet<Housing> Housings { get; set; }
 
 		public DbSet<Cabinet> Cabinets { get; set; }
+
+		public DbSet<Location> Locations { get; set; }
 
 		public DbSet<Device> Devices { get; set; }
 

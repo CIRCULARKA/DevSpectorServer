@@ -15,9 +15,9 @@ namespace InvMan.Server.Database
 		}
 
 		public IEnumerable<IPAddress> GetDeviceIPs(int deviceID) =>
-			_context.IPAddresses.Where(ip => ip.DeviceID == deviceID).ToList();
+			_context.IPAddresses.Where(ip => ip.Device.ID == deviceID).ToList();
 
 		public IEnumerable<IPAddress> FreeAddresses =>
-			_context.IPAddresses.Where(ip => ip.DeviceID == null).ToList();
+			_context.IPAddresses.Where(ip => ip.Device == null).ToList();
 	}
 }

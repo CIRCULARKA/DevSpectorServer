@@ -43,8 +43,10 @@ namespace InvMan.Server.Database
 
 		public IEnumerable<Device> AllDevices =>
 			_context.Devices.
-				Include(d => d.Cabinet).
-					Include(d => d.Cabinet.Housing).
-				Include(d => d.DeviceType).ToList();
+				Include(d => d.IPAddresses).
+				Include(d => d.Location).
+					Include(d => d.Location.Housing).
+					Include(d => d.Location.Cabinet).
+				Include(d => d.Type).ToList();
 	}
 }

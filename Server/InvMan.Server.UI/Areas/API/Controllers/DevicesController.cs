@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
 using InvMan.Server.Domain;
-using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
@@ -15,8 +15,18 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<Device> Get() =>
-			_repository.AllDevices;
+		public IEnumerable Get() =>
+			_repository.AllDevices.
+				Select(d => new {
+					InvnetoryNumber = d.InventoryNumber,
+					DeviceType = d.Type.Name,
+					NetworkName = d.NetworkName,
+					Location = new {
+						Housing = d.Location.Housing.Name,
+						Cabinet = d.Location.Cabinet.Name
+					},
+					IpAddresses = d.IPAddresses.Select(ip => ip.Address)
+				});
 
 	}
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using InvMan.Server.Database;
 using InvMan.Server.Domain;
 
@@ -40,6 +41,8 @@ namespace InvMan.Server.UI
             {
                 endpoints.MapControllers();
             });
+
+            app.EnsurePopulated();
         }
     }
 }

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections;
 using InvMan.Server.Domain;
-using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
@@ -19,7 +18,7 @@ namespace InvMan.Server.UI.API.Controllers
 		public IEnumerable Get() =>
 			_repository.AllDevices.
 				Select(d => new {
-					InvnetoryNumber = d.InventoryNumber,
+					InventoryNumber = d.InventoryNumber,
 					DeviceType = d.Type.Name,
 					NetworkName = d.NetworkName,
 					Location = new {

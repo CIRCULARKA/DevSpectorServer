@@ -12,6 +12,16 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
+			"label": "Build Desktop",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/Desktop/InvMan.Desktop.UI/InvMan.Desktop.UI.csproj",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
 			"label": "Stage current file",
 			"command": "git",
 			"type": "process",

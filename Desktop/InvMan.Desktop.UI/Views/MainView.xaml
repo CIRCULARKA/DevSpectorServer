@@ -16,9 +16,10 @@
 				<MenuItem Header="Установить маску подсети..." Command="{Binding ShowSetIPMaskDialogCommand}" />
 			</MenuItem> -->
 		</Menu>
-		<TabControl SelectedItem="{Binding SelectedTab, UpdateSourceTrigger=PropertyChanged}"
+		<!-- <TabControl SelectedItem="{Binding SelectedTab, UpdateSourceTrigger=PropertyChanged}"
 			ItemsSource="{Binding MainViewTabs}"
 			SelectedIndex="0">
-		</TabControl>
+		</TabControl> -->
+		<TextBlock x:Name="resultLabel" />
 	</StackPanel>
 </Window>

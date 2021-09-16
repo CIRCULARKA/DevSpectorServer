@@ -12,6 +12,29 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
+			"label": "Run Server",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"run",
+				"--project",
+				"${workspaceFolder}/Server/InvMan.Server.UI/InvMan.Server.UI.csproj",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build & Run Server",
+			"dependsOn": [
+				"Build Server",
+				"Run Server"
+			],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
 			"label": "Build Desktop",
 			"command": "dotnet",
 			"type": "process",

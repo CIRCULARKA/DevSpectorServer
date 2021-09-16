@@ -1,9 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvMan.Desktop.DependencyInjection\InvMan.Desktop.DependencyInjection.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <StartupObject>InvMan.Desktop.UI.Program</StartupObject>
   </PropertyGroup>
 
 </Project>

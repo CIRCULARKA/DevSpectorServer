@@ -45,17 +45,13 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Stage current file",
-			"command": "git",
+			"label": "Test All",
 			"type": "process",
+			"command": "dotnet",
 			"args": [
-				"add",
-				"${file}"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
+				"test",
+				"Tests/InvMan.Tests.Server.SDK"
+			]
 		}
 	]
 }

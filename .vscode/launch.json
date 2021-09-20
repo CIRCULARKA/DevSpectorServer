@@ -31,6 +31,15 @@
 			"args": [],
 			"cwd": "${workspaceFolder}/Desktop/InvMan.Desktop.UI",
 			"stopAtEntry": false
-		}
+		},
+		// {
+		// 	"name": "Debug Tests",
+		// 	"type": "coreclr",
+		// 	"request": "launch",
+		// 	"preLaunchTask": "Test All",
+		// 	"program": "${workspaceFolder}/Tests/InvMan.Tests.Server.SDK/bin/Debug/net5.0/InvMan.Tests.Server.SDK.dll",
+		// 	"cwd": "${workspaceFolder}/Tests/InvMan.Tests.Server.SDK",
+		// 	"stopAtEntry": false
+		// }
 	]
 }

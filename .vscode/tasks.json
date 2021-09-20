@@ -43,6 +43,15 @@
 				"${workspaceFolder}/Desktop/InvMan.Desktop.UI/InvMan.Desktop.UI.csproj",
 			],
 			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Test All",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"Tests/InvMan.Tests.Server.SDK"
+			]
 		}
 	]
 }

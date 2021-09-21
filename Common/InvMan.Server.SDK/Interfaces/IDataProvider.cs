@@ -4,8 +4,8 @@ namespace InvMan.Server.SDK
 {
 	public interface IDataProvider
 	{
-		Task<string> GetAllDevicesRaw();
+		Task<string> GetAllDevicesRawAsync();
 
-		Task<string> GetDeviceIpsRaw(int deviceID);
+		Task<string> GetDeviceIpsRawAsync(int deviceID);
 	}
 }

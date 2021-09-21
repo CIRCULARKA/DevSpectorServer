@@ -30,13 +30,13 @@ namespace InvMan.Server.SDK
             BuildEndpointPath();
         }
 
-        public async Task<string> GetAllDevicesRaw()
+        public async Task<string> GetAllDevicesRawAsync()
         {
             var response = await _client.GetAsync(_pathToDevices);
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> GetDeviceIpsRaw(int deviceID)
+        public async Task<string> GetDeviceIpsRawAsync(int deviceID)
         {
             var response = await _client.GetAsync(_pathToIpAddresses.AbsoluteUri + deviceID);
             return await response.Content.ReadAsStringAsync();

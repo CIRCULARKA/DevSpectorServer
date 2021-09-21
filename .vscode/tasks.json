@@ -45,15 +45,6 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Test All",
-			"type": "process",
-			"command": "dotnet",
-			"args": [
-				"test",
-				"Tests/InvMan.Tests.Server.SDK"
-			]
-		},
-		{
 			"label": "Watch Common Tests",
 			"type": "shell",
 			"command": "dotnet",
@@ -61,7 +52,7 @@
 				"watch",
 				"-q",
 				"--project",
-				"Common",
+				"${workspaceFolder}/Common",
 				"test",
 				"${workspaceFolder}/Tests/Tests.Common/Tests.Common.csproj"
 			],
@@ -75,7 +66,7 @@
 				"focus": false,
 				"panel": "new",
 				"showReuseMessage": false,
-				"clear": false
+				"clear": true
 			},
 			"problemMatcher": []
 		},

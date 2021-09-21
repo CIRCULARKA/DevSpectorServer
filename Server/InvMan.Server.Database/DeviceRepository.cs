@@ -47,6 +47,15 @@ namespace InvMan.Server.Database
 				Include(d => d.Type).
 					FirstOrDefault(d => d.ID == deviceID);
 
+		public Device GetDeviceByInventoryNumber(string invNum) =>
+			_context.Devices.
+				Include(d => d.IPAddresses).
+				Include(d => d.Location).
+					Include(d => d.Location.Housing).
+					Include(d => d.Location.Cabinet).
+				Include(d => d.Type).
+					FirstOrDefault(d => d.InventoryNumber == invNum);
+
 		public IEnumerable<Device> AllDevices =>
 			_context.Devices.
 				Include(d => d.IPAddresses).

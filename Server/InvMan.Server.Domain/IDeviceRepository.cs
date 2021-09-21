@@ -14,6 +14,8 @@ namespace InvMan.Server.Domain
 
 		Device GetDeviceByID(int deviceID);
 
+		Device GetDeviceByInventoryNumber(string invNum);
+
 		IEnumerable<Device> AllDevices { get; }
 	}
 }

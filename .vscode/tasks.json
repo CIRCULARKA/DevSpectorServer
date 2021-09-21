@@ -52,6 +52,33 @@
 				"test",
 				"Tests/InvMan.Tests.Server.SDK"
 			]
+		},
+		{
+			"label": "Watch run Server",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"watch",
+				"--project",
+				"${workspaceFolder}/Server/InvMan.Server.UI",
+				"run"
+			],
+			"runOptions": {
+				"instanceLimit": 1,
+				"runOn": "folderOpen"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": false
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }

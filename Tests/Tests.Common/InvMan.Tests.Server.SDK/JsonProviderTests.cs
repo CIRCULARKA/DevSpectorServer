@@ -6,7 +6,7 @@ namespace InvMan.Tests.Server.SDK
 {
     public class JsonProviderTests
     {
-        private readonly JsonProvider _defaultProvider;
+        private readonly IDataProvider _defaultProvider;
 
         private readonly int _targetDeviceID = 1;
 
@@ -24,9 +24,9 @@ namespace InvMan.Tests.Server.SDK
         }
 
         [Fact]
-        public async void CanLoadDataAboutDevice()
+        public async void CanLoadDataAboutDevices()
         {
-            var result = await _defaultProvider.GetDeviceJson(_targetDeviceID);
+            var result = await _defaultProvider.GetAllDevicesRaw();
 
             Assert.True(result.Length > 0);
         }
@@ -34,7 +34,7 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadDeviceIPs()
         {
-            var result = await _defaultProvider.GetDeviceIpsJson(_targetDeviceID);
+            var result = await _defaultProvider.GetDeviceIpsRaw(_targetDeviceID);
 
             Assert.True(result.Length > 0);
         }

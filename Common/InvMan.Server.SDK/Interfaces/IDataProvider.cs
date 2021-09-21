@@ -6,6 +6,6 @@ namespace InvMan.Server.SDK
 	{
 		Task<string> GetAllDevicesRaw();
 
-		Task<string> GetDeviceIpsRaw();
+		Task<string> GetDeviceIpsRaw(int deviceID);
 	}
 }

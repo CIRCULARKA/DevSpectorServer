@@ -54,11 +54,38 @@
 			]
 		},
 		{
-			"label": "Watch run Server",
+			"label": "Watch Common Tests",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"watch",
+				"-q",
+				"--project",
+				"Common",
+				"test",
+				"${workspaceFolder}/Tests/Tests.Common/Tests.Common.csproj"
+			],
+			"runOptions": {
+				"instanceLimit": 1,
+				"runOn": "folderOpen"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": false
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Watch Server",
 			"type": "process",
 			"command": "dotnet",
 			"args": [
 				"watch",
+				"-q",
 				"--project",
 				"${workspaceFolder}/Server/InvMan.Server.UI",
 				"run"
@@ -74,10 +101,6 @@
 				"panel": "new",
 				"showReuseMessage": false,
 				"clear": false
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
 			}
 		}
 	]

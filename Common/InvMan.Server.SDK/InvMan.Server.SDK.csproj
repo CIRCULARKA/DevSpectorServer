@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Server\InvMan.Server.Domain\InvMan.Server.Domain.csproj" />
+    <ProjectReference Include="..\InvMan.Common.Models\InvMan.Common.Models.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

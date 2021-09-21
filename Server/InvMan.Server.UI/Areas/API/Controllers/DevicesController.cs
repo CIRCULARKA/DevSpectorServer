@@ -18,6 +18,7 @@ namespace InvMan.Server.UI.API.Controllers
 		public IEnumerable Get() =>
 			_repository.AllDevices.
 				Select(d => new {
+					ID = d.ID,
 					InventoryNumber = d.InventoryNumber,
 					DeviceType = d.Type.Name,
 					NetworkName = d.NetworkName,

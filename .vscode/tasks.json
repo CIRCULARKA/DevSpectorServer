@@ -45,7 +45,33 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Watch Tests",
+			"label": "Watch Server Tests",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"watch",
+				"-q",
+				"--project",
+				"${workspaceFolder}/Server",
+				"test",
+				"${workspaceFolder}/Tests/Tests.Server/Tests.Server.csproj"
+			],
+			"runOptions": {
+				"instanceLimit": 1,
+				"runOn": "folderOpen"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Watch Common Tests",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [

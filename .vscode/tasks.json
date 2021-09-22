@@ -12,29 +12,6 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Run Server",
-			"command": "dotnet",
-			"type": "process",
-			"args": [
-				"run",
-				"--project",
-				"${workspaceFolder}/Server/InvMan.Server.UI/InvMan.Server.UI.csproj",
-			],
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Build & Run Server",
-			"dependsOn": [
-				"Build Server",
-				"Run Server"
-			],
-			"dependsOrder": "sequence",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
 			"label": "Build Desktop",
 			"command": "dotnet",
 			"type": "process",
@@ -63,7 +40,7 @@
 			"presentation": {
 				"echo": true,
 				"reveal": "silent",
-				"focus": false,
+				"focus": true,
 				"panel": "new",
 				"showReuseMessage": false,
 				"clear": true
@@ -89,7 +66,7 @@
 			"presentation": {
 				"echo": true,
 				"reveal": "silent",
-				"focus": false,
+				"focus": true,
 				"panel": "new",
 				"showReuseMessage": false,
 				"clear": true
@@ -109,12 +86,15 @@
 			],
 			"runOptions": {
 				"instanceLimit": 1,
-				"runOn": "folderOpen"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
 			},
 			"presentation": {
 				"echo": true,
 				"reveal": "silent",
-				"focus": false,
+				"focus": true,
 				"panel": "new",
 				"showReuseMessage": false,
 				"clear": false

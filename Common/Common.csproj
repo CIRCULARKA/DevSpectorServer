@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Watch Include="../Tests/Tests.Common/**/*.cs"></Watch>
+    <Watch Include="../Tests/Tests.Server/**/*.cs"></Watch>
   </ItemGroup>
 
 </Project>

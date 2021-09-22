@@ -74,7 +74,7 @@ namespace Microsoft.AspNetCore.Builder
 					NetworkName = "COMMUTATOR-1",
 					Type = _context.DeviceTypes.First(dt => dt.ID == 3),
 					Location = _context.Locations.First(l => l.ID == 3),
-					IPAddresses = _context.IPAddresses.Where(ip => ip.ID >= 6).ToList()
+					IPAddresses = _context.IPAddresses.Where(ip => ip.ID == 6).ToList()
 				}
 			};
 
@@ -129,7 +129,10 @@ namespace Microsoft.AspNetCore.Builder
 				new IPAddress { Address = "198.22.33.7" },
 				new IPAddress { Address = "198.22.33.8" },
 				new IPAddress { Address = "198.22.33.9" },
-				new IPAddress { Address = "198.22.33.10" }
+				new IPAddress { Address = "198.22.33.10" },
+				new IPAddress { Address = "198.22.33.11" },
+				new IPAddress { Address = "198.22.33.12" },
+				new IPAddress { Address = "198.22.33.13" }
 			};
 	}
 }

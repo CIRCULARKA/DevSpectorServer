@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using InvMan.Server.Domain;
@@ -15,12 +17,11 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IEnumerable<IPAddress> Get(int id) =>
-			_repository.GetDeviceIPs(id);
+		public IEnumerable Get(int id) =>
+			_repository.GetDeviceIPs(id).Select(ip => ip.Address);
 
 		[HttpGet("free")]
 		public IEnumerable<IPAddress> Get() =>
 			_repository.FreeAddresses;
-
 	}
 }

@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Text.Json;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
@@ -11,11 +10,15 @@ namespace InvMan.Tests.Server.Controllers
 {
 	public class IPAddressControllerTests
 	{
-		[Fact]
-		public void IsFreeIPsReturnedProperly()
+		private readonly List<IPAddress> _expectedIPs;
+
+		private readonly IIPAddressRepository _repoMock;
+
+		private readonly IPAddressController _controller;
+
+		public IPAddressControllerTests()
 		{
-			// Arrange
-			var expected = new List<IPAddress>
+			_expectedIPs = new List<IPAddress>
 			{
 				new IPAddress { Address = "1.1.1.1" },
 				new IPAddress { Address = "2.2.2.2" },
@@ -26,18 +29,38 @@ namespace InvMan.Tests.Server.Controllers
 			var repoMock = new Mock<IIPAddressRepository>();
 			repoMock.Setup(
 				ipRepo => ipRepo.FreeAddresses
-			).Returns(expected);
+			).Returns(_expectedIPs);
+			repoMock.Setup(
+				ipRepo => ipRepo.GetDeviceIPs(1)
+			).Returns(_expectedIPs);
 
-			var ipController = new IPAddressController(repoMock.Object);
+			_controller = new IPAddressController(repoMock.Object);
+		}
 
+		[Fact]
+		public void IsFreeIPsReturnedProperly()
+		{
 			// Act
-			var actual = ipController.Get().ToList();
+			var actual = _controller.Get().ToList();
 
 			// Assert
-			Assert.Equal(expected.Count, actual.Count);
+			Assert.Equal(_expectedIPs.Count, actual.Count);
 
-			for (int i = 0; i < expected.Count; i++)
-				Assert.Equal(expected[i].Address, actual[i].Address);
+			for (int i = 0; i < _expectedIPs.Count; i++)
+				Assert.Equal(_expectedIPs[i].Address, actual[i].Address);
+		}
+
+		[Fact]
+		public void IsDeviceIpsReturnsPropelry()
+		{
+			// Act
+			var actual = _controller.Get(1).Cast<string>().ToList();
+
+			// Assert
+			Assert.Equal(_expectedIPs.Count, actual.Count);
+
+			for (int i = 0; i < _expectedIPs.Count; i++)
+				Assert.Equal(_expectedIPs[i].Address, actual[i]);
 		}
 	}
 }

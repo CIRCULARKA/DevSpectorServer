@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Desktop.DependencyIn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7D363052-B249-4CE6-AA5D-C0B264B5DE47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Server.SDK", "Common\InvMan.Server.SDK\InvMan.Server.SDK.csproj", "{174D2F53-20E8-4D73-B658-BF0254D3C1E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Common.SDK", "Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj", "{174D2F53-20E8-4D73-B658-BF0254D3C1E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{498B394A-4599-4634-A90A-3568E0276C3F}"
 EndProject

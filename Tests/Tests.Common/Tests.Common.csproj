@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\InvMan.Server.SDK\InvMan.Server.SDK.csproj" />
+    <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
     <ProjectReference Include="..\..\Common\InvMan.Common.Models\InvMan.Common.Models.csproj" />
   </ItemGroup>
 

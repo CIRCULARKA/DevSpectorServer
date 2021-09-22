@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace InvMan.Server.SDK
+namespace InvMan.Common.SDK
 {
     public class JsonProvider : IDataProvider
     {

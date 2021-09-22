@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Moq;
 using Xunit;
-using InvMan.Server.SDK;
+using InvMan.Common.SDK;
 using InvMan.Common.Models;
 
 namespace InvMan.Tests.Server.SDK

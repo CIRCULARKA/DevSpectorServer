@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using InvMan.Common.Models;
 
-namespace InvMan.Server.SDK
+namespace InvMan.Common.SDK
 {
 	public class DevicesProvider
 	{

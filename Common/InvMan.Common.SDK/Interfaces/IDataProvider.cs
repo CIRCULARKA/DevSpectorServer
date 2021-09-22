@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace InvMan.Server.SDK
+namespace InvMan.Common.SDK
 {
 	public interface IDataProvider
 	{

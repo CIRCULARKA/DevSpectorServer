@@ -45,7 +45,7 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Watch Common Tests",
+			"label": "Watch Tests Common",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [

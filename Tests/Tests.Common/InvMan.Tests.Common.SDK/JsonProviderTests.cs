@@ -1,5 +1,5 @@
 using System;
-using InvMan.Server.SDK;
+using InvMan.Common.SDK;
 using Xunit;
 
 namespace InvMan.Tests.Server.SDK

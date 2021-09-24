@@ -13,10 +13,10 @@ namespace InvMan.Tests.Server.Controllers
 		{
 			var mock = new Mock<IDeviceRepository>();
 			// mock.Setup(
-
+			// 	repo => repo.AllDevices();
 			// );
 
-			// _controller = new DevicesController();
+			_controller = new DevicesController(mock.Object);
 		}
 
 		[Fact]

@@ -12,6 +12,8 @@ namespace InvMan.Common.SDK
 
         private Uri _pathToIpAddresses;
 
+        private Uri _pathToHousings;
+
         private readonly HttpClient _client;
 
         public JsonProvider(Uri hostAddress)
@@ -42,6 +44,12 @@ namespace InvMan.Common.SDK
             return await response.Content.ReadAsStringAsync();
         }
 
+        public async Task<string> GetHousingsRawAsync()
+        {
+            var response = await _client.GetAsync(_pathToHousings);
+            return await response.Content.ReadAsStringAsync();
+        }
+
         private Uri BuildUriWithHostBaseAndPath(string path)
         {
             var uriBuilder = new UriBuilder();
@@ -56,6 +64,7 @@ namespace InvMan.Common.SDK
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
             _pathToIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free");
+            _pathToHousings = BuildUriWithHostBaseAndPath("api/housings");
         }
     }
 }

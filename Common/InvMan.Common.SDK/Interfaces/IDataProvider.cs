@@ -7,5 +7,7 @@ namespace InvMan.Common.SDK
 		Task<string> GetAllDevicesRawAsync();
 
 		Task<string> GetFreeIPRawAsync();
+
+		Task<string> GetHousingsRawAsync();
 	}
 }

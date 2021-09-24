@@ -6,6 +6,6 @@ namespace InvMan.Common.SDK
 	{
 		Task<string> GetAllDevicesRawAsync();
 
-		Task<string> GetDeviceIpsRawAsync(int deviceID);
+		Task<string> GetFreeIPRawAsync();
 	}
 }

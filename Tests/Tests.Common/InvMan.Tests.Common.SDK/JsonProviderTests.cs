@@ -32,9 +32,9 @@ namespace InvMan.Tests.Server.SDK
         }
 
         [Fact]
-        public async void CanLoadDeviceIPs()
+        public async void CanLoadFreeIP()
         {
-            var result = await _defaultProvider.GetDeviceIpsRawAsync(_targetDeviceID);
+            var result = await _defaultProvider.GetFreeIPRawAsync();
 
             Assert.True(result.Length > 0);
         }

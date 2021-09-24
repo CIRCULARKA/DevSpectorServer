@@ -36,9 +36,9 @@ namespace InvMan.Common.SDK
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> GetDeviceIpsRawAsync(int deviceID)
+        public async Task<string> GetFreeIPRawAsync()
         {
-            var response = await _client.GetAsync(_pathToIpAddresses.AbsoluteUri + deviceID);
+            var response = await _client.GetAsync(_pathToIpAddresses.AbsoluteUri);
             return await response.Content.ReadAsStringAsync();
         }
 
@@ -55,7 +55,7 @@ namespace InvMan.Common.SDK
         private void BuildEndpointPath()
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
-            _pathToIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/");
+            _pathToIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free");
         }
     }
 }

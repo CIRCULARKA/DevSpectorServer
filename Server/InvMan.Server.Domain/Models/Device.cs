@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Collections.Generic;
+using InvMan.Common.Models;
 
 namespace InvMan.Server.Domain.Models
 {
@@ -15,5 +17,10 @@ namespace InvMan.Server.Domain.Models
 		public Location Location { get; set; }
 
 		public List<IPAddress> IPAddresses { get; set; }
+
+		public static implicit operator Appliance(Device d) =>
+			new Appliance(d.ID, d.InventoryNumber, d.Type.Name, d.NetworkName,
+				d.Location.Housing.Name, d.Location.Cabinet.Name,
+				d.IPAddresses.Select(ip => ip.Address));
 	}
 }

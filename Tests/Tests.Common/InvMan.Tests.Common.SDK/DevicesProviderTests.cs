@@ -15,7 +15,7 @@ namespace InvMan.Tests.Server.SDK
 		public DevicesProviderTests()
 		{
 			var moq = new Mock<IRawDataProvider>();
-			moq.Setup(provider => provider.GetAllDevicesRawAsync()).
+			moq.Setup(provider => provider.GetDevicesAsync()).
 				Returns(
 					Task.FromResult<string>(
 						@"[

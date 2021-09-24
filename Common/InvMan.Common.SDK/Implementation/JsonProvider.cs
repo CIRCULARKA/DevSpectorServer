@@ -32,19 +32,19 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        public async Task<string> GetAllDevicesRawAsync()
+        public async Task<string> GetDevicesAsync()
         {
             var response = await _client.GetAsync(_pathToDevices);
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> GetFreeIPRawAsync()
+        public async Task<string> GetFreeIPAsync()
         {
             var response = await _client.GetAsync(_pathToIpAddresses.AbsoluteUri);
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> GetHousingsRawAsync()
+        public async Task<string> GetHousingsAsync()
         {
             var response = await _client.GetAsync(_pathToHousings);
             return await response.Content.ReadAsStringAsync();

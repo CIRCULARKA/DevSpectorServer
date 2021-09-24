@@ -26,7 +26,7 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadDataAboutDevices()
         {
-            var result = await _defaultProvider.GetAllDevicesRawAsync();
+            var result = await _defaultProvider.GetDevicesAsync();
 
             Assert.True(result.Length > 0);
         }
@@ -34,7 +34,7 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadFreeIP()
         {
-            var result = await _defaultProvider.GetFreeIPRawAsync();
+            var result = await _defaultProvider.GetFreeIPAsync();
 
             Assert.True(result.Length > 0);
         }

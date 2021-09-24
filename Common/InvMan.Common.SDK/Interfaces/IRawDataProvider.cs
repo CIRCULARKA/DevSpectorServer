@@ -4,10 +4,10 @@ namespace InvMan.Common.SDK
 {
 	public interface IRawDataProvider
 	{
-		Task<string> GetAllDevicesRawAsync();
+		Task<string> GetDevicesAsync();
 
-		Task<string> GetFreeIPRawAsync();
+		Task<string> GetFreeIPAsync();
 
-		Task<string> GetHousingsRawAsync();
+		Task<string> GetHousingsAsync();
 	}
 }

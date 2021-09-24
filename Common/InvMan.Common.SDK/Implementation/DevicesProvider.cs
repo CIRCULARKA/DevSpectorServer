@@ -16,7 +16,7 @@ namespace InvMan.Common.SDK
 
 		public async Task<IEnumerable<Appliance>> GetAllDevicesAsync()
 		{
-			var getDataTask = _provider.GetAllDevicesRawAsync();
+			var getDataTask = _provider.GetDevicesAsync();
 
 			return JsonSerializer.Deserialize<List<Appliance>>(
 				await getDataTask,

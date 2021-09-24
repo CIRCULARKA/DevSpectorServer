@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using InvMan.Server.Domain;
 using InvMan.Common.Models;

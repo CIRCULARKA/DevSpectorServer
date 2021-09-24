@@ -5,7 +5,7 @@ namespace InvMan.Common.Models
 	public class Appliance
 	{
 		public Appliance(int id, string inventoryNumber, string type,
-			string networkName, List<string> ipAddresses)
+			string networkName, IEnumerable<string> ipAddresses)
 		{
 			ID = id;
 			InventoryNumber = inventoryNumber;

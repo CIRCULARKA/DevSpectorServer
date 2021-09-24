@@ -28,5 +28,4 @@ namespace InvMan.Mobile
                 await DisplayAlert("Выбранное устройство", $"{selectedАppliance.Type} - {selectedАppliance.InventoryNumber}", "OK");
         }
     }
-
 }

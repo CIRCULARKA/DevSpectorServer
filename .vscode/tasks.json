@@ -24,14 +24,17 @@
 		{
 			"label": "Watch Server Tests",
 			"type": "shell",
-			"command": "dotnet",
+			"command": "start",
 			"args": [
+				"dotnet",
 				"watch",
 				"-q",
 				"--project",
 				"${workspaceFolder}/Server",
 				"test",
-				"${workspaceFolder}/Tests/Tests.Server/Tests.Server.csproj"
+				"${workspaceFolder}/Tests/Tests.Server/Tests.Server.csproj",
+				"-o",
+				"${workspaceFolder}/Tests/Tests.Common/out"
 			],
 			"runOptions": {
 				"instanceLimit": 1,
@@ -45,19 +48,23 @@
 				"showReuseMessage": false,
 				"clear": true
 			},
+			"isBackground": true,
 			"problemMatcher": []
 		},
 		{
 			"label": "Watch Common Tests",
 			"type": "shell",
-			"command": "dotnet",
+			"command": "start",
 			"args": [
+				"dotnet",
 				"watch",
 				"-q",
 				"--project",
 				"${workspaceFolder}/Common",
 				"test",
-				"${workspaceFolder}/Tests/Tests.Common/Tests.Common.csproj"
+				"${workspaceFolder}/Tests/Tests.Common/Tests.Common.csproj",
+				"-o",
+				"${workspaceFolder}/Tests/Tests.Common/out"
 			],
 			"runOptions": {
 				"instanceLimit": 1,
@@ -71,6 +78,7 @@
 				"showReuseMessage": false,
 				"clear": true
 			},
+			"isBackground": true,
 			"problemMatcher": []
 		},
 		{
@@ -86,6 +94,7 @@
 			],
 			"runOptions": {
 				"instanceLimit": 1,
+				"runOn": "folderOpen"
 			},
 			"group": {
 				"kind": "build",
@@ -98,7 +107,8 @@
 				"panel": "new",
 				"showReuseMessage": false,
 				"clear": false
-			}
+			},
+			"isBackground": true
 		}
 	]
 }

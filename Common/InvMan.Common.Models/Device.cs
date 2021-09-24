@@ -4,14 +4,24 @@ namespace InvMan.Common.Models
 {
 	public class Device
 	{
-		public int ID { get; init; }
+		public Device(int id, string inventoryNumber, string type,
+			string networkName, List<string> ipAddresses)
+		{
+			ID = id;
+			InventoryNumber = inventoryNumber;
+			Type = type;
+			NetworkName = networkName;
+			IPAddresses = ipAddresses;
+		}
 
-		public string InventoryNumber { get; init; }
+		public int ID { get; private set; }
 
-		public string Type { get; init; }
+		public string InventoryNumber { get; private set; }
 
-		public string NetworkName { get; init; }
+		public string Type { get; private set; }
 
-		public List<string> IPAddresses { get; init; }
+		public string NetworkName { get; private set; }
+
+		public List<string> IPAddresses { get; private set; }
 	}
 }

@@ -54,28 +54,18 @@ namespace InvMan.Tests.Server.SDK
 
 			var expected = new List<Device>
 			{
-				new Device()
-				{
-					ID = 1,
-					InventoryNumber = "inv1",
-					Type = "type1",
-					NetworkName = "net1",
-					IPAddresses = new List<string> {
+				new Device( 1, "inv1", "type1", "net1",
+					new List<string> {
 						"1.1.1.1",
-						"2.2.2.2"
+						"2.2.2.2",
 					}
-				},
-				new Device()
-				{
-					ID = 2,
-					InventoryNumber = "inv2",
-					Type = "type2",
-					NetworkName = "net2",
-					IPAddresses = new List<string> {
+				),
+				new Device( 2, "inv2", "type2", "net2",
+					new List<string> {
 						"3.3.3.3",
-						"4.4.4.4"
+						"4.4.4.4",
 					}
-				}
+				),
 			};
 
 			// Act

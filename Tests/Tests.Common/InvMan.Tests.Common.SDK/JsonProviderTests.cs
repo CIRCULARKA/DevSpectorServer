@@ -6,7 +6,7 @@ namespace InvMan.Tests.Server.SDK
 {
     public class JsonProviderTests
     {
-        private readonly IDataProvider _defaultProvider;
+        private readonly IRawDataProvider _defaultProvider;
 
         private readonly int _targetDeviceID = 1;
 

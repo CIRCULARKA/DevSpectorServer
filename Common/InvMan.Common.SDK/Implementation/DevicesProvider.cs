@@ -7,9 +7,9 @@ namespace InvMan.Common.SDK
 {
 	public class DevicesProvider
 	{
-		private readonly IDataProvider _provider;
+		private readonly IRawDataProvider _provider;
 
-		public DevicesProvider(IDataProvider provider)
+		public DevicesProvider(IRawDataProvider provider)
 		{
 			_provider = provider;
 		}

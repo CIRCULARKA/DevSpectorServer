@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK
 {
-    public class JsonProvider : IDataProvider
+    public class JsonProvider : IRawDataProvider
     {
         private readonly Uri _hostAddress;
 

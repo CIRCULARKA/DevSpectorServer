@@ -10,11 +10,11 @@ namespace InvMan.Tests.Server.SDK
 {
 	public class DevicesProviderTests
 	{
-		private readonly IDataProvider _mockDataProvider;
+		private readonly IRawDataProvider _mockDataProvider;
 
 		public DevicesProviderTests()
 		{
-			var moq = new Mock<IDataProvider>();
+			var moq = new Mock<IRawDataProvider>();
 			moq.Setup(provider => provider.GetAllDevicesRawAsync()).
 				Returns(
 					Task.FromResult<string>(

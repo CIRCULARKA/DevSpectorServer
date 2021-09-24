@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Xamarin.Forms;
 using System.Net.Http.Headers;
-using Mobile.Infrastructure;
+using InvMan.Mobile.Infrastructure;
 
 
-namespace Mobile
+namespace InvMan.Mobile
 {
     public partial class MainPage : ContentPage
     {
         public List<Аppliance> Аppliances { get; set; }
-        
+
         public MainPage()
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace Mobile
                 await DisplayAlert("Выбранное устройство", $"{ selectedАppliance.Device_type } - { selectedАppliance.Inventory_number }", "OK");
         }
 
-        
+
         /*public async void LoadData()
         {
             var client = new HttpClient();

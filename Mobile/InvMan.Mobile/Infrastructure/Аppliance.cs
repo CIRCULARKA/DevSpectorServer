@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mobile.Infrastructure
+namespace InvMan.Mobile.Infrastructure
 {
     public class Аppliance
     {

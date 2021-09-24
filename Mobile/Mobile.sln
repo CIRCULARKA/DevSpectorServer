@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile.Android", "Mobile\Mobile.Android\Mobile.Android.csproj", "{B903F719-7A7A-4081-8E50-C2F2E26CD7F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.InvMan.Mobile.Android", "InvMan.Mobile\InvMan.InvMan.Mobile.Android\InvMan.InvMan.Mobile.Android.csproj", "{B903F719-7A7A-4081-8E50-C2F2E26CD7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile", "Mobile\Mobile\Mobile.csproj", "{F016CC76-2A56-4BFF-A088-56BC36224B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile", "InvMan.Mobile\InvMan.Mobile\InvMan.Mobile.csproj", "{F016CC76-2A56-4BFF-A088-56BC36224B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile.Common", "Mobile.Common\Mobile.Common.csproj", "{3381C1E5-5BBD-4AC8-99E8-3281BB8130E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile.Common", "InvMan.Mobile.Common\InvMan.Mobile.Common.csproj", "{3381C1E5-5BBD-4AC8-99E8-3281BB8130E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,11 +14,11 @@ namespace InvMan.Common.SDK
 			_provider = provider;
 		}
 
-		public async Task<IEnumerable<Device>> GetAllDevicesAsync()
+		public async Task<IEnumerable<Appliance>> GetAllDevicesAsync()
 		{
 			var getDataTask = _provider.GetAllDevicesRawAsync();
 
-			return JsonSerializer.Deserialize<List<Device>>(
+			return JsonSerializer.Deserialize<List<Appliance>>(
 				await getDataTask,
 				new JsonSerializerOptions() {
 					PropertyNameCaseInsensitive = true

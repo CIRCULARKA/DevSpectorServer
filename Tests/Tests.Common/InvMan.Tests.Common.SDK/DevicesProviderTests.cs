@@ -52,15 +52,15 @@ namespace InvMan.Tests.Server.SDK
 			// Arrange
 			var provider = new DevicesProvider(_mockDataProvider);
 
-			var expected = new List<Device>
+			var expected = new List<Appliance>
 			{
-				new Device( 1, "inv1", "type1", "net1",
+				new Appliance( 1, "inv1", "type1", "net1",
 					new List<string> {
 						"1.1.1.1",
 						"2.2.2.2",
 					}
 				),
-				new Device( 2, "inv2", "type2", "net2",
+				new Appliance( 2, "inv2", "type2", "net2",
 					new List<string> {
 						"3.3.3.3",
 						"4.4.4.4",
@@ -82,7 +82,7 @@ namespace InvMan.Tests.Server.SDK
 				Assert.Equal(expected[i].IPAddresses.Count(), actual[i].IPAddresses.Count());
 				for (int j = 0; j < expected[i].IPAddresses.Count(); j++)
 				{
-					Assert.Equal<string>(expected[i].IPAddresses[j], actual[i].IPAddresses[j]);
+					Assert.Equal(expected[i].IPAddresses[j], actual[i].IPAddresses[j]);
 				}
 			}
 		}

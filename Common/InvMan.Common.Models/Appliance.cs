@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace InvMan.Common.Models
 {
-	public class Device
+	public class Appliance
 	{
-		public Device(int id, string inventoryNumber, string type,
+		public Appliance(int id, string inventoryNumber, string type,
 			string networkName, List<string> ipAddresses)
 		{
 			ID = id;

@@ -22,8 +22,8 @@
                         <ViewCell.View>
                             <StackLayout>
                                 <Label Text="{Binding Name}" FontSize="25"/>
-                                <Label Text="{Binding Device_type}"/>
-                                <Label Text="{Binding Inventory_number}"/>
+                                <Label Text="{Binding DeviceType}"/>
+                                <Label Text="{Binding InventoryNumber}"/>
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>

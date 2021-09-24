@@ -8,8 +8,8 @@ namespace Mobile.Infrastructure
     {
         public string Name { get; set; }
 
-        public string Device_type { get; set; }
+        public string DeviceType { get; set; }
 
-        public string Inventory_number { get; set; }
+        public string InventoryNumber { get; set; }
     }
 }

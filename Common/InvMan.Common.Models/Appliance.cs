@@ -22,6 +22,6 @@ namespace InvMan.Common.Models
 
 		public string NetworkName { get; private set; }
 
-		public List<string> IPAddresses { get; private set; }
+		public IEnumerable<string> IPAddresses { get; private set; }
 	}
 }

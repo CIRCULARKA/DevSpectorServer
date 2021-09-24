@@ -33,17 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Common.Models", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Server", "Tests\Tests.Server\Tests.Server.csproj", "{ABAD5685-B46F-4A48-B649-9FC869850BCE}"
 EndProject
-<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InvMan.Mobile", "InvMan.Mobile", "{EFF3AA97-411B-40EA-8383-C08811182B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile", "InvMan.Mobile\InvMan.Mobile\InvMan.Mobile.csproj", "{7D2A163C-DC54-4196-91DB-2E5F4202E020}"
-=======
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{B22AAAD9-FAB9-4D28-8E50-5347900D3983}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{4BDB6300-69F1-462B-9976-95E24946AC02}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mobile", "Mobile\Mobile\Mobile\Mobile.csproj", "{9C5DF219-D743-47EF-878E-9DE64F4D5D5C}"
->>>>>>> 4c35601e3cc4e7c229f3d329160db1cc8f07d81e
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -218,4 +210,5 @@ Global
 		{4BDB6300-69F1-462B-9976-95E24946AC02} = {B22AAAD9-FAB9-4D28-8E50-5347900D3983}
 		{9C5DF219-D743-47EF-878E-9DE64F4D5D5C} = {4BDB6300-69F1-462B-9976-95E24946AC02}
 	EndGlobalSection
+	
 EndGlobal

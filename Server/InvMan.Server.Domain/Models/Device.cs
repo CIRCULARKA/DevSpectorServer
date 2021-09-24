@@ -20,7 +20,7 @@ namespace InvMan.Server.Domain.Models
 
 		public static implicit operator Appliance(Device d) =>
 			new Appliance(d.ID, d.InventoryNumber, d.Type.Name, d.NetworkName,
-				d.Location.Cabinet.Name, d.Location.Housing.Name,
+				d.Location.Housing.Name, d.Location.Cabinet.Name,
 				d.IPAddresses.Select(ip => ip.Address));
 	}
 }

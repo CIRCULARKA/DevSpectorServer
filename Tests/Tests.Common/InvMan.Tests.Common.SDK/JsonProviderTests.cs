@@ -38,5 +38,11 @@ namespace InvMan.Tests.Server.SDK
 
             Assert.True(result.Length > 0);
         }
+
+        [Fact]
+        public async void CanLoadHousings()
+        {
+            Assert.True((await _defaultProvider.GetHousingsAsync()).Length > 0);
+        }
     }
 }

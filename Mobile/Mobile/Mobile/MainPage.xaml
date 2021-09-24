@@ -21,7 +21,7 @@
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout>
-                                <Label Text="{Binding Name}" FontSize="18"/>
+                                <Label Text="{Binding Name}" FontSize="25"/>
                                 <Label Text="{Binding Device_type}"/>
                                 <Label Text="{Binding Inventory_number}"/>
                             </StackLayout>

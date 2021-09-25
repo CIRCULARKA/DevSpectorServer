@@ -27,6 +27,9 @@ namespace Microsoft.AspNetCore.Builder
 			if (!_context.IPAddresses.Any())
 				_context.IPAddresses.AddRange(CreateInitialIPs());
 
+			if (!_context.HousingCabinets.Any())
+				_context.HousingCabinets.AddRange(CreateInitialHousingCabinets());
+
 			_context.SaveChanges();
 
 			if (!_context.Locations.Any())
@@ -42,34 +45,29 @@ namespace Microsoft.AspNetCore.Builder
 		}
 
 		public static IEnumerable<DeviceType> CreateIntialDeviceTypes() =>
-			new List<DeviceType>
-			{
+			new List<DeviceType> {
 				new DeviceType { Name = "Персональный компьютер" },
 				new DeviceType { Name = "Сервер" },
 				new DeviceType { Name = "Коммутатор" }
 			};
 
 		public static IEnumerable<Device> CreateInitialDevices() =>
-			new List<Device>
-			{
-				new Device
-				{
+			new List<Device> {
+				new Device {
 					InventoryNumber = "NSGK530923",
 					NetworkName = "IVAN-PC",
 					Type = _context.DeviceTypes.First(dt => dt.ID == 1),
 					Location = _context.Locations.First(l => l.ID == 1),
 					IPAddresses = _context.IPAddresses.Where(ip => ip.ID == 1).ToList()
 				},
-				new Device
-				{
+				new Device {
 					InventoryNumber = "NSGK654212",
 					NetworkName = "MAIN-SERVER",
 					Type = _context.DeviceTypes.First(dt => dt.ID == 2),
 					Location = _context.Locations.First(l => l.ID == 2),
 					IPAddresses = _context.IPAddresses.Where(ip => ip.ID >= 2 && ip.ID <= 5).ToList()
 				},
-				new Device
-				{
+				new Device {
 					InventoryNumber = "NSGK1235231",
 					NetworkName = "COMMUTATOR-1",
 					Type = _context.DeviceTypes.First(dt => dt.ID == 3),
@@ -79,47 +77,72 @@ namespace Microsoft.AspNetCore.Builder
 			};
 
 		public static IEnumerable<Housing> CreateInitialHousings() =>
-			new List<Housing>
-			{
+			new List<Housing> {
 				new Housing { Name = "N/A" },
 				new Housing { Name = "Главный" },
 				new Housing { Name = "Второй" }
 			};
 
 		public static IEnumerable<Cabinet> CreateInitialCabinets() =>
-			new List<Cabinet>
-			{
+			new List<Cabinet> {
 				new Cabinet { Name = "N/A" },
 				new Cabinet { Name = "N/A" },
 				new Cabinet { Name = "N/A" },
 				new Cabinet { Name = "1" },
 				new Cabinet { Name = "2" },
-				new Cabinet { Name = "3" }
+				new Cabinet { Name = "3" },
+				new Cabinet { Name = "4" },
+				new Cabinet { Name = "5" },
+				new Cabinet { Name = "6" },
+				new Cabinet { Name = "7" },
+				new Cabinet { Name = "8" },
+				new Cabinet { Name = "9" },
+				new Cabinet { Name = "10" },
+				new Cabinet { Name = "11" },
+				new Cabinet { Name = "12" }
+			};
+
+		public static IEnumerable<HousingCabinets> CreateInitialHousingCabinets() =>
+			new List<HousingCabinets>() {
+				new HousingCabinets {
+					Housing = _context.Housings.Find(1),
+					Cabinets = new List<Cabinet> {
+						_context.Cabinets.Find(1)
+					}
+				},
+				new HousingCabinets {
+					Housing = _context.Housings.Find(2),
+					Cabinets = _context.Cabinets.Where(c => c.ID > 2 && c.ID < 7)
+				},
+				new HousingCabinets {
+					Housing = _context.Housings.Find(3),
+					// Also include cabinet N/A with ID 3
+					Cabinets = _context.Cabinets.Where(c => (c.ID > 7 && c.ID < 16) || c.ID == 3)
+				}
+
 			};
 
 		public static IEnumerable<Location> CreateInitialLocations() =>
-			new List<Location>
-			{
-				new Location
-				{
-					Housing = _context.Housings.First(h => h.ID == 1),
-					Cabinet = _context.Cabinets.First(c => c.ID == 1)
+			new List<Location> {
+				new Location {
+					Housing = _context.Housings.Find(1),
+					Cabinet =
+						_context.HousingCabinets.First(hc => hc.Housing.ID == 1).Cabinets.ToList()[0]
 				},
-				new Location
-				{
+				new Location {
 					Housing = _context.Housings.First(h => h.ID == 2),
-					Cabinet = _context.Cabinets.First(c => c.ID == 4)
+					Cabinet =
+						_context.HousingCabinets.First(hc => hc.Housing.ID == 2).Cabinets.ToList()[0]
 				},
-				new Location
-				{
+				new Location {
 					Housing = _context.Housings.First(h => h.ID == 3),
-					Cabinet = _context.Cabinets.First(c => c.ID == 5)
+					Cabinet =
+						_context.HousingCabinets.First(hc => hc.Housing.ID == 3).Cabinets.ToList()[0]
 				},
 			};
 
 		public static IEnumerable<IPAddress> CreateInitialIPs() =>
-			new List<IPAddress>
-			{
+			new List<IPAddress> {
 				new IPAddress { Address = "198.22.33.1" },
 				new IPAddress { Address = "198.22.33.2" },
 				new IPAddress { Address = "198.22.33.3" },

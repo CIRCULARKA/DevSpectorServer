@@ -20,6 +20,8 @@ namespace InvMan.Server.Database
 
 		public DbSet<Location> Locations { get; set; }
 
+		public DbSet<HousingCabinets> HousingCabinets { get; set; }
+
 		public DbSet<Device> Devices { get; set; }
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
@@ -29,6 +31,7 @@ namespace InvMan.Server.Database
 			builder.ApplyConfiguration(new DeviceTypeConfiguration());
 			builder.ApplyConfiguration(new HousingConfiguration());
 			builder.ApplyConfiguration(new CabinetConfiguration());
+			builder.ApplyConfiguration(new HousingCabinetsConfiguration());
 			builder.ApplyConfiguration(new DeviceConfiguration());
 			builder.ApplyConfiguration(new IPAddressConfiguration());
 		}

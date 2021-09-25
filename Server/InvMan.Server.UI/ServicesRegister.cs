@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			@this.AddTransient<IDeviceRepository, DeviceRepository>();
 			@this.AddTransient<IIPAddressRepository, IPAddressRepository>();
+			@this.AddTransient<ILocationRepository, LocationRepository>();
 
 			return @this;
 		}

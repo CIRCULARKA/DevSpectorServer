@@ -78,7 +78,7 @@ namespace InvMan.Tests.Server.SDK
 			var actual = (await provider.GetAllDevicesAsync()).ToList();
 
 			// Assert
-			Assert.True(actual.Count() == expected.Count());
+			Assert.Equal(expected.Count(), expected.Count());
 
 			for (int i = 0; i < expected.Count(); i++)
 			{

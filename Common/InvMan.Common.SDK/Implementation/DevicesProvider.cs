@@ -17,9 +17,10 @@ namespace InvMan.Common.SDK
 		public async Task<IEnumerable<Appliance>> GetAllDevicesAsync()
 		{
 			var getDataTask = _provider.GetDevicesAsync();
+			var data = _provider.GetHttpResponseMessageContent(await getDataTask);
 
 			return JsonSerializer.Deserialize<List<Appliance>>(
-				await getDataTask,
+				await data,
 				new JsonSerializerOptions() {
 					PropertyNameCaseInsensitive = true
 				}

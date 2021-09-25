@@ -12,5 +12,7 @@ namespace InvMan.Common.SDK
 		Task<HttpResponseMessage> GetHousingsAsync();
 
 		Task<HttpResponseMessage> GetHousingAsync(int housingID);
+
+		Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg);
 	}
 }

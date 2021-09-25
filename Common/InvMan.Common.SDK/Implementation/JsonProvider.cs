@@ -44,7 +44,7 @@ namespace InvMan.Common.SDK
         public Task<HttpResponseMessage> GetHousingAsync(int housingID) =>
             _client.GetAsync(_pathToHousings.AbsoluteUri + housingID);
 
-        private Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg) =>
+        public Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg) =>
             msg.Content.ReadAsStringAsync();
 
         private Uri BuildUriWithHostBaseAndPath(string path)

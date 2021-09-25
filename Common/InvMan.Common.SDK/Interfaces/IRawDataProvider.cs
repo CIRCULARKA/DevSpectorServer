@@ -9,5 +9,7 @@ namespace InvMan.Common.SDK
 		Task<string> GetFreeIPAsync();
 
 		Task<string> GetHousingsAsync();
+
+		Task<string> GetHousingAsync(int housingID);
 	}
 }

@@ -83,9 +83,10 @@
 		},
 		{
 			"label": "Watch Server",
-			"type": "process",
-			"command": "dotnet",
+			"type": "shell",
+			"command": "start",
 			"args": [
+				"dotnet",
 				"watch",
 				"-q",
 				"--project",

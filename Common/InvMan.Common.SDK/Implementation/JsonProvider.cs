@@ -46,7 +46,7 @@ namespace InvMan.Common.SDK
 
         public async Task<string> GetHousingsAsync()
         {
-            var response = await _client.GetAsync(_pathToHousings);
+            var response = await _client.GetAsync(_pathToHousings.AbsoluteUri);
             return await response.Content.ReadAsStringAsync();
         }
 
@@ -64,7 +64,7 @@ namespace InvMan.Common.SDK
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
             _pathToIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free");
-            _pathToHousings = BuildUriWithHostBaseAndPath("api/housings");
+            _pathToHousings = BuildUriWithHostBaseAndPath("api/location/housings");
         }
     }
 }

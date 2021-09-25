@@ -10,7 +10,6 @@ namespace InvMan.Server.Database.Configurations
 		{
 			builder.HasKey(c => c.ID);
 			builder.Property(c => c.ID).UseIdentityColumn();
-			builder.Property(c => c.Housing).IsRequired();
 		}
 	}
 }

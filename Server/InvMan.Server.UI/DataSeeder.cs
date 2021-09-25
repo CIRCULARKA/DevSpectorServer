@@ -27,6 +27,8 @@ namespace Microsoft.AspNetCore.Builder
 			if (!_context.IPAddresses.Any())
 				_context.IPAddresses.AddRange(CreateInitialIPs());
 
+			_context.SaveChanges();
+
 			if (!_context.HousingCabinets.Any())
 				_context.HousingCabinets.AddRange(CreateInitialHousingCabinets());
 
@@ -112,14 +114,13 @@ namespace Microsoft.AspNetCore.Builder
 				},
 				new HousingCabinets {
 					Housing = _context.Housings.Find(2),
-					Cabinets = _context.Cabinets.Where(c => c.ID > 2 && c.ID < 7)
+					Cabinets = _context.Cabinets.Where(c => c.ID >= 2 && c.ID <= 6).ToList()
 				},
 				new HousingCabinets {
 					Housing = _context.Housings.Find(3),
 					// Also include cabinet N/A with ID 3
-					Cabinets = _context.Cabinets.Where(c => (c.ID > 7 && c.ID < 16) || c.ID == 3)
+					Cabinets = _context.Cabinets.Where(c => (c.ID >= 7 && c.ID <= 15) || c.ID == 3).ToList()
 				}
-
 			};
 
 		public static IEnumerable<Location> CreateInitialLocations() =>

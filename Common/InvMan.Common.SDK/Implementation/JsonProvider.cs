@@ -32,23 +32,20 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        public async Task<string> GetDevicesAsync()
-        {
-            var response = await _client.GetAsync(_pathToDevices);
-            return await response.Content.ReadAsStringAsync();
-        }
+        public Task<HttpResponseMessage> GetDevicesAsync() =>
+            _client.GetAsync(_pathToDevices);
 
-        public async Task<string> GetFreeIPAsync()
-        {
-            var response = await _client.GetAsync(_pathToIpAddresses.AbsoluteUri);
-            return await response.Content.ReadAsStringAsync();
-        }
+        public Task<HttpResponseMessage> GetFreeIPAsync() =>
+            _client.GetAsync(_pathToIpAddresses.AbsoluteUri);
 
-        public async Task<string> GetHousingsAsync()
-        {
-            var response = await _client.GetAsync(_pathToHousings.AbsoluteUri);
-            return await response.Content.ReadAsStringAsync();
-        }
+        public Task<HttpResponseMessage> GetHousingsAsync() =>
+            _client.GetAsync(_pathToHousings.AbsoluteUri);
+
+        public Task<HttpResponseMessage> GetHousingAsync(int housingID) =>
+            _client.GetAsync(_pathToHousings.AbsoluteUri + housingID);
+
+        private Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg) =>
+            msg.Content.ReadAsStringAsync();
 
         private Uri BuildUriWithHostBaseAndPath(string path)
         {

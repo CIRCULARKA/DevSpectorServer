@@ -1,15 +1,16 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK
 {
 	public interface IRawDataProvider
 	{
-		Task<string> GetDevicesAsync();
+		Task<HttpResponseMessage> GetDevicesAsync();
 
-		Task<string> GetFreeIPAsync();
+		Task<HttpResponseMessage> GetFreeIPAsync();
 
-		Task<string> GetHousingsAsync();
+		Task<HttpResponseMessage> GetHousingsAsync();
 
-		Task<string> GetHousingAsync(int housingID);
+		Task<HttpResponseMessage> GetHousingAsync(int housingID);
 	}
 }

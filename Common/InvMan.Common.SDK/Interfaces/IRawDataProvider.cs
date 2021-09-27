@@ -1,4 +1,3 @@
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK

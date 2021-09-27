@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\InvMan.Server.Database\InvMan.Server.Database.csproj" />
     <ProjectReference Include="..\InvMan.Server.Domain\InvMan.Server.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

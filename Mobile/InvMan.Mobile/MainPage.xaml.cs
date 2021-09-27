@@ -14,9 +14,33 @@ namespace InvMan.Mobile
 
             Devices = new List<Appliance>
             {
-                new Appliance(1, "COMMUTATOR-1", "Коммутатор", "NSGK123123", null),
-                new Appliance(2, "MAIN-SERVER", "Сервер", "NSGK032543", null),
-                new Appliance(3, "COMMUTATOR-1", "Коммутатор", "NSGK3526901", null),
+                new Appliance(
+                    id: 1,
+                    networkName: "COMMUTATOR-1",
+                    type: "Коммутатор",
+                    inventoryNumber: "NSKG123123",
+                    housing: "hous1",
+                    cabinet: "cab1",
+                    ipAddresses: null
+                ),
+                new Appliance(
+                    id: 1,
+                    networkName: "IVAN-PC",
+                    type: "ПК",
+                    inventoryNumber: "NSGK60231",
+                    housing: "hous2",
+                    cabinet: "cab2",
+                    ipAddresses: null
+                ),
+                new Appliance(
+                    id: 1,
+                    networkName: "MAIN-SERVER",
+                    type: "Сервер",
+                    inventoryNumber: "NSGK53412e",
+                    housing: "hous3",
+                    cabinet: "cab3",
+                    ipAddresses: null
+                ),
             };
             this.BindingContext = this;
         }

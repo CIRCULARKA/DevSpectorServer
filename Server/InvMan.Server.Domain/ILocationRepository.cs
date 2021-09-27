@@ -1,12 +1,10 @@
-using System.Collections.Generic;
+using System.Linq;
 using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Domain
 {
 	public interface ILocationRepository
 	{
-		IEnumerable<Housing> Housings { get; }
-
-		IEnumerable<Cabinet> GetHousingCabinets(int cabinetId);
+		IQueryable<Housing> Housings { get; }
 	}
 }

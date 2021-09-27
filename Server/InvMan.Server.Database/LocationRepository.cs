@@ -12,11 +12,7 @@ namespace InvMan.Server.Database
 		public LocationRepository(ApplicationDbContextBase context) =>
 			_context = context;
 
-		public IEnumerable<Housing> Housings =>
+		public IQueryable<Housing> Housings =>
 			_context.Housings;
-
-		public IEnumerable<Cabinet> GetHousingCabinets(int housingID) =>
-			_context.HousingCabinets.Where(hc => hc.HousingID == housingID).
-				Select(hc => hc.Cabinet);
 	}
 }

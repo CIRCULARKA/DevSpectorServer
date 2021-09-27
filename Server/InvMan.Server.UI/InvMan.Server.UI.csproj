@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InvMan.Server.Database\InvMan.Server.Database.csproj" />
+    <ProjectReference Include="..\InvMan.Server.Application\InvMan.Server.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -17,7 +17,7 @@ namespace InvMan.Server.UI.API.Controllers
 
 		[HttpGet]
 		public IEnumerable Get() =>
-			_repository.AllDevices.Select(
+			_repository.Devices.Select(
 				d => new {
 					ID = d.ID,
 					InventoryNumber = d.InventoryNumber,

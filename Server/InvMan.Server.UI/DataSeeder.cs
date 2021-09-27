@@ -88,8 +88,6 @@ namespace Microsoft.AspNetCore.Builder
 		public static IEnumerable<Cabinet> CreateInitialCabinets() =>
 			new List<Cabinet> {
 				new Cabinet { Name = "N/A" },
-				new Cabinet { Name = "N/A" },
-				new Cabinet { Name = "N/A" },
 				new Cabinet { Name = "1" },
 				new Cabinet { Name = "2" },
 				new Cabinet { Name = "3" },
@@ -109,7 +107,7 @@ namespace Microsoft.AspNetCore.Builder
 				new HousingCabinets {
 					Housing = _context.Housings.Find(1),
 					Cabinets = new List<Cabinet> {
-						_context.Cabinets.Find(1)
+						_context.Cabinets.First(c => c.Name == "N/A")
 					}
 				},
 				new HousingCabinets {
@@ -119,16 +117,19 @@ namespace Microsoft.AspNetCore.Builder
 				new HousingCabinets {
 					Housing = _context.Housings.Find(3),
 					// Also include cabinet N/A with ID 3
-					Cabinets = _context.Cabinets.Where(c => (c.ID >= 7 && c.ID <= 15) || c.ID == 3).ToList()
+					Cabinets =
+						_context.Cabinets.Where(
+							c =>
+								(c.ID >= 7 && c.ID <= 15 && c.Name != "N/A") ||
+								c.Name == "N/A").ToList()
 				}
 			};
 
 		public static IEnumerable<Location> CreateInitialLocations() =>
 			new List<Location> {
 				new Location {
-					Housing = _context.Housings.Find(1),
-					Cabinet =
-						_context.HousingCabinets.First(hc => hc.Housing.ID == 1).Cabinets.ToList()[0]
+					Housing = _context.Housings.First(h => h.Name == "N/A"),
+					Cabinet = _context.Cabinets.First(c => c.Name == "N/A")
 				},
 				new Location {
 					Housing = _context.Housings.First(h => h.ID == 2),

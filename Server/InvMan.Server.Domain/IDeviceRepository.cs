@@ -1,5 +1,5 @@
+using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Domain
@@ -16,6 +16,6 @@ namespace InvMan.Server.Domain
 
 		Device GetDeviceByInventoryNumber(string invNum);
 
-		IEnumerable<Device> AllDevices { get; }
+		IQueryable<Device> Devices { get; }
 	}
 }

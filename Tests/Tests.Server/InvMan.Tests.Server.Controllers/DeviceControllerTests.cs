@@ -2,8 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
-using InvMan.Common.Models;
 using InvMan.Server.Domain;
+using InvMan.Common.SDK.Models;
 using InvMan.Server.Domain.Models;
 using InvMan.Server.UI.API.Controllers;
 

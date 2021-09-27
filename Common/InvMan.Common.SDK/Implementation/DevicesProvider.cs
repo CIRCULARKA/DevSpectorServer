@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using InvMan.Common.Models;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Common.SDK
 {

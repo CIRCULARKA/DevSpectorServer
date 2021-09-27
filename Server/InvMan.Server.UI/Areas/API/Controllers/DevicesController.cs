@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using InvMan.Server.Domain;
-using InvMan.Common.Models;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {

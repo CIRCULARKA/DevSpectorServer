@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace InvMan.Common.Models
+namespace InvMan.Common.SDK.Models
 {
 	public class Appliance
 	{

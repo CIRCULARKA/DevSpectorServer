@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Moq;
 using Xunit;
 using InvMan.Common.SDK;
-using InvMan.Common.Models;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Tests.Server.SDK
 {

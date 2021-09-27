@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Server\InvMan.Server.Database\InvMan.Server.Database.csproj" />
-    <ProjectReference Include="..\..\Common\InvMan.Common.Models\InvMan.Common.Models.csproj" />
+    <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
     <ProjectReference Include="..\..\Server\InvMan.Server.Domain\InvMan.Server.Domain.csproj" />
     <ProjectReference Include="..\..\Server\InvMan.Server.UI\InvMan.Server.UI.csproj" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
-using InvMan.Common.Models;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Mobile
 {

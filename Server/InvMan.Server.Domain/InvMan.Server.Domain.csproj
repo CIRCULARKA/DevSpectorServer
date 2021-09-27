@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\InvMan.Common.Models\InvMan.Common.Models.csproj" />
+    <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

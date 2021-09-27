@@ -14,17 +14,12 @@ namespace InvMan.Common.SDK
 			_provider = provider;
 		}
 
-		public async Task<IEnumerable<Appliance>> GetAllDevicesAsync()
-		{
-			var getDataTask = _provider.GetDevicesAsync();
-			var data = _provider.GetHttpResponseMessageContent(await getDataTask);
-
-			return JsonSerializer.Deserialize<List<Appliance>>(
-				await data,
+		public async Task<IEnumerable<Appliance>> GetDevicesAsync() =>
+			JsonSerializer.Deserialize<List<Appliance>>(
+				await _provider.GetDevicesAsync(),
 				new JsonSerializerOptions() {
 					PropertyNameCaseInsensitive = true
 				}
 			);
-		}
 	}
 }

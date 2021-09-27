@@ -5,14 +5,12 @@ namespace InvMan.Common.SDK
 {
 	public interface IRawDataProvider
 	{
-		Task<HttpResponseMessage> GetDevicesAsync();
+		Task<string> GetDevicesAsync();
 
-		Task<HttpResponseMessage> GetFreeIPAsync();
+		Task<string> GetFreeIPAsync();
 
-		Task<HttpResponseMessage> GetHousingsAsync();
+		Task<string> GetHousingsAsync();
 
-		Task<HttpResponseMessage> GetHousingAsync(int housingID);
-
-		Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg);
+		Task<string> GetHousingAsync(int housingID);
 	}
 }

@@ -12,10 +12,6 @@ namespace InvMan.Server.Domain
 
 		Task<int> UpdateDevice(Device newDevice);
 
-		Device GetDeviceByID(int deviceID);
-
-		Device GetDeviceByInventoryNumber(string invNum);
-
 		IQueryable<Device> Devices { get; }
 	}
 }

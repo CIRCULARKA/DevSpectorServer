@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
 
@@ -14,10 +15,12 @@ namespace InvMan.Server.Database
 			_context = context;
 		}
 
-		public IEnumerable<IPAddress> GetDeviceIPs(int deviceID) =>
-			_context.IPAddresses.Where(ip => ip.Device.ID == deviceID).ToList();
+		public void UpdateIPs(IEnumerable<IPAddress> newIPs)
+		{
+			_context.IPAddresses.FromSqlInterpolated($"DELETE * FROM {nameof(_context.IPAddresses)}");
+		}
 
-		public IEnumerable<IPAddress> FreeAddresses =>
-			_context.IPAddresses.Where(ip => ip.Device == null).ToList();
+		public IQueryable<IPAddress> IPAddresses =>
+			_context.IPAddresses;
 	}
 }

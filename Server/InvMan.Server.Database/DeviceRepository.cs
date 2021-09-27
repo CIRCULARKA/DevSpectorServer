@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
@@ -25,7 +24,7 @@ namespace InvMan.Server.Database
 
 		public Task<int> RemoveDevice(int deviceID)
 		{
-			var targetDevice = GetDeviceByID(deviceID);
+			var targetDevice = _context.Devices.Find(deviceID);
 			_context.Devices.Remove(targetDevice);
 
 			return _context.SaveChangesAsync();
@@ -37,14 +36,6 @@ namespace InvMan.Server.Database
 
 			return _context.SaveChangesAsync();
 		}
-
-		public Device GetDeviceByID(int deviceID) =>
-			_context.Devices.
-				Include(d => d.Location).
-					Include(d => d.Location.Housing).
-					Include(d => d.Location.Cabinet).
-				Include(d => d.Type).
-					FirstOrDefault(d => d.ID == deviceID);
 
 		public IQueryable<Device> Devices =>
 			_context.Devices.

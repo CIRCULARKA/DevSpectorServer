@@ -15,46 +15,46 @@ namespace InvMan.Tests.Server.Controllers
 
 		private readonly List<Appliance> _expected;
 
-		public DeviceControllerTests()
-		{
-			_expected = new List<Appliance> {
-				new Appliance(1, "inv1", "type1", "net1", "h1", "cab1",
-					new List<string> { "1.1.1.1", "2.2.2.2" }
-				),
-				new Appliance(2, "inv2", "type2", "net2", "h2", "cab2",
-					new List<string> { "3.3.3.3", "4.4.4.4" }
-				)
-			};
+		// public DeviceControllerTests()
+		// {
+		// 	_expected = new List<Appliance> {
+		// 		new Appliance(1, "inv1", "type1", "net1", "h1", "cab1",
+		// 			new List<string> { "1.1.1.1", "2.2.2.2" }
+		// 		),
+		// 		new Appliance(2, "inv2", "type2", "net2", "h2", "cab2",
+		// 			new List<string> { "3.3.3.3", "4.4.4.4" }
+		// 		)
+		// 	};
 
-			var mock = new Mock<IDeviceRepository>();
-			mock.Setup(
-				repo => repo.AllDevices
-			).Returns(
-				new List<Device> {
-					new Device {
-						ID = 1,
-						InventoryNumber = "inv1",
-						NetworkName = "net1",
-						Type = new DeviceType { Name = "type1" },
-						Location = new Location {
-							Cabinet = new Cabinet { Name = "cab1" },
-							Housing = new Housing { Name = "h1" }
-						}
-					},
-					new Device {
-						ID = 2,
-						InventoryNumber = "inv2",
-						NetworkName = "net2",
-						Type = new DeviceType { Name = "type2" },
-						Location = new Location {
-							Cabinet = new Cabinet { Name = "cab2" },
-							Housing = new Housing { Name = "h2" }
-						}
-					}
-				});
+		// 	var mock = new Mock<IDeviceRepository>();
+		// 	mock.Setup(
+		// 		repo => repo.Devices
+		// 	).Returns(
+		// 		new List<Device> {
+		// 			new Device {
+		// 				ID = 1,
+		// 				InventoryNumber = "inv1",
+		// 				NetworkName = "net1",
+		// 				Type = new DeviceType { Name = "type1" },
+		// 				Location = new Location {
+		// 					Cabinet = new Cabinet { Name = "cab1" },
+		// 					Housing = new Housing { Name = "h1" }
+		// 				}
+		// 			},
+		// 			new Device {
+		// 				ID = 2,
+		// 				InventoryNumber = "inv2",
+		// 				NetworkName = "net2",
+		// 				Type = new DeviceType { Name = "type2" },
+		// 				Location = new Location {
+		// 					Cabinet = new Cabinet { Name = "cab2" },
+		// 					Housing = new Housing { Name = "h2" }
+		// 				}
+		// 			}
+		// 		});
 
-			_controller = new DevicesController(mock.Object);
-		}
+		// 	_controller = new DevicesController(mock.Object);
+		// }
 
 		// [Fact]
 		// public void AreDevicesReturnProperly()

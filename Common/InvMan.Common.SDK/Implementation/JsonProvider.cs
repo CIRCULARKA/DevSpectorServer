@@ -10,7 +10,7 @@ namespace InvMan.Common.SDK
 
         private Uri _pathToDevices;
 
-        private Uri _pathToIpAddresses;
+        private Uri _pathToFreeIpAddresses;
 
         private Uri _pathToHousings;
 
@@ -32,20 +32,23 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        public Task<HttpResponseMessage> GetDevicesAsync() =>
-            _client.GetAsync(_pathToDevices);
+        public async Task<string> GetDevicesAsync() =>
+            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
 
-        public Task<HttpResponseMessage> GetFreeIPAsync() =>
-            _client.GetAsync(_pathToIpAddresses.AbsoluteUri);
+        public Task<string> GetHousingsAsync() =>
+            GetContentFromUriAsync(_pathToHousings.AbsoluteUri);
 
-        public Task<HttpResponseMessage> GetHousingsAsync() =>
-            _client.GetAsync(_pathToHousings.AbsoluteUri);
+        public async Task<string> GetFreeIPAsync() =>
+            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
 
-        public Task<HttpResponseMessage> GetHousingAsync(int housingID) =>
-            _client.GetAsync(_pathToHousings.AbsoluteUri + housingID);
+        public async Task<string> GetHousingAsync(int housingID) =>
+            await GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);
 
-        public Task<string> GetHttpResponseMessageContent(HttpResponseMessage msg) =>
-            msg.Content.ReadAsStringAsync();
+        private async Task<string> GetContentFromUriAsync(string path)
+        {
+            var response = await _client.GetAsync(path);
+            return await response.Content.ReadAsStringAsync();
+        }
 
         private Uri BuildUriWithHostBaseAndPath(string path)
         {
@@ -60,8 +63,8 @@ namespace InvMan.Common.SDK
         private void BuildEndpointPath()
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
-            _pathToIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free");
-            _pathToHousings = BuildUriWithHostBaseAndPath("api/location/housings");
+            _pathToFreeIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free/");
+            _pathToHousings = BuildUriWithHostBaseAndPath("api/location/housings/");
         }
     }
 }

@@ -75,7 +75,7 @@ namespace InvMan.Tests.Server.SDK
 			};
 
 			// Act
-			var actual = (await provider.GetAllDevicesAsync()).ToList();
+			var actual = (await provider.GetDevicesAsync()).ToList();
 
 			// Assert
 			Assert.Equal(expected.Count(), expected.Count());

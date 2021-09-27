@@ -9,9 +9,9 @@ namespace InvMan.Server.Database
 {
 	public class DeviceRepository : IDeviceRepository
 	{
-		private ApplicationDbContext _context;
+		private ApplicationDbContextBase _context;
 
-		public DeviceRepository(ApplicationDbContext context)
+		public DeviceRepository(ApplicationDbContextBase context)
 		{
 			_context = context;
 		}
@@ -40,7 +40,6 @@ namespace InvMan.Server.Database
 
 		public Device GetDeviceByID(int deviceID) =>
 			_context.Devices.
-				Include(d => d.IPAddresses).
 				Include(d => d.Location).
 					Include(d => d.Location.Housing).
 					Include(d => d.Location.Cabinet).
@@ -49,7 +48,6 @@ namespace InvMan.Server.Database
 
 		public Device GetDeviceByInventoryNumber(string invNum) =>
 			_context.Devices.
-				Include(d => d.IPAddresses).
 				Include(d => d.Location).
 					Include(d => d.Location.Housing).
 					Include(d => d.Location.Cabinet).
@@ -58,7 +56,6 @@ namespace InvMan.Server.Database
 
 		public IEnumerable<Device> AllDevices =>
 			_context.Devices.
-				Include(d => d.IPAddresses).
 				Include(d => d.Location).
 					Include(d => d.Location.Housing).
 					Include(d => d.Location.Cabinet).

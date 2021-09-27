@@ -7,15 +7,16 @@ namespace InvMan.Server.Database
 {
 	public class LocationRepository : ILocationRepository
 	{
-		private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContextBase _context;
 
-		public LocationRepository(ApplicationDbContext context) =>
+		public LocationRepository(ApplicationDbContextBase context) =>
 			_context = context;
 
 		public IEnumerable<Housing> Housings =>
 			_context.Housings;
 
 		public IEnumerable<Cabinet> GetHousingCabinets(int housingID) =>
-			_context.HousingCabinets.First(hc => hc.Housing.ID == housingID).Cabinets;
+			_context.HousingCabinets.Where(hc => hc.HousingID == housingID).
+				Select(hc => hc.Cabinet);
 	}
 }

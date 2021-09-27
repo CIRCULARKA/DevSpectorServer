@@ -7,9 +7,9 @@ namespace InvMan.Server.Database
 {
 	public class IPAddressRepository : IIPAddressRepository
 	{
-		private ApplicationDbContext _context;
+		private ApplicationDbContextBase _context;
 
-		public IPAddressRepository(ApplicationDbContext context)
+		public IPAddressRepository(ApplicationDbContextBase context)
 		{
 			_context = context;
 		}

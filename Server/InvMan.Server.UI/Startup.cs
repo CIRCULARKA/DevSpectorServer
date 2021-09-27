@@ -19,8 +19,8 @@ namespace InvMan.Server.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(Configuration["ConnectionString"])
+            services.AddSingleton<ApplicationDbContextBase, ApplicationDbContext>(
+                service => new ApplicationDbContext(Configuration["ConnectionString"])
             );
             services.AddControllers();
             services.AddApplicationServices();
@@ -39,8 +39,6 @@ namespace InvMan.Server.UI
             {
                 endpoints.MapControllers();
             });
-
-            app.EnsurePopulated();
         }
     }
 }

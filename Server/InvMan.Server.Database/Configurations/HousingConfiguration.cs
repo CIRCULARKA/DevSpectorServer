@@ -11,6 +11,11 @@ namespace InvMan.Server.Database.Configurations
 			builder.HasKey(h => h.ID);
 			builder.Property(h => h.ID).UseIdentityColumn();
 			builder.Property(h => h.Name).IsRequired();
+			builder.HasData(
+				new Housing { ID = 1, Name = "N/A" },
+				new Housing { ID = 2, Name = "Главный" },
+				new Housing { ID = 3, Name = "Второй" }
+			);
 		}
 	}
 }

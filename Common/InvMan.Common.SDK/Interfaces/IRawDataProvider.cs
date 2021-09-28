@@ -4,7 +4,7 @@ namespace InvMan.Common.SDK
 {
 	public interface IRawDataProvider
 	{
-		Task<string> GetDevicesAsync();
+		Task<string> GetDevicesAsync(int amount);
 
 		Task<string> GetFreeIPAsync();
 

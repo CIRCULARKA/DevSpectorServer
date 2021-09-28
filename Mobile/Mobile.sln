@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile", "InvMan.Mobile\InvMan.Mobile.csproj", "{73B22E2D-CCA4-4192-B48A-DDEDC72492E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Common.SDK", "..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj", "{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -33,5 +35,17 @@ Global
 		{73B22E2D-CCA4-4192-B48A-DDEDC72492E2}.Release|x64.Build.0 = Release|Any CPU
 		{73B22E2D-CCA4-4192-B48A-DDEDC72492E2}.Release|x86.ActiveCfg = Release|Any CPU
 		{73B22E2D-CCA4-4192-B48A-DDEDC72492E2}.Release|x86.Build.0 = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|x64.Build.0 = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Debug|x86.Build.0 = Debug|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|x64.ActiveCfg = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|x64.Build.0 = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|x86.ActiveCfg = Release|Any CPU
+		{C30F3D8C-7EE7-4F28-88B2-95854EF7E662}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

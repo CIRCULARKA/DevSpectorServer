@@ -9,7 +9,7 @@ namespace InvMan.Server.Database.Configurations
 	{
 		public void Configure(EntityTypeBuilder<HousingCabinets> builder)
 		{
-			builder.HasKey(c => new { c.ID, c.HousingID, c.CabinetID });
+			builder.HasKey(c => c.ID);
 			builder.Property(c => c.ID).UseIdentityColumn();
 			builder.Property(hc => hc.HousingID).IsRequired();
 			builder.Property(hc => hc.CabinetID).IsRequired();
@@ -25,11 +25,11 @@ namespace InvMan.Server.Database.Configurations
 			secondHousing.Add(new HousingCabinets { ID = 3, HousingID = 3, CabinetID = 1 });
 
 			int i = 2;
-			for (; i <= 9; i++)
-				firstHousing.Add(new HousingCabinets { ID = i, HousingID = 2, CabinetID = i });
+			for (; i <= 7; i++)
+				firstHousing.Add(new HousingCabinets { ID = i + 2, HousingID = 2, CabinetID = i });
 
-			for (; i <= 15; i++)
-				secondHousing.Add(new HousingCabinets { ID = i, HousingID = 3, CabinetID = i });
+			for (; i <= 13; i++)
+				secondHousing.Add(new HousingCabinets { ID = i + 2, HousingID = 3, CabinetID = i });
 
 			var result = new List<HousingCabinets>();
 			result.AddRange(NAHousing);

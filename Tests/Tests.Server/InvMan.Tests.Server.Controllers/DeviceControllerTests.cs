@@ -42,29 +42,33 @@ namespace InvMan.Tests.Server.Controllers
 			};
 
 			var testIPs = new List<IPAddress> {
-				new IPAddress { Address = "1.1.1.1" },
-				new IPAddress { Address = "2.2.2.2" },
-				new IPAddress { Address = "3.3.3.3" },
-				new IPAddress { Address = "4.4.4.4" },
+				new IPAddress { ID = 1, Address = "1.1.1.1" },
+				new IPAddress { ID = 2, Address = "2.2.2.2" },
+				new IPAddress { ID = 3, Address = "3.3.3.3" },
+				new IPAddress { ID = 4, Address = "4.4.4.4" },
 			};
 
 			var testDeviceIPs = new List<DeviceIPAddresses> {
-				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[0] },
-				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[1] },
-				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[2] },
-				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[3] }
+				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[0],
+					DeviceID = testDevices[0].ID, IPAddressID = testIPs[0].ID},
+				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[1],
+					DeviceID = testDevices[0].ID, IPAddressID = testIPs[1].ID},
+				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[2],
+					DeviceID = testDevices[1].ID, IPAddressID = testIPs[2].ID},
+				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[3],
+					DeviceID = testDevices[1].ID, IPAddressID = testIPs[3].ID},
 			};
 
 			_expected = new List<Appliance> {
 				new Appliance(testDevices[0].ID, testDevices[0].InventoryNumber,
 					testDevices[0].Type.Name, testDevices[0].NetworkName,
 					testDevices[0].Location.Housing.Name, testDevices[0].Location.Cabinet.Name,
-					new List<string> { testIPs[0].Address, testIPs[0].Address }
+					new List<string> { testIPs[0].Address, testIPs[1].Address }
 				),
 				new Appliance(testDevices[1].ID, testDevices[1].InventoryNumber,
 					testDevices[1].Type.Name, testDevices[1].NetworkName,
 					testDevices[1].Location.Housing.Name, testDevices[1].Location.Cabinet.Name,
-					new List<string> { testIPs[1].Address, testIPs[1].Address }
+					new List<string> { testIPs[2].Address, testIPs[3].Address }
 				)
 			};
 
@@ -79,31 +83,15 @@ namespace InvMan.Tests.Server.Controllers
 				testDeviceIPs.AsQueryable()
 			);
 
-			var devicesManagerMock = new Mock<IDevicesManager>();
-			devicesManagerMock.Setup(
-				dm => dm.GetAppliances(2)
-			).Returns(
-				new List<Appliance> {
-					new Appliance(testDevices[0].ID, testDevices[0].InventoryNumber,
-						testDevices[0].Type.Name, testDevices[0].NetworkName,
-						testDevices[0].Location.Housing.Name,
-						testDevices[0].Location.Cabinet.Name,
-						_expected[0].IPAddresses
-					),
-					new Appliance(testDevices[1].ID, testDevices[1].InventoryNumber,
-						testDevices[1].Type.Name, testDevices[1].NetworkName,
-						testDevices[1].Location.Housing.Name,
-						testDevices[1].Location.Cabinet.Name,
-						_expected[1].IPAddresses
-					)
-				}.AsQueryable()
+			var devicesManagerMock = new DevicesManager(
+				devicesRepoMock.Object, ipRepoMock.Object
 			);
 
-			_controller = new DevicesController(devicesManagerMock.Object);
+			_controller = new DevicesController(devicesManagerMock);
 		}
 
 		[Fact]
-		public void AreDevicesReturnProperly()
+		public void AreDevicesConvertedToAppliancesProperly()
 		{
 			// Act
 			var actual = _controller.Get(_expected.Count).Cast<Appliance>().ToList();

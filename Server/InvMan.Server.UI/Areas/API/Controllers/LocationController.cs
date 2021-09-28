@@ -1,24 +1,23 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using InvMan.Server.Domain;
+using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
 	public class LocationController : ApiController
 	{
-		private readonly ILocationRepository _repository;
+		private readonly ILocationManager _manager;
 
-		public LocationController(ILocationRepository repo) =>
-			_repository = repo;
+		public LocationController(ILocationManager manager) =>
+			_manager = manager;
 
 		[HttpGet("housings")]
 		public IEnumerable<string> Get() =>
-			_repository.Housings.Select(h => h.Name);
+			_manager.Housings;
 
 		[HttpGet("housings/{housingID}")]
 		public IEnumerable Get(int housingID) =>
-			_repository.GetHousingCabinets(housingID);
+			_manager.GetCabinets(housingID);
 	}
 }

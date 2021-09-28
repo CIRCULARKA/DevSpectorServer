@@ -38,8 +38,8 @@ namespace InvMan.Common.SDK
         public Task<string> GetHousingsAsync() =>
             GetContentFromUriAsync(_pathToHousings.AbsoluteUri);
 
-        public async Task<string> GetFreeIPAsync() =>
-            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
+        public async Task<string> GetFreeIPAsync(int amount) =>
+            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri + amount);
 
         public async Task<string> GetHousingAsync(int housingID) =>
             await GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);

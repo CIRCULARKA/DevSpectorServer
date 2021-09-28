@@ -6,7 +6,7 @@ namespace InvMan.Common.SDK
 	{
 		Task<string> GetDevicesAsync(int amount);
 
-		Task<string> GetFreeIPAsync();
+		Task<string> GetFreeIPAsync(int amount);
 
 		Task<string> GetHousingsAsync();
 

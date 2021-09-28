@@ -17,19 +17,19 @@ namespace InvMan.Server.Database.Configurations
 			int i = 1;
 			for (; i <= 3; i++)
 				firstDeviceIPs.Add(
-					new DeviceIPAddresses { ID = 1, DeviceID = 1, IPAddressID = i }
+					new DeviceIPAddresses { ID = i, DeviceID = 1, IPAddressID = i }
 				);
 
 			var secondDeviceIPs = new List<DeviceIPAddresses>();
 			for (; i <= 5; i++)
 				secondDeviceIPs.Add(
-					new DeviceIPAddresses { ID = 1, DeviceID = 1, IPAddressID = i }
+					new DeviceIPAddresses { ID = i, DeviceID = 1, IPAddressID = i }
 				);
 
 			var thirdDeviceIPs = new List<DeviceIPAddresses>();
 			for (; i <= 9; i++)
 				thirdDeviceIPs.Add(
-					new DeviceIPAddresses { ID = 1, DeviceID = 1, IPAddressID = i }
+					new DeviceIPAddresses { ID = i, DeviceID = 1, IPAddressID = i }
 				);
 
 			var result = new List<DeviceIPAddresses>();

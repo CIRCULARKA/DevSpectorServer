@@ -1,5 +1,6 @@
 using InvMan.Server.Domain;
 using InvMan.Server.Database;
+using InvMan.Server.Application;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -10,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
 			@this.AddTransient<IDeviceRepository, DeviceRepository>();
 			@this.AddTransient<IIPAddressRepository, IPAddressRepository>();
 			@this.AddTransient<ILocationRepository, LocationRepository>();
+			@this.AddTransient<IDevicesManager, DevicesManager>();
 
 			return @this;
 		}

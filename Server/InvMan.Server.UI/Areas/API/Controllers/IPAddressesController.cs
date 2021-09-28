@@ -11,7 +11,7 @@ namespace InvMan.Server.UI.API.Controllers
 		public IPAddressController(IIPAddressesManager manager) =>
 			_manager = manager;
 
-		[HttpGet("free/${amount}")]
+		[HttpGet("free/{amount}")]
 		public IEnumerable<string> Get(int amount) =>
 			_manager.GetFreeIP(amount);
 	}

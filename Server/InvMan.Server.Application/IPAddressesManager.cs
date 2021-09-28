@@ -15,6 +15,5 @@ namespace InvMan.Server.Application
 				Where(ip => ip.DeviceID == null).
 				Take(amount).
 				Select(ip => ip.Address);
-
 	}
 }

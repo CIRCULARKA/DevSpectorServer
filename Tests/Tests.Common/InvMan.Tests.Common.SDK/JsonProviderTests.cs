@@ -33,7 +33,7 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadFreeIP()
         {
-            var result = await _defaultProvider.GetFreeIPAsync();
+            var result = await _defaultProvider.GetFreeIPAsync(3);
             Assert.True(result.Length > 0);
         }
 

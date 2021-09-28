@@ -2,8 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:InvMan.Desktop.UI"
+        xmlns:shared="clr-namespace:InvMan.Desktop.Common;assembly=InvMan.Desktop.Common"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
+        <shared:DownloadCircle />
         <ListView x:Name="devices">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -13,8 +13,8 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet]
-		public IEnumerable Get() =>
-			_manager.GetAppliances(10);
+		[HttpGet("{amount}")]
+		public IEnumerable Get(int amount) =>
+			_manager.GetAppliances(amount);
 	}
 }

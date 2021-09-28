@@ -14,14 +14,14 @@
 
         <ListView x:Name="appliancesList"
             HasUnevenRows="True"
-            ItemsSource="{Binding Аppliances}"
+            ItemsSource="{Binding Devices}"
             ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout>
-                                <Label Text="{Binding Name}" FontSize="25"/>
+                                <Label Text="{Binding NetworkName}" FontSize="25"/>
                                 <Label Text="{Binding Type}"/>
                                 <Label Text="{Binding InventoryNumber}"/>
                             </StackLayout>

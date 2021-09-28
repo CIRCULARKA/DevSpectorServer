@@ -1,42 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Collections;
-using InvMan.Server.Domain;
-using InvMan.Common.SDK.Models;
+using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
 	public class DevicesController : ApiController
 	{
-		IDeviceRepository _repository;
+		private readonly IDevicesManager _manager;
 
-		public DevicesController(IDeviceRepository repo)
+		public DevicesController(IDevicesManager manager)
 		{
-			_repository = repo;
+			_manager = manager;
 		}
 
 		[HttpGet]
 		public IEnumerable Get() =>
-			_repository.Devices.Select(
-				d => new {
-					ID = d.ID,
-					InventoryNumber = d.InventoryNumber,
-					Type = d.Type.Name,
-					NetworkName = d.NetworkName,
-					Housing = d.Location.Housing.Name,
-					Cabinet = d.Location.Cabinet.Name
-				}
-			);
-
-		[HttpGet("{id}")]
-		public Appliance Get(int id)
-		{
-			var device = _repository.GetDeviceByID(id);
-			return new Appliance(
-				device.ID, device.InventoryNumber, device.Type.Name,
-				device.NetworkName, device.Location.Housing.Name,
-				device.Location.Cabinet.Name, null
-			);
-		}
+			_manager.GetAppliances(10);
 	}
 }

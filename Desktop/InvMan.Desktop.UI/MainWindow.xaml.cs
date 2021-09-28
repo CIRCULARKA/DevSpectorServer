@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Net.Http;
 using InvMan.Common.SDK;
 
@@ -15,7 +17,7 @@ namespace InvMan.Desktop.UI
 
 		public MainWindow()
 		{
-			_hostUri = new Uri("http://localhost:5002");
+			_hostUri = new Uri("http://localhost:5000");
 			var client = new HttpClient();
 			client.Timeout = new TimeSpan(0, 0, 15);
 			_rawDataProvider = new JsonProvider(_hostUri, client);
@@ -27,6 +29,7 @@ namespace InvMan.Desktop.UI
 		public async void LoadDevicesAsync(object s, RoutedEventArgs info)
 		{
 			downloadCircle.Visibility = Visibility.Visible;
+			await Task.Run(() => Thread.Sleep(4000));
 			try { devices.ItemsSource = await _devicesProvider.GetDevicesAsync(3); }
 			catch { }
 			downloadCircle.Visibility = Visibility.Collapsed;

@@ -6,5 +6,7 @@ namespace InvMan.Server.Domain
 	public interface ILocationRepository
 	{
 		IQueryable<Housing> Housings { get; }
+
+		IQueryable<HousingCabinets> HousingCabinets { get; }
 	}
 }

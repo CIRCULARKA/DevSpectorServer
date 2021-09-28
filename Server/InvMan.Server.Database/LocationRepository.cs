@@ -13,5 +13,8 @@ namespace InvMan.Server.Database
 
 		public IQueryable<Housing> Housings =>
 			_context.Housings;
+
+		public IQueryable<HousingCabinets> HousingCabinets =>
+			_context.HousingCabinets;
 	}
 }

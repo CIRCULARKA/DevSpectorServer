@@ -79,9 +79,6 @@ namespace InvMan.Tests.Server.Controllers
 
 			var ipRepoMock = new Mock<IIPAddressRepository>();
 			ipRepoMock.Setup(repo => repo.IPAddresses).Returns(testIPs.AsQueryable());
-			ipRepoMock.Setup(repo => repo.DeviceIPAddresses).Returns(
-				testDeviceIPs.AsQueryable()
-			);
 
 			var devicesManagerMock = new DevicesManager(
 				devicesRepoMock.Object, ipRepoMock.Object

@@ -42,21 +42,10 @@ namespace InvMan.Tests.Server.Controllers
 			};
 
 			var testIPs = new List<IPAddress> {
-				new IPAddress { ID = 1, Address = "1.1.1.1" },
-				new IPAddress { ID = 2, Address = "2.2.2.2" },
-				new IPAddress { ID = 3, Address = "3.3.3.3" },
-				new IPAddress { ID = 4, Address = "4.4.4.4" },
-			};
-
-			var testDeviceIPs = new List<DeviceIPAddresses> {
-				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[0],
-					DeviceID = testDevices[0].ID, IPAddressID = testIPs[0].ID},
-				new DeviceIPAddresses { Device = testDevices[0], IPAddress = testIPs[1],
-					DeviceID = testDevices[0].ID, IPAddressID = testIPs[1].ID},
-				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[2],
-					DeviceID = testDevices[1].ID, IPAddressID = testIPs[2].ID},
-				new DeviceIPAddresses { Device = testDevices[1], IPAddress = testIPs[3],
-					DeviceID = testDevices[1].ID, IPAddressID = testIPs[3].ID},
+				new IPAddress { ID = 1, Address = "1.1.1.1", DeviceID = 1 },
+				new IPAddress { ID = 2, Address = "2.2.2.2", DeviceID = 1 },
+				new IPAddress { ID = 3, Address = "3.3.3.3", DeviceID = 2 },
+				new IPAddress { ID = 4, Address = "4.4.4.4", DeviceID = 2 },
 			};
 
 			_expected = new List<Appliance> {

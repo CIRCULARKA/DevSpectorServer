@@ -32,8 +32,8 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        public async Task<string> GetDevicesAsync() =>
-            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
+        public async Task<string> GetDevicesAsync(int amount) =>
+            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri + amount);
 
         public Task<string> GetHousingsAsync() =>
             GetContentFromUriAsync(_pathToHousings.AbsoluteUri);

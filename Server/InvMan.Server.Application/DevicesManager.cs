@@ -32,7 +32,7 @@ namespace InvMan.Server.Application
 				d.Location.Cabinet.Name,
 				_ipRepo.DeviceIPAddresses.
 					Where(dip => dip.DeviceID == d.ID).
-						Select(dip => dip.IPAddress.Address)
+						Select(dip => dip.IPAddress.Address).ToList()
 				)
 			);
 	}

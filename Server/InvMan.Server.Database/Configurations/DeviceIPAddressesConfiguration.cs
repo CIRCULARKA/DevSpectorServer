@@ -23,13 +23,13 @@ namespace InvMan.Server.Database.Configurations
 			var secondDeviceIPs = new List<DeviceIPAddresses>();
 			for (; i <= 5; i++)
 				secondDeviceIPs.Add(
-					new DeviceIPAddresses { ID = i, DeviceID = 1, IPAddressID = i }
+					new DeviceIPAddresses { ID = i, DeviceID = 2, IPAddressID = i }
 				);
 
 			var thirdDeviceIPs = new List<DeviceIPAddresses>();
 			for (; i <= 9; i++)
 				thirdDeviceIPs.Add(
-					new DeviceIPAddresses { ID = i, DeviceID = 1, IPAddressID = i }
+					new DeviceIPAddresses { ID = i, DeviceID = 3, IPAddressID = i }
 				);
 
 			var result = new List<DeviceIPAddresses>();

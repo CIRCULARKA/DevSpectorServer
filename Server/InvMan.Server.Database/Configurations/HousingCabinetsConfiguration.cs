@@ -9,22 +9,25 @@ namespace InvMan.Server.Database.Configurations
 	{
 		public void Configure(EntityTypeBuilder<HousingCabinets> builder)
 		{
-			builder.HasKey(c => c.ID);
+			builder.HasKey(c => new { c.ID, c.HousingID, c.CabinetID });
 			builder.Property(c => c.ID).UseIdentityColumn();
 			builder.Property(hc => hc.HousingID).IsRequired();
 			builder.Property(hc => hc.CabinetID).IsRequired();
 
-			int i = 1;
-
+			// Add N/A cabinet to each housing
 			var NAHousing = new List<HousingCabinets>();
-			for (; i <= 3; i++)
-				NAHousing.Add(new HousingCabinets { ID = i, HousingID = 1, CabinetID = i });
+			NAHousing.Add(new HousingCabinets { ID = 1, HousingID = 1, CabinetID = 1 });
 
 			var firstHousing = new List<HousingCabinets>();
+			firstHousing.Add(new HousingCabinets { ID = 2, HousingID = 2, CabinetID = 1 });
+
+			var secondHousing = new List<HousingCabinets>();
+			secondHousing.Add(new HousingCabinets { ID = 3, HousingID = 3, CabinetID = 1 });
+
+			int i = 2;
 			for (; i <= 9; i++)
 				firstHousing.Add(new HousingCabinets { ID = i, HousingID = 2, CabinetID = i });
 
-			var secondHousing = new List<HousingCabinets>();
 			for (; i <= 15; i++)
 				secondHousing.Add(new HousingCabinets { ID = i, HousingID = 3, CabinetID = i });
 

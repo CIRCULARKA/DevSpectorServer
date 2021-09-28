@@ -12,5 +12,7 @@ namespace InvMan.Server.Domain
 		void UpdateIPs(IEnumerable<IPAddress> newIPs);
 
 		IQueryable<IPAddress> IPAddresses { get; }
+
+		IQueryable<DeviceIPAddresses> DeviceIPAddresses { get; }
 	}
 }

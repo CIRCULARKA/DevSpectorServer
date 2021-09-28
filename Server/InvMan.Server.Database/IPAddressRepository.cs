@@ -18,9 +18,14 @@ namespace InvMan.Server.Database
 		public void UpdateIPs(IEnumerable<IPAddress> newIPs)
 		{
 			_context.IPAddresses.FromSqlInterpolated($"DELETE * FROM {nameof(_context.IPAddresses)}");
+			_context.IPAddresses.AddRange(newIPs);
+			_context.SaveChanges();
 		}
 
 		public IQueryable<IPAddress> IPAddresses =>
 			_context.IPAddresses;
+
+		public IQueryable<DeviceIPAddresses> DeviceIPAddresses =>
+			_context.DeviceIPAddresses;
 	}
 }

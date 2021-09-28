@@ -30,9 +30,9 @@ namespace InvMan.Server.Application
 				d.ID, d.InventoryNumber, d.Type.Name,
 				d.NetworkName, d.Location.Housing.Name,
 				d.Location.Cabinet.Name,
-				_ipRepo.DeviceIPAddresses.
+				_ipRepo.IPAddresses.
 					Where(dip => dip.DeviceID == d.ID).
-						Select(dip => dip.IPAddress.Address).ToList()
+						Select(dip => dip.Address).ToList()
 				)
 			);
 	}

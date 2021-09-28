@@ -13,6 +13,6 @@ namespace InvMan.Server.Domain
 
 		IQueryable<IPAddress> IPAddresses { get; }
 
-		IQueryable<DeviceIPAddresses> DeviceIPAddresses { get; }
+		// IQueryable<DeviceIPAddresses> DeviceIPAddresses { get; }
 	}
 }

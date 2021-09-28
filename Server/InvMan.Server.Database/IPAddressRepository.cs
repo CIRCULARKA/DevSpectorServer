@@ -25,7 +25,7 @@ namespace InvMan.Server.Database
 		public IQueryable<IPAddress> IPAddresses =>
 			_context.IPAddresses;
 
-		public IQueryable<DeviceIPAddresses> DeviceIPAddresses =>
-			_context.DeviceIPAddresses;
+		// public IQueryable<DeviceIPAddresses> DeviceIPAddresses =>
+		// 	_context.DeviceIPAddresses;
 	}
 }

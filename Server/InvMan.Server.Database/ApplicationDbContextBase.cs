@@ -20,7 +20,7 @@ namespace InvMan.Server.Database
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
 
-		public DbSet<DeviceIPAddresses> DeviceIPAddresses { get; set; }
+		// public DbSet<DeviceIPAddresses> DeviceIPAddresses { get; set; }
 
 		protected void ApplyModelConfigurations(ModelBuilder builder)
 		{
@@ -31,7 +31,7 @@ namespace InvMan.Server.Database
 			builder.ApplyConfiguration(new DeviceConfiguration());
 			builder.ApplyConfiguration(new IPAddressConfiguration());
 			builder.ApplyConfiguration(new LocationConfiguration());
-			builder.ApplyConfiguration(new DeviceIPAddressesConfiguration());
+			// builder.ApplyConfiguration(new DeviceIPAddressesConfiguration());
 		}
 	}
 }

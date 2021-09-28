@@ -1,27 +1,18 @@
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using InvMan.Server.Domain;
-using InvMan.Server.Domain.Models;
+using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
 	public class IPAddressController : ApiController
 	{
-		private IIPAddressRepository _repository;
+		private readonly IIPAddressesManager _manager;
 
-		public IPAddressController(IIPAddressRepository repo)
-		{
-			_repository = repo;
-		}
+		public IPAddressController(IIPAddressesManager manager) =>
+			_manager = manager;
 
-		[HttpGet("{id}")]
-		public IEnumerable Get(int id) =>
-			_repository.GetDeviceIPs(id).Select(ip => ip.Address);
-
-		[HttpGet("free")]
-		public IEnumerable<IPAddress> Get() =>
-			_repository.FreeAddresses;
+		[HttpGet("free/${amount}")]
+		public IEnumerable<string> Get(int amount) =>
+			_manager.GetFreeIP(amount);
 	}
 }

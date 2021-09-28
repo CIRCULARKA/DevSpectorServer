@@ -26,7 +26,7 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadDevices()
         {
-            var result = await _defaultProvider.GetDevicesAsync();
+            var result = await _defaultProvider.GetDevicesAsync(2);
             Assert.True(result.Length > 0);
         }
 

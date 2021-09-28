@@ -1,5 +1,4 @@
 using System.Linq;
-using InvMan.Server.Database;
 using InvMan.Server.Domain;
 
 namespace InvMan.Server.Application
@@ -12,9 +11,10 @@ namespace InvMan.Server.Application
 			_ipRepo = ipRepo;
 
 		public IQueryable<string> GetFreeIP(int amount) =>
-			_ipRepo.IPAddresses.Take(amount).
-				Where(ip => ip.DeviceID == -1).
-					Select(ip => ip.Address);
+			_ipRepo.IPAddresses.
+				Where(ip => ip.DeviceID == null).
+				Take(amount).
+				Select(ip => ip.Address);
 
 	}
 }

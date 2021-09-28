@@ -6,7 +6,7 @@ namespace InvMan.Server.Domain.Models
 
 		public string Address { get; set; }
 
-		public int DeviceID { get; set; }
+		public int? DeviceID { get; set; }
 
 		public Device Device { get; set; }
 	}

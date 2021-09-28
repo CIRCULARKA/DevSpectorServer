@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile.Android", "InvMan.Mobile.Android\InvMan.Mobile.Android.csproj", "{EB680BAE-9F1B-4453-8313-4F3975B031DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile.Android", "Mobile\InvMan.Mobile.Android\InvMan.Mobile.Android.csproj", "{EB680BAE-9F1B-4453-8313-4F3975B031DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile", "InvMan.Mobile\InvMan.Mobile.csproj", "{F8BBDB8D-6950-4282-8D78-F5739E445692}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Mobile", "Mobile\InvMan.Mobile\InvMan.Mobile.csproj", "{F8BBDB8D-6950-4282-8D78-F5739E445692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Common.SDK", "..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj", "{B6DFFBF0-96C2-4BDE-85CD-8F4DE2EBA81A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvMan.Common.SDK", "Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj", "{B6DFFBF0-96C2-4BDE-85CD-8F4DE2EBA81A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

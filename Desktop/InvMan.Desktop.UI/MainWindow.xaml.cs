@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Net.Http;
 using InvMan.Common.SDK;
-using InvMan.Common.SDK.Models;
 
 namespace InvMan.Desktop.UI
 {
@@ -15,8 +15,10 @@ namespace InvMan.Desktop.UI
 
 		public MainWindow()
 		{
-			_hostUri = new Uri("http://localhost:5000");
-			_rawDataProvider = new JsonProvider(_hostUri);
+			_hostUri = new Uri("http://localhost:5002");
+			var client = new HttpClient();
+			client.Timeout = new TimeSpan(0, 0, 15);
+			_rawDataProvider = new JsonProvider(_hostUri, client);
 			_devicesProvider = new DevicesProvider(_rawDataProvider);
 
 			InitializeComponent();
@@ -24,7 +26,10 @@ namespace InvMan.Desktop.UI
 
 		public async void LoadDevicesAsync(object s, RoutedEventArgs info)
 		{
-			devices.ItemsSource = await _devicesProvider.GetDevicesAsync(3);
+			downloadCircle.Visibility = Visibility.Visible;
+			try { devices.ItemsSource = await _devicesProvider.GetDevicesAsync(3); }
+			catch { }
+			downloadCircle.Visibility = Visibility.Collapsed;
 		}
 	}
 }

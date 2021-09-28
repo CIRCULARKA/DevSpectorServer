@@ -8,8 +8,8 @@ namespace InvMan.Server.Application
 	{
 		Device GetDeviceByID(int deviceID);
 
-		IQueryable<Device> GetDevices(int take);
+		IQueryable<Device> GetDevices(int amount);
 
-		IQueryable<Appliance> GetAppliances(int take);
+		IQueryable<Appliance> GetAppliances(int amount);
 	}
 }

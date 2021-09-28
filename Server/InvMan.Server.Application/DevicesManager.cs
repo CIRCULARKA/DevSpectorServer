@@ -21,11 +21,11 @@ namespace InvMan.Server.Application
 		public Device GetDeviceByID(int deviceID) =>
 			_devicesRepo.Devices.FirstOrDefault(d => d.ID == deviceID);
 
-		public IQueryable<Device> GetDevices(int take) =>
-			_devicesRepo.Devices.Take(take);
+		public IQueryable<Device> GetDevices(int amount) =>
+			_devicesRepo.Devices.Take(amount);
 
-		public IQueryable<Appliance> GetAppliances(int take) =>
-			GetDevices(take).Select(d =>
+		public IQueryable<Appliance> GetAppliances(int amount) =>
+			GetDevices(amount).Select(d =>
 				new Appliance(
 				d.ID, d.InventoryNumber, d.Type.Name,
 				d.NetworkName, d.Location.Housing.Name,

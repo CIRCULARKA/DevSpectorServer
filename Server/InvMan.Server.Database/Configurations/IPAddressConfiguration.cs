@@ -21,10 +21,10 @@ namespace InvMan.Server.Database.Configurations
 				new IPAddress { ID = 7, Address = "198.22.33.7", DeviceID = 2 },
 				new IPAddress { ID = 8, Address = "198.22.33.8", DeviceID = 3 },
 				new IPAddress { ID = 9, Address = "198.22.33.9", DeviceID = 3 },
-				new IPAddress { ID = 10, Address = "198.22.33.10", DeviceID = 3 }
-				// new IPAddress { ID = 11, Address = "198.22.33.11" },
-				// new IPAddress { ID = 12, Address = "198.22.33.12" },
-				// new IPAddress { ID = 13, Address = "198.22.33.13" }
+				new IPAddress { ID = 10, Address = "198.22.33.10", DeviceID = 3 },
+				new IPAddress { ID = 11, Address = "198.22.33.11" },
+				new IPAddress { ID = 12, Address = "198.22.33.12" },
+				new IPAddress { ID = 13, Address = "198.22.33.13" }
 			);
 		}
 	}

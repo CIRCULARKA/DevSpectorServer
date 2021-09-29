@@ -15,7 +15,7 @@ namespace InvMan.Mobile
 
         public MainPage()
         {
-            _host = new Uri("http://10.0.2.2:5000/api/devices/3");
+            _host = new Uri("http://10.0.2.2:5000");
             _jsonProvider = new JsonProvider(_host);
             _devicesProvider = new DevicesProvider(_jsonProvider);
 

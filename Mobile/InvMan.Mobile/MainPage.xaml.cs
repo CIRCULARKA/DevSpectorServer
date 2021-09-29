@@ -28,9 +28,9 @@ namespace InvMan.Mobile
             InitializeComponent();
         }
 
-        public void LoadDevices(object sender, EventArgs info)
+        public async void LoadDevices(object sender, EventArgs info)
 		{
-            appliancesList.ItemsSource = _devicesProvider.GetDevicesAsync(3).GetAwaiter().GetResult();
+            appliancesList.ItemsSource = (await _devicesProvider.GetDevicesAsync(3));
 		}
 
         public async void OnItemTapped(object sender, ItemTappedEventArgs e)

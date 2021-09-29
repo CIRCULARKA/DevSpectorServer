@@ -22,5 +22,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Load devices" OnClick="LoadDevices" />
     </StackLayout>
 </ContentPage>

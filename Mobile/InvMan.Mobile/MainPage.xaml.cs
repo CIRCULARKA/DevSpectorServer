@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,16 +21,17 @@ namespace InvMan.Mobile
 
         public MainPage()
         {
-            _host = new Uri("http://10.0.0.2:5000");
+            _host = new Uri("http://10.0.0.2:5000/api/devices/3");
             _jsonProvider = new JsonProvider(_host);
             _devicesProvider = new DevicesProvider(_jsonProvider);
 
             InitializeComponent();
-
-            Devices = _devicesProvider.GetDevicesAsync(3).Result.ToList();
         }
 
-        public IEnumerable<Appliance> Devices { get; set; }
+        public async void LoadDevices(object sender, EventArgs info)
+		{
+            appliancesList.ItemsSource = (await _devicesProvider.GetDevicesAsync(3)).ToList();
+		}
 
         public async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {

@@ -22,6 +22,18 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
+			"label": "Run Test Watchees",
+			"dependsOn": [
+				"Watch Server Tests",
+				"Watch Common Tests"
+			],
+			"dependsOrder": "sequence",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
 			"label": "Watch Server Tests",
 			"type": "shell",
 			"command": "start",
@@ -36,10 +48,6 @@
 				"-o",
 				"${workspaceFolder}/Tests/Tests.Common/out"
 			],
-			"runOptions": {
-				"instanceLimit": 1,
-				"runOn": "folderOpen"
-			},
 			"presentation": {
 				"echo": true,
 				"reveal": "silent",
@@ -66,10 +74,6 @@
 				"-o",
 				"${workspaceFolder}/Tests/Tests.Common/out"
 			],
-			"runOptions": {
-				"instanceLimit": 1,
-				"runOn": "folderOpen"
-			},
 			"presentation": {
 				"echo": true,
 				"reveal": "silent",
@@ -93,10 +97,6 @@
 				"${workspaceFolder}/Server/InvMan.Server.UI",
 				"run"
 			],
-			"runOptions": {
-				"instanceLimit": 1,
-				"runOn": "folderOpen"
-			},
 			"group": {
 				"kind": "build",
 				"isDefault": true

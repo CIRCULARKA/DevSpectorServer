@@ -19,7 +19,7 @@ namespace InvMan.Server.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ApplicationDbContextBase, ApplicationDbContext>(
+            services.AddScoped<ApplicationDbContextBase, ApplicationDbContext>(
                 service => new ApplicationDbContext(Configuration["ConnectionString"])
             );
             services.AddControllers();

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvMan.Server.Database
@@ -12,7 +13,10 @@ namespace InvMan.Server.Database
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder builder) =>
-			builder.UseSqlServer(_conntectionString);
+			builder.UseSqlServer(
+				_conntectionString,
+				b => b.MigrationsAssembly(AppDomain.CurrentDomain.FriendlyName)
+			);
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{

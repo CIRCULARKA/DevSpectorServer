@@ -23,8 +23,7 @@ namespace InvMan.Server.UI
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                     options.UseSqlServer(
-                        Configuration["ConnectionString"],
-                        b => b.MigrationsAssembly(AppDomain.CurrentDomain.FriendlyName)
+                        Configuration["ConnectionString"]
                     )
             );
             services.AddControllers();

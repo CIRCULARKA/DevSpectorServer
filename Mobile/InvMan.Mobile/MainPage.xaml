@@ -2,8 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InvMan.Mobile.MainPage">
+    
+    <ContentPage.Resources>
+        <StyleSheet Source="style.css" />
+    </ContentPage.Resources>
+
     <StackLayout>
-        <Label Text="Устройства" HorizontalOptions="Center" FontSize="Large"/>
+        <Label Text="Устройства" HorizontalOptions="Center"  StyleClass="header"/>
+        <Editor Placeholder="Поиск..." StyleClass="search"/>
         <ListView x:Name="appliancesList"
             HasUnevenRows="True"
             ItemsSource="{Binding Devices}"
@@ -12,10 +18,10 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <StackLayout>
-                                <Label Text="{Binding NetworkName}" FontSize="25"/>
-                                <Label Text="{Binding Type}"/>
-                                <Label Text="{Binding InventoryNumber}"/>
+                            <StackLayout StyleClass="devices">
+                                <Label Text="{Binding NetworkName}" FontSize="25" />
+                                <Label Text="{Binding Type}" />
+                                <Label Text="{Binding InventoryNumber}" />
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>

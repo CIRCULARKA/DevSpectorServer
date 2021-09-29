@@ -15,7 +15,8 @@ namespace InvMan.Mobile
 
         public MainPage()
         {
-            _host = new Uri("http://10.0.2.2:5000/api/devices/3");
+            
+            _host = new Uri("http://10.0.2.2:5000");
             _jsonProvider = new JsonProvider(_host);
             _devicesProvider = new DevicesProvider(_jsonProvider);
 
@@ -24,7 +25,7 @@ namespace InvMan.Mobile
 
         public async void LoadDevices(object sender, EventArgs info)
 		{
-            appliancesList.ItemsSource = (await _devicesProvider.GetDevicesAsync(3));
+            appliancesList.ItemsSource = (await _devicesProvider.GetDevicesAsync(10));
 		}
 
         public async void OnItemTapped(object sender, ItemTappedEventArgs e)

@@ -1,0 +1,9 @@
+.header {
+    font-size: 28;
+    color: black;
+}
+
+stacklayout {
+    margin: 5;
+    padding: 10;
+}

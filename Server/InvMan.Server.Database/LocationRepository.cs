@@ -6,9 +6,9 @@ namespace InvMan.Server.Database
 {
 	public class LocationRepository : ILocationRepository
 	{
-		private readonly ApplicationDbContextBase _context;
+		private readonly ApplicationDbContext _context;
 
-		public LocationRepository(ApplicationDbContextBase context) =>
+		public LocationRepository(ApplicationDbContext context) =>
 			_context = context;
 
 		public IQueryable<Housing> Housings =>

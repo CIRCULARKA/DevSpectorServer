@@ -8,9 +8,9 @@ namespace InvMan.Server.Database
 {
 	public class DeviceRepository : IDeviceRepository
 	{
-		private ApplicationDbContextBase _context;
+		private ApplicationDbContext _context;
 
-		public DeviceRepository(ApplicationDbContextBase context)
+		public DeviceRepository(ApplicationDbContext context)
 		{
 			_context = context;
 		}

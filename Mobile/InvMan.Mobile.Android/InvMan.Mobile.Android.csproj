@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -87,10 +87,14 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj">
+      <Project>{b6dffbf0-96c2-4bde-85cd-8f4de2eba81a}</Project>
+      <Name>InvMan.Common.SDK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InvMan.Mobile\InvMan.Mobile.csproj">
       <Project>{DA6B1C8F-A281-47E9-A62F-0869903AAA71}</Project>
       <Name>InvMan.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
- <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

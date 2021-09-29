@@ -1,56 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using Xamarin.Forms;
+using InvMan.Common.SDK;
 using InvMan.Common.SDK.Models;
 
 namespace InvMan.Mobile
 {
     public partial class MainPage : ContentPage
     {
-        public List<Appliance> Devices { get; set; }
+        private readonly Uri _host;
+
+        private readonly IRawDataProvider _jsonProvider;
+
+        private readonly DevicesProvider _devicesProvider;
 
         public MainPage()
         {
+            _host = new Uri("http://10.0.0.2:5000");
+            _jsonProvider = new JsonProvider(_host);
+            _devicesProvider = new DevicesProvider(_jsonProvider);
+
             InitializeComponent();
 
-            Devices = new List<Appliance>
-            {
-                new Appliance(
-                    id: 1,
-                    networkName: "COMMUTATOR-1",
-                    type: "Коммутатор",
-                    inventoryNumber: "NSKG123123",
-                    housing: "hous1",
-                    cabinet: "cab1",
-                    ipAddresses: null
-                ),
-                new Appliance(
-                    id: 1,
-                    networkName: "IVAN-PC",
-                    type: "ПК",
-                    inventoryNumber: "NSGK60231",
-                    housing: "hous2",
-                    cabinet: "cab2",
-                    ipAddresses: null
-                ),
-                new Appliance(
-                    id: 1,
-                    networkName: "MAIN-SERVER",
-                    type: "Сервер",
-                    inventoryNumber: "NSGK53412e",
-                    housing: "hous3",
-                    cabinet: "cab3",
-                    ipAddresses: null
-                ),
-            };
-            this.BindingContext = this;
+            Devices = _devicesProvider.GetDevicesAsync(3).Result.ToList();
         }
 
-        public async void OnItemTapped(object sende, ItemTappedEventArgs e)
+        public IEnumerable<Appliance> Devices { get; set; }
+
+        public async void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
             Appliance selectedАppliance = e.Item as Appliance;
             if (selectedАppliance != null)
                 await DisplayAlert("Выбранное устройство", $"{selectedАppliance.Type} - {selectedАppliance.InventoryNumber}", "OK");
         }
-    }
+	}
 }
-

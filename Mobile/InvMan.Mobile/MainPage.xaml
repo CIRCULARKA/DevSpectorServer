@@ -2,16 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InvMan.Mobile.MainPage">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <StackLayout>
         <Label Text="Устройства" HorizontalOptions="Center" FontSize="Large"/>
-
         <ListView x:Name="appliancesList"
             HasUnevenRows="True"
             ItemsSource="{Binding Devices}"
@@ -30,7 +22,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </StackLayout>
-
 </ContentPage>

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,12 @@ namespace InvMan.Server.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ApplicationDbContextBase, ApplicationDbContext>(
-                service => new ApplicationDbContext(Configuration["ConnectionString"])
+            services.AddDbContext<ApplicationDbContext>(
+                options =>
+                    options.UseSqlServer(
+                        Configuration["ConnectionString"],
+                        b => b.MigrationsAssembly(AppDomain.CurrentDomain.FriendlyName)
+                    )
             );
             services.AddControllers();
             services.AddApplicationServices();

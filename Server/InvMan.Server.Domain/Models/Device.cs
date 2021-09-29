@@ -1,7 +1,3 @@
-using System.Linq;
-using System.Collections.Generic;
-using InvMan.Common.SDK.Models;
-
 namespace InvMan.Server.Domain.Models
 {
 	public class Device

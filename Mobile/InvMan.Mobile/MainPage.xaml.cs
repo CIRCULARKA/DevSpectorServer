@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text.Json;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using InvMan.Common.SDK;
 using InvMan.Common.SDK.Models;
@@ -21,7 +15,7 @@ namespace InvMan.Mobile
 
         public MainPage()
         {
-            _host = new Uri("http://10.0.0.2:5000/api/devices/3");
+            _host = new Uri("http://10.0.2.2:5000/api/devices/3");
             _jsonProvider = new JsonProvider(_host);
             _devicesProvider = new DevicesProvider(_jsonProvider);
 

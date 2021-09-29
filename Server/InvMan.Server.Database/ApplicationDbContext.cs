@@ -14,7 +14,6 @@ namespace InvMan.Server.Database
 		protected override void OnConfiguring(DbContextOptionsBuilder builder) =>
 			builder.UseSqlServer(_conntectionString);
 
-
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			ApplyModelConfigurations(builder);

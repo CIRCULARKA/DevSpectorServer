@@ -5,7 +5,7 @@
         xmlns:shared="clr-namespace:InvMan.Desktop.Common;assembly=InvMan.Desktop.Common"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
-        <shared:DownloadCircle x:Name="downloadCircle" Visibility="Collapsed" />
+        <shared:LoadingSpinnerSmall Foreground="Red" x:Name="downloadCircle" Visibility="Collapsed" />
         <ListView x:Name="devices">
             <ListView.ItemTemplate>
                 <DataTemplate>

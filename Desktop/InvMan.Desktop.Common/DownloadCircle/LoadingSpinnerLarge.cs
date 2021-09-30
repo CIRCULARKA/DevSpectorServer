@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace InvMan.Desktop.Common
 {
-	public partial class DownloadCircle : UserControl
+	public partial class LoadingSpinnerLarge : UserControl
 	{
-		public DownloadCircle()
+		public LoadingSpinnerLarge()
 		{
 			InitializeComponent();
 		}

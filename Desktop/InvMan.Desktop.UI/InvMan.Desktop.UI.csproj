@@ -5,6 +5,10 @@
     <ProjectReference Include="..\InvMan.Desktop.Common\InvMan.Desktop.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.10" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>

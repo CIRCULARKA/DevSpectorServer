@@ -7,7 +7,7 @@ using InvMan.Common.SDK;
 
 namespace InvMan.Desktop.UI
 {
-	public partial class MainWindow : Window
+	public partial class OldMainWindow : Window
 	{
 		private readonly IRawDataProvider _rawDataProvider;
 
@@ -15,7 +15,7 @@ namespace InvMan.Desktop.UI
 
 		private readonly Uri _hostUri;
 
-		public MainWindow()
+		public OldMainWindow()
 		{
 			_hostUri = new Uri("http://localhost:5000");
 			var client = new HttpClient();

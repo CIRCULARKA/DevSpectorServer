@@ -27,7 +27,7 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build Desktop",
-			"program": "${workspaceFolder}/Desktop/InvMan.Desktop.UI/bin/Debug/net5.0-windows/InvMan.Desktop.UI.dll",
+			"program": "${workspaceFolder}/Desktop/InvMan.Desktop.UI/bin/Debug/net5.0/InvMan.Desktop.UI.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Desktop/InvMan.Desktop.UI",
 			"stopAtEntry": false

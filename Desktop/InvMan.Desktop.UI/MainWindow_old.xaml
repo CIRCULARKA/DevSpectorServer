@@ -1,4 +1,4 @@
-﻿<Window x:Class="InvMan.Desktop.UI.MainWindow"
+﻿<Window x:Class="InvMan.Desktop.UI.OldMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:InvMan.Desktop.UI"

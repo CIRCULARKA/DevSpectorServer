@@ -1,21 +1,27 @@
 ﻿using System;
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using Ninject;
 
 namespace InvMan.Desktop.UI
 {
     class Program
     {
         [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            var kernel = new StandardKernel();
 
-        // Avalonia configuration, don't remove; also used by visual designer.
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToTrace()
-                .UseReactiveUI();
+            BuildAvaloniaApp(kernel).
+                StartWithClassicDesktopLifetime(args);
+        }
+
+        public static AppBuilder BuildAvaloniaApp(KernelBase kernel) =>
+            AppBuilder.Configure<App>(
+                    () => new App(kernel)
+                ).
+                UsePlatformDetect().
+                LogToTrace().
+                UseReactiveUI();
     }
 }

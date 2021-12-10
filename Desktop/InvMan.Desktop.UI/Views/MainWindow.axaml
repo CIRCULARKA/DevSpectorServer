@@ -1,17 +1,36 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+        xmlns:res="using:InvMan.Desktop.UI.Assets"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Height="600" Width="800"
+        CanResize="False"
         x:Class="InvMan.Desktop.UI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="InvMan.Desktop.UI">
-
+        Title="Панель управления">
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
+    <StackPanel>
+        <Menu Height="75">
+            <MenuItem Header="Устройства" />
+            <MenuItem Header="Пользователи"></MenuItem>
+            <MenuItem Header="Сертификаты"></MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <ListBox>
+            </ListBox>
+        </Grid>
+    </StackPanel>
 </Window>

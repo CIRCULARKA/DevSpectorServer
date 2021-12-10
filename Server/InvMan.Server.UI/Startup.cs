@@ -32,6 +32,9 @@ namespace InvMan.Server.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var context = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

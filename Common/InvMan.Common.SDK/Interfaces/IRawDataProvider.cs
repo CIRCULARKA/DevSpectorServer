@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK
 {
-	public interface IRawDataProvider
+	public interface IRawDataProvider : IProvider
 	{
 		Task<string> GetDevicesAsync(int amount);
 

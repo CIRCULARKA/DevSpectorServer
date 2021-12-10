@@ -4,7 +4,7 @@ using InvMan.Common.SDK.Models;
 
 namespace InvMan.Common.SDK
 {
-	public interface IDevicesProvider
+	public interface IDevicesProvider : IProvider
 	{
 		Task<IEnumerable<Appliance>> GetDevicesAsync(int amount);
 	}

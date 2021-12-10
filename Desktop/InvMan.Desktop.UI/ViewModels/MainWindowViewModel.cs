@@ -12,6 +12,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private readonly IDevicesProvider _devicesProvider;
 
+        private MainWindowViewModel() { }
+
         public MainWindowViewModel(IRawDataProvider rawDataProvider, IDevicesProvider devicesProvider)
         {
             _jsonProvider = rawDataProvider;

@@ -2,26 +2,33 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 using Ninject;
+using InvMan.Desktop.Service.DependencyInjection;
 
 namespace InvMan.Desktop.UI
 {
-    class Program
-    {
-        [STAThread]
-        public static void Main(string[] args)
-        {
-            var kernel = new StandardKernel();
+	class Program
+	{
+		private static IKernel _kernel;
 
-            BuildAvaloniaApp(kernel).
-                StartWithClassicDesktopLifetime(args);
-        }
+		[STAThread]
+		public static void Main(string[] args)
+		{
+			_kernel = new StandardKernel(
+                new RootModule(),
+                new ViewModelsModule(),
+                new SdkModule()
+            );
 
-        public static AppBuilder BuildAvaloniaApp(KernelBase kernel) =>
-            AppBuilder.Configure<App>(
-                    () => new App(kernel)
-                ).
-                UsePlatformDetect().
-                LogToTrace().
-                UseReactiveUI();
-    }
+			BuildAvaloniaApp().
+				StartWithClassicDesktopLifetime(args);
+		}
+
+		public static AppBuilder BuildAvaloniaApp() =>
+			AppBuilder.Configure<App>(
+				() => new App() { Kernel = _kernel }
+			).
+				UsePlatformDetect().
+				LogToTrace().
+				UseReactiveUI();
+	}
 }

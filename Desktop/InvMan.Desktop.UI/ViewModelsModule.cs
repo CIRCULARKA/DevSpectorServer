@@ -1,13 +1,13 @@
 using Ninject.Modules;
-using InvMan.Common.SDK;
+using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.Service.DependencyInjection
 {
-    public class Module : NinjectModule
+    public class ViewModelsModule : NinjectModule
     {
         public override void Load()
         {
-            Bind<IRawDataProvider>().To<JsonProvider>();
+            Bind<MainWindowViewModel>().ToSelf();
         }
     }
 }

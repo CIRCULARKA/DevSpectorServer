@@ -6,7 +6,7 @@ namespace InvMan.Common.SDK
 {
     public class JsonProvider : IRawDataProvider
     {
-        private readonly Uri _hostAddress;
+        private Uri _hostAddress;
 
         private Uri _pathToDevices;
 
@@ -16,20 +16,22 @@ namespace InvMan.Common.SDK
 
         private readonly HttpClient _client;
 
-        public JsonProvider(Uri hostAddress)
+        public JsonProvider()
         {
             _client = new HttpClient();
-            _hostAddress = hostAddress;
+
+            ConfigureDefaultHost();
 
             BuildEndpointPath();
         }
 
-        public JsonProvider(Uri hostAddress, HttpClient client)
+        /// <summary>
+        /// Replaces default localhost with user one
+        /// </summary>
+        public Uri Host
         {
-            _client = client;
-            _hostAddress = hostAddress;
-
-            BuildEndpointPath();
+            get => _hostAddress;
+            set { _hostAddress = value; }
         }
 
         public async Task<string> GetDevicesAsync(int amount) =>
@@ -50,12 +52,21 @@ namespace InvMan.Common.SDK
             return await response.Content.ReadAsStringAsync();
         }
 
+        private void ConfigureDefaultHost()
+        {
+            var uriBuilder = new UriBuilder();
+            uriBuilder.Port = 5000;
+            uriBuilder.Host = "localhost";
+            uriBuilder.Scheme = "http";
+            Host = uriBuilder.Uri;
+        }
+
         private Uri BuildUriWithHostBaseAndPath(string path)
         {
             var uriBuilder = new UriBuilder();
-            uriBuilder.Scheme = _hostAddress.Scheme;
-            uriBuilder.Host = _hostAddress.Host;
-            uriBuilder.Port = _hostAddress.Port;
+            uriBuilder.Scheme = Host.Scheme;
+            uriBuilder.Host = Host.Host;
+            uriBuilder.Port = Host.Port;
             uriBuilder.Path = path;
             return uriBuilder.Uri;
         }

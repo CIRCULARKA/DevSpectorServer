@@ -1,19 +1,19 @@
-#define DEBUG
-
-using Avalonia;
+using Ninject;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
-        public MainWindow()
+        public MainView() { }
+
+        public MainView(IMainViewModel viewModel)
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
+
+            DataContext = viewModel;
         }
 
         private void InitializeComponent()

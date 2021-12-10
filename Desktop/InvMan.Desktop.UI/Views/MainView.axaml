@@ -2,17 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:res="using:InvMan.Desktop.UI.Assets"
+        xmlns:views="using:InvMan.Desktop.UI.Views"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         Height="600" Width="800"
         CanResize="False"
-        x:Class="InvMan.Desktop.UI.Views.MainWindow"
+        x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
     <StackPanel>
         <Menu Height="75">
             <MenuItem Header="Устройства" />
@@ -24,13 +22,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
-            <ListBox>
-            </ListBox>
+            <views:DevicesList Grid.Row="0" Grid.Column="0" Content="{Binding DevicesList}" />
         </Grid>
     </StackPanel>
 </Window>

@@ -16,8 +16,7 @@ namespace InvMan.Desktop.UI
         {
             _kernel = new StandardKernel(
                 new ViewModelsModule(),
-                new SdkModule(),
-                new RootModule()
+                new SdkModule()
             );
         }
 

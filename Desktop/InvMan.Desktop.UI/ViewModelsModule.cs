@@ -1,5 +1,7 @@
 using Ninject.Modules;
+using InvMan.Desktop.UI.Views;
 using InvMan.Desktop.UI.ViewModels;
+using Avalonia.Controls;
 
 namespace InvMan.Desktop.Service.DependencyInjection
 {
@@ -7,7 +9,20 @@ namespace InvMan.Desktop.Service.DependencyInjection
     {
         public override void Load()
         {
-            Bind<MainWindowViewModel>().ToSelf();
+            BindViewModels();
+            BindViews();
+        }
+
+        private void BindViewModels()
+        {
+            Bind<IMainViewModel>().To<MainViewModel>();
+            Bind<IDevicesListViewModel>().To<DevicesListViewModel>();
+        }
+
+        private void BindViews()
+        {
+            Bind<MainView>().ToSelf();
+            Bind<UserControl>().To<DevicesList>().Named("DevicesList");
         }
     }
 }

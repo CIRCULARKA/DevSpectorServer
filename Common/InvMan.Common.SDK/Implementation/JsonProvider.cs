@@ -25,9 +25,6 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        /// <summary>
-        /// Replaces default localhost with user one
-        /// </summary>
         public Uri Host
         {
             get => _hostAddress;

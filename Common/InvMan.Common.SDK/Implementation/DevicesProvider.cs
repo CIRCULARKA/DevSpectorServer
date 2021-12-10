@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ namespace InvMan.Common.SDK
 		public DevicesProvider(IRawDataProvider provider)
 		{
 			_provider = provider;
+		}
+
+		public Uri Host
+		{
+			get => _provider.Host;
+			set { _provider.Host = value; }
 		}
 
 		public async Task<IEnumerable<Appliance>> GetDevicesAsync(int amount) =>

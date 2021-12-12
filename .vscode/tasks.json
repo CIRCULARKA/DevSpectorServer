@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Build Server",
+			"label": "Build: Server",
 			"command": "dotnet",
 			"type": "process",
 			"args": [
@@ -12,7 +12,7 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build Desktop",
+			"label": "Build: Desktop",
 			"command": "dotnet",
 			"type": "process",
 			"args": [
@@ -22,7 +22,28 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Run Test Watchees",
+			"label": "Run: server",
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project",
+				"${workspaceFolder}/Server/InvMan.Server.UI"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": false,
+				"reveal": "never",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": false
+			}
+		},
+		{
+			"label": "Watch: all tests",
 			"dependsOn": [
 				"Watch Server Tests",
 				"Watch Common Tests"
@@ -34,7 +55,7 @@
 			}
 		},
 		{
-			"label": "Watch Server Tests",
+			"label": "Watch: Server Tests",
 			"type": "shell",
 			"command": "start",
 			"args": [
@@ -60,7 +81,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Watch Common Tests",
+			"label": "Watch: Common Tests",
 			"type": "shell",
 			"command": "start",
 			"args": [
@@ -86,7 +107,7 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Watch Server",
+			"label": "Watch: Server",
 			"type": "shell",
 			"command": "start",
 			"args": [

@@ -5,7 +5,7 @@
 			"name": "Debug Server",
 			"type": "coreclr",
 			"request": "launch",
-			"preLaunchTask": "Build Server",
+			"preLaunchTask": "Build: Server",
 			"program": "${workspaceFolder}/Server/InvMan.Server.UI/bin/Debug/net5.0/InvMan.Server.UI.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Server/InvMan.Server.UI",

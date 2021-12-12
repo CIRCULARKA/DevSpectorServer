@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using InvMan.Server.Application;
+using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
@@ -16,5 +17,9 @@ namespace InvMan.Server.UI.API.Controllers
 		[HttpGet("{amount}")]
 		public IEnumerable Get(int amount) =>
 			_manager.GetAppliances(amount);
+
+		[HttpPut("{device}")]
+		public void CreateDevice(Device device) =>
+			_manager.CreateDevice(device);
 	}
 }

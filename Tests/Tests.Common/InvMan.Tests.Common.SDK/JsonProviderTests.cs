@@ -14,13 +14,7 @@ namespace InvMan.Tests.Server.SDK
 
         public JsonProviderTests()
         {
-            var uriBuilder = new UriBuilder();
-            uriBuilder.Port = 5000;
-            uriBuilder.Host = "localhost";
-            uriBuilder.Scheme = "http";
-            _targetHost = uriBuilder.Uri;
-
-            _defaultProvider = new JsonProvider(_targetHost);
+            _defaultProvider = new JsonProvider();
         }
 
         [Fact]

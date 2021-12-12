@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using InvMan.Server.Database;
+using FluentValidation.AspNetCore;
 
 namespace InvMan.Server.UI
 {
@@ -25,7 +26,7 @@ namespace InvMan.Server.UI
                         Configuration["ConnectionString"]
                     )
             );
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddApplicationServices();
         }
 

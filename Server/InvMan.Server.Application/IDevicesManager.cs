@@ -6,6 +6,8 @@ namespace InvMan.Server.Application
 {
 	public interface IDevicesManager
 	{
+		void CreateDevice(Device newDevice);
+
 		Device GetDeviceByID(int deviceID);
 
 		IQueryable<Device> GetDevices(int amount);

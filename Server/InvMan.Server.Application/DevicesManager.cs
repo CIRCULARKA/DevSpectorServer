@@ -18,6 +18,11 @@ namespace InvMan.Server.Application
 			_ipRepo = ipRepo;
 		}
 
+		public void CreateDevice(Device device)
+		{
+			_devicesRepo.CreateDevice(device);
+		}
+
 		public Device GetDeviceByID(int deviceID) =>
 			_devicesRepo.Devices.FirstOrDefault(d => d.ID == deviceID);
 

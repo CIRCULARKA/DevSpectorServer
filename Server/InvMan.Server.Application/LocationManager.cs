@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Collections.Generic;
 using InvMan.Server.Domain;
 
 namespace InvMan.Server.Application
@@ -10,14 +12,14 @@ namespace InvMan.Server.Application
 		public LocationManager(ILocationRepository locationRepo) =>
 			_locationRepo = locationRepo;
 
-		public IQueryable<string> Housings =>
+		public IEnumerable<string> Housings =>
 			_locationRepo.Housings.Select(
 				h => h.Name
 			);
 
-		public IQueryable<string> GetCabinets(int housingID) =>
-			_locationRepo.HousingCabinets.
-				Where(hc => hc.HousingID == housingID).
-					Select(hc => hc.Cabinet.Name);
+		public IEnumerable<string> GetCabinets(Guid housingID) =>
+			_locationRepo.Locations.
+				Where(l => l.HousingID == housingID).
+					Select(l => l.Cabinet.Name);
 	}
 }

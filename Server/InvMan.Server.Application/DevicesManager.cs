@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
@@ -23,7 +24,7 @@ namespace InvMan.Server.Application
 			_devicesRepo.CreateDevice(device);
 		}
 
-		public Device GetDeviceByID(int deviceID) =>
+		public Device GetDeviceByID(Guid deviceID) =>
 			_devicesRepo.Devices.FirstOrDefault(d => d.ID == deviceID);
 
 		public IQueryable<Device> GetDevices(int amount) =>

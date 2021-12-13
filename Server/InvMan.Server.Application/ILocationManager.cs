@@ -1,11 +1,12 @@
-using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace InvMan.Server.Application
 {
 	public interface ILocationManager
 	{
-		IQueryable<string> Housings { get; }
+		IEnumerable<string> Housings { get; }
 
-		IQueryable<string> GetCabinets(int housingID);
+		IEnumerable<string> GetCabinets(Guid housingID);
 	}
 }

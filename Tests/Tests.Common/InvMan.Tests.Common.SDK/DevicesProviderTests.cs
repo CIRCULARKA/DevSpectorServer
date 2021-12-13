@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -58,14 +59,14 @@ namespace InvMan.Tests.Server.SDK
 
 			var expected = new List<Appliance>
 			{
-				new Appliance(1, "inv1", "type1", "net1",
+				new Appliance(Guid.NewGuid(), "inv1", "type1", "net1",
 					"h1", "cab1",
 					new List<string> {
 						"1.1.1.1",
 						"2.2.2.2",
 					}
 				),
-				new Appliance(2, "inv2", "type2", "net2",
+				new Appliance(Guid.NewGuid(), "inv2", "type2", "net2",
 					"h2", "cab2",
 					new List<string> {
 						"3.3.3.3",

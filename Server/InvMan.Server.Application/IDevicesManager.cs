@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using InvMan.Common.SDK.Models;
 using InvMan.Server.Domain.Models;
@@ -8,7 +9,7 @@ namespace InvMan.Server.Application
 	{
 		void CreateDevice(Device newDevice);
 
-		Device GetDeviceByID(int deviceID);
+		Device GetDeviceByID(Guid deviceID);
 
 		IQueryable<Device> GetDevices(int amount);
 

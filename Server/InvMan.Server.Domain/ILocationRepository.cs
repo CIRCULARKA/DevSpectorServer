@@ -7,6 +7,6 @@ namespace InvMan.Server.Domain
 	{
 		IQueryable<Housing> Housings { get; }
 
-		IQueryable<HousingCabinets> HousingCabinets { get; }
+		IQueryable<Location> Locations { get; }
 	}
 }

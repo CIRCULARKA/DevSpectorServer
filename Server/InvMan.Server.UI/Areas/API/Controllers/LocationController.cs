@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager.Housings;
 
 		[HttpGet("housings/{housingID}")]
-		public IEnumerable Get(int housingID) =>
+		public IEnumerable Get(Guid housingID) =>
 			_manager.GetCabinets(housingID);
 	}
 }

@@ -43,6 +43,7 @@ namespace InvMan.Server.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.FillDbWithTemporaryData();
             }
 
             app.UseRouting();

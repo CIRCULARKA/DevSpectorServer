@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using InvMan.Server.Domain.Models;
 using InvMan.Server.Database.Configurations;
@@ -17,21 +18,15 @@ namespace InvMan.Server.Database
 
 		public DbSet<Location> Locations { get; set; }
 
-		public DbSet<HousingCabinets> HousingCabinets { get; set; }
-
 		public DbSet<Device> Devices { get; set; }
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
 
 		protected void ApplyModelConfigurations(ModelBuilder builder)
 		{
-			builder.ApplyConfiguration(new DeviceTypeConfiguration());
-			builder.ApplyConfiguration(new HousingConfiguration());
-			builder.ApplyConfiguration(new CabinetConfiguration());
-			builder.ApplyConfiguration(new HousingCabinetsConfiguration());
-			builder.ApplyConfiguration(new DeviceConfiguration());
-			builder.ApplyConfiguration(new IPAddressConfiguration());
-			builder.ApplyConfiguration(new LocationConfiguration());
+			builder.ApplyConfigurationsFromAssembly(
+				Assembly.GetAssembly(typeof(ModelConfigurationAttribute))
+			);
 		}
 
 		protected override void OnModelCreating(ModelBuilder builder)

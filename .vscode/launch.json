@@ -5,16 +5,16 @@
 			"name": "Debug Server",
 			"type": "coreclr",
 			"request": "launch",
-			"preLaunchTask": "Build Server",
+			"preLaunchTask": "Build: Server",
 			"program": "${workspaceFolder}/Server/InvMan.Server.UI/bin/Debug/net5.0/InvMan.Server.UI.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Server/InvMan.Server.UI",
 			"stopAtEntry": false,
-			"serverReadyAction": {
-				"action": "openExternally",
-				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-				"uriFormat": "%s/api/devices"
-			},
+			// "serverReadyAction": {
+			// 	"action": "openExternally",
+			// 	"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+			// 	"uriFormat": "%s/api/devices"
+			// },
 			"env": {
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			},
@@ -26,7 +26,7 @@
 			"name": "Debug Desktop",
 			"type": "coreclr",
 			"request": "launch",
-			"preLaunchTask": "Build Desktop",
+			"preLaunchTask": "Build: Desktop",
 			"program": "${workspaceFolder}/Desktop/InvMan.Desktop.UI/bin/Debug/net5.0/InvMan.Desktop.UI.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Desktop/InvMan.Desktop.UI",

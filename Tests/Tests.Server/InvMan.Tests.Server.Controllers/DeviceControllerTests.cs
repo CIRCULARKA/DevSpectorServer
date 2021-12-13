@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using Xunit;
@@ -20,7 +21,7 @@ namespace InvMan.Tests.Server.Controllers
 		{
 			var testDevices = new List<Device> {
 				new Device {
-					ID = 1,
+					ID = Guid.NewGuid(),
 					InventoryNumber = "inv1",
 					NetworkName = "net1",
 					Type = new DeviceType { Name = "type1" },
@@ -30,7 +31,7 @@ namespace InvMan.Tests.Server.Controllers
 					}
 				},
 				new Device {
-					ID = 2,
+					ID = Guid.NewGuid(),
 					InventoryNumber = "inv2",
 					NetworkName = "net2",
 					Type = new DeviceType { Name = "type2" },
@@ -42,10 +43,10 @@ namespace InvMan.Tests.Server.Controllers
 			};
 
 			var testIPs = new List<IPAddress> {
-				new IPAddress { ID = 1, Address = "1.1.1.1", DeviceID = 1 },
-				new IPAddress { ID = 2, Address = "2.2.2.2", DeviceID = 1 },
-				new IPAddress { ID = 3, Address = "3.3.3.3", DeviceID = 2 },
-				new IPAddress { ID = 4, Address = "4.4.4.4", DeviceID = 2 },
+				new IPAddress { ID = Guid.NewGuid(), Address = "1.1.1.1", DeviceID = testDevices[0].ID },
+				new IPAddress { ID = Guid.NewGuid(), Address = "2.2.2.2", DeviceID = testDevices[0].ID },
+				new IPAddress { ID = Guid.NewGuid(), Address = "3.3.3.3", DeviceID = testDevices[1].ID },
+				new IPAddress { ID = Guid.NewGuid(), Address = "4.4.4.4", DeviceID = testDevices[1].ID },
 			};
 
 			_expected = new List<Appliance> {

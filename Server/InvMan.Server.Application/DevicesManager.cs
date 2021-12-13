@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
@@ -18,21 +19,28 @@ namespace InvMan.Server.Application
 			_ipRepo = ipRepo;
 		}
 
-		public Device GetDeviceByID(int deviceID) =>
+		public void CreateDevice(Device device)
+		{
+			_devicesRepo.CreateDevice(device);
+		}
+
+		public Device GetDeviceByID(Guid deviceID) =>
 			_devicesRepo.Devices.FirstOrDefault(d => d.ID == deviceID);
 
 		public IQueryable<Device> GetDevices(int amount) =>
-			_devicesRepo.Devices.Take(amount);
+			_devicesRepo.Devices.
+				OrderBy(d => d.InventoryNumber).
+					Take(amount);
 
 		public IQueryable<Appliance> GetAppliances(int amount) =>
 			GetDevices(amount).Select(d =>
 				new Appliance(
-				d.ID, d.InventoryNumber, d.Type.Name,
-				d.NetworkName, d.Location.Housing.Name,
-				d.Location.Cabinet.Name,
-				_ipRepo.IPAddresses.
-					Where(dip => dip.DeviceID == d.ID).
-						Select(dip => dip.Address).ToList()
+					d.ID, d.InventoryNumber, d.Type.Name,
+					d.NetworkName, d.Location.Housing.Name,
+					d.Location.Cabinet.Name,
+					_ipRepo.IPAddresses.
+						Where(dip => dip.DeviceID == d.ID).
+							Select(dip => dip.Address).ToList()
 				)
 			);
 	}

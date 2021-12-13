@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 
 namespace InvMan.Common.SDK.Models
 {
 	public class Appliance
 	{
-		public Appliance(int id, string inventoryNumber, string type,
+		public Appliance(Guid id, string inventoryNumber, string type,
 			string networkName, string housing, string cabinet,
 			IEnumerable<string> ipAddresses)
 		{
@@ -17,18 +18,18 @@ namespace InvMan.Common.SDK.Models
 			IPAddresses = ipAddresses;
 		}
 
-		public int ID { get; private set; }
+		public Guid ID { get; }
 
-		public string InventoryNumber { get; private set; }
+		public string InventoryNumber { get; }
 
-		public string Type { get; private set; }
+		public string Type { get; }
 
-		public string NetworkName { get; private set; }
+		public string NetworkName { get; }
 
-		public string Housing { get; private set; }
+		public string Housing { get; }
 
-		public string Cabinet { get; private set; }
+		public string Cabinet { get; }
 
-		public IEnumerable<string> IPAddresses { get; private set; }
+		public IEnumerable<string> IPAddresses { get; }
 	}
 }

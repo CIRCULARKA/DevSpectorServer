@@ -23,6 +23,8 @@ namespace InvMan.Server.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen();
+
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                     options.UseSqlServer(
@@ -37,12 +39,19 @@ namespace InvMan.Server.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var context = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
-            context.Database.Migrate();
+            // var context = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
+            // context.Database.Migrate();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(
+                    options => {
+                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                        options.RoutePrefix = string.Empty;
+                    }
+                );
                 app.FillDbWithTemporaryData();
             }
 

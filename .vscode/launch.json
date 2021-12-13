@@ -10,11 +10,11 @@
 			"args": [],
 			"cwd": "${workspaceFolder}/Server/InvMan.Server.UI",
 			"stopAtEntry": false,
-			"serverReadyAction": {
-				"action": "openExternally",
-				"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-				"uriFormat": "%s/api/devices"
-			},
+			// "serverReadyAction": {
+			// 	"action": "openExternally",
+			// 	"pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+			// 	"uriFormat": "%s/api/devices"
+			// },
 			"env": {
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			},

@@ -1,19 +1,20 @@
 using System.Linq;
+using System.Collections.Generic;
 using InvMan.Server.Domain;
+using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Application
 {
 	public class IPAddressesManager : IIPAddressesManager
 	{
-		private readonly IIPAddressRepository _ipRepo;
+		private IRepository _repo;
 
-		public IPAddressesManager(IIPAddressRepository ipRepo) =>
-			_ipRepo = ipRepo;
+		public IPAddressesManager(IRepository repo) =>
+			_repo = repo;
 
-		public IQueryable<string> GetFreeIP(int amount) =>
-			_ipRepo.IPAddresses.
-				Where(ip => ip.DeviceID == null).
-				Take(amount).
-				Select(ip => ip.Address);
+		public IEnumerable<string> GetFreeIP() =>
+			_repo.Get<IPAddress>(
+				filter: ip => ip.DeviceID == null
+			).Select(ip => ip.Address);
 	}
 }

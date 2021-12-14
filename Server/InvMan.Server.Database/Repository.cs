@@ -11,6 +11,9 @@ namespace InvMan.Server.Domain
     {
         protected ApplicationDbContext _context;
 
+        public Repository(ApplicationDbContext context) =>
+            _context = context;
+
         public virtual IEnumerable<T> Get<T>(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
@@ -22,7 +25,7 @@ namespace InvMan.Server.Domain
             if (filter != null)
                 query = query.Where(filter);
 
-            foreach (var prop in include.Split(new char[] { ',', '.', ' ' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var prop in include.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 query = query.Include(prop);
 
             if (orderBy != null)

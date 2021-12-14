@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
 using InvMan.Common.SDK.Models;
@@ -8,39 +9,33 @@ namespace InvMan.Server.Application
 {
 	public class DevicesManager : IDevicesManager
 	{
-		private readonly IDeviceRepository _devicesRepo;
+		private readonly IRepository _repo;
 
-		private readonly IIPAddressRepository _ipRepo;
-
-		public DevicesManager(IDeviceRepository devicesRepo,
-			IIPAddressRepository ipRepo)
+		public DevicesManager(IRepository repo)
 		{
-			_devicesRepo = devicesRepo;
-			_ipRepo = ipRepo;
+			_repo = repo;
 		}
 
 		public void CreateDevice(Device device)
 		{
-			_devicesRepo.CreateDevice(device);
+			_repo.Add<Device>(device);
 		}
 
 		public Device GetDeviceByID(Guid deviceID) =>
-			_devicesRepo.Devices.FirstOrDefault(d => d.ID == deviceID);
+			_repo.GetByID<Device>(deviceID);
 
-		public IQueryable<Device> GetDevices(int amount) =>
-			_devicesRepo.Devices.
-				OrderBy(d => d.InventoryNumber).
-					Take(amount);
+		public IEnumerable<Device> GetDevices() =>
+			_repo.Get<Device>(include: "Type,Location,Location.Housing,Location.Cabinet");
 
-		public IQueryable<Appliance> GetAppliances(int amount) =>
-			GetDevices(amount).Select(d =>
+		public IEnumerable<Appliance> GetAppliances() =>
+			GetDevices().Select(d =>
 				new Appliance(
 					d.ID, d.InventoryNumber, d.Type.Name,
 					d.NetworkName, d.Location.Housing.Name,
 					d.Location.Cabinet.Name,
-					_ipRepo.IPAddresses.
-						Where(dip => dip.DeviceID == d.ID).
-							Select(dip => dip.Address).ToList()
+					_repo.Get<IPAddress>(
+						filter: ip => ip.DeviceID == d.ID
+					).Select(ip => ip.Address)
 				)
 			);
 	}

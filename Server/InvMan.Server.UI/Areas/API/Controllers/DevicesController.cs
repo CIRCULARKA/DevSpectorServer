@@ -14,9 +14,9 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet("{amount}")]
-		public IEnumerable Get(int amount) =>
-			_manager.GetAppliances(amount);
+		[HttpGet]
+		public IEnumerable GetAppliances() =>
+			_manager.GetAppliances();
 
 		[HttpPut("{device}")]
 		public void CreateDevice(Device device) =>

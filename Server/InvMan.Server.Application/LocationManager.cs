@@ -2,24 +2,25 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using InvMan.Server.Domain;
+using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Application
 {
 	public class LocationManager : ILocationManager
 	{
-		private readonly ILocationRepository _locationRepo;
+		private IRepository _repo;
 
-		public LocationManager(ILocationRepository locationRepo) =>
-			_locationRepo = locationRepo;
+		public LocationManager(IRepository repo) =>
+			_repo = repo;
 
 		public IEnumerable<string> Housings =>
-			_locationRepo.Housings.Select(
+			_repo.Get<Housing>().Select(
 				h => h.Name
 			);
 
 		public IEnumerable<string> GetCabinets(Guid housingID) =>
-			_locationRepo.Locations.
-				Where(l => l.HousingID == housingID).
-					Select(l => l.Cabinet.Name);
+			_repo.Get<Location>(
+				filter: l => l.HousingID == housingID
+			).Select(l => l.Cabinet.Name);
 	}
 }

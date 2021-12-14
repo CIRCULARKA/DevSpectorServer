@@ -8,6 +8,8 @@ namespace Microsoft.Extensions.DependencyInjection
 	{
 		public static IServiceCollection AddApplicationServices(this IServiceCollection @this)
 		{
+			@this.AddTransient<IRepository, Repository>();
+
 			@this.AddTransient<IDeviceRepository, DeviceRepository>();
 			@this.AddTransient<IIPAddressRepository, IPAddressRepository>();
 			@this.AddTransient<ILocationRepository, LocationRepository>();

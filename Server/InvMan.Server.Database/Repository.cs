@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InvMan.Server.Domain
 {
-    public class Repository
+    public class Repository : IRepository
     {
         protected ApplicationDbContext _context;
 

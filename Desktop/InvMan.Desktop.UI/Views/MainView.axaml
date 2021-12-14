@@ -12,21 +12,13 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
     <StackPanel>
-        <Menu Height="75">
-            <MenuItem Header="Устройства" />
-            <MenuItem Header="Пользователи"></MenuItem>
-            <MenuItem Header="Сертификаты"></MenuItem>
-        </Menu>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <views:DevicesList Grid.Row="0" Grid.Column="0" Content="{Binding DevicesList}" />
-            <views:DeviceInfo Grid.Row="0" Grid.Column="1" Content="{Binding DeviceInfo}" />
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*, *">
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" Margin="10"
+                Classes="h1"
+                Foreground="LightGray" Text="Устройства" />
+            <views:DevicesList Grid.Row="1" Grid.Column="0" Content="{Binding DevicesList}" />
+            <views:DeviceInfo Grid.Row="1" Grid.Column="1" Content="{Binding DeviceInfo}" />
         </Grid>
     </StackPanel>
 </Window>

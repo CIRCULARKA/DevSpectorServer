@@ -21,9 +21,9 @@ namespace InvMan.Common.SDK
 			set { _provider.Host = value; }
 		}
 
-		public async Task<IEnumerable<Appliance>> GetDevicesAsync(int amount) =>
+		public async Task<IEnumerable<Appliance>> GetDevicesAsync() =>
 			JsonSerializer.Deserialize<List<Appliance>>(
-				await _provider.GetDevicesAsync(amount),
+				await _provider.GetDevicesAsync(),
 				new JsonSerializerOptions() {
 					PropertyNameCaseInsensitive = true
 				}

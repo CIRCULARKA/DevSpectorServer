@@ -31,16 +31,16 @@ namespace InvMan.Common.SDK
             set { _hostAddress = value; }
         }
 
-        public async Task<string> GetDevicesAsync(int amount) =>
-            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri + amount);
+        public async Task<string> GetDevicesAsync() =>
+            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
 
         public Task<string> GetHousingsAsync() =>
             GetContentFromUriAsync(_pathToHousings.AbsoluteUri);
 
-        public async Task<string> GetFreeIPAsync(int amount) =>
-            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri + amount);
+        public async Task<string> GetFreeIPAsync() =>
+            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
 
-        public async Task<string> GetHousingAsync(int housingID) =>
+        public async Task<string> GetHousingAsync(Guid housingID) =>
             await GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);
 
         private async Task<string> GetContentFromUriAsync(string path)

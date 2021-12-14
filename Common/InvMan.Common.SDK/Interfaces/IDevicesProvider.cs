@@ -6,6 +6,6 @@ namespace InvMan.Common.SDK
 {
 	public interface IDevicesProvider : IProvider
 	{
-		Task<IEnumerable<Appliance>> GetDevicesAsync(int amount);
+		Task<IEnumerable<Appliance>> GetDevicesAsync();
 	}
 }

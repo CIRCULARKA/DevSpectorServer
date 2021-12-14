@@ -1,9 +1,12 @@
 <UserControl xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+        xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
         x:Class="InvMan.Desktop.UI.Views.DevicesList">
     <StackPanel>
-        <ListBox Height="865" Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}">
+        <ListBox Height="865" Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
+            IsVisible="{Binding AreThereAppliances}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -14,5 +17,15 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Panel Height="865" IsVisible="{Binding !AreThereAppliances}">
+            <progRing:ProgressRing Width="50" Height="50"
+                IsActive="{Binding !AreAppliancesLoaded}"
+                Foreground="LightBlue" />
+            <TextBlock Text="{Binding NoAppliancesMessage}"
+                Margin="3 0 3 0"
+                TextWrapping="Wrap" TextAlignment="Center"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                FontSize="26" Foreground="Gray" />
+        </Panel>
     </StackPanel>
 </UserControl>

@@ -10,9 +10,6 @@ namespace Microsoft.Extensions.DependencyInjection
 		{
 			@this.AddTransient<IRepository, Repository>();
 
-			@this.AddTransient<IDeviceRepository, DeviceRepository>();
-			@this.AddTransient<IIPAddressRepository, IPAddressRepository>();
-			@this.AddTransient<ILocationRepository, LocationRepository>();
 			@this.AddTransient<IDevicesManager, DevicesManager>();
 			@this.AddTransient<ILocationManager, LocationManager>();
 			@this.AddTransient<IIPAddressesManager, IPAddressesManager>();

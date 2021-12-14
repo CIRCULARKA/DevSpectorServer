@@ -2,18 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         x:Class="InvMan.Desktop.UI.Views.DeviceInfo">
-	<UserControl.Resources>
-		<!-- <Style >
-			<Setter Property="FontSize" Value="15" />
-		</Style> -->
-	</UserControl.Resources>
-    <StackPanel>
-		<Border Margin="5" Background="LightGray" Height="200">
-			<StackPanel>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Тип устройства" />
+	<Grid RowDefinitions="*,*">
+		<StackPanel Grid.Row="1">
+			<Border Margin="5" Height="200">
+				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Classes="h2" Text="Информация" />
+					</StackPanel>
 				</StackPanel>
-			</StackPanel>
-		</Border>
-    </StackPanel>
+			</Border>
+		</StackPanel>
+	</Grid>
 </UserControl>

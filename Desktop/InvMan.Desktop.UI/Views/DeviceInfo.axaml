@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+        x:Class="InvMan.Desktop.UI.Views.DeviceInfo">
+	<UserControl.Resources>
+		<!-- <Style >
+			<Setter Property="FontSize" Value="15" />
+		</Style> -->
+	</UserControl.Resources>
+    <StackPanel>
+		<Border Margin="5" Background="LightGray" Height="200">
+			<StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Тип устройства" />
+				</StackPanel>
+			</StackPanel>
+		</Border>
+    </StackPanel>
+</UserControl>

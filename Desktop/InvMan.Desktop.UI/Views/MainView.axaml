@@ -6,8 +6,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Height="600" Width="800"
-        CanResize="False"
+        Width="800"
+        SizeToContent="Height"
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
@@ -23,9 +23,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <views:DevicesList Grid.Row="0" Grid.Column="0" Content="{Binding DevicesList}" />
+            <views:DeviceInfo Grid.Row="0" Grid.Column="1" Content="{Binding DeviceInfo}" />
         </Grid>
     </StackPanel>
 </Window>

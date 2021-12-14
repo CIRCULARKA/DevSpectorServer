@@ -23,6 +23,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
         {
             Bind<MainView>().ToSelf();
             Bind<UserControl>().To<DevicesList>().Named("DevicesList");
+            Bind<UserControl>().To<DeviceInfo>().Named("DeviceInfo");
         }
     }
 }

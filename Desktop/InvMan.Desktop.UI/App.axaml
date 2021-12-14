@@ -1,9 +1,21 @@
 <Application xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InvMan.Desktop.UI"
+    xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.App">
+    <Application.Resources>
+        <themes:BundledTheme BaseTheme="Light" PrimaryColor="Teal" SecondaryColor="Amber"/>
+    </Application.Resources>
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
+        <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="TextBlock.h2">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
     </Application.Styles>
 </Application>

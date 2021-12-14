@@ -16,7 +16,7 @@ namespace InvMan.Tests.Server.SDK
 		public DevicesProviderTests()
 		{
 			var moq = new Mock<IRawDataProvider>();
-			moq.Setup(provider => provider.GetDevicesAsync(2)).
+			moq.Setup(provider => provider.GetDevicesAsync()).
 				Returns(
 					Task.FromResult<string>(
 						@"[
@@ -76,7 +76,7 @@ namespace InvMan.Tests.Server.SDK
 			};
 
 			// Act
-			var actual = (await provider.GetDevicesAsync(2)).ToList();
+			var actual = (await provider.GetDevicesAsync()).ToList();
 
 			// Assert
 			Assert.Equal(expected.Count(), expected.Count());

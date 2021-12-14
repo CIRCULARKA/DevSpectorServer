@@ -24,7 +24,7 @@ namespace InvMan.Desktop.UI.ViewModels
         {
             Appliances = new ObservableCollection<Appliance>();
 
-            var appliances = await _devicesProvider.GetDevicesAsync(10);
+            var appliances = await _devicesProvider.GetDevicesAsync();
             foreach (var device in appliances)
                 Appliances.Add(device);
         }

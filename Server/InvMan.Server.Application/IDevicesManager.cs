@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using InvMan.Common.SDK.Models;
 using InvMan.Server.Domain.Models;
 
@@ -11,8 +11,8 @@ namespace InvMan.Server.Application
 
 		Device GetDeviceByID(Guid deviceID);
 
-		IQueryable<Device> GetDevices(int amount);
+		IEnumerable<Device> GetDevices();
 
-		IQueryable<Appliance> GetAppliances(int amount);
+		IEnumerable<Appliance> GetAppliances();
 	}
 }

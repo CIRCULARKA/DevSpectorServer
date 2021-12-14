@@ -1,15 +1,16 @@
+using System;
 using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK
 {
 	public interface IRawDataProvider : IProvider
 	{
-		Task<string> GetDevicesAsync(int amount);
+		Task<string> GetDevicesAsync();
 
-		Task<string> GetFreeIPAsync(int amount);
+		Task<string> GetFreeIPAsync();
 
 		Task<string> GetHousingsAsync();
 
-		Task<string> GetHousingAsync(int housingID);
+		Task<string> GetHousingAsync(Guid housingID);
 	}
 }

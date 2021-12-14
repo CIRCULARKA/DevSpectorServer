@@ -1,9 +1,9 @@
-using System.Linq;
+using System.Collections.Generic;
 
 namespace InvMan.Server.Application
 {
 	public interface IIPAddressesManager
 	{
-		IQueryable<string> GetFreeIP(int amount);
+		IEnumerable<string> GetFreeIP();
 	}
 }

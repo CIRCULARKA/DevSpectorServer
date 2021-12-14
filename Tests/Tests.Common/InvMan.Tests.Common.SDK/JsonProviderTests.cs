@@ -20,14 +20,14 @@ namespace InvMan.Tests.Server.SDK
         [Fact]
         public async void CanLoadDevices()
         {
-            var result = await _defaultProvider.GetDevicesAsync(2);
+            var result = await _defaultProvider.GetDevicesAsync();
             Assert.True(result.Length > 0);
         }
 
         [Fact]
         public async void CanLoadFreeIP()
         {
-            var result = await _defaultProvider.GetFreeIPAsync(3);
+            var result = await _defaultProvider.GetFreeIPAsync();
             Assert.True(result.Length > 0);
         }
 
@@ -38,11 +38,11 @@ namespace InvMan.Tests.Server.SDK
             Assert.True(result.Length > 0);
         }
 
-        [Fact]
-        public async void CanLoadSpecifiedHousing()
-        {
-            var result = await _defaultProvider.GetHousingAsync(1);
-            Assert.True(result.Length > 0);
-        }
+        // [Fact]
+        // public async void CanLoadSpecifiedHousing()
+        // {
+        //     var result = await _defaultProvider.GetHousingAsync(1);
+        //     Assert.True(result.Length > 0);
+        // }
     }
 }

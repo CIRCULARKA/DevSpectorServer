@@ -7,15 +7,13 @@
         <themes:BundledTheme BaseTheme="Light" PrimaryColor="Teal" SecondaryColor="Amber"/>
     </Application.Resources>
     <Application.Styles>
+        <FluentTheme Mode="Light"/>
+        <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
         <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
-        <Style Selector="TextBlock.h1">
-            <Setter Property="FontSize" Value="25" />
-            <Setter Property="FontWeight" Value="Bold" />
-        </Style>
-        <Style Selector="TextBlock.h2">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontWeight" Value="Normal" />
-        </Style>
+        <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"/>
+        <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
     </Application.Styles>
 </Application>

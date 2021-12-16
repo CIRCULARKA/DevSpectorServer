@@ -3,22 +3,57 @@
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:res="using:InvMan.Desktop.UI.Assets"
         xmlns:views="using:InvMan.Desktop.UI.Views"
+		xmlns:aura="using:Aura.UI.Controls"
+		xmlns:auranav="using:Aura.UI.Controls.Navigation"
+        xmlns:auraxaml="using:Aura.UI.Xaml"
+        xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+        xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="800"
-        SizeToContent="Height"
+        Width="900" Height="900"
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
-    <StackPanel>
-        <Grid RowDefinitions="*,*" ColumnDefinitions="*, *">
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                HorizontalAlignment="Center" Margin="10"
-                Classes="h1"
-                Foreground="LightGray" Text="Устройства" />
-            <views:DevicesList Grid.Row="1" Grid.Column="0" Content="{Binding DevicesList}" />
-            <views:DeviceInfo Grid.Row="1" Grid.Column="1" Content="{Binding DeviceInfo}" />
-        </Grid>
-    </StackPanel>
+    <auranav:NavigationView IsFloatingHeader="True" HideTitle="True" DisplayMode="CompactInline"
+        AlwaysOpen="False" OpenPaneLength="300">
+        <auranav:NavigationView.Header>
+            <TextBlock Text="Меню" Classes="Headline6" />
+        </auranav:NavigationView.Header>
+        <NavigationView.PanelMaterial>
+            <ExperimentalAcrylicMaterial BackgroundSource="Digger"
+                TintColor="Black"
+                TintOpacity="0.5"
+                MaterialOpacity="0.4"/>
+        </NavigationView.PanelMaterial>
+        <auranav:NavigationViewItem.Items>
+            <auranav:NavigationViewItem Header="Устройства">
+                <auranav:NavigationViewItem.Content>
+                    <Border Padding="15">
+                        <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                            <materialstyles:Card Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                                Margin="0 0 15 0"
+                                assist:ShadowAssist.ShadowDepth="9">
+                                <aura:GroupBox>
+                                    <aura:GroupBox.Header>
+                                        <TextBlock Classes="Headline5" Text="Устройства" />
+                                    </aura:GroupBox.Header>
+                                    <views:DevicesList Content="{Binding DevicesList}" />
+                                </aura:GroupBox>
+                            </materialstyles:Card>
+                            <materialstyles:Card Grid.Row="0" Grid.Column="1"
+                                assist:ShadowAssist.ShadowDepth="9">
+                                <aura:GroupBox>
+                                    <aura:GroupBox.Header>
+                                        <TextBlock Classes="Headline5" Text="Информация" />
+                                    </aura:GroupBox.Header>
+                                    <views:DeviceInfo Content="{Binding DeviceInfo}" />
+                                </aura:GroupBox>
+                            </materialstyles:Card>
+                        </Grid>
+                    </Border>
+                </auranav:NavigationViewItem.Content>
+            </auranav:NavigationViewItem>
+        </auranav:NavigationViewItem.Items>
+    </auranav:NavigationView>
 </Window>

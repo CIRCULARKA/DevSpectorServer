@@ -9,10 +9,14 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aura.UI" Version="0.1.4.2" />
+    <PackageReference Include="Aura.UI.FluentTheme" Version="0.1.4.2" />
     <PackageReference Include="Avalonia" Version="0.10.10" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
+    <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.9.4" />
+    <PackageReference Include="Material.Avalonia" Version="2.5.0" />
     <PackageReference Include="ninject" Version="3.3.4" />
   </ItemGroup>
   <ItemGroup>

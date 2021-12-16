@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using InvMan.Server.Domain;
 using InvMan.Server.Domain.Models;
@@ -20,7 +21,9 @@ namespace InvMan.Server.Application
 
 		public IEnumerable<string> GetCabinets(Guid housingID) =>
 			_repo.Get<Location>(
-				filter: l => l.HousingID == housingID
-			).Select(l => l.Cabinet.Name);
+				filter: l => l.HousingID == housingID,
+				include: "Cabinet"
+			).Select(l => l.Cabinet.Name).
+				OrderBy(n => int.Parse(n));
 	}
 }

@@ -16,5 +16,14 @@ namespace InvMan.Server.Application
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
 			).Select(ip => ip.Address);
+
+		public IEnumerable<string> GetSortedFreeIP() =>
+			_repo.Get<IPAddress>(
+				filter: ip => ip.DeviceID == null
+			).Select(ip => ip.Address).
+				OrderBy(address => int.Parse(address.Split(".")[0])).
+					ThenBy(address => int.Parse(address.Split(".")[1])).
+					ThenBy(address => int.Parse(address.Split(".")[2])).
+					ThenBy(address => int.Parse(address.Split(".")[3]));
 	}
 }

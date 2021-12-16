@@ -8,11 +8,17 @@ namespace InvMan.Server.UI.API.Controllers
 	{
 		private readonly IIPAddressesManager _manager;
 
-		public IPAddressController(IIPAddressesManager manager) =>
+		public IPAddressController(IIPAddressesManager manager)
+		{
 			_manager = manager;
+		}
 
 		[HttpGet("free/")]
-		public IEnumerable<string> Get() =>
+		public IEnumerable<string> GetFreeIP() =>
 			_manager.GetFreeIP();
+
+		[HttpGet("free/sorted")]
+		public IEnumerable<string> GetSortedFreeIP() =>
+			_manager.GetSortedFreeIP();
 	}
 }

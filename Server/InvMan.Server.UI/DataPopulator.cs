@@ -103,6 +103,16 @@ namespace Microsoft.AspNetCore.Builder
                 ipAddresses.Add(new IPAddress { ID = Guid.NewGuid(), Address = $"198.33.12.{i}", DeviceID = devices[j].ID });
             }
 
+            // Some free IP's
+            for (int i = 0; i < 100; i++)
+            {
+                ipAddresses.Add(
+                    new IPAddress {
+                        ID = Guid.NewGuid(),
+                        Address = $"198.33.{13 + (i / 10)}.{i}"
+                    });
+            }
+
             context.IPAddresses.AddRange(ipAddresses);
             context.SaveChanges();
 

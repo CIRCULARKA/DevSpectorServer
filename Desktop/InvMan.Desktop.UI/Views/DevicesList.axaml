@@ -3,9 +3,11 @@
         xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
-        x:Class="InvMan.Desktop.UI.Views.DevicesList">
+		xmlns:aura="using:Aura.UI.Controls"
+        x:Class="InvMan.Desktop.UI.Views.DevicesList"
+        Name="base">
     <StackPanel>
-        <ListBox Height="865" Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
+        <ListBox BorderThickness="0" Height="{Binding #base.Height}" Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
             IsVisible="{Binding AreThereAppliances}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -17,10 +19,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Panel Height="865" IsVisible="{Binding !AreThereAppliances}">
-            <progRing:ProgressRing Width="50" Height="50"
-                IsActive="{Binding !AreAppliancesLoaded}"
-                Foreground="LightBlue" />
+        <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereAppliances}">
+            <aura:ProgressRing IsVisible="{Binding !AreAppliancesLoaded}"
+                IsIndeterminate="True" />
             <TextBlock Text="{Binding NoAppliancesMessage}"
                 Margin="3 0 3 0"
                 TextWrapping="Wrap" TextAlignment="Center"

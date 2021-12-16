@@ -1,16 +1,8 @@
 <UserControl xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+		xmlns:aura="using:Aura.UI.Controls"
         x:Class="InvMan.Desktop.UI.Views.DeviceInfo">
 	<Grid RowDefinitions="*,*">
-		<StackPanel Grid.Row="1">
-			<Border Margin="5" Height="200">
-				<StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Classes="h2" Text="Информация" />
-					</StackPanel>
-				</StackPanel>
-			</Border>
-		</StackPanel>
 	</Grid>
 </UserControl>

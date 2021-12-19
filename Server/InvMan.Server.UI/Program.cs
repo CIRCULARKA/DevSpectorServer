@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 
 namespace InvMan.Server.UI
@@ -7,7 +10,25 @@ namespace InvMan.Server.UI
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception e)
+            {
+                File.AppendAllLines(
+                    "UnhandledLogs.txt",
+                    new string[] {
+                        $"[{DateTime.Now.ToString("HH:mm MMMM dd, yyyy")}]",
+                        $"Message: {e.Message}",
+                        $"Assembly: {e.Source}",
+                        $"Method: {e.TargetSite}",
+                        e.InnerException == null ? "No inner exception" : $"Inner exception message: {e.InnerException.Message}",
+                        $"Stack trace:\n {e.StackTrace}",
+                        "\n"
+                    }
+                );
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

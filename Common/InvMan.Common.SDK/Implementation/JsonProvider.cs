@@ -53,7 +53,7 @@ namespace InvMan.Common.SDK
         {
             var uriBuilder = new UriBuilder();
             uriBuilder.Port = 5000;
-            uriBuilder.Host = "0.0.0.0";
+            uriBuilder.Host = "localhost";
             uriBuilder.Scheme = "http";
             Host = uriBuilder.Uri;
         }

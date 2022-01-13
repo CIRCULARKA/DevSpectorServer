@@ -27,8 +27,10 @@ namespace InvMan.Common.SDK
 
         public JsonProvider(Uri host)
         {
+            _client = new HttpClient();
+
             Host = host;
-            
+
             BuildEndpointPath();
         }
 

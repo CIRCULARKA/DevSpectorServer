@@ -25,6 +25,13 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
+        public JsonProvider(Uri host)
+        {
+            Host = host;
+            
+            BuildEndpointPath();
+        }
+
         public Uri Host
         {
             get => _hostAddress;

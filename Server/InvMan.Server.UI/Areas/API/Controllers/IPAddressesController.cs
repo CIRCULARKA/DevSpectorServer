@@ -14,8 +14,8 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet("free/")]
-		public IEnumerable<string> GetFreeIP() =>
-			_manager.GetFreeIP();
+		public JsonResult GetFreeIP() =>
+			Json(_manager.GetFreeIP());
 
 		[HttpGet("free/sorted")]
 		public IEnumerable<string> GetSortedFreeIP() =>

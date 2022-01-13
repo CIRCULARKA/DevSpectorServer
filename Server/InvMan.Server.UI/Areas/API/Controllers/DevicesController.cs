@@ -15,10 +15,8 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet]
-		public JsonResult GetAppliances()
-		{
-			return Json(_manager.GetAppliances());
-		}
+		public JsonResult GetAppliances() =>
+			Json(_manager.GetAppliances());
 
 
 		[HttpPut("{device}")]

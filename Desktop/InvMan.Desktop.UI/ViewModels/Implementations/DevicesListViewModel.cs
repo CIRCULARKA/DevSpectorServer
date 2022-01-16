@@ -62,7 +62,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private async void DefineViewContent()
         {
-            try {
+            try
+            {
                 await LoadAppliances();
 
                 if (Appliances.Count > 0) {

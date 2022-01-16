@@ -78,28 +78,5 @@ namespace InvMan.Tests.Server.Controllers
 
 			_controller = new DevicesController(devicesManagerMock);
 		}
-
-		[Fact]
-		public void AreDevicesConvertedToAppliancesProperly()
-		{
-			// Act
-			var actual = _controller.GetAppliances().Cast<Appliance>().ToList();
-
-			// Assert
-			Assert.Equal(_expected.Count, actual.Count);
-			for (int i = 0; i < _expected.Count; i++)
-			{
-				// var expectedIP = _expected[i].IPAddresses.ToList();
-				// var actualIP = actual[i].IPAddresses.ToList();
-				Assert.Equal(_expected[i].ID, actual[i].ID);
-				Assert.Equal(_expected[i].InventoryNumber, actual[i].InventoryNumber);
-				Assert.Equal(_expected[i].NetworkName, actual[i].NetworkName);
-				Assert.Equal(_expected[i].Housing, actual[i].Housing);
-				Assert.Equal(_expected[i].Cabinet, actual[i].Cabinet);
-				// Assert.Equal(expectedIP.Count, actualIP.Count);
-				// for (int j = 0; j < expectedIP.Count; j++)
-				// 	Assert.Equal(expectedIP[j], actualIP[j]);
-			}
-		}
 	}
 }

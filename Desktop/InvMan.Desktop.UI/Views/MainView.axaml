@@ -15,7 +15,30 @@
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
-    <auranav:NavigationView IsFloatingHeader="True" HideTitle="True" DisplayMode="CompactInline"
+        <Border Padding="15">
+            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                <materialstyles:Card Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                    Margin="0 0 15 0"
+                    assist:ShadowAssist.ShadowDepth="9">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Устройства" />
+                        </aura:GroupBox.Header>
+                        <views:DevicesList Content="{Binding DevicesList}" />
+                    </aura:GroupBox>
+                </materialstyles:Card>
+                <materialstyles:Card Grid.Row="0" Grid.Column="1"
+                    assist:ShadowAssist.ShadowDepth="9">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Информация" />
+                        </aura:GroupBox.Header>
+                        <views:DeviceInfo Content="{Binding DeviceInfo}" />
+                    </aura:GroupBox>
+                </materialstyles:Card>
+            </Grid>
+        </Border>
+    <!-- <auranav:NavigationView IsFloatingHeader="True" HideTitle="True" DisplayMode="CompactInline"
         AlwaysOpen="False" OpenPaneLength="300">
         <auranav:NavigationView.Header>
             <TextBlock Text="Меню" Classes="Headline6" />
@@ -55,5 +78,5 @@
                 </auranav:NavigationViewItem.Content>
             </auranav:NavigationViewItem>
         </auranav:NavigationViewItem.Items>
-    </auranav:NavigationView>
+    </auranav:NavigationView> -->
 </Window>

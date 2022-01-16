@@ -16,7 +16,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.11" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.11" />
     <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.9.4" />
-    <PackageReference Include="Material.Avalonia" Version="2.5.0" />
+    <PackageReference Include="Material.Avalonia" Version="2.5.0.60-nightly" />
     <PackageReference Include="ninject" Version="3.3.4" />
   </ItemGroup>
 

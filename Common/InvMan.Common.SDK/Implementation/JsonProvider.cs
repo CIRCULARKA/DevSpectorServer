@@ -40,17 +40,17 @@ namespace InvMan.Common.SDK
             set { _hostAddress = value; }
         }
 
-        public async Task<string> GetDevicesAsync() =>
-            await GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
+        public Task<string> GetDevicesAsync() =>
+            GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
 
         public Task<string> GetHousingsAsync() =>
             GetContentFromUriAsync(_pathToHousings.AbsoluteUri);
 
-        public async Task<string> GetFreeIPAsync() =>
-            await GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
+        public Task<string> GetFreeIPAsync() =>
+            GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
 
-        public async Task<string> GetHousingAsync(Guid housingID) =>
-            await GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);
+        public Task<string> GetHousingAsync(Guid housingID) =>
+            GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);
 
         private async Task<string> GetContentFromUriAsync(string path)
         {

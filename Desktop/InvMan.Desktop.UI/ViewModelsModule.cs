@@ -17,6 +17,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
         {
             Bind<IMainViewModel>().To<MainViewModel>();
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>();
+            Bind<IDeviceInfoViewModel>().To<DeviceInfoViewModel>();
         }
 
         private void BindViews()

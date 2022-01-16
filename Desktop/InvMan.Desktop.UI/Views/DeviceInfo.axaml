@@ -3,6 +3,7 @@
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
 		xmlns:aura="using:Aura.UI.Controls"
         x:Class="InvMan.Desktop.UI.Views.DeviceInfo">
-	<Grid RowDefinitions="*,*">
-	</Grid>
+		<StackPanel>
+			<TextBlock Classes="Headline6" Text="{Binding NetworkName}" />
+		</StackPanel>
 </UserControl>

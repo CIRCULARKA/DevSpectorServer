@@ -1,6 +1,5 @@
-﻿using Ninject;
-using Avalonia.Controls;
-using InvMan.Desktop.UI.Views;
+﻿using Avalonia.Controls;
+using Ninject;
 
 namespace InvMan.Desktop.UI.ViewModels
 {

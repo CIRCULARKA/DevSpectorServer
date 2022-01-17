@@ -1,11 +1,5 @@
-using System;
-using System.Threading.Tasks;
-using System.Text;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using InvMan.Common.SDK;
-using InvMan.Common.SDK.Models;
 using ReactiveUI;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
@@ -13,15 +7,17 @@ namespace InvMan.Desktop.UI.ViewModels
     {
         private string _networkName;
 
-        public DeviceInfoViewModel()
-        {
-            NetworkName = "Temp";
-        }
+        public DeviceInfoViewModel() { }
 
         public string NetworkName
         {
-            get => _networkName;
+            get { return _networkName == null ? "Устройство не выбрано" : _networkName; }
             set => this.RaiseAndSetIfChanged(ref _networkName, value);
+        }
+
+        public void UpdateDeviceInformation(Appliance target)
+        {
+            NetworkName = target.NetworkName;
         }
     }
 }

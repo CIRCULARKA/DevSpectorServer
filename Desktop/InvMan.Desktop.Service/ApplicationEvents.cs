@@ -7,6 +7,10 @@ namespace InvMan.Desktop.Service
     {
         public ApplicationEvents() { }
 
-        public event Func<Appliance> ApplianceSelected;
+        public event Action<Appliance> ApplianceSelected;
+
+        public void RaiseApplianceSelected(Appliance appliance) =>
+            ApplianceSelected.Invoke(appliance);
+
     }
 }

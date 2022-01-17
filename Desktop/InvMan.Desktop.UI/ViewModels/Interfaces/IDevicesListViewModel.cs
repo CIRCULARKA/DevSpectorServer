@@ -7,6 +7,8 @@ namespace InvMan.Desktop.UI.ViewModels
     {
         ObservableCollection<Appliance> Appliances { get; set; }
 
+        Appliance SelectedAppliance { get; set; }
+
         bool AreAppliancesLoaded { get; set; }
 
         bool AreThereAppliances { get; set; }

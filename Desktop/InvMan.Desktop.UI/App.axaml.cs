@@ -2,8 +2,9 @@ using Ninject;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using InvMan.Desktop.UI.ViewModels;
+using InvMan.Desktop.Service;
 using InvMan.Desktop.UI.Views;
+using InvMan.Desktop.UI.ViewModels;
 using InvMan.Desktop.Service.DependencyInjection;
 
 namespace InvMan.Desktop.UI
@@ -16,7 +17,8 @@ namespace InvMan.Desktop.UI
         {
             _kernel = new StandardKernel(
                 new ViewModelsModule(),
-                new SdkModule()
+                new SdkModule(),
+                new ServicesModulue()
             );
         }
 
@@ -29,8 +31,19 @@ namespace InvMan.Desktop.UI
         {
             base.OnFrameworkInitializationCompleted();
 
+            SubscribeToEvents();
+
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             desktop.MainWindow = _kernel.Get<MainView>();
+        }
+
+        private void SubscribeToEvents()
+        {
+            var appEvents = _kernel.Get<IApplicationEvents>();
+
+            var deviceInfoViewModel = _kernel.Get<IDeviceInfoViewModel>();
+
+            appEvents.ApplianceSelected += deviceInfoViewModel.UpdateDeviceInformation;
         }
     }
 }

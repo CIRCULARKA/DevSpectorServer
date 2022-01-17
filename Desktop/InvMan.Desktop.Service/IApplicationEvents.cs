@@ -5,6 +5,8 @@ namespace InvMan.Desktop.Service
 {
     public interface IApplicationEvents
     {
-        event Func<Appliance> ApplianceSelected;
+        event Action<Appliance> ApplianceSelected;
+
+        void RaiseApplianceSelected(Appliance appliance);
     }
 }

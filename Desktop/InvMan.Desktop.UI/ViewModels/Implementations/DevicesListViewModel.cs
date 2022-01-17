@@ -86,6 +86,7 @@ namespace InvMan.Desktop.UI.ViewModels
 
                 if (Appliances.Count > 0) {
                     AreThereAppliances = true;
+                    SelectedAppliance = Appliances[0];
                 }
                 else {
                     AreThereAppliances = false;

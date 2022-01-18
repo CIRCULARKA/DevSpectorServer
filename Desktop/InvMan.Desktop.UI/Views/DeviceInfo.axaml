@@ -14,6 +14,8 @@
 			</Style>
 		</UserControl.Styles>
 		<StackPanel>
+			<TextBlock Text="Инвентарный номер" Classes="note" />
+			<TextBlock Text="{Binding InventoryNumber}" Classes="main" />
 			<TextBlock Text="Сетевое имя" Classes="note" />
 			<TextBlock Text="{Binding NetworkName}" Classes="main" />
 			<TextBlock Text="Тип" Classes="note" />
@@ -22,5 +24,7 @@
 			<TextBlock Text="{Binding Housing}" Classes="main" />
 			<TextBlock Text="Кабинет" Classes="note" />
 			<TextBlock Text="{Binding Cabinet}" Classes="main" />
+			<TextBlock Text="IP-адреса" Classes="note" />
+			<TextBlock Text="{Binding IPAddresses}" Classes="main" />
 		</StackPanel>
 </UserControl>

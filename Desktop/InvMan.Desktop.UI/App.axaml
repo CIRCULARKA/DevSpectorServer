@@ -4,7 +4,8 @@
     xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.App">
     <Application.Resources>
-        <themes:BundledTheme BaseTheme="Light" PrimaryColor="Teal" SecondaryColor="Amber"/>
+        <!-- Possible colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Recommended -->
+        <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Amber"/>
     </Application.Resources>
     <Application.Styles>
         <FluentTheme Mode="Light"/>

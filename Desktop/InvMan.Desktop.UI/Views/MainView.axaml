@@ -15,7 +15,57 @@
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
-    <auranav:NavigationView IsFloatingHeader="True" HideTitle="True" DisplayMode="CompactInline"
+        <Window.Styles>
+			<Style Selector="TextBlock.note">
+                <Setter Property="Margin" Value="0 5 0 0" />
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="Foreground" Value="Gray" />
+			</Style>
+            <Style Selector="TextBlock.Headline5">
+                <Setter Property="Foreground" Value="#DDDDDD" />
+            </Style>
+            <Style Selector="TextBox">
+                <Setter Property="Foreground" Value="#DDDDDD" />
+            </Style>
+            <Style Selector="materialstyles|Card">
+                <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
+            </Style>
+        </Window.Styles>
+        <Border Padding="15">
+            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*">
+                <materialstyles:Card Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                    Margin="0 0 15 0">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Устройства" />
+                        </aura:GroupBox.Header>
+                        <views:DevicesList Content="{Binding DevicesList}" />
+                    </aura:GroupBox>
+                </materialstyles:Card>
+                <materialstyles:Card Grid.Row="0" Grid.Column="1"
+                    Margin="0 0 0 15">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Поиск" />
+                        </aura:GroupBox.Header>
+                        <StackPanel>
+                            <TextBox Classes="Filled" />
+                            <!-- Button types: Flat, Icon, Light, Dark, Accent, Outline. (Outline works with all previous in pair) -->
+                            <Button Content="Поиск" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+                    </aura:GroupBox>
+                </materialstyles:Card>
+                <materialstyles:Card Grid.Row="1" Grid.Column="1">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Информация" />
+                        </aura:GroupBox.Header>
+                        <views:DeviceInfo Content="{Binding DeviceInfo}" />
+                    </aura:GroupBox>
+                </materialstyles:Card>
+            </Grid>
+        </Border>
+    <!-- <auranav:NavigationView IsFloatingHeader="True" HideTitle="True" DisplayMode="CompactInline"
         AlwaysOpen="False" OpenPaneLength="300">
         <auranav:NavigationView.Header>
             <TextBlock Text="Меню" Classes="Headline6" />
@@ -55,5 +105,5 @@
                 </auranav:NavigationViewItem.Content>
             </auranav:NavigationViewItem>
         </auranav:NavigationViewItem.Items>
-    </auranav:NavigationView>
+    </auranav:NavigationView> -->
 </Window>

@@ -6,8 +6,9 @@
 		xmlns:aura="using:Aura.UI.Controls"
         x:Class="InvMan.Desktop.UI.Views.DevicesList"
         Name="base">
-    <StackPanel>
-        <ListBox BorderThickness="0" Height="{Binding #base.Height}" Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
+    <Grid RowDefinitions="*" ColumnDefinitions="*">
+        <ListBox BorderThickness="0" Height="{Binding #base.Height}"
+            Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
             IsVisible="{Binding AreThereAppliances}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -28,5 +29,5 @@
                 VerticalAlignment="Center" HorizontalAlignment="Center"
                 FontSize="26" Foreground="Gray" />
         </Panel>
-    </StackPanel>
+    </Grid>
 </UserControl>

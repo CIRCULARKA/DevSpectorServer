@@ -3,6 +3,28 @@
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
 		xmlns:aura="using:Aura.UI.Controls"
         x:Class="InvMan.Desktop.UI.Views.DeviceInfo">
-	<Grid RowDefinitions="*,*">
-	</Grid>
+		<UserControl.Styles>
+			<Style Selector="TextBlock.main">
+				<Setter Property="Margin" Value="0 0 0 8" />
+				<Setter Property="FontSize" Value="18" />
+			</Style>
+			<Style Selector="TextBlock.note">
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="Foreground" Value="Gray" />
+			</Style>
+		</UserControl.Styles>
+		<StackPanel>
+			<TextBlock Text="Инвентарный номер" Classes="note" />
+			<TextBlock Text="{Binding InventoryNumber}" Classes="main" />
+			<TextBlock Text="Сетевое имя" Classes="note" />
+			<TextBlock Text="{Binding NetworkName}" Classes="main" />
+			<TextBlock Text="Тип" Classes="note" />
+			<TextBlock Text="{Binding Type}" Classes="main" />
+			<TextBlock Text="Корпус" Classes="note" />
+			<TextBlock Text="{Binding Housing}" Classes="main" />
+			<TextBlock Text="Кабинет" Classes="note" />
+			<TextBlock Text="{Binding Cabinet}" Classes="main" />
+			<TextBlock Text="IP-адреса" Classes="note" />
+			<TextBlock Text="{Binding IPAddresses}" Classes="main" />
+		</StackPanel>
 </UserControl>

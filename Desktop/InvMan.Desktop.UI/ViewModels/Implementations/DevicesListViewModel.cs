@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
+using InvMan.Desktop.Service;
 using InvMan.Common.SDK.Models;
 using ReactiveUI;
 
@@ -11,7 +9,11 @@ namespace InvMan.Desktop.UI.ViewModels
 {
     public class DevicesListViewModel : ViewModelBase, IDevicesListViewModel
     {
+        private readonly IApplicationEvents _appEvents;
+
         private readonly IDevicesProvider _devicesProvider;
+
+        private Appliance _selectedAppliance;
 
         private string _noAppliancesMessage;
 
@@ -19,8 +21,13 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private bool _areAppliancesLoaded;
 
-        public DevicesListViewModel(IDevicesProvider devicesProvider)
+        public DevicesListViewModel(
+            IDevicesProvider devicesProvider,
+            IApplicationEvents appEvents
+        )
         {
+            _appEvents = appEvents;
+
             _devicesProvider = devicesProvider;
 
             _areAppliancesLoaded = false;
@@ -29,6 +36,17 @@ namespace InvMan.Desktop.UI.ViewModels
         }
 
         public ObservableCollection<Appliance> Appliances { get; set; }
+
+        public Appliance SelectedAppliance
+        {
+            get => _selectedAppliance;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedAppliance, value);
+
+                _appEvents.RaiseApplianceSelected(_selectedAppliance);
+            }
+        }
 
         public bool AreAppliancesLoaded
         {
@@ -62,11 +80,13 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private async void DefineViewContent()
         {
-            try {
+            try
+            {
                 await LoadAppliances();
 
                 if (Appliances.Count > 0) {
                     AreThereAppliances = true;
+                    SelectedAppliance = Appliances[0];
                 }
                 else {
                     AreThereAppliances = false;

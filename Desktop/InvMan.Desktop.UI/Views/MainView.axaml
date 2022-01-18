@@ -15,11 +15,19 @@
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
+        <Window.Styles>
+			<Style Selector="TextBlock.note">
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="Foreground" Value="Gray" />
+			</Style>
+            <Style Selector="materialstyles|Card">
+                <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
+            </Style>
+        </Window.Styles>
         <Border Padding="15">
-            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*">
                 <materialstyles:Card Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-                    Margin="0 0 15 0"
-                    assist:ShadowAssist.ShadowDepth="9">
+                    Margin="0 0 15 0">
                     <aura:GroupBox>
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Устройства" />
@@ -28,7 +36,19 @@
                     </aura:GroupBox>
                 </materialstyles:Card>
                 <materialstyles:Card Grid.Row="0" Grid.Column="1"
-                    assist:ShadowAssist.ShadowDepth="9">
+                    Margin="0 0 0 15">
+                    <aura:GroupBox>
+                        <aura:GroupBox.Header>
+                            <TextBlock Classes="Headline5" Text="Поиск" />
+                        </aura:GroupBox.Header>
+                        <StackPanel>
+                            <TextBox Classes="Filled clearButton" />
+                            <!-- Button types: Flat, Icon, Light, Dark, Accent, Outline (works with all previous together) -->
+                            <Button Content="Поиск" HorizontalAlignment="Stretch" />
+                        </StackPanel>
+                    </aura:GroupBox>
+                </materialstyles:Card>
+                <materialstyles:Card Grid.Row="1" Grid.Column="1">
                     <aura:GroupBox>
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Информация" />

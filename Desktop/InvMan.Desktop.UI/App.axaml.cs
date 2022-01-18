@@ -1,5 +1,6 @@
 using Ninject;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using InvMan.Desktop.Service;
@@ -29,12 +30,21 @@ namespace InvMan.Desktop.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-            base.OnFrameworkInitializationCompleted();
-
             SubscribeToEvents();
 
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             desktop.MainWindow = _kernel.Get<MainView>();
+
+            // Unsuccesfull try of using hot reload. Will try later. Maybe
+            // desktop.MainWindow = new LiveViewHost(this, Console.WriteLine);
+
+            // var startupWindow = desktop.MainWindow as LiveViewHost;
+            // startupWindow.StartWatchingSourceFilesForHotReloading();
+            // startupWindow.Show();
+
+            // RxApp.DefaultExceptionHandler = Observer.Create<Exception>(Console.WriteLine);
+
+            base.OnFrameworkInitializationCompleted();
         }
 
         private void SubscribeToEvents()

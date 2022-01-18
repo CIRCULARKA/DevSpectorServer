@@ -79,14 +79,15 @@ namespace Microsoft.AspNetCore.Builder
 
             var devices = new List<Device>();
 
+            var locationIterator = 0;
             foreach (var type in deviceTypes)
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= 5; i++, locationIterator++)
                     devices.Add(
                         new Device {
                             ID = Guid.NewGuid(),
-                            NetworkName = $"TempNetworkName{Guid.NewGuid()}",
-                            InventoryNumber = $"TempNetworkName{Guid.NewGuid()}",
-                            LocationID = locations[0].ID,
+                            NetworkName = $"TempNetworkName:{Guid.NewGuid()}",
+                            InventoryNumber = $"TempNetworkName:{Guid.NewGuid()}",
+                            LocationID = locations[locationIterator].ID,
                             TypeID = type.ID
                         }
                     );

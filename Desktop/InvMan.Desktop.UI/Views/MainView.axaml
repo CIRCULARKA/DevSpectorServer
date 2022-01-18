@@ -17,9 +17,16 @@
         Title="Панель управления">
         <Window.Styles>
 			<Style Selector="TextBlock.note">
+                <Setter Property="Margin" Value="0 5 0 0" />
 				<Setter Property="FontSize" Value="12" />
 				<Setter Property="Foreground" Value="Gray" />
 			</Style>
+            <Style Selector="TextBlock.Headline5">
+                <Setter Property="Foreground" Value="#DDDDDD" />
+            </Style>
+            <Style Selector="TextBox">
+                <Setter Property="Foreground" Value="#DDDDDD" />
+            </Style>
             <Style Selector="materialstyles|Card">
                 <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
             </Style>
@@ -42,8 +49,8 @@
                             <TextBlock Classes="Headline5" Text="Поиск" />
                         </aura:GroupBox.Header>
                         <StackPanel>
-                            <TextBox Classes="Filled clearButton" />
-                            <!-- Button types: Flat, Icon, Light, Dark, Accent, Outline (works with all previous together) -->
+                            <TextBox Classes="Filled" />
+                            <!-- Button types: Flat, Icon, Light, Dark, Accent, Outline. (Outline works with all previous in pair) -->
                             <Button Content="Поиск" HorizontalAlignment="Stretch" />
                         </StackPanel>
                     </aura:GroupBox>

@@ -2,7 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:res="using:InvMan.Desktop.UI.Assets"
-        xmlns:views="using:InvMan.Desktop.UI.Views"
 		xmlns:aura="using:Aura.UI.Controls"
 		xmlns:auranav="using:Aura.UI.Controls.Navigation"
         xmlns:auraxaml="using:Aura.UI.Xaml"
@@ -11,7 +10,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="900" Height="900"
+        Width="900" Height="900" MinWidth="1200"
         x:Class="InvMan.Desktop.UI.Views.MainView"
         Icon="/Assets/avalonia-logo.ico"
         Title="Панель управления">
@@ -22,24 +21,21 @@
 				<Setter Property="Foreground" Value="Gray" />
 			</Style>
             <Style Selector="TextBlock.Headline5">
-                <Setter Property="Foreground" Value="#DDDDDD" />
-            </Style>
-            <Style Selector="TextBox">
-                <Setter Property="Foreground" Value="#DDDDDD" />
+                <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
             </Style>
             <Style Selector="materialstyles|Card">
                 <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
             </Style>
         </Window.Styles>
         <Border Padding="15">
-            <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*">
+            <Grid RowDefinitions="Auto,*" ColumnDefinitions="2*,4*">
                 <materialstyles:Card Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
                     Margin="0 0 15 0">
                     <aura:GroupBox>
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Устройства" />
                         </aura:GroupBox.Header>
-                        <views:DevicesList Content="{Binding DevicesList}" />
+                        <UserControl Content="{Binding DevicesList}" />
                     </aura:GroupBox>
                 </materialstyles:Card>
                 <materialstyles:Card Grid.Row="0" Grid.Column="1"
@@ -49,9 +45,7 @@
                             <TextBlock Classes="Headline5" Text="Поиск" />
                         </aura:GroupBox.Header>
                         <StackPanel>
-                            <TextBox Classes="Filled" />
-                            <!-- Button types: Flat, Icon, Light, Dark, Accent, Outline. (Outline works with all previous in pair) -->
-                            <Button Content="Поиск" HorizontalAlignment="Stretch" />
+                            <UserControl Content="{Binding Search}" />
                         </StackPanel>
                     </aura:GroupBox>
                 </materialstyles:Card>
@@ -60,7 +54,7 @@
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Информация" />
                         </aura:GroupBox.Header>
-                        <views:DeviceInfo Content="{Binding DeviceInfo}" />
+                        <UserControl Content="{Binding DeviceInfo}" />
                     </aura:GroupBox>
                 </materialstyles:Card>
             </Grid>

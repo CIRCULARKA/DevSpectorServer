@@ -18,6 +18,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>().InSingletonScope();
             Bind<IDeviceInfoViewModel>().To<DeviceInfoViewModel>().InSingletonScope();
+            Bind<ISearchViewModel>().To<SearchViewModel>().InSingletonScope();
         }
 
         private void BindViews()
@@ -25,6 +26,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<MainView>().ToSelf();
             Bind<UserControl>().To<DevicesList>().Named("DevicesList");
             Bind<UserControl>().To<DeviceInfo>().Named("DeviceInfo");
+            Bind<UserControl>().To<Search>().Named("Search");
         }
     }
 }

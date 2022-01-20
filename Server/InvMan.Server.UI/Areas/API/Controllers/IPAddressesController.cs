@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
+	[Route("free-ip")]
 	public class IPAddressController : ApiController
 	{
 		private readonly IIPAddressesManager _manager;
@@ -13,12 +13,9 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet("free/")]
-		public JsonResult GetFreeIP() =>
-			Json(_manager.GetFreeIP());
-
-		[HttpGet("free/sorted")]
-		public IEnumerable<string> GetSortedFreeIP() =>
-			_manager.GetSortedFreeIP();
+		[HttpGet]
+		public JsonResult GetFreeIP(bool sorted) =>
+			sorted ? Json(_manager.GetSortedFreeIP()) :
+				Json(_manager.GetFreeIP());
 	}
 }

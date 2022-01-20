@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using InvMan.Server.Application;
 using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
+	[Route("devices")]
 	public class DevicesController : ApiController
 	{
 		private readonly IDevicesManager _manager;
@@ -19,8 +19,11 @@ namespace InvMan.Server.UI.API.Controllers
 			Json(_manager.GetAppliances());
 
 
-		[HttpPut("{device}")]
-		public void CreateDevice(Device device) =>
+		[HttpPut("create")]
+		public IActionResult CreateDevice(Device device)
+		{
 			_manager.CreateDevice(device);
+			return Accepted();
+		}
 	}
 }

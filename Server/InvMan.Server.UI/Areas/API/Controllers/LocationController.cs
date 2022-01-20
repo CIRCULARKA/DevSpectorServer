@@ -6,6 +6,7 @@ using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
+	[Route("housings")]
 	public class LocationController : ApiController
 	{
 		private readonly ILocationManager _manager;
@@ -13,11 +14,11 @@ namespace InvMan.Server.UI.API.Controllers
 		public LocationController(ILocationManager manager) =>
 			_manager = manager;
 
-		[HttpGet("housings")]
+		[HttpGet]
 		public IEnumerable<string> Get() =>
 			_manager.Housings;
 
-		[HttpGet("housings/{housingID}")]
+		[HttpGet("{housingID}")]
 		public IEnumerable Get(Guid housingID) =>
 			_manager.GetCabinets(housingID);
 	}

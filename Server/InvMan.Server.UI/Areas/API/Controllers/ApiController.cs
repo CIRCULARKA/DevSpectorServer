@@ -3,6 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace InvMan.Server.UI.API.Controllers
 {
 	[ApiController]
-	[Route("api/{controller}")]
+	[Route("api")]
 	public class ApiController : Controller { }
 }

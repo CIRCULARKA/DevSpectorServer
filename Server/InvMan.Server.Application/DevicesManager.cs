@@ -19,6 +19,7 @@ namespace InvMan.Server.Application
 		public void CreateDevice(Device device)
 		{
 			_repo.Add<Device>(device);
+			_repo.Save();
 		}
 
 		public Device GetDeviceByID(Guid deviceID) =>

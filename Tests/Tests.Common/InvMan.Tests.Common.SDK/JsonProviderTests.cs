@@ -8,8 +8,6 @@ namespace InvMan.Tests.Server.SDK
     {
         private readonly IRawDataProvider _defaultProvider;
 
-        private readonly int _targetDeviceID = 1;
-
         private readonly Uri _targetHost;
 
         public JsonProviderTests()
@@ -37,12 +35,5 @@ namespace InvMan.Tests.Server.SDK
             var result = await _defaultProvider.GetHousingsAsync();
             Assert.True(result.Length > 0);
         }
-
-        // [Fact]
-        // public async void CanLoadSpecifiedHousing()
-        // {
-        //     var result = await _defaultProvider.GetHousingAsync(1);
-        //     Assert.True(result.Length > 0);
-        // }
     }
 }

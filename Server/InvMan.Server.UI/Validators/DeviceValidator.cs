@@ -7,7 +7,6 @@ namespace InvMan.Server.UI.Validators
     {
         public DeviceValidator()
         {
-            RuleFor(d => d.ID).NotEmpty();
             RuleFor(d => d.TypeID).NotEmpty();
             RuleFor(d => d.LocationID).NotEmpty();
 

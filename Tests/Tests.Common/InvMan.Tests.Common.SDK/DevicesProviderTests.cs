@@ -13,15 +13,22 @@ namespace InvMan.Tests.Server.SDK
 	{
 		private readonly IRawDataProvider _mockDataProvider;
 
+		private readonly Guid[] _mockDevicesGuids;
+
 		public DevicesProviderTests()
 		{
+			_mockDevicesGuids = new Guid[] {
+				new Guid("16036105-5111-4420-8b26-a18deaeb8f9b"),
+				new Guid("ed8c1437-07fd-4ce8-beb2-aba831d05e31"),
+			};
+
 			var moq = new Mock<IRawDataProvider>();
 			moq.Setup(provider => provider.GetDevicesAsync()).
 				Returns(
 					Task.FromResult<string>(
 						@"[
 							{
-								""id"": 1,
+								""id"": ""16036105-5111-4420-8b26-a18deaeb8f9b"",
 								""inventoryNumber"": ""inv1"",
 								""networkName"": ""net1"",
 								""type"": ""type1"",
@@ -33,7 +40,7 @@ namespace InvMan.Tests.Server.SDK
 								]
 							},
 							{
-								""id"": 2,
+								""id"": ""ed8c1437-07fd-4ce8-beb2-aba831d05e31"",
 								""inventoryNumber"": ""inv2"",
 								""networkName"": ""net2"",
 								""type"": ""type2"",
@@ -52,21 +59,21 @@ namespace InvMan.Tests.Server.SDK
 		}
 
 		[Fact]
-		public async void IsDevicesDeserializeProperly()
+		public async void AreDevicesDeserializeProperly()
 		{
 			// Arrange
 			var provider = new DevicesProvider(_mockDataProvider);
 
 			var expected = new List<Appliance>
 			{
-				new Appliance(Guid.NewGuid(), "inv1", "type1", "net1",
+				new Appliance(_mockDevicesGuids[0], "inv1", "type1", "net1",
 					"h1", "cab1",
 					new List<string> {
 						"1.1.1.1",
 						"2.2.2.2",
 					}
 				),
-				new Appliance(Guid.NewGuid(), "inv2", "type2", "net2",
+				new Appliance(_mockDevicesGuids[1], "inv2", "type2", "net2",
 					"h2", "cab2",
 					new List<string> {
 						"3.3.3.3",

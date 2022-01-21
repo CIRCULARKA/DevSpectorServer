@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
+    <ProjectReference Include="..\..\Server\InvMan.Server.UI\InvMan.Server.UI.csproj" />
   </ItemGroup>
 
 </Project>

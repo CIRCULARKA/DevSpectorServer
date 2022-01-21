@@ -17,7 +17,8 @@ namespace Microsoft.AspNetCore.Builder
             if (context == null)
                 throw new ArgumentNullException("Can't load database context from services. Ensure you configured it");
 
-            context.Database.EnsureDeleted();
+            if (context.Devices.Count() != 0) return @this;
+
             context.Database.EnsureCreated();
 
             var housings = new List<Housing>() {

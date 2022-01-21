@@ -80,7 +80,7 @@ namespace InvMan.Common.SDK
         private void BuildEndpointPath()
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
-            _pathToFreeIpAddresses = BuildUriWithHostBaseAndPath("api/ipaddress/free/");
+            _pathToFreeIpAddresses = BuildUriWithHostBaseAndPath("api/free-ip/");
             _pathToHousings = BuildUriWithHostBaseAndPath("api/location/housings/");
         }
     }

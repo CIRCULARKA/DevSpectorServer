@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InvMan.Server.Application;
@@ -28,16 +29,25 @@ namespace InvMan.Server.UI.API.Controllers
 		[HttpPut("api/devices/create")]
 		public IActionResult CreateDevice(string networkName, string inventoryNumber, string type)
 		{
-			_logger.LogInformation(
-				$"{nameof(CreateDevice)} called:\n" +
-				$"\tNetwork name: {networkName}\n" +
-				$"\tInventory number: {inventoryNumber}\n" +
-				$"\tType: {type}.\n"
-			);
+			try
+			{
+				_logger.LogInformation(
+					$"{nameof(CreateDevice)} called:\n" +
+					$"\tNetwork name: {networkName}\n" +
+					$"\tInventory number: {inventoryNumber}\n" +
+					$"\tType: {type}.\n"
+				);
 
-			_manager.CreateDevice(networkName, inventoryNumber, type);
+				_manager.CreateDevice(networkName, inventoryNumber, type);
 
-			return Ok();
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e, e.Message);
+
+				return BadRequest(e);
+			}
 		}
 	}
 }

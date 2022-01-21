@@ -15,6 +15,9 @@ namespace InvMan.Server.Domain
 
         T GetByID<T>(object key) where T : class;
 
+        T GetSingle<T>(Expression<Func<T, bool>> filter = null, string include = "")
+            where T : class;
+
         void Add<T>(T entity) where T : class;
 
         void Remove<T>(object key) where T : class;

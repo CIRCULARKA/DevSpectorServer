@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using InvMan.Server.Application;
 using InvMan.Server.Domain.Models;
 
@@ -14,13 +13,16 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet]
+		[HttpGet("api/devices")]
 		public JsonResult GetAppliances() =>
 			Json(_manager.GetAppliances());
 
 
-		[HttpPut("{device}")]
-		public void CreateDevice(Device device) =>
+		[HttpPut("api/devices/create")]
+		public IActionResult CreateDevice(Device device)
+		{
 			_manager.CreateDevice(device);
+			return Accepted();
+		}
 	}
 }

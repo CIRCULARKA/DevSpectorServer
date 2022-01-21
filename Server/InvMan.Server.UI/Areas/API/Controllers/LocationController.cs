@@ -13,12 +13,8 @@ namespace InvMan.Server.UI.API.Controllers
 		public LocationController(ILocationManager manager) =>
 			_manager = manager;
 
-		[HttpGet("housings")]
-		public IEnumerable<string> Get() =>
-			_manager.Housings;
-
-		[HttpGet("housings/{housingID}")]
-		public IEnumerable Get(Guid housingID) =>
-			_manager.GetCabinets(housingID);
+		[HttpGet("api/location")]
+		public JsonResult Get() =>
+			Json(_manager.Housings);
 	}
 }

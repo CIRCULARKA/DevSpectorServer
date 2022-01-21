@@ -3,7 +3,10 @@
 
 # TODO
 ## Desktop
+- Implement all server possibilities
 
 ## Server
-
-## Mobile
+- Modifying devices: add and delete
+- Account devices software
+- Account devices credentials
+- Assign IP addresses to devices

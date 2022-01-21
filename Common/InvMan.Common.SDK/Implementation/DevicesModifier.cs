@@ -24,7 +24,6 @@ namespace InvMan.Common.SDK
 
             Console.WriteLine("DEBUG -> " + requestUrlBuilder.Uri);
 
-
             var request = new HttpRequestMessage(
                 HttpMethod.Post,
                 requestUrlBuilder.Uri

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using InvMan.Server.Database;
 using InvMan.Server.Domain.Models;
 
@@ -19,6 +18,7 @@ namespace Microsoft.AspNetCore.Builder
 
             if (context.Devices.Count() != 0) return @this;
 
+            // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var housings = new List<Housing>() {
@@ -87,7 +87,7 @@ namespace Microsoft.AspNetCore.Builder
                         new Device {
                             ID = Guid.NewGuid(),
                             NetworkName = $"TempNetworkName:{Guid.NewGuid()}",
-                            InventoryNumber = $"TempNetworkName:{Guid.NewGuid()}",
+                            InventoryNumber = $"TempInventoryNumber:{Guid.NewGuid()}",
                             LocationID = locations[locationIterator].ID,
                             TypeID = type.ID
                         }

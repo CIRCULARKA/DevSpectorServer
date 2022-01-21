@@ -3,7 +3,6 @@ using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
-	[Route("free-ip")]
 	public class IPAddressController : ApiController
 	{
 		private readonly IIPAddressesManager _manager;
@@ -13,7 +12,7 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet]
+		[HttpGet("api/free-ip")]
 		public JsonResult GetFreeIP(bool sorted) =>
 			sorted ? Json(_manager.GetSortedFreeIP()) :
 				Json(_manager.GetFreeIP());

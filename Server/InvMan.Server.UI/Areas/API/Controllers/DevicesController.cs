@@ -4,7 +4,6 @@ using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
-	[Route("devices")]
 	public class DevicesController : ApiController
 	{
 		private readonly IDevicesManager _manager;
@@ -14,12 +13,12 @@ namespace InvMan.Server.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet]
+		[HttpGet("api/devices")]
 		public JsonResult GetAppliances() =>
 			Json(_manager.GetAppliances());
 
 
-		[HttpPut("create")]
+		[HttpPut("api/devices/create")]
 		public IActionResult CreateDevice(Device device)
 		{
 			_manager.CreateDevice(device);

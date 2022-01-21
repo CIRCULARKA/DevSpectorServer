@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK
 {
-	public interface IRawDataProvider : IProvider
+	public interface IRawDataProvider
 	{
+		Uri Host { get; }
+
 		Task<string> GetDevicesAsync();
 
 		Task<string> GetFreeIPAsync();

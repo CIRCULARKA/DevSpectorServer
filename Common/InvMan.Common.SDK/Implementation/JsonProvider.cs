@@ -6,8 +6,6 @@ namespace InvMan.Common.SDK
 {
     public class JsonProvider : IRawDataProvider
     {
-        private Uri _hostAddress;
-
         private Uri _pathToDevices;
 
         private Uri _pathToFreeIpAddresses;
@@ -34,11 +32,7 @@ namespace InvMan.Common.SDK
             BuildEndpointPath();
         }
 
-        public Uri Host
-        {
-            get => _hostAddress;
-            set { _hostAddress = value; }
-        }
+        public Uri Host { get; set; }
 
         public Task<string> GetDevicesAsync() =>
             GetContentFromUriAsync(_pathToDevices.AbsoluteUri);

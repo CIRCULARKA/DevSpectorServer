@@ -28,14 +28,15 @@ namespace InvMan.Server.UI.API.Controllers
 		[HttpPut("api/devices/create")]
 		public IActionResult CreateDevice(string networkName, string inventoryNumber, string type)
 		{
-			_logger.LogDebug(
+			_logger.LogInformation(
 				$"{nameof(CreateDevice)} called:\n" +
 				$"\tNetwork name: {networkName}\n" +
 				$"\tInventory number: {inventoryNumber}\n" +
 				$"\tType: {type}.\n"
 			);
 
-			// _manager.CreateDevice(device);
+			_manager.CreateDevice(networkName, inventoryNumber, type);
+
 			return Ok();
 		}
 	}

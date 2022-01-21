@@ -18,17 +18,8 @@ namespace InvMan.Tests.Server.Controllers
 
 		private readonly List<Appliance> _expected;
 
-		private readonly ILogger<DevicesController> _mockLogger;
-
 		public DeviceControllerTests()
 		{
-			var mockLogger = new Mock<ILogger<DevicesController>>();
-			mockLogger.Setup(
-				l => l
-			).Returns(new LoggerFactory().CreateLogger<DevicesController>());
-
-			_mockLogger = mockLogger.Object;
-
 			var testDevices = new List<Device> {
 				new Device {
 					ID = Guid.NewGuid(),
@@ -85,7 +76,16 @@ namespace InvMan.Tests.Server.Controllers
 				repoMock.Object
 			);
 
-			_controller = new DevicesController(devicesManagerMock, _mockLogger);
+			_controller = new DevicesController(
+				devicesManagerMock,
+				new LoggerFactory().CreateLogger<DevicesController>()
+			);
+		}
+
+		[Fact]
+		public void CanCreateDevice()
+		{
+			_controller.CreateDevice("TestNetworkName", "TestInvNum", "Сервер");
 		}
 	}
 }

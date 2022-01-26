@@ -16,6 +16,11 @@ namespace InvMan.Desktop.UI.ViewModels
         )
         {
             DevicesList = devicesList;
+            SoftwareInfo = softwareInfo;
+            LocationInfo = locationInfo;
+            NetworkInfo = networkInfo;
+            CommonInfo =  commonInfo;
+
             Search = search;
         }
 

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ReactiveUI;
 using InvMan.Common.SDK.Models;
 

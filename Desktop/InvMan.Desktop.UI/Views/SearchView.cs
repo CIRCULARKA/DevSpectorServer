@@ -4,7 +4,7 @@ using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class SearchView: UserControl
+    public partial class SearchView : UserControl
     {
         public SearchView() { }
 

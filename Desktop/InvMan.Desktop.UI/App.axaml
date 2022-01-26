@@ -9,6 +9,18 @@
         <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Lime" />
     </Application.Resources>
     <Application.Styles>
+        <!-- MY -->
+        <Style Selector="TextBlock.main">
+            <Setter Property="Margin" Value="0 0 0 8" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style Selector="TextBlock.note">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="Gray" />
+        </Style>
+        <!-- !MY -->
+
+        <!-- External -->
         <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
 
         <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
@@ -18,5 +30,6 @@
         <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
 
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
+        <!-- !External -->
     </Application.Styles>
 </Application>

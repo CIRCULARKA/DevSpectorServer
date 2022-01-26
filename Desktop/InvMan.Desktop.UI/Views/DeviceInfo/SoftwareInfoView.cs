@@ -4,11 +4,11 @@ using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class Search : UserControl
+    public partial class SoftwareInfoView : UserControl
     {
-        public Search() { }
+        public SoftwareInfoView() { }
 
-        public Search(ISearchViewModel viewModel)
+        public SoftwareInfoView(ISoftwareInfoViewModel viewModel)
         {
             AvaloniaXamlLoader.Load(this);
 

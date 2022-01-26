@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+		xmlns:aura="using:Aura.UI.Controls"
+        x:Class="InvMan.Desktop.UI.Views.CommonInfoView">
+		<StackPanel>
+			<TextBlock Text="Инвентарный номер" Classes="note" />
+			<TextBlock Text="{Binding InventoryNumber}" Classes="main" />
+			<TextBlock Text="Тип" Classes="note" />
+			<TextBlock Text="{Binding Type}" Classes="main" />
+			<TextBlock Text="Кабинет" Classes="note" />
+		</StackPanel>
+</UserControl>

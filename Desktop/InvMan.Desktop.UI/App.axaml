@@ -18,6 +18,9 @@
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Foreground" Value="Gray" />
         </Style>
+        <Style Selector="TextBlock.Headline5">
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
+        </Style>
         <!-- !MY -->
 
         <!-- External -->

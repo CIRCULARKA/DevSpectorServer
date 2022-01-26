@@ -15,14 +15,6 @@
     Icon="/Assets/avalonia-logo.ico"
     Title="Панель управления">
     <Window.Styles>
-        <Style Selector="TextBlock.note">
-            <Setter Property="Margin" Value="0 5 0 0" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Foreground" Value="Gray" />
-        </Style>
-        <Style Selector="TextBlock.Headline5">
-            <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
-        </Style>
         <Style Selector="materialstyles|Card">
             <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
         </Style>
@@ -56,7 +48,7 @@
                             <TextBlock Classes="Headline5" Text="Общая информация" />
                         </aura:GroupBox.Header>
                         <ScrollViewer>
-                            <UserControl Content="{Binding DeviceInfo}" />
+                            <UserControl Content="{Binding CommonInfo}" />
                         </ScrollViewer>
                     </aura:GroupBox>
                 </materialstyles:Card>
@@ -66,7 +58,7 @@
                             <TextBlock Classes="Headline5" Text="Расположение" />
                         </aura:GroupBox.Header>
                         <ScrollViewer>
-                            <!-- <UserControl Content="{Binding DeviceInfo}" /> -->
+                            <UserControl Content="{Binding LocationInfo}" />
                         </ScrollViewer>
                     </aura:GroupBox>
                 </materialstyles:Card>
@@ -77,6 +69,7 @@
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Программное обеспечение" />
                         </aura:GroupBox.Header>
+                        <UserControl Content="{Binding SoftwareInfo}" />
                     </aura:GroupBox>
                 </materialstyles:Card>
                 <materialstyles:Card Grid.Row="0" Grid.Column="1">
@@ -84,6 +77,7 @@
                         <aura:GroupBox.Header>
                             <TextBlock Classes="Headline5" Text="Сетевая информация" />
                         </aura:GroupBox.Header>
+                        <UserControl Content="{Binding NetworkInfo}" />
                     </aura:GroupBox>
                 </materialstyles:Card>
             </Grid>

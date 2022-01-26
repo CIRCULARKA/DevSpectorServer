@@ -51,9 +51,9 @@ namespace InvMan.Desktop.UI
         {
             var appEvents = _kernel.Get<IApplicationEvents>();
 
-            var deviceInfoViewModel = _kernel.Get<IDeviceInfoViewModel>();
+            var commonInfoViewModel = _kernel.Get<ICommonInfoViewModel>();
 
-            appEvents.ApplianceSelected += deviceInfoViewModel.UpdateDeviceInformation;
+            appEvents.ApplianceSelected += commonInfoViewModel.UpdateDeviceInfo;
         }
     }
 }

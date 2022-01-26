@@ -3,7 +3,8 @@
 
 # TODO
 ## Desktop
-- Implement all server possibilities
+- Implement all server features
+- Make UI display following sections: common information, network information, software and location of device
 
 ## Server
 - Modifying devices: add and delete

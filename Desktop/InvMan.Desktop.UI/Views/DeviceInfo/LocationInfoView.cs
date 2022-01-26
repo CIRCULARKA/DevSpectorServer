@@ -8,7 +8,7 @@ namespace InvMan.Desktop.UI.Views
     {
         public LocationInfoView() { }
 
-        public LocationInfoView(ICommonInfoViewModel viewModel)
+        public LocationInfoView(ILocationInfoViewModel viewModel)
         {
             AvaloniaXamlLoader.Load(this);
 

@@ -8,6 +8,5 @@
 			<TextBlock Text="{Binding InventoryNumber}" Classes="main" />
 			<TextBlock Text="Тип" Classes="note" />
 			<TextBlock Text="{Binding Type}" Classes="main" />
-			<TextBlock Text="Кабинет" Classes="note" />
 		</StackPanel>
 </UserControl>

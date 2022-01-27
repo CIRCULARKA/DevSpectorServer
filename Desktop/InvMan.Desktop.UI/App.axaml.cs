@@ -52,6 +52,10 @@ namespace InvMan.Desktop.UI
         {
             var appEvents = _kernel.Get<IApplicationEvents>();
 
+            //
+            // Subscribe VMs UpdateDeviceInfo on appliance selection
+            //
+
             // VM stands for View Model
             var targetVMsAmount = 4;
             var deviceInfoVMs = new List<IDeviceInfoViewModel>(targetVMsAmount);
@@ -63,6 +67,14 @@ namespace InvMan.Desktop.UI
 
             foreach (var vm in deviceInfoVMs)
                 appEvents.ApplianceSelected += vm.UpdateDeviceInfo;
+
+            //
+            // Subscribe appliances list update on search
+            //
+
+            var devicesListVM = _kernel.Get<IDevicesListViewModel>();
+
+            appEvents.SearchExecuted += devicesListVM.LoadAppliances;
         }
     }
 }

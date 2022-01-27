@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using InvMan.Common.SDK.Models;
 
@@ -14,5 +15,7 @@ namespace InvMan.Desktop.UI.ViewModels
         bool AreThereAppliances { get; set; }
 
         string NoAppliancesMessage { get; set; }
+
+        void LoadAppliances(IEnumerable<Appliance> devices);
     }
 }

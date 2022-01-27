@@ -1,4 +1,6 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using InvMan.Server.Application;
 using InvMan.Server.Domain.Models;
 
@@ -8,9 +10,15 @@ namespace InvMan.Server.UI.API.Controllers
 	{
 		private readonly IDevicesManager _manager;
 
-		public DevicesController(IDevicesManager manager)
+		private readonly ILogger<DevicesController> _logger;
+
+		public DevicesController(
+			IDevicesManager manager,
+			ILogger<DevicesController> logger
+		)
 		{
 			_manager = manager;
+			_logger = logger;
 		}
 
 		[HttpGet("api/devices")]
@@ -19,10 +27,27 @@ namespace InvMan.Server.UI.API.Controllers
 
 
 		[HttpPut("api/devices/create")]
-		public IActionResult CreateDevice(Device device)
+		public IActionResult CreateDevice(string networkName, string inventoryNumber, string type)
 		{
-			_manager.CreateDevice(device);
-			return Accepted();
+			try
+			{
+				_logger.LogInformation(
+					$"{nameof(CreateDevice)} called:\n" +
+					$"\tNetwork name: {networkName}\n" +
+					$"\tInventory number: {inventoryNumber}\n" +
+					$"\tType: {type}.\n"
+				);
+
+				_manager.CreateDevice(networkName, inventoryNumber, type);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e, e.Message);
+
+				return BadRequest(e);
+			}
 		}
 	}
 }

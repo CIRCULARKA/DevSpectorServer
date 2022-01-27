@@ -15,12 +15,6 @@ namespace InvMan.Common.SDK
 			_provider = provider;
 		}
 
-		public Uri Host
-		{
-			get => _provider.Host;
-			set { _provider.Host = value; }
-		}
-
 		public async Task<IEnumerable<Appliance>> GetDevicesAsync() =>
 			JsonSerializer.Deserialize<List<Appliance>>(
 				await _provider.GetDevicesAsync(),

@@ -18,12 +18,10 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
 
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>().InSingletonScope();
-
             Bind<ICommonInfoViewModel>().To<CommonInfoViewModel>().InSingletonScope();
             Bind<INetworkInfoViewModel>().To<NetworkInfoViewModel>().InSingletonScope();
             Bind<ISoftwareInfoViewModel>().To<SoftwareInfoViewModel>().InSingletonScope();
             Bind<ILocationInfoViewModel>().To<LocationInfoViewModel>().InSingletonScope();
-
             Bind<ISearchViewModel>().To<SearchViewModel>().InSingletonScope();
         }
 

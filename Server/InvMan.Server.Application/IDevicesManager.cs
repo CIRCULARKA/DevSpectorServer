@@ -7,7 +7,7 @@ namespace InvMan.Server.Application
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(Device newDevice);
+		void CreateDevice(string networkName, string inventoryNumber, string type);
 
 		Device GetDeviceByID(Guid deviceID);
 

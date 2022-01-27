@@ -3,7 +3,8 @@ using System.Reactive;
 using System.Collections.Generic;
 using ReactiveUI;
 using InvMan.Desktop.Service;
-using InvMan.Common.SDK.Models;
+using System.Text;
+using ReactiveUI;
 
 namespace InvMan.Desktop.UI.ViewModels
 {

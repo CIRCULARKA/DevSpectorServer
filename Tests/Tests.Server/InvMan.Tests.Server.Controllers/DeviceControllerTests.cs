@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
+using Microsoft.Extensions.Logging;
 using InvMan.Server.Domain;
 using InvMan.Common.SDK.Models;
 using InvMan.Server.Application;
@@ -75,8 +76,16 @@ namespace InvMan.Tests.Server.Controllers
 				repoMock.Object
 			);
 
+			_controller = new DevicesController(
+				devicesManagerMock,
+				new LoggerFactory().CreateLogger<DevicesController>()
+			);
+		}
 
-			_controller = new DevicesController(devicesManagerMock);
+		[Fact]
+		public void CanCreateDevice()
+		{
+			_controller.CreateDevice("TestNetworkName", "TestInvNum", "Сервер");
 		}
 	}
 }

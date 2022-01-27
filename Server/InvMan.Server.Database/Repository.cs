@@ -34,6 +34,12 @@ namespace InvMan.Server.Domain
             return query.ToList();
         }
 
+        public virtual T GetSingle<T>(
+            Expression<Func<T, bool>> filter = null,
+            string include = "")
+            where T : class =>
+            Get<T>(filter, null, include).FirstOrDefault();
+
         public virtual T GetByID<T>(object key) where T : class =>
             _context.Set<T>().Find(key);
 

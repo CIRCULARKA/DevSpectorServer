@@ -16,9 +16,22 @@ namespace InvMan.Server.Application
 			_repo = repo;
 		}
 
-		public void CreateDevice(Device device)
+		public void CreateDevice(string networkName, string inventoryNumber, string type)
 		{
-			_repo.Add<Device>(device);
+			var targetTypeID = _repo.GetSingle<DeviceType>(dt => dt.Name == type).ID;
+			var defaultLocationID = _repo.GetSingle<Location>(
+				filter: l => l.Cabinet.Name == "N/A" && l.Housing.Name == "N/A"
+			).ID;
+
+			var newDevice = new Device()
+			{
+				InventoryNumber = inventoryNumber,
+				NetworkName = networkName,
+				TypeID = targetTypeID,
+				LocationID = defaultLocationID
+			};
+
+			_repo.Add<Device>(newDevice);
 			_repo.Save();
 		}
 

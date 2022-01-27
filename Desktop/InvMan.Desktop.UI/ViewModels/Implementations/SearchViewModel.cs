@@ -49,6 +49,7 @@ namespace InvMan.Desktop.UI.ViewModels
             result.AddRange(devices.Where(d => d.InventoryNumber.Contains(SearchQuery)));
             result.AddRange(devices.Where(d => d.Housing.Contains(SearchQuery)));
             result.AddRange(devices.Where(d => d.Cabinet.Contains(SearchQuery)));
+            result.AddRange(devices.Where(d => d.Type.Contains(SearchQuery)));
 
             return result;
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Ninject;
 using Avalonia;
 using Avalonia.Controls;
@@ -51,9 +52,29 @@ namespace InvMan.Desktop.UI
         {
             var appEvents = _kernel.Get<IApplicationEvents>();
 
-            var deviceInfoViewModel = _kernel.Get<IDeviceInfoViewModel>();
+            //
+            // Subscribe VMs UpdateDeviceInfo on appliance selection
+            //
 
-            appEvents.ApplianceSelected += deviceInfoViewModel.UpdateDeviceInformation;
+            // VM stands for View Model
+            var targetVMsAmount = 4;
+            var deviceInfoVMs = new List<IDeviceInfoViewModel>(targetVMsAmount);
+
+            deviceInfoVMs.Add(_kernel.Get<ICommonInfoViewModel>());
+            deviceInfoVMs.Add(_kernel.Get<ILocationInfoViewModel>());
+            deviceInfoVMs.Add(_kernel.Get<ISoftwareInfoViewModel>());
+            deviceInfoVMs.Add(_kernel.Get<INetworkInfoViewModel>());
+
+            foreach (var vm in deviceInfoVMs)
+                appEvents.ApplianceSelected += vm.UpdateDeviceInfo;
+
+            //
+            // Subscribe appliances list update on search
+            //
+
+            var devicesListVM = _kernel.Get<IDevicesListViewModel>();
+
+            appEvents.SearchExecuted += devicesListVM.LoadAppliances;
         }
     }
 }

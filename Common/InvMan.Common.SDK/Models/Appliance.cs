@@ -7,7 +7,7 @@ namespace InvMan.Common.SDK.Models
 	{
 		public Appliance(Guid id, string inventoryNumber, string type,
 			string networkName, string housing, string cabinet,
-			IEnumerable<string> ipAddresses)
+			List<string> ipAddresses, List<string> software)
 		{
 			ID = id;
 			InventoryNumber = inventoryNumber;
@@ -16,6 +16,7 @@ namespace InvMan.Common.SDK.Models
 			Housing = housing;
 			Cabinet = cabinet;
 			IPAddresses = ipAddresses;
+			Software = software;
 		}
 
 		public Guid ID { get; }
@@ -30,6 +31,8 @@ namespace InvMan.Common.SDK.Models
 
 		public string Cabinet { get; }
 
-		public IEnumerable<string> IPAddresses { get; }
+		public List<string> IPAddresses { get; }
+
+		public List<string> Software { get; }
 	}
 }

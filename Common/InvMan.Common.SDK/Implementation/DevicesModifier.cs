@@ -19,11 +19,9 @@ namespace InvMan.Common.SDK
             requestUrlBuilder.Scheme = "http";
             requestUrlBuilder.Port = 5000;
             requestUrlBuilder.Host = "localhost";
-            requestUrlBuilder.Query =
-                $"networkName={networkName}&inventoryNumber={inventoryNumber}&type={type}";
+            requestUrlBuilder.Query = $"networkName={networkName}&inventoryNumber={inventoryNumber}&type={type}";
 
             Console.WriteLine("DEBUG -> " + requestUrlBuilder.Uri);
-
 
             var request = new HttpRequestMessage(
                 HttpMethod.Post,

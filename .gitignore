@@ -2,6 +2,8 @@
 /.vscode
 Server/**/*.txt
 appsettings.json
+.local.vimrc
+.vimspector.json
 
 # User-specific files
 *.rsuser

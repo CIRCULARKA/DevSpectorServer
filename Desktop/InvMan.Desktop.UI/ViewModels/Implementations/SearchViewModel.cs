@@ -38,8 +38,11 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> FilterDevicesCommand { get; }
 
-        private List<Appliance> FilterDevices(IEnumerable<Appliance> devices)
+        private IEnumerable<Appliance> FilterDevices(IEnumerable<Appliance> devices)
         {
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+                    return devices.ToList();
+
             var result = new List<Appliance>(devices.Count());
 
             result.AddRange(devices.Where(d => d.NetworkName.Contains(SearchQuery)));

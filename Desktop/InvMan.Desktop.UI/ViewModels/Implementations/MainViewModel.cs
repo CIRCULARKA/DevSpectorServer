@@ -20,6 +20,7 @@ namespace InvMan.Desktop.UI.ViewModels
             LocationInfo = locationInfo;
             NetworkInfo = networkInfo;
             CommonInfo =  commonInfo;
+
             Search = search;
         }
 

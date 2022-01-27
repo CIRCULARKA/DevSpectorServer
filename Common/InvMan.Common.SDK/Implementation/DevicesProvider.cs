@@ -6,7 +6,7 @@ using InvMan.Common.SDK.Models;
 
 namespace InvMan.Common.SDK
 {
-	public class DevicesProvider : IDevicesProvider
+    public class DevicesProvider : IDevicesProvider
 	{
 		private readonly IRawDataProvider _provider;
 

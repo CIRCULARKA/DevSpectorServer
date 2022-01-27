@@ -54,12 +54,14 @@ namespace InvMan.Tests.Server.Controllers
 				new Appliance(testDevices[0].ID, testDevices[0].InventoryNumber,
 					testDevices[0].Type.Name, testDevices[0].NetworkName,
 					testDevices[0].Location.Housing.Name, testDevices[0].Location.Cabinet.Name,
-					new List<string> { testIPs[0].Address, testIPs[1].Address }
+					new List<string> { testIPs[0].Address, testIPs[1].Address },
+					null
 				),
 				new Appliance(testDevices[1].ID, testDevices[1].InventoryNumber,
 					testDevices[1].Type.Name, testDevices[1].NetworkName,
 					testDevices[1].Location.Housing.Name, testDevices[1].Location.Cabinet.Name,
-					new List<string> { testIPs[2].Address, testIPs[3].Address }
+					new List<string> { testIPs[2].Address, testIPs[3].Address },
+					null
 				)
 			};
 

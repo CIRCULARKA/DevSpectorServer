@@ -9,7 +9,6 @@
         <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Lime" />
     </Application.Resources>
     <Application.Styles>
-
         <!-- MY -->
         <Style Selector="TextBlock.main">
             <Setter Property="Margin" Value="0 0 0 8" />

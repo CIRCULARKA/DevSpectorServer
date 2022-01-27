@@ -71,14 +71,16 @@ namespace InvMan.Tests.Server.SDK
 					new List<string> {
 						"1.1.1.1",
 						"2.2.2.2",
-					}
+					},
+					null
 				),
 				new Appliance(_mockDevicesGuids[1], "inv2", "type2", "net2",
 					"h2", "cab2",
 					new List<string> {
 						"3.3.3.3",
 						"4.4.4.4",
-					}
+					},
+					null
 				),
 			};
 

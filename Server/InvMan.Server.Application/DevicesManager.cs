@@ -49,7 +49,8 @@ namespace InvMan.Server.Application
 					d.Location.Cabinet.Name,
 					_repo.Get<IPAddress>(
 						filter: ip => ip.DeviceID == d.ID
-					).Select(ip => ip.Address)
+					).Select(ip => ip.Address).ToList(),
+					null
 				)
 			);
 	}

@@ -10,6 +10,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         Appliance SelectedAppliance { get; set; }
 
+        IEnumerable<Appliance> CachedDevices { get; }
+
         bool AreAppliancesLoaded { get; set; }
 
         bool AreThereAppliances { get; set; }

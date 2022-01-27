@@ -3,7 +3,7 @@
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         x:Class="InvMan.Desktop.UI.Views.SearchView">
 		<StackPanel>
-			<TextBox Classes="Filled clearButton" Text="{Binding SearchQuery, Mode=OneWay}" MaxLength="100" />
+			<TextBox Classes="Filled clearButton" Text="{Binding SearchQuery, Mode=OneWayToSource}" MaxLength="100" />
 			<!-- Button types: Flat, Icon, Light, Dark, Accent, Outline. (Outline works with all previous in pair) -->
 			<Button Content="Поиск" Command="{Binding FilterDevicesCommand}"
 				HorizontalAlignment="Stretch" />

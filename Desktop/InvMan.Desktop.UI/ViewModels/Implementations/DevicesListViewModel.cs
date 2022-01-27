@@ -41,6 +41,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public ObservableCollection<Appliance> Appliances { get; set; }
 
+        public IEnumerable<Appliance> CachedDevices => _devicesCache;
+
         public Appliance SelectedAppliance
         {
             get => _selectedAppliance;
@@ -72,26 +74,17 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public void LoadAppliances(IEnumerable<Appliance> devices)
         {
-            AreAppliancesLoaded = false;
-
             Appliances.Clear();
 
             foreach (var device in devices)
                 Appliances.Add(device);
 
-            AreAppliancesLoaded = true;
-        }
+            if (Appliances.Count == 0) {
+                AreThereAppliances = false;
+                NoAppliancesMessage = "Устройства не найдены";
+            }
+            else AreThereAppliances = true;
 
-        private void LoadCachedAppliances()
-        {
-            AreAppliancesLoaded = false;
-
-            Appliances.Clear();
-
-            foreach (var device in _devicesCache)
-                Appliances.Add(device);
-
-            AreAppliancesLoaded = true;
         }
 
         private async Task LoadAppliances()

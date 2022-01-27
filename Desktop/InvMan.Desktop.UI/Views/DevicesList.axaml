@@ -21,13 +21,14 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereAppliances}">
-            <aura:ProgressRing IsVisible="{Binding !AreAppliancesLoaded}"
-                IsIndeterminate="True" />
+            <progRing:ProgressRing IsVisible="{Binding !AreAppliancesLoaded}"
+                IsActive="True" Foreground="White" Width="50" Height="50" />
             <TextBlock Text="{Binding NoAppliancesMessage}"
+                IsVisible="{Binding AreAppliancesLoaded}"
                 Margin="3 0 3 0"
                 TextWrapping="Wrap" TextAlignment="Center"
                 VerticalAlignment="Center" HorizontalAlignment="Center"
-                FontSize="26" Foreground="Gray" />
+                FontSize="26" Foreground="White" />
         </Panel>
     </Grid>
 </UserControl>

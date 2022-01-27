@@ -25,8 +25,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public void UpdateDeviceInfo(Appliance target)
         {
-            Housing = target.Housing;
-            Cabinet = target.Cabinet;
+            Housing = target?.Housing;
+            Cabinet = target?.Cabinet;
         }
     }
 }

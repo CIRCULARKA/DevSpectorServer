@@ -25,8 +25,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public void UpdateDeviceInfo(Appliance target)
         {
-            InventoryNumber = target.InventoryNumber;
-            Type = target.Type;
+            InventoryNumber = target?.InventoryNumber;
+            Type = target?.Type;
         }
     }
 }

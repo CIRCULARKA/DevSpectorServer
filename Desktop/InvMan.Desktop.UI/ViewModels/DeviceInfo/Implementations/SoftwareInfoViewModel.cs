@@ -17,7 +17,7 @@ namespace InvMan.Desktop.UI.ViewModels
         public void UpdateDeviceInfo(Appliance target)
         {
             // Temp
-            Software = target.Software?.Count.ToString();
+            Software = target?.Software?.Count.ToString();
         }
     }
 }

@@ -1,4 +1,6 @@
 using System.Text;
+using System.Linq;
+using System.Collections.Generic;
 using ReactiveUI;
 using InvMan.Common.SDK.Models;
 
@@ -26,14 +28,15 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public void UpdateDeviceInfo(Appliance target)
         {
-            NetworkName = target.NetworkName;
+            NetworkName = target?.NetworkName;
 
-            IPAddresses = CreateStringFromIP(target);
+            IPAddresses = target == null ? null :
+                CreateStringFromIP(target.IPAddresses);
         }
 
-        private string CreateStringFromIP(Appliance target)
+        private string CreateStringFromIP(IEnumerable<string> ips)
         {
-            var ipCount = target.IPAddresses.Count;
+            var ipCount = ips.Count();
 
             if (ipCount == 0)
                 return "Нет IP-адресов";
@@ -45,7 +48,7 @@ namespace InvMan.Desktop.UI.ViewModels
                 (ipCount * IpAddressMaxLength) + newLines
             );
 
-            foreach (var ip in target.IPAddresses)
+            foreach (var ip in ips)
                 builder.Append(ip).Append("\n");
 
             return builder.ToString();

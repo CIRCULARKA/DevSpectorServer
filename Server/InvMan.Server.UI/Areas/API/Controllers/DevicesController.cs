@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InvMan.Server.Application;
@@ -22,8 +23,10 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet("api/devices")]
-		public JsonResult GetAppliances() =>
-			Json(_manager.GetAppliances());
+		public JsonResult GetAppliances() {
+			Thread.Sleep(5000);
+			return Json(_manager.GetAppliances());
+		}
 
 
 		[HttpPut("api/devices/create")]

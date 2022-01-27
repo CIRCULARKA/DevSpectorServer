@@ -3,7 +3,10 @@
 
 # TODO
 ## Desktop
-- Implement all server possibilities
+- Implement all server features
+- Make UI display following sections: common information, network information, software and location of device
+- Resolve all temporary solutions: SoftwareInfoViewModel.cs (UpdateDeviceInfo)
+- Automate the process of subscribtion view models to app events
 
 ## Server
 - Modifying devices: add and delete

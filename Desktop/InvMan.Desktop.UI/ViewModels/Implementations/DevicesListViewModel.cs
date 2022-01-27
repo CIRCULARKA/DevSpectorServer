@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
 using InvMan.Desktop.Service;
@@ -15,6 +16,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private Appliance _selectedAppliance;
 
+        private IEnumerable<Appliance> _devicesCache;
+
         private string _noAppliancesMessage;
 
         private bool _areThereAppliances;
@@ -27,10 +30,11 @@ namespace InvMan.Desktop.UI.ViewModels
         )
         {
             _appEvents = appEvents;
-
             _devicesProvider = devicesProvider;
-
             _areAppliancesLoaded = false;
+            _devicesCache = new List<Appliance>();
+
+            Appliances = new ObservableCollection<Appliance>();
 
             DefineViewContent();
         }
@@ -66,16 +70,37 @@ namespace InvMan.Desktop.UI.ViewModels
             set { this.RaiseAndSetIfChanged(ref _noAppliancesMessage, value); }
         }
 
+        public void LoadAppliances(IEnumerable<Appliance> devices)
+        {
+            AreAppliancesLoaded = false;
+
+            Appliances.Clear();
+
+            foreach (var device in devices)
+                Appliances.Add(device);
+
+            AreAppliancesLoaded = true;
+        }
+
+        private void LoadCachedAppliances()
+        {
+            AreAppliancesLoaded = false;
+
+            Appliances.Clear();
+
+            foreach (var device in _devicesCache)
+                Appliances.Add(device);
+
+            AreAppliancesLoaded = true;
+        }
+
         private async Task LoadAppliances()
         {
             AreAppliancesLoaded = false;
 
-            Appliances = new ObservableCollection<Appliance>();
-
-            var appliances = await _devicesProvider.GetDevicesAsync();
-            foreach (var device in appliances)
+            _devicesCache = await _devicesProvider.GetDevicesAsync();
+            foreach (var device in _devicesCache)
                 Appliances.Add(device);
-
         }
 
         private async void DefineViewContent()

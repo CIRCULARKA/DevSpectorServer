@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+		xmlns:aura="using:Aura.UI.Controls"
+        x:Class="InvMan.Desktop.UI.Views.LocationInfoView">
+		<StackPanel>
+			<TextBlock Text="Корпус" Classes="note" />
+			<TextBlock Text="{Binding Housing}" Classes="main" />
+			<TextBlock Text="Кабинет" Classes="note" />
+			<TextBlock Text="{Binding Cabinet}" Classes="main" />
+		</StackPanel>
+</UserControl>

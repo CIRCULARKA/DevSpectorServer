@@ -4,11 +4,11 @@ using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class DeviceInfo : UserControl
+    public partial class LocationInfoView : UserControl
     {
-        public DeviceInfo() { }
+        public LocationInfoView() { }
 
-        public DeviceInfo(IDeviceInfoViewModel viewModel)
+        public LocationInfoView(ILocationInfoViewModel viewModel)
         {
             AvaloniaXamlLoader.Load(this);
 

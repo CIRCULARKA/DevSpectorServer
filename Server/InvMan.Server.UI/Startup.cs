@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,11 +33,18 @@ namespace InvMan.Server.UI
                         Configuration["ConnectionString"]
                     )
             );
+
             services.AddControllers(
                 options => options.Filters.Add<AuthorizationFilter>()
             ).AddFluentValidation();
+
+            services.AddAuthentication();
+            services.AddAuthorization();
+            services.AddIdentity<DesktopUser, IdentityRole>().
+                AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddTransient<IValidator<Device>, DeviceValidator>();
-            services.AddSingleton<AuthorizationFilter>();
+            services.AddTransient<AuthorizationFilter>();
 
             services.AddApplicationServices();
         }

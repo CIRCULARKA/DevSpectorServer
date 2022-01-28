@@ -4,11 +4,11 @@ using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class MainView : Window
+    public partial class AuthorizationView : Window
     {
-        public MainView() { }
+        public AuthorizationView() { }
 
-        public MainView(IMainViewModel viewModel)
+        public AuthorizationView(IAuthorizationViewModel viewModel)
         {
             InitializeComponent();
 
@@ -19,5 +19,6 @@ namespace InvMan.Desktop.UI.Views
         {
             AvaloniaXamlLoader.Load(this);
         }
+
     }
 }

@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+    xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+    xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+    xmlns:aura="using:Aura.UI.Controls"
+    x:Class="InvMan.Desktop.UI.Views.AuthorizationView"
+    Height="500" Width="350" CanResize="False">
+    <Border Padding="15 50 15 50">
+        <StackPanel VerticalAlignment="Center">
+            <Image Source="/Assets/logo.png" Width="200" HorizontalAlignment="Center" />
+            <TextBlock Classes="note" Text="Логин" />
+            <TextBox Classes="clearButton" Text="{Binding Login}"
+                MaxLength="50" />
+            <TextBlock Classes="note" Text="Пароль" />
+            <TextBox Classes="clearButton" Text="{Binding Password}"
+                PasswordChar="*" MaxLength="50" />
+            <Button Content="Войти" HorizontalAlignment="Stretch" />
+        </StackPanel>
+    </Border>
+</Window>

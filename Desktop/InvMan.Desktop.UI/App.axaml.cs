@@ -34,7 +34,8 @@ namespace InvMan.Desktop.UI
             SubscribeToEvents();
 
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            desktop.MainWindow = _kernel.Get<MainView>();
+            // desktop.MainWindow = _kernel.Get<MainView>();
+            desktop.MainWindow = new AuthorizationView(_kernel.Get<IAuthorizationViewModel>());
 
             // Unsuccesfull try of using hot reload. Will try later. Maybe
             // desktop.MainWindow = new LiveViewHost(this, Console.WriteLine);

@@ -25,11 +25,14 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<ILocationInfoViewModel>().To<LocationInfoViewModel>().InSingletonScope();
 
             Bind<ISearchViewModel>().To<SearchViewModel>().InSingletonScope();
+
+            Bind<IAuthorizationViewModel>().To<AuthorizationViewModel>().InSingletonScope();
         }
 
         private void BindViews()
         {
             Bind<MainView>().ToSelf();
+            Bind<AuthorizationView>().ToSelf();
 
             Bind<UserControl>().To<DevicesListView>().Named(nameof(DevicesListView));
 

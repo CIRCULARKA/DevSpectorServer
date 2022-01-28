@@ -25,7 +25,7 @@ namespace InvMan.Desktop.UI.ViewModels
             _events = events;
             _devicesListViewModel = devicesListViewModel;
 
-            FilterDevicesCommand = ReactiveCommand.Create(
+            FilterDevicesCommand = ReactiveCommand.CreateFromTask(
                 async () => {
                     try
                     {
@@ -35,7 +35,7 @@ namespace InvMan.Desktop.UI.ViewModels
                             await FilterDevicesAsync(devicesListViewModel.CachedDevices)
                         );
                     }
-                    finally { devicesListViewModel.AreAppliancesLoaded = true; }
+                   finally { devicesListViewModel.AreAppliancesLoaded = true; }
                 }
             );
         }
@@ -46,7 +46,7 @@ namespace InvMan.Desktop.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _searchQuery, value);
         }
 
-        public ReactiveCommand<Unit, Task> FilterDevicesCommand { get; }
+        public ReactiveCommand<Unit, Unit> FilterDevicesCommand { get; }
 
         private Task<IEnumerable<Appliance>> FilterDevicesAsync(IEnumerable<Appliance> devices)
         {

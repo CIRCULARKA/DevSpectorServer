@@ -31,7 +31,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
         {
             Bind<MainView>().ToSelf();
 
-            Bind<UserControl>().To<DevicesList>().Named(nameof(DevicesList));
+            Bind<UserControl>().To<DevicesListView>().Named(nameof(DevicesListView));
 
             Bind<UserControl>().To<CommonInfoView>().Named(nameof(CommonInfoView));
             Bind<UserControl>().To<SoftwareInfoView>().Named(nameof(SoftwareInfoView));

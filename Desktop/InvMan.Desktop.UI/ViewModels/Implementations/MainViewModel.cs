@@ -7,7 +7,7 @@ namespace InvMan.Desktop.UI.ViewModels
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
         public MainViewModel(
-            [Named(nameof(DevicesList))] UserControl devicesList,
+            [Named(nameof(DevicesListView))] UserControl devicesList,
             [Named(nameof(CommonInfoView))] UserControl commonInfo,
             [Named(nameof(NetworkInfoView))] UserControl networkInfo,
             [Named(nameof(LocationInfoView))] UserControl locationInfo,

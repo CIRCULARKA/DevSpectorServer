@@ -14,9 +14,10 @@ namespace InvMan.Common.SDK
 
         private readonly HttpClient _client;
 
-        public JsonProvider()
+        public JsonProvider(string acessToken)
         {
             _client = new HttpClient();
+            _client.DefaultRequestHeaders.Add("API", acessToken);
 
             ConfigureDefaultHost();
 

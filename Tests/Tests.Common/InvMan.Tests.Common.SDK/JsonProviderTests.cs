@@ -1,5 +1,5 @@
-using System;
 using InvMan.Common.SDK;
+using InvMan.Common.SDK.Authorization;
 using Xunit;
 
 namespace InvMan.Tests.Server.SDK
@@ -8,11 +8,13 @@ namespace InvMan.Tests.Server.SDK
     {
         private readonly IRawDataProvider _defaultProvider;
 
-        private readonly Uri _targetHost;
-
         public JsonProviderTests()
         {
-            _defaultProvider = new JsonProvider();
+            var authManager = new AuthorizationManager();
+
+            _defaultProvider = new JsonProvider(
+                authManager.GetAccessTokenAsync("ruslan", "123Abc!").GetAwaiter().GetResult()
+            );
         }
 
         [Fact]

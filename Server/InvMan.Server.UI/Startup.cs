@@ -34,12 +34,8 @@ namespace InvMan.Server.UI
                     )
             );
 
-            services.AddControllers(
-                options => options.Filters.Add<AuthorizationFilter>()
-            ).AddFluentValidation();
+            services.AddControllers().AddFluentValidation();
 
-            services.AddAuthentication();
-            services.AddAuthorization();
             services.AddIdentity<DesktopUser, IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 

@@ -4,7 +4,7 @@
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
 		xmlns:aura="using:Aura.UI.Controls"
-        x:Class="InvMan.Desktop.UI.Views.DevicesList"
+        x:Class="InvMan.Desktop.UI.Views.DevicesListView"
         Name="base">
     <Grid RowDefinitions="*" ColumnDefinitions="*">
         <ListBox BorderThickness="0" Height="{Binding #base.Height}"

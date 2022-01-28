@@ -5,11 +5,11 @@ using InvMan.Desktop.UI.ViewModels;
 
 namespace InvMan.Desktop.UI.Views
 {
-    public partial class DevicesList : UserControl
+    public partial class DevicesListView : UserControl
     {
-        public DevicesList() { }
+        public DevicesListView() { }
 
-        public DevicesList(IDevicesListViewModel viewModel)
+        public DevicesListView(IDevicesListViewModel viewModel)
         {
             InitializeComponent();
 

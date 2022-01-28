@@ -1,12 +1,11 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Database
 {
-	public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+	public class ApplicationDbContext : IdentityDbContext<DesktopUser>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
 			base(options) { }
@@ -22,6 +21,8 @@ namespace InvMan.Server.Database
 		public DbSet<Device> Devices { get; set; }
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
+
+		// public DbSet<DesktopUser> DesktopUsers { get; set; }
 
 		protected void ApplyModelConfigurations(ModelBuilder builder)
 		{

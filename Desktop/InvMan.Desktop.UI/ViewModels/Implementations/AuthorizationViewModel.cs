@@ -1,6 +1,6 @@
 ﻿using System.Reactive;
-using System.Threading.Tasks;
 using ReactiveUI;
+using InvMan.Desktop.Service;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
@@ -10,10 +10,14 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private string _password;
 
-        public AuthorizationViewModel()
+        private readonly IApplicationEvents _events;
+
+        public AuthorizationViewModel(IApplicationEvents events)
         {
-            AuthorizationCommand = ReactiveCommand.CreateFromTask(
-                () => Task.FromResult(new Unit())
+            _events = events;
+
+            AuthorizationCommand = ReactiveCommand.Create(
+                () => _events.RaiseUserAuthorized()
             );
         }
 
@@ -30,6 +34,5 @@ namespace InvMan.Desktop.UI.ViewModels
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
         }
-
     }
 }

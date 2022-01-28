@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 using InvMan.Server.Database;
 using InvMan.Server.Domain.Models;
 
@@ -12,9 +13,13 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder FillDbWithTemporaryData(this IApplicationBuilder @this)
         {
             var context = @this.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
+            var usersManager = @this.ApplicationServices.CreateScope().ServiceProvider.GetService<UserManager<DesktopUser>>();
 
             if (context == null)
                 throw new ArgumentNullException("Can't load database context from services. Ensure you configured it");
+
+            if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
+                usersManager.CreateAsync(new DesktopUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }).GetAwaiter().GetResult();
 
             if (context.Devices.Count() != 0) return @this;
 

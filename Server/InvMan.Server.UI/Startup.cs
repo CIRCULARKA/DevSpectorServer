@@ -4,11 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using InvMan.Server.Database;
-using InvMan.Server.Domain.Models;
-using InvMan.Server.UI.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using InvMan.Server.Database;
+using InvMan.Server.Domain.Models;
+using InvMan.Server.UI.Filters;
+using InvMan.Server.UI.Validators;
 
 namespace InvMan.Server.UI
 {
@@ -31,8 +32,11 @@ namespace InvMan.Server.UI
                         Configuration["ConnectionString"]
                     )
             );
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers(
+                options => options.Filters.Add<AuthorizationFilter>()
+            ).AddFluentValidation();
             services.AddTransient<IValidator<Device>, DeviceValidator>();
+            services.AddSingleton<AuthorizationFilter>();
 
             services.AddApplicationServices();
         }

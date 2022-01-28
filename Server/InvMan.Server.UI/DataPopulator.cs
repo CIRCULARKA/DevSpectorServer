@@ -18,7 +18,7 @@ namespace Microsoft.AspNetCore.Builder
 
             if (context.Devices.Count() != 0) return @this;
 
-            // context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var housings = new List<Housing>() {

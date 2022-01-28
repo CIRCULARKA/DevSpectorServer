@@ -3,7 +3,6 @@ using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InvMan.Server.Application;
-using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {

@@ -17,5 +17,11 @@ namespace InvMan.Desktop.Service
 
         public void RaiseSearchExecuted(IEnumerable<Appliance> filtered) =>
             SearchExecuted?.Invoke(filtered);
+
+        public event Action UserAuthorized;
+
+        public void RaiseUserAuthorized() =>
+            UserAuthorized?.Invoke();
+
     }
 }

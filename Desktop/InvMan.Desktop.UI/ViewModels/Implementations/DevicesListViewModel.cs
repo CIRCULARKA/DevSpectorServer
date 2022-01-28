@@ -14,6 +14,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private readonly IDevicesProvider _devicesProvider;
 
+        private readonly IUserSession _session;
+
         private Appliance _selectedAppliance;
 
         private IEnumerable<Appliance> _devicesCache;
@@ -26,10 +28,12 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public DevicesListViewModel(
             IDevicesProvider devicesProvider,
-            IApplicationEvents appEvents
+            IApplicationEvents appEvents,
+            IUserSession session
         )
         {
             _appEvents = appEvents;
+            _session = session;
             _devicesProvider = devicesProvider;
             _areAppliancesLoaded = false;
             _devicesCache = new List<Appliance>();
@@ -91,7 +95,7 @@ namespace InvMan.Desktop.UI.ViewModels
         {
             AreAppliancesLoaded = false;
 
-            _devicesCache = await _devicesProvider.GetDevicesAsync();
+            _devicesCache = await _devicesProvider.GetDevicesAsync(_session.AccessToken);
             foreach (var device in _devicesCache)
                 Appliances.Add(device);
         }

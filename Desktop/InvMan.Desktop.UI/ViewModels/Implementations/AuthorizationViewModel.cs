@@ -1,6 +1,9 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
+using System.Threading.Tasks;
 using ReactiveUI;
 using InvMan.Desktop.Service;
+using InvMan.Common.SDK.Authorization;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
@@ -10,14 +13,14 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private string _password;
 
-        private readonly IApplicationEvents _events;
+        private readonly IAuthorizationManager _authManager;
 
-        public AuthorizationViewModel(IApplicationEvents events)
+        public AuthorizationViewModel()
         {
-            _events = events;
+            _authManager = new AuthorizationManager();
 
-            AuthorizationCommand = ReactiveCommand.Create(
-                () => _events.RaiseUserAuthorized()
+            AuthorizationCommand = ReactiveCommand.CreateFromTask(
+                () => TryToAuthorize()
             );
         }
 
@@ -33,6 +36,18 @@ namespace InvMan.Desktop.UI.ViewModels
         {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
+
+        public async Task TryToAuthorize()
+        {
+            try
+            {
+                var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
+            }
+            catch (ArgumentException)
+            {
+
+            }
         }
     }
 }

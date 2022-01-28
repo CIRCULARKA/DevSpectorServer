@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InvMan.Common.SDK.Authorization
 {
-    public class AuthorizationManager
+    public class AuthorizationManager : IAuthorizationManager
     {
         private readonly string _host = "localhost";
 

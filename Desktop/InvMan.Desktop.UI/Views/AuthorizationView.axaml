@@ -11,11 +11,18 @@
             <Image Source="/Assets/logo.png" Width="200" HorizontalAlignment="Center" />
             <TextBlock Classes="note" Text="Логин" />
             <TextBox Classes="clearButton" Text="{Binding Login}"
-                MaxLength="50" />
+                MaxLength="50"  />
             <TextBlock Classes="note" Text="Пароль" />
             <TextBox Classes="clearButton" Text="{Binding Password}"
                 PasswordChar="*" MaxLength="50" />
             <Button Content="Войти" HorizontalAlignment="Stretch" />
+            <Panel HorizontalAlignment="Stretch">
+                <TextBlock Text="{Binding ErrorMessage}"
+                    IsVisible="{Binding UnsuccessfullAttemptFired}" />
+                <progRing:ProgressRing Width="30"
+                    IsActive="{Binding AttemptingToLogIn}"
+                    IsVisible="{Binding AttemptingToLogIn}" />
+            </Panel>
         </StackPanel>
     </Border>
 </Window>

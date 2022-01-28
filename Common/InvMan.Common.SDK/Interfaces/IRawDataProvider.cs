@@ -7,12 +7,12 @@ namespace InvMan.Common.SDK
 	{
 		Uri Host { get; }
 
-		Task<string> GetDevicesAsync();
+		Task<string> GetDevicesAsync(string accessToken);
 
-		Task<string> GetFreeIPAsync();
+		Task<string> GetFreeIPAsync(string accessToken);
 
-		Task<string> GetHousingsAsync();
+		Task<string> GetHousingsAsync(string accessToken);
 
-		Task<string> GetHousingAsync(Guid housingID);
+		Task<string> GetHousingAsync(Guid housingID, string accessToken);
 	}
 }

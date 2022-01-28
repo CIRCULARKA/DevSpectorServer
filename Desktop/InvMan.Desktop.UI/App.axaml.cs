@@ -31,11 +31,12 @@ namespace InvMan.Desktop.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-            SubscribeToEvents();
 
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             // desktop.MainWindow = _kernel.Get<MainView>();
             desktop.MainWindow = new AuthorizationView(_kernel.Get<IAuthorizationViewModel>());
+
+            SubscribeToEvents();
 
             // Unsuccesfull try of using hot reload. Will try later. Maybe
             // desktop.MainWindow = new LiveViewHost(this, Console.WriteLine);

@@ -22,7 +22,7 @@
         </ListBox>
         <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereAppliances}">
             <progRing:ProgressRing IsVisible="{Binding !AreAppliancesLoaded}"
-                IsActive="True" Foreground="{DynamicResource PrimaryHueLightBrush}" Width="50" Height="50" />
+                IsActive="{Binding !AreAppliancesLoaded}" Foreground="{DynamicResource PrimaryHueLightBrush}" Width="50" Height="50" />
             <TextBlock Text="{Binding NoAppliancesMessage}"
                 IsVisible="{Binding AreAppliancesLoaded}"
                 Margin="3 0 3 0"

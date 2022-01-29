@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
@@ -39,8 +40,6 @@ namespace InvMan.Desktop.UI.ViewModels
             _devicesCache = new List<Appliance>();
 
             Appliances = new ObservableCollection<Appliance>();
-
-            DefineViewContent();
         }
 
         public ObservableCollection<Appliance> Appliances { get; set; }
@@ -100,7 +99,7 @@ namespace InvMan.Desktop.UI.ViewModels
                 Appliances.Add(device);
         }
 
-        private async void DefineViewContent()
+        public async void InitializeList()
         {
             try
             {
@@ -115,10 +114,15 @@ namespace InvMan.Desktop.UI.ViewModels
                     NoAppliancesMessage = "Нет устройств";
                 }
             }
+            catch (ArgumentException)
+            {
+                AreThereAppliances = false;
+                NoAppliancesMessage = "Ошибка доступа";
+            }
             catch
             {
                 AreThereAppliances = false;
-                NoAppliancesMessage = "Не удалось загрузить устройства из сервера";
+                NoAppliancesMessage = "Что-то пошло не так";
             }
             finally { AreAppliancesLoaded = true; }
         }

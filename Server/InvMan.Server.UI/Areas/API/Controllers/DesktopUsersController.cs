@@ -42,14 +42,14 @@ namespace InvMan.Server.UI.API.Controllers
 		[HttpGet("api/users/authorize")]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
-			var targetUser = await _usersManager.FindByNameAsync(login);
+			var targetUser = await _usersManager.FindByNameAsync(login ?? "");
 
 			if (targetUser == null)
 				return Unauthorized();
 
 			var result = await _signInManager.PasswordSignInAsync(
 				user: targetUser,
-				password: password,
+				password: password ?? "",
 				isPersistent: false,
 				lockoutOnFailure: false
 			);

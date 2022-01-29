@@ -6,10 +6,13 @@
     <Application.Resources>
         <!-- Primary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Primary -->
         <!-- Secondary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Accent -->
-        <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Lime" />
+        <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Amber" />
     </Application.Resources>
     <Application.Styles>
-        <!-- MY -->
+        <!--
+            MY
+        -->
+
         <Style Selector="TextBlock.main">
             <Setter Property="Margin" Value="0 0 0 8" />
             <Setter Property="FontSize" Value="18" />
@@ -21,18 +24,31 @@
         <Style Selector="TextBlock.Headline5">
             <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
         </Style>
-        <!-- !MY -->
 
-        <!-- External -->
+        <!--
+            !MY
+        -->
+
+        <!--
+            External
+        -->
+
+        <!-- AuraUI -->
+        <FluentTheme Mode="Light" />
         <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
 
-        <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
-        <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"/> -->
-
+        <!-- MaterialAvalonia -->
         <StyleInclude Source="avares://Material.Avalonia/Material.Avalonia.Templates.xaml" />
 
+        <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/> -->
+        <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/> -->
+        <!-- <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/BaseLight.xaml"/> -->
+
+        <!-- AvaloniaProgressRing -->
         <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml"/>
-        <!-- !External -->
+
+        <!--
+            !External
+         -->
     </Application.Styles>
 </Application>

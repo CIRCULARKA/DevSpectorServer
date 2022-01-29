@@ -31,10 +31,9 @@ namespace InvMan.Desktop.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             // desktop.MainWindow = _kernel.Get<MainView>();
-            desktop.MainWindow = new AuthorizationView(_kernel.Get<IAuthorizationViewModel>());
+            desktop.MainWindow = _kernel.Get<AuthorizationView>();
 
             SubscribeToEvents();
 
@@ -77,6 +76,10 @@ namespace InvMan.Desktop.UI
             var devicesListVM = _kernel.Get<IDevicesListViewModel>();
 
             appEvents.SearchExecuted += devicesListVM.LoadAppliances;
+
+            appEvents.UserAuthorized += _kernel.Get<MainView>().Show;
+            appEvents.UserAuthorized += _kernel.Get<AuthorizationView>().Hide;
+            appEvents.UserAuthorized += _kernel.Get<IDevicesListViewModel>().InitializeList;
         }
     }
 }

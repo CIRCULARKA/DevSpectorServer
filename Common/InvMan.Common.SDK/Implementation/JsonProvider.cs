@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -55,7 +56,11 @@ namespace InvMan.Common.SDK
 
             request.Headers.Add("API", accessToken);
 
-            var response = await _client.GetAsync(path);
+            var response = await _client.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new ArgumentException("Wrong API");
+
             return await response.Content.ReadAsStringAsync();
         }
 

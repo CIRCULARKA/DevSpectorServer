@@ -25,7 +25,7 @@ namespace InvMan.Common.SDK.Authorization
 
             var response = await _client.GetAsync(targetEndpoint);
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (response.StatusCode != HttpStatusCode.OK)
                 throw new ArgumentException("Wrong credentials");
 
             return response.Headers.GetValues("API").ToList()[0];

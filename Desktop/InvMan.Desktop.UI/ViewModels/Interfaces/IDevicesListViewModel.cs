@@ -19,5 +19,7 @@ namespace InvMan.Desktop.UI.ViewModels
         string NoAppliancesMessage { get; set; }
 
         void LoadAppliances(IEnumerable<Appliance> devices);
+
+        void InitializeList();
     }
 }

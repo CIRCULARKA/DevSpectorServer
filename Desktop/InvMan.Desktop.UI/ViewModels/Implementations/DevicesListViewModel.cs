@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
@@ -14,6 +15,8 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private readonly IDevicesProvider _devicesProvider;
 
+        private readonly IUserSession _session;
+
         private Appliance _selectedAppliance;
 
         private IEnumerable<Appliance> _devicesCache;
@@ -26,17 +29,17 @@ namespace InvMan.Desktop.UI.ViewModels
 
         public DevicesListViewModel(
             IDevicesProvider devicesProvider,
-            IApplicationEvents appEvents
+            IApplicationEvents appEvents,
+            IUserSession session
         )
         {
             _appEvents = appEvents;
+            _session = session;
             _devicesProvider = devicesProvider;
             _areAppliancesLoaded = false;
             _devicesCache = new List<Appliance>();
 
             Appliances = new ObservableCollection<Appliance>();
-
-            DefineViewContent();
         }
 
         public ObservableCollection<Appliance> Appliances { get; set; }
@@ -91,12 +94,12 @@ namespace InvMan.Desktop.UI.ViewModels
         {
             AreAppliancesLoaded = false;
 
-            _devicesCache = await _devicesProvider.GetDevicesAsync();
+            _devicesCache = await _devicesProvider.GetDevicesAsync(_session.AccessToken);
             foreach (var device in _devicesCache)
                 Appliances.Add(device);
         }
 
-        private async void DefineViewContent()
+        public async void InitializeList()
         {
             try
             {
@@ -111,10 +114,15 @@ namespace InvMan.Desktop.UI.ViewModels
                     NoAppliancesMessage = "Нет устройств";
                 }
             }
+            catch (ArgumentException)
+            {
+                AreThereAppliances = false;
+                NoAppliancesMessage = "Ошибка доступа";
+            }
             catch
             {
                 AreThereAppliances = false;
-                NoAppliancesMessage = "Не удалось загрузить устройства из сервера";
+                NoAppliancesMessage = "Что-то пошло не так";
             }
             finally { AreAppliancesLoaded = true; }
         }

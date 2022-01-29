@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -14,10 +15,9 @@ namespace InvMan.Common.SDK
 
         private readonly HttpClient _client;
 
-        public JsonProvider(string acessToken)
+        public JsonProvider()
         {
             _client = new HttpClient();
-            _client.DefaultRequestHeaders.Add("API", acessToken);
 
             ConfigureDefaultHost();
 
@@ -35,21 +35,32 @@ namespace InvMan.Common.SDK
 
         public Uri Host { get; set; }
 
-        public Task<string> GetDevicesAsync() =>
-            GetContentFromUriAsync(_pathToDevices.AbsoluteUri);
+        public Task<string> GetDevicesAsync(string accessToken) =>
+            GetContentFromUriAsync(_pathToDevices.AbsoluteUri, accessToken);
 
-        public Task<string> GetHousingsAsync() =>
-            GetContentFromUriAsync(_pathToHousings.AbsoluteUri);
+        public Task<string> GetHousingsAsync(string accessToken) =>
+            GetContentFromUriAsync(_pathToHousings.AbsoluteUri, accessToken);
 
-        public Task<string> GetFreeIPAsync() =>
-            GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri);
+        public Task<string> GetFreeIPAsync(string accessToken) =>
+            GetContentFromUriAsync(_pathToFreeIpAddresses.AbsoluteUri, accessToken);
 
-        public Task<string> GetHousingAsync(Guid housingID) =>
-            GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID);
+        public Task<string> GetHousingAsync(Guid housingID, string accessToken) =>
+            GetContentFromUriAsync(_pathToHousings.AbsoluteUri + housingID, accessToken);
 
-        private async Task<string> GetContentFromUriAsync(string path)
+        private async Task<string> GetContentFromUriAsync(string path, string accessToken)
         {
-            var response = await _client.GetAsync(path);
+            var request = new HttpRequestMessage {
+                RequestUri = new Uri(path),
+                Method = HttpMethod.Get
+            };
+
+            request.Headers.Add("API", accessToken);
+
+            var response = await _client.SendAsync(request);
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new ArgumentException("Wrong API");
+
             return await response.Content.ReadAsStringAsync();
         }
 

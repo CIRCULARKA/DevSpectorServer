@@ -9,6 +9,8 @@ namespace InvMan.Desktop.Service.DependencyInjection
 		{
 			Bind<IRawDataProvider>().To<JsonProvider>();
 			Bind<IDevicesProvider>().To<DevicesProvider>();
+
+			Bind<IUserSession>().To<UserSession>().InSingletonScope();
 		}
 	}
 }

@@ -5,17 +5,29 @@
     xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
     xmlns:aura="using:Aura.UI.Controls"
     x:Class="InvMan.Desktop.UI.Views.AuthorizationView"
-    Height="500" Width="350" CanResize="False">
-    <Border Padding="15 50 15 50">
-        <StackPanel VerticalAlignment="Center">
+    Height="600" Width="350">
+    <Border Padding="15 50 15 0">
+        <StackPanel>
             <Image Source="/Assets/logo.png" Width="200" HorizontalAlignment="Center" />
             <TextBlock Classes="note" Text="Логин" />
             <TextBox Classes="clearButton" Text="{Binding Login}"
-                MaxLength="50" />
+                MaxLength="50"
+                IsEnabled="{Binding !AttemptingToLogin}" />
             <TextBlock Classes="note" Text="Пароль" />
             <TextBox Classes="clearButton" Text="{Binding Password}"
-                PasswordChar="*" MaxLength="50" />
-            <Button Content="Войти" HorizontalAlignment="Stretch" />
+                PasswordChar="*" MaxLength="50" Tag="hello"
+                IsEnabled="{Binding !AttemptingToLogin}" />
+            <Button Content="Войти" HorizontalAlignment="Stretch"
+                Command="{Binding AuthorizationCommand}" />
+            <Panel HorizontalAlignment="Stretch" Height="200">
+                <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" TextAlignment="Center"
+                    IsVisible="{Binding LogInFailed}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Foreground="Gray" FontSize="16" FontWeight="Normal" />
+                <progRing:ProgressRing IsActive="{Binding AttemptingToLogIn}"
+                    IsVisible="{Binding AttemptingToLogIn}"
+                    Width="50" Height="50"
+                    Foreground="{DynamicResource PrimaryHueLightBrush}" />
+            </Panel>
         </StackPanel>
     </Border>
 </Window>

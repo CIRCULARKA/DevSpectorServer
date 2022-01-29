@@ -31,8 +31,8 @@ namespace InvMan.Desktop.Service.DependencyInjection
 
         private void BindViews()
         {
-            Bind<MainView>().ToSelf();
-            Bind<AuthorizationView>().ToSelf();
+            Bind<MainView>().ToSelf().InSingletonScope();
+            Bind<AuthorizationView>().ToSelf().InSingletonScope();
 
             Bind<UserControl>().To<DevicesListView>().Named(nameof(DevicesListView));
 

@@ -1,6 +1,11 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using ReactiveUI;
 using InvMan.Desktop.Service;
+using InvMan.Common.SDK.Authorization;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
@@ -10,15 +15,45 @@ namespace InvMan.Desktop.UI.ViewModels
 
         private string _password;
 
-        private readonly IApplicationEvents _events;
+        private string _errorMessage;
 
-        public AuthorizationViewModel(IApplicationEvents events)
+        private bool _attemptingToLogIn;
+
+        private bool _logInFailed;
+
+        private readonly IAuthorizationManager _authManager;
+
+        private readonly IUserSession _session;
+
+        public AuthorizationViewModel(IUserSession session)
         {
-            _events = events;
+            _authManager = new AuthorizationManager();
+            _session = session;
 
-            AuthorizationCommand = ReactiveCommand.Create(
-                () => _events.RaiseUserAuthorized()
+            AuthorizationCommand = ReactiveCommand.CreateFromTask(
+                () => TryToAuthorize()
             );
+
+            AttemptingToLogIn = false;
+            LogInFailed = false;
+        }
+
+        public bool AttemptingToLogIn
+        {
+            get => _attemptingToLogIn;
+            set => this.RaiseAndSetIfChanged(ref _attemptingToLogIn, value);
+        }
+
+        public bool LogInFailed
+        {
+            get => _logInFailed;
+            set => this.RaiseAndSetIfChanged(ref _logInFailed, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => this.RaiseAndSetIfChanged(ref _errorMessage, value);
         }
 
         public ReactiveCommand<Unit, Unit> AuthorizationCommand { get; }
@@ -33,6 +68,39 @@ namespace InvMan.Desktop.UI.ViewModels
         {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
+
+        public async Task TryToAuthorize()
+        {
+            try
+            {
+                LogInFailed = false;
+                AttemptingToLogIn = true;
+
+                var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
+
+                _session.StartSession(Login, accessToken);
+            }
+            catch (ArgumentException)
+            {
+                LogInFailed = true;
+
+                ErrorMessage = "Логин или пароль введены неверно";
+
+            }
+            catch (HttpRequestException)
+            {
+                LogInFailed = true;
+
+                ErrorMessage = "Не удалось подключиться к серверу";
+            }
+            catch
+            {
+                LogInFailed = true;
+
+                ErrorMessage = "Что-то пошло не так :/";
+            }
+            finally { AttemptingToLogIn = false; }
         }
     }
 }

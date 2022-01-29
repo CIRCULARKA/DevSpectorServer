@@ -21,17 +21,8 @@
     </Window.Styles>
     <Border Padding="15">
         <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
-            <materialstyles:Card Grid.Row="0" Grid.RowSpan="3" Grid.Column="0"
-                Margin="0 0 15 0">
-                <aura:GroupBox>
-                    <aura:GroupBox.Header>
-                        <TextBlock Classes="Headline5" Text="Устройства" />
-                    </aura:GroupBox.Header>
-                    <UserControl Content="{Binding DevicesList}" />
-                </aura:GroupBox>
-            </materialstyles:Card>
-            <materialstyles:Card Grid.Row="0" Grid.Column="1"
-                Margin="0 0 0 15">
+            <materialstyles:Card Grid.Row="0" Grid.Column="0"
+                Margin="0 0 15 15">
                 <aura:GroupBox>
                     <aura:GroupBox.Header>
                         <TextBlock Classes="Headline5" Text="Поиск" />
@@ -41,7 +32,16 @@
                     </StackPanel>
                 </aura:GroupBox>
             </materialstyles:Card>
-            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1" Grid.Column="1" Margin="0 0 0 15">
+            <materialstyles:Card Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"
+                Margin="0 0 15 0">
+                <aura:GroupBox>
+                    <aura:GroupBox.Header>
+                        <TextBlock Classes="Headline5" Text="Устройства" />
+                    </aura:GroupBox.Header>
+                    <UserControl Content="{Binding DevicesList}" />
+                </aura:GroupBox>
+            </materialstyles:Card>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="0" Grid.Column="1" Margin="0 0 0 15">
                 <materialstyles:Card Grid.Row="0" Grid.Column="0" Margin="0 0 15 0">
                     <aura:GroupBox>
                         <aura:GroupBox.Header>
@@ -63,7 +63,7 @@
                     </aura:GroupBox>
                 </materialstyles:Card>
             </Grid>
-            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="2" Grid.Column="1">
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
                 <materialstyles:Card Grid.Row="0" Grid.Column="0" Margin="0 0 15 0">
                     <aura:GroupBox>
                         <aura:GroupBox.Header>

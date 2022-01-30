@@ -6,7 +6,11 @@
         <Setter Property="Template">
             <ControlTemplate TargetType="shared:ModernMenu">
                 <Grid RowDefinitions="*" ColumnDefinitions="250,*">
-                    <TextBlock Text="{TemplateBinding Title}" />
+                    <StackPanel>
+                        <Button Content="{TemplateBinding Title}" />
+                    </StackPanel>
+                    <UserControl Content="{TemplateBinding Content}"
+                        Grid.Column="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>

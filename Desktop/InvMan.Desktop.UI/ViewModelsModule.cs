@@ -15,6 +15,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
         private void BindViewModels()
         {
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
+            Bind<IMainMenuViewModel>().To<MainMenuViewModel>().InSingletonScope();
 
             Bind<IDevicesMainViewModel>().To<DevicesMainViewModel>().InSingletonScope();
 

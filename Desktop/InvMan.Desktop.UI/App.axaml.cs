@@ -32,8 +32,8 @@ namespace InvMan.Desktop.UI
         public override void OnFrameworkInitializationCompleted()
         {
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            // desktop.MainWindow = _kernel.Get<MainView>();
-            desktop.MainWindow = _kernel.Get<AuthorizationView>();
+            // desktop.MainWindow = _kernel.Get<DevicesMainView>();
+            desktop.MainWindow = _kernel.Get<MainView>();
 
             SubscribeToEvents();
 

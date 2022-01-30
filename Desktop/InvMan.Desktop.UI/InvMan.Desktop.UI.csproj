@@ -25,6 +25,7 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.11" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\InvMan.Desktop.Common\InvMan.Desktop.Common.csproj" />
     <ProjectReference Include="..\..\Common\InvMan.Common.SDK\InvMan.Common.SDK.csproj" />
     <ProjectReference Include="..\InvMan.Desktop.Service\InvMan.Desktop.Service.csproj" />
   </ItemGroup>

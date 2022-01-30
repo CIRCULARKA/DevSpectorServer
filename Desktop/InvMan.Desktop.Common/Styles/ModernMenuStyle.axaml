@@ -3,5 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="shared|Test">
         <Setter Property="Background" Value="Red" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="shared:Test">
+                <Grid RowDefinitions="*" ColumnDefinitions="250,*">
+                    <TextBlock Text="{TemplateBinding Title}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
     </Style>
 </Styles>

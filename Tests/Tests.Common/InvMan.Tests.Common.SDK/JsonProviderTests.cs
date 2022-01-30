@@ -1,3 +1,4 @@
+using System;
 using InvMan.Common.SDK;
 using InvMan.Common.SDK.Authorization;
 using Xunit;
@@ -13,28 +14,28 @@ namespace InvMan.Tests.Server.SDK
             var authManager = new AuthorizationManager();
 
             _defaultProvider = new JsonProvider(
-                authManager.GetAccessTokenAsync("ruslan", "123Abc!").GetAwaiter().GetResult()
+                new Uri("http://localhost:5000/api/devices")
             );
         }
 
         [Fact]
         public async void CanLoadDevices()
         {
-            var result = await _defaultProvider.GetDevicesAsync();
+            var result = await _defaultProvider.GetDevicesAsync(Guid.Empty.ToString());
             Assert.True(result.Length > 0);
         }
 
         [Fact]
         public async void CanLoadFreeIP()
         {
-            var result = await _defaultProvider.GetFreeIPAsync();
+            var result = await _defaultProvider.GetFreeIPAsync(Guid.Empty.ToString());
             Assert.True(result.Length > 0);
         }
 
         [Fact]
         public async void CanLoadHousings()
         {
-            var result = await _defaultProvider.GetHousingsAsync();
+            var result = await _defaultProvider.GetHousingsAsync(Guid.Empty.ToString());
             Assert.True(result.Length > 0);
         }
     }

@@ -2,7 +2,6 @@
     xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="shared|ModernMenu">
-        <Setter Property="Background" Value="Red" />
         <Setter Property="Template">
             <ControlTemplate TargetType="shared:ModernMenu">
                 <Grid RowDefinitions="*" ColumnDefinitions="250,*">

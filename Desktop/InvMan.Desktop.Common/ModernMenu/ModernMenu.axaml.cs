@@ -8,8 +8,8 @@ namespace InvMan.Desktop.UI.Views.Shared
         public static readonly AvaloniaProperty<string> TitleProperty =
             AvaloniaProperty.Register<ModernMenu, string>(nameof(Title), "Title");
 
-        public static readonly AvaloniaProperty<object> ContentProperty =
-            AvaloniaProperty.Register<ModernMenu, object>(nameof(Content));
+        public static readonly AvaloniaProperty<object> CurrentContentProperty =
+            AvaloniaProperty.Register<ModernMenu, object>(nameof(CurrentContent));
 
         public ModernMenu() { }
 
@@ -19,10 +19,10 @@ namespace InvMan.Desktop.UI.Views.Shared
             set => SetValue(TitleProperty, value);
         }
 
-        public object Content
+        public object CurrentContent
         {
-            get => GetValue(ContentProperty);
-            set => SetValue(ContentProperty, value);
+            get => GetValue(CurrentContentProperty);
+            set => SetValue(CurrentContentProperty, value);
         }
     }
 }

@@ -9,8 +9,8 @@
                     <StackPanel>
                         <Button Content="{TemplateBinding Title}" />
                     </StackPanel>
-                    <UserControl Content="{TemplateBinding Content}"
-                        Grid.Column="1" />
+                    <ContentControl Content="{TemplateBinding CurrentContent}"
+                        Grid.Row="0" Grid.Column="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>

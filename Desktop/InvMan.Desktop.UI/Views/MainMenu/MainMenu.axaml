@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+	x:Class="InvMan.Desktop.UI.Views.MainMenu">
+	<UserControl.Styles>
+		<Style Selector="Button.menuButtonBase">
+			<Setter Property="Height" Value="40" />
+			<Setter Property="Width" Value="40" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+		</Style>
+		<Style Selector="Button.menuOption">
+			<Setter Property="Margin" Value="0 15 0 0" />
+			<Setter Property="Command" Value="{Binding ChangeContentCommand}" />
+		</Style>
+	</UserControl.Styles>
+	<Grid RowDefinitions="*" ColumnDefinitions="55,*" x:Name="mainGrid">
+		<StackPanel Grid.Row="0" Grid.Column="0">
+			<Button Classes="menuButtonBase"
+				x:Name="menuButton"
+				Click="ToggleMenu" />
+			<Button Classes="menuButtonBase Flat menuOption"
+				CommandParameter="DevicesMainView"
+				x:Name="devicesButton"
+				Content="Устройства" />
+			<Button Classes="menuButtonBase Flat menuOption"
+				CommandParameter="UsersMainView"
+				x:Name="usersButton"
+				Content="Пользователи" />
+		</StackPanel>
+		<UserControl Content="{Binding CurrentContent}"
+			Grid.Row="0" Grid.Column="1" />
+	</Grid>
+</UserControl>

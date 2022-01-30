@@ -4,15 +4,15 @@ using InvMan.Desktop.UI.Views;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
-    public class MainViewModel : ViewModelBase, IMainViewModel
+    public class DevicesMainViewModel : ViewModelBase, IDevicesMainViewModel
     {
-        public MainViewModel(
-            [Named(nameof(DevicesListView))] UserControl devicesList,
-            [Named(nameof(CommonInfoView))] UserControl commonInfo,
-            [Named(nameof(NetworkInfoView))] UserControl networkInfo,
-            [Named(nameof(LocationInfoView))] UserControl locationInfo,
-            [Named(nameof(SoftwareInfoView))] UserControl softwareInfo,
-            [Named(nameof(SearchView))] UserControl search
+        public DevicesMainViewModel(
+            DevicesListView devicesList,
+            CommonInfoView commonInfo,
+            NetworkInfoView networkInfo,
+            LocationInfoView locationInfo,
+            SoftwareInfoView softwareInfo,
+            SearchView search
         )
         {
             DevicesList = devicesList;

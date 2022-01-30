@@ -9,6 +9,7 @@
 	x:Class="InvMan.Desktop.UI.Views.MainView">
 	<Border Padding="15" x:Name="border">
 		<!-- <UserControl Content="{Binding MainMenu}" /> -->
-		<shared:ModernMenu Title="Test title" />
+		<shared:ModernMenu Title="Menu title"
+			CurrentContent="{Binding CurrentContent}" />
 	</Border>
 </Window>

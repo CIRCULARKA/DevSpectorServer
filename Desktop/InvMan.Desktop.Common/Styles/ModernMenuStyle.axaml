@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <ControlTemplate TargetType="shared:ModernMenu">
                 <Grid RowDefinitions="*" ColumnDefinitions="250,*">
-                    <StackPanel>
+                    <StackPanel Margin="0 0 15 0">
                         <Button Content="{TemplateBinding Title}" />
                     </StackPanel>
                     <ContentControl Content="{TemplateBinding CurrentContent}"

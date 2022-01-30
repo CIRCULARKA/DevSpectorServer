@@ -25,6 +25,8 @@
             <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
         </Style>
 
+        <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/ModernMenuStyle.axaml" />
+
         <!--
             !MY
         -->
@@ -34,7 +36,7 @@
         -->
 
         <!-- AuraUI -->
-        <FluentTheme Mode="Light" />
+        <!-- <FluentTheme Mode="Light" /> -->
         <StyleInclude Source="avares://Aura.UI.FluentTheme/AuraUI.xaml"/>
 
         <!-- MaterialAvalonia -->

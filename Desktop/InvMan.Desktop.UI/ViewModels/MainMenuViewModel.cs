@@ -10,14 +10,10 @@ namespace InvMan.Desktop.UI.ViewModels
         private UserControl _currentContent;
 
         public MainMenuViewModel(
-            DevicesMainView devicesMainView,
             UsersMainView usersMainView
         )
         {
-            DevicesMainView = devicesMainView;
             UsersMainView = usersMainView;
-
-            CurrentContent = DevicesMainView;
 
             ChangeContentCommand = ReactiveCommand.Create<string>(
                 ChangeContent

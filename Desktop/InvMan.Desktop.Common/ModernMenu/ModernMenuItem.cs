@@ -21,8 +21,8 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         public object Content
         {
-            get => GetValue(TitleProperty);
-            set => SetValue(TitleProperty, value);
+            get => GetValue(ContentProperty);
+            set => SetValue(ContentProperty, value);
         }
     }
 }

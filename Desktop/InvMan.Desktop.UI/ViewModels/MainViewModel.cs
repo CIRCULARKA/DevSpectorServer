@@ -1,4 +1,5 @@
 using System.Reactive;
+using System.Collections.Generic;
 using Avalonia.Controls;
 using ReactiveUI;
 using InvMan.Desktop.UI.Views;
@@ -10,18 +11,14 @@ namespace InvMan.Desktop.UI.ViewModels
         private UserControl _currentContent;
 
         public MainViewModel(
-            MainMenu mainMenu,
             DevicesMainView devicesMainView,
             UsersMainView usersMainView
         )
         {
-            MainMenu = mainMenu;
             DevicesMainView = devicesMainView;
             UsersMainView = usersMainView;
             CurrentContent = DevicesMainView;
         }
-
-        public ReactiveCommand<string, Unit> ChangeContentCommand { get; }
 
         public UserControl CurrentContent
         {
@@ -32,7 +29,5 @@ namespace InvMan.Desktop.UI.ViewModels
         public UserControl DevicesMainView { get; }
 
         public UserControl UsersMainView { get; }
-
-        public UserControl MainMenu { get; }
     }
 }

@@ -2,14 +2,16 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:views="using:InvMan.Desktop.UI.Views"
 	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+	xmlns:vms="using:InvMan.Desktop.UI.ViewModels"
     Width="900" Height="900" MinWidth="1200"
 	Icon="/Assets/avalonia-logo.ico"
 	Title="Инвентарный менеджер"
 	x:Name="main"
 	x:Class="InvMan.Desktop.UI.Views.MainView">
 	<Border Padding="15" x:Name="border">
-		<!-- <UserControl Content="{Binding MainMenu}" /> -->
-		<shared:ModernMenu Title="Menu title"
-			CurrentContent="{Binding CurrentContent}" />
+		<shared:ModernMenu Title="Меню">
+			<shared:ModernMenuItem Title="Устройства" Content="{Binding DevicesMainView}" />
+			<shared:ModernMenuItem Title="Пользователи" Content="{Binding UsersMainView}" />
+		</shared:ModernMenu>
 	</Border>
 </Window>

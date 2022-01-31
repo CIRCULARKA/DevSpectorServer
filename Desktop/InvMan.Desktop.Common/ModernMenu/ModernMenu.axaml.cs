@@ -1,17 +1,26 @@
+using System.Collections.Generic;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 
 namespace InvMan.Desktop.UI.Views.Shared
 {
     public class ModernMenu : TemplatedControl
     {
-        public static readonly AvaloniaProperty<string> TitleProperty =
+        private Button _mainButton;
+
+        private List<ModernMenuItem> _menuItems;
+
+        public static readonly StyledProperty<string> TitleProperty =
             AvaloniaProperty.Register<ModernMenu, string>(nameof(Title), "Title");
 
-        public static readonly AvaloniaProperty<object> CurrentContentProperty =
-            AvaloniaProperty.Register<ModernMenu, object>(nameof(CurrentContent));
+        public static readonly DirectProperty<ModernMenu, List<ModernMenuItem>> MenuItemsProperty =
+            AvaloniaProperty.RegisterDirect<ModernMenu, List<ModernMenuItem>>(nameof(MenuItems), o => o.MenuItems);
 
-        public ModernMenu() { }
+        public ModernMenu()
+        {
+            _menuItems = new List<ModernMenuItem>();
+        }
 
         public string Title
         {
@@ -19,10 +28,22 @@ namespace InvMan.Desktop.UI.Views.Shared
             set => SetValue(TitleProperty, value);
         }
 
-        public object CurrentContent
+        public List<ModernMenuItem> MenuItems => _menuItems;
+
+        public void Add(ModernMenuItem item)
         {
-            get => GetValue(CurrentContentProperty);
-            set => SetValue(CurrentContentProperty, value);
+            MenuItems.Add(item);
         }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+
+            _mainButton = GetTemplateControl<Button>(e, "PART_mainButton");
+        }
+
+        private T GetTemplateControl<T>(TemplateAppliedEventArgs e, string controlName)
+            where T : AvaloniaObject =>
+            e.NameScope.Find<T>(controlName);
     }
 }

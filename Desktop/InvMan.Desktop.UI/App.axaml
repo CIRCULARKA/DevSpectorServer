@@ -26,6 +26,7 @@
         </Style>
 
         <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/ModernMenuStyle.axaml" />
+        <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/ModernMenuItemStyle.axaml" />
 
         <!--
             !MY

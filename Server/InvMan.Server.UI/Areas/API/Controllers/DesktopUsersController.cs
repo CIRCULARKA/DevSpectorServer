@@ -65,7 +65,12 @@ namespace InvMan.Server.UI.API.Controllers
 
 			HttpContext.Response.Headers.Add("API", targetUser.Id);
 
-			return Json(new { Status = "Authorized", Login = targetUser.UserName });
+			return Json(
+				new {
+					Status = "Authorized",
+					Login = targetUser.UserName
+				}
+			);
 		}
 	}
 }

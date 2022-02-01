@@ -5,6 +5,7 @@
 ## Desktop
 - Implement all server features (in progress)
 - Resolve all temporary solutions: SoftwareInfoViewModel.cs (UpdateDeviceInfo)
+- Resolve weird bug at ModernMenu.cs (OnInitialized)
 - Automate the process of subscribtion view models to app events (done halfway)
 - Add authorization view (done)
 - Make UI display following sections: common information, network information, software and location of device (done)

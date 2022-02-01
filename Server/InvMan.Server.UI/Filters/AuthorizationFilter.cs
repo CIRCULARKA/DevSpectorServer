@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -19,9 +20,12 @@ namespace InvMan.Server.UI.Filters
         {
             var query = context.HttpContext.Request.Query;
             var request = context.HttpContext.Request;
-            var unauthorizedResult = new JsonResult(new { Error = "Invalid API key", StatusCode = 401 }) {
-                StatusCode = 401
-            };
+            var unauthorizedResult = new JsonResult(
+                new BadRequestErrorMessage {
+                    Error = "Wrong API key",
+                    Description = "Provide an API key as an API header or via api query"
+                }
+            );
 
             string api = query["api"].Count == 0 ? request.Headers["API"] : query["api"];
 

@@ -39,7 +39,7 @@ namespace InvMan.Desktop.UI.Views.Shared
         }
 
         public void MainMenuButtonClicked(object _, RoutedEventArgs info) =>
-            ToggleMenuSize(minimize: !IsMinimized);
+            ToggleMenuSize();
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
@@ -50,7 +50,7 @@ namespace InvMan.Desktop.UI.Views.Shared
 
             _menuColumn = GetTemplateControl<Grid>(e, "PART_menuContainer").ColumnDefinitions[0];
 
-            ToggleMenuSize(minimize: StartMinimized);
+            ToggleMenuSize();
         }
 
         protected async override void OnInitialized()
@@ -70,12 +70,30 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         private bool IsMinimized => _menuColumn.Width.Value == MinMenuSize;
 
-        private void ToggleMenuSize(bool minimize)
+        private void ToggleMenuSize()
         {
-            if (minimize)
-                _menuColumn.Width = new GridLength(MinMenuSize);
+            if (IsMinimized)
+                MaximizeMenu();
             else
-                _menuColumn.Width = new GridLength(MaxMenuSize);
+                MinimizeMenu();
+
+            ToggleMenuOptionsContent();
+        }
+
+        private void MinimizeMenu() =>
+            _menuColumn.Width = new GridLength(MinMenuSize);
+
+        private void MaximizeMenu() =>
+            _menuColumn.Width = new GridLength(MaxMenuSize);
+
+        private void ToggleMenuOptionsContent()
+        {
+            if (IsMinimized)
+                foreach (var button in _menuItems)
+                    button.MinimizeTitle();
+            else
+                foreach (var button in _menuItems)
+                    button.MaximizeTitle();
         }
 
         private void SelectIndex(object sender, RoutedEventArgs info)

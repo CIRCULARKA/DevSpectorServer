@@ -13,7 +13,7 @@
                             <ItemsPresenter.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <ContentControl Content="{Binding .}" />
+                                        <Binding Path="." />
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsPresenter.ItemTemplate>

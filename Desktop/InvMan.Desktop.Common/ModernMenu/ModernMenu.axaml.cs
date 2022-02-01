@@ -44,6 +44,8 @@ namespace InvMan.Desktop.UI.Views.Shared
 
             _mainButton = GetTemplateControl<Button>(e, "PART_mainButton");
             _menuColumn = GetTemplateControl<Grid>(e, "PART_menuContainer").ColumnDefinitions[0];
+
+            ToggleMenuSize(minimize: StartMinimized);
         }
 
         protected async override void OnInitialized()
@@ -59,6 +61,14 @@ namespace InvMan.Desktop.UI.Views.Shared
             CurrentContent = _menuItems[GetValue(SelectedIndexProperty)].Content;
 
             SubscribeMenuItemsClickEvent();
+        }
+
+        private void ToggleMenuSize(bool minimize)
+        {
+            if (minimize)
+                _menuColumn.Width = new GridLength(MinMenuSize);
+            else
+                _menuColumn.Width = new GridLength(MaxMenuSize);
         }
 
         private void SelectIndex(object sender, RoutedEventArgs info)

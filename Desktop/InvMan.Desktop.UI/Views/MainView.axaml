@@ -9,7 +9,8 @@
 	x:Name="main"
 	x:Class="InvMan.Desktop.UI.Views.MainView">
 	<Border Padding="15" x:Name="border">
-		<shared:ModernMenu Title="Меню">
+		<shared:ModernMenu Title="Меню" StartMinimized="False"
+			MinMenuSize="50" MaxMenuSize="200">
 			<shared:ModernMenuItem Title="Устройства" Content="{Binding DevicesMainView}" />
 			<shared:ModernMenuItem Title="Пользователи" Content="{Binding UsersMainView}" />
 		</shared:ModernMenu>

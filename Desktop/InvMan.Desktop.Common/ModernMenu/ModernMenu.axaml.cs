@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 
@@ -41,7 +42,7 @@ namespace InvMan.Desktop.UI.Views.Shared
             var incomingValue = info.NewValue.Value;
             if (incomingValue >= _menuItems.Count) return;
 
-            CurrentContent = _menuItems[info.NewValue.Value];
+            CurrentContent = _menuItems[info.NewValue.Value].Content;
         }
 
         public string Title
@@ -64,15 +65,17 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         public List<ModernMenuItem> MenuItems => _menuItems;
 
-        public void Add(ModernMenuItem item) =>
+        public void Add(ModernMenuItem item)
+        {
+            item.Index = MenuItems.Count;
             MenuItems.Add(item);
+        }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
             _mainButton = GetTemplateControl<Button>(e, "PART_mainButton");
-
         }
 
         protected async override void OnInitialized()
@@ -86,6 +89,21 @@ namespace InvMan.Desktop.UI.Views.Shared
             await Task.Run(() => Thread.Sleep(1));
 
             CurrentContent = _menuItems[GetValue(SelectedIndexProperty)].Content;
+
+            SubscribeMenuItemsClickEvent();
+        }
+
+        private void SelectIndex(object sender, RoutedEventArgs info)
+        {
+            var sourceButton = (sender as ModernMenuItem);
+
+            SetValue(SelectedIndexProperty, sourceButton.Index);
+        }
+
+        private void SubscribeMenuItemsClickEvent()
+        {
+            foreach (var button in _menuItems)
+                button.Click += SelectIndex;
         }
 
         private T GetTemplateControl<T>(TemplateAppliedEventArgs e, string controlName)

@@ -38,11 +38,16 @@ namespace InvMan.Desktop.UI.Views.Shared
             MenuItems.Add(item);
         }
 
+        public void MainMenuButtonClicked(object _, RoutedEventArgs info) =>
+            ToggleMenuSize(minimize: !IsMinimized);
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
             _mainButton = GetTemplateControl<Button>(e, "PART_mainButton");
+            _mainButton.Click += MainMenuButtonClicked;
+
             _menuColumn = GetTemplateControl<Grid>(e, "PART_menuContainer").ColumnDefinitions[0];
 
             ToggleMenuSize(minimize: StartMinimized);
@@ -62,6 +67,8 @@ namespace InvMan.Desktop.UI.Views.Shared
 
             SubscribeMenuItemsClickEvent();
         }
+
+        private bool IsMinimized => _menuColumn.Width.Value == MinMenuSize;
 
         private void ToggleMenuSize(bool minimize)
         {

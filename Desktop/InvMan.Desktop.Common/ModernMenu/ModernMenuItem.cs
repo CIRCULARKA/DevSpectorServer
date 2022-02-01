@@ -1,17 +1,19 @@
 using Avalonia;
-using Avalonia.Controls.Primitives;
+using Avalonia.Controls;
 
 namespace InvMan.Desktop.UI.Views.Shared
 {
-    public class ModernMenuItem : TemplatedControl
+    public class ModernMenuItem : Button
     {
         public static readonly StyledProperty<object> TitleProperty =
             AvaloniaProperty.Register<ModernMenu, object>(nameof(Title), "Menu item");
 
-        public static readonly StyledProperty<object> ContentProperty =
+        public new static readonly StyledProperty<object> ContentProperty =
             AvaloniaProperty.Register<ModernMenu, object>(nameof(Content), "Content should be here");
 
         public ModernMenuItem() { }
+
+        public int Index { get; set; }
 
         public object Title
         {
@@ -19,7 +21,7 @@ namespace InvMan.Desktop.UI.Views.Shared
             set => SetValue(TitleProperty, value);
         }
 
-        public object Content
+        public new object Content
         {
             get => GetValue(ContentProperty);
             set => SetValue(ContentProperty, value);

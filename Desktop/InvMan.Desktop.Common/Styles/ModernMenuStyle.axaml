@@ -13,7 +13,7 @@
                             <ItemsPresenter.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <ContentControl Content="{Binding Title}" />
+                                        <ContentControl Content="{Binding .}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsPresenter.ItemTemplate>
@@ -24,8 +24,8 @@
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
                     </StackPanel>
-                    <!-- <ContentControl Content="{Binding Path=SelectedMenuItem.Content, RelativeSource={RelativeSource TemplatedParent}}"
-                        Grid.Row="0" Grid.Column="1" /> -->
+                    <ContentControl Content="{TemplateBinding CurrentContent}"
+                        Grid.Row="0" Grid.Column="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>

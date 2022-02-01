@@ -109,7 +109,7 @@ namespace InvMan.Desktop.UI.Views.Shared
             {
                 foreach (var button in _menuItems)
                     button.MaximizeTitle();
-                _mainButton.Content = _maximizedMenuIcon;
+                _mainButton.Content = "Меню";
             }
         }
 

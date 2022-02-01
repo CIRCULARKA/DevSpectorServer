@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;

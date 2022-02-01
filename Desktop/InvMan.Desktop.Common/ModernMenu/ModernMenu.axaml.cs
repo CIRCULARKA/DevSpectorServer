@@ -3,9 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia;
-using Avalonia.Interactivity;
 using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 
 namespace InvMan.Desktop.UI.Views.Shared
 {
@@ -16,6 +17,10 @@ namespace InvMan.Desktop.UI.Views.Shared
         private Button _mainButton;
 
         private ColumnDefinition _menuColumn;
+
+        private Path _minimizedMenuIcon;
+
+        private Path _maximizedMenuIcon;
 
         public ModernMenu()
         {
@@ -49,6 +54,9 @@ namespace InvMan.Desktop.UI.Views.Shared
             _mainButton.Click += MainMenuButtonClicked;
 
             _menuColumn = GetTemplateControl<Grid>(e, "PART_menuContainer").ColumnDefinitions[0];
+
+            _minimizedMenuIcon = Application.Current.FindResource("minimizedMenuIcon") as Path;
+            _maximizedMenuIcon = Application.Current.FindResource("maximizedMenuIcon") as Path;
 
             ToggleMenuSize();
         }
@@ -89,11 +97,17 @@ namespace InvMan.Desktop.UI.Views.Shared
         private void ToggleMenuOptionsContent()
         {
             if (IsMinimized)
+            {
                 foreach (var button in _menuItems)
                     button.MinimizeTitle();
+                _mainButton.Content = _minimizedMenuIcon;
+            }
             else
+            {
                 foreach (var button in _menuItems)
                     button.MaximizeTitle();
+                _mainButton.Content = _maximizedMenuIcon;
+            }
         }
 
         private void SelectIndex(object sender, RoutedEventArgs info)

@@ -11,8 +11,9 @@
 	<Border Padding="15" x:Name="border">
 		<shared:ModernMenu Title="Меню" StartMinimized="True"
 			MinMenuSize="70" MaxMenuSize="200">
-			<shared:ModernMenuItem MinimizedTitle="У" RegularTitle="Устройства" Content="{Binding DevicesMainView}" />
-			<shared:ModernMenuItem MinimizedTitle="П" RegularTitle="Пользователи" Content="{Binding UsersMainView}" />
+			<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
+				Content="{Binding DevicesMainView}" />
+			<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи" Content="{Binding UsersMainView}" />
 		</shared:ModernMenu>
 	</Border>
 </Window>

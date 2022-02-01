@@ -9,27 +9,13 @@ using Avalonia.Controls.Primitives;
 
 namespace InvMan.Desktop.UI.Views.Shared
 {
-    public class ModernMenu : TemplatedControl
+    public partial class ModernMenu : TemplatedControl
     {
         private object _currentContent;
 
         private Button _mainButton;
 
         private ColumnDefinition _menuColumn;
-
-        private List<ModernMenuItem> _menuItems;
-
-        public static readonly StyledProperty<string> TitleProperty =
-            AvaloniaProperty.Register<ModernMenu, string>(nameof(Title), "Title");
-
-        public static readonly DirectProperty<ModernMenu, List<ModernMenuItem>> MenuItemsProperty =
-            AvaloniaProperty.RegisterDirect<ModernMenu, List<ModernMenuItem>>(nameof(MenuItems), o => o.MenuItems);
-
-        public static readonly DirectProperty<ModernMenu, object> CurrentContentProperty =
-            AvaloniaProperty.RegisterDirect<ModernMenu, object>(nameof(MenuItems), o => o.CurrentContent);
-
-        public static readonly StyledProperty<int> SelectedIndexProperty =
-            AvaloniaProperty.Register<ModernMenu, int>(nameof(SelectedIndex), 0);
 
         public ModernMenu()
         {
@@ -45,26 +31,6 @@ namespace InvMan.Desktop.UI.Views.Shared
 
             CurrentContent = _menuItems[info.NewValue.Value].Content;
         }
-
-        public string Title
-        {
-            get => GetValue(TitleProperty) as string;
-            set => SetValue(TitleProperty, value);
-        }
-
-        public int SelectedIndex
-        {
-            get => (int)GetValue(SelectedIndexProperty);
-            set => SetValue(SelectedIndexProperty, value);
-        }
-
-        public object CurrentContent
-        {
-            get => _currentContent;
-            set => SetAndRaise<object>(CurrentContentProperty, ref _currentContent, value);
-        }
-
-        public List<ModernMenuItem> MenuItems => _menuItems;
 
         public void Add(ModernMenuItem item)
         {

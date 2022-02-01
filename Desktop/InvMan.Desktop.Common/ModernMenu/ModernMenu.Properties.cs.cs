@@ -19,7 +19,6 @@ namespace InvMan.Desktop.UI.Views.Shared
         public static readonly StyledProperty<int> SelectedIndexProperty =
             AvaloniaProperty.Register<ModernMenu, int>(nameof(SelectedIndex), 0);
 
-
         public static readonly StyledProperty<double> MinMenuSizeProperty =
             AvaloniaProperty.Register<ModernMenu, double>(nameof(MinMenuSize), 70.0);
 

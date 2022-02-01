@@ -65,7 +65,7 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             var sourceButton = (sender as ModernMenuItem);
 
-            SetValue(SelectedIndexProperty, sourceButton.Index);
+            SelectedIndex = sourceButton.Index;
         }
 
         private void SubscribeMenuItemsClickEvent()

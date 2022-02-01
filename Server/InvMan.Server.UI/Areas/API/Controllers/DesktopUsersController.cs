@@ -34,9 +34,15 @@ namespace InvMan.Server.UI.API.Controllers
 
 			var result = await _usersManager.CreateAsync(newUser, password);
 
-			if (result.Errors.Count() > 0) return Json(result.Errors);
-
-			return Ok();
+			if (!result.Succeeded)
+				return Json(
+					new BadRequestErrorMessage() {
+						Error = "User wasn't created",
+						Description = result.Errors.Select(e => e.Description)
+					}
+				);
+			else
+				return Ok();
 		}
 
 		[HttpGet("api/users/authorize")]

@@ -5,7 +5,7 @@
     <Style Selector="views|ModernMenu">
         <Setter Property="Template">
             <ControlTemplate TargetType="views:ModernMenu">
-                <Grid RowDefinitions="*" ColumnDefinitions="250,*">
+                <Grid x:Name="PART_menuContainer" RowDefinitions="*" ColumnDefinitions="250,*">
                     <StackPanel Margin="0 0 15 0">
                         <Button x:Name="PART_mainButton"
                             Content="{TemplateBinding Title}" />

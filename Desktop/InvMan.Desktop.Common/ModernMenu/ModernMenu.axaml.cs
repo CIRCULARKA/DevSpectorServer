@@ -15,6 +15,8 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         private Button _mainButton;
 
+        private ColumnDefinition _menuColumn;
+
         private List<ModernMenuItem> _menuItems;
 
         public static readonly StyledProperty<string> TitleProperty =
@@ -75,6 +77,7 @@ namespace InvMan.Desktop.UI.Views.Shared
             base.OnApplyTemplate(e);
 
             _mainButton = GetTemplateControl<Button>(e, "PART_mainButton");
+            _menuColumn = GetTemplateControl<Grid>(e, "PART_menuContainer").ColumnDefinitions[0];
         }
 
         protected async override void OnInitialized()

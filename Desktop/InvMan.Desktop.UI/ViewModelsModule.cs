@@ -1,7 +1,6 @@
 using Ninject.Modules;
 using InvMan.Desktop.UI.Views;
 using InvMan.Desktop.UI.ViewModels;
-using Avalonia.Controls;
 
 namespace InvMan.Desktop.Service.DependencyInjection
 {
@@ -16,6 +15,9 @@ namespace InvMan.Desktop.Service.DependencyInjection
         private void BindViewModels()
         {
             Bind<IMainViewModel>().To<MainViewModel>().InSingletonScope();
+            Bind<IMainMenuViewModel>().To<MainMenuViewModel>().InSingletonScope();
+
+            Bind<IDevicesMainViewModel>().To<DevicesMainViewModel>().InSingletonScope();
 
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>().InSingletonScope();
 
@@ -32,16 +34,20 @@ namespace InvMan.Desktop.Service.DependencyInjection
         private void BindViews()
         {
             Bind<MainView>().ToSelf().InSingletonScope();
+
             Bind<AuthorizationView>().ToSelf().InSingletonScope();
 
-            Bind<UserControl>().To<DevicesListView>().Named(nameof(DevicesListView));
+            Bind<DevicesMainView>().ToSelf().InSingletonScope();
+            Bind<UsersMainView>().ToSelf().InSingletonScope();
 
-            Bind<UserControl>().To<CommonInfoView>().Named(nameof(CommonInfoView));
-            Bind<UserControl>().To<SoftwareInfoView>().Named(nameof(SoftwareInfoView));
-            Bind<UserControl>().To<LocationInfoView>().Named(nameof(LocationInfoView));
-            Bind<UserControl>().To<NetworkInfoView>().Named(nameof(NetworkInfoView));
+            Bind<DevicesListView>().ToSelf();
 
-            Bind<UserControl>().To<SearchView>().Named(nameof(SearchView));
+            Bind<CommonInfoView>().ToSelf();
+            Bind<SoftwareInfoView>().ToSelf();
+            Bind<LocationInfoView>().ToSelf();
+            Bind<NetworkInfoView>().ToSelf();
+
+            Bind<SearchView>().ToSelf();
         }
     }
 }

@@ -1,86 +1,19 @@
 <Window xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
-    xmlns:res="using:InvMan.Desktop.UI.Assets"
-    xmlns:aura="using:Aura.UI.Controls"
-    xmlns:auranav="using:Aura.UI.Controls.Navigation"
-    xmlns:auraxaml="using:Aura.UI.Xaml"
-    xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
-    xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:views="using:InvMan.Desktop.UI.Views"
+	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+	xmlns:vms="using:InvMan.Desktop.UI.ViewModels"
     Width="900" Height="900" MinWidth="1200"
-    x:Class="InvMan.Desktop.UI.Views.MainView"
-    Icon="/Assets/avalonia-logo.ico"
-    Title="Панель управления">
-    <Window.Styles>
-        <Style Selector="materialstyles|Card">
-            <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
-        </Style>
-    </Window.Styles>
-    <Border Padding="15">
-        <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
-            <materialstyles:Card Grid.Row="0" Grid.Column="0"
-                Margin="0 0 15 15">
-                <aura:GroupBox>
-                    <aura:GroupBox.Header>
-                        <TextBlock Classes="Headline5" Text="Поиск" />
-                    </aura:GroupBox.Header>
-                    <StackPanel>
-                        <UserControl Content="{Binding Search}" />
-                    </StackPanel>
-                </aura:GroupBox>
-            </materialstyles:Card>
-            <materialstyles:Card Grid.Row="1" Grid.RowSpan="2" Grid.Column="0"
-                Margin="0 0 15 0">
-                <aura:GroupBox>
-                    <aura:GroupBox.Header>
-                        <TextBlock Classes="Headline5" Text="Устройства" />
-                    </aura:GroupBox.Header>
-                    <UserControl Content="{Binding DevicesList}" />
-                </aura:GroupBox>
-            </materialstyles:Card>
-            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="0" Grid.Column="1" Margin="0 0 0 15">
-                <materialstyles:Card Grid.Row="0" Grid.Column="0" Margin="0 0 15 0">
-                    <aura:GroupBox>
-                        <aura:GroupBox.Header>
-                            <TextBlock Classes="Headline5" Text="Общая информация" />
-                        </aura:GroupBox.Header>
-                        <ScrollViewer>
-                            <UserControl Content="{Binding CommonInfo}" />
-                        </ScrollViewer>
-                    </aura:GroupBox>
-                </materialstyles:Card>
-                <materialstyles:Card Grid.Row="0" Grid.Column="1">
-                    <aura:GroupBox>
-                        <aura:GroupBox.Header>
-                            <TextBlock Classes="Headline5" Text="Расположение" />
-                        </aura:GroupBox.Header>
-                        <ScrollViewer>
-                            <UserControl Content="{Binding LocationInfo}" />
-                        </ScrollViewer>
-                    </aura:GroupBox>
-                </materialstyles:Card>
-            </Grid>
-            <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
-                <materialstyles:Card Grid.Row="0" Grid.Column="0" Margin="0 0 15 0">
-                    <aura:GroupBox>
-                        <aura:GroupBox.Header>
-                            <TextBlock Classes="Headline5" Text="Программное обеспечение" />
-                        </aura:GroupBox.Header>
-                        <UserControl Content="{Binding SoftwareInfo}" />
-                    </aura:GroupBox>
-                </materialstyles:Card>
-                <materialstyles:Card Grid.Row="0" Grid.Column="1">
-                    <aura:GroupBox>
-                        <aura:GroupBox.Header>
-                            <TextBlock Classes="Headline5" Text="Сетевая информация" />
-                        </aura:GroupBox.Header>
-                        <UserControl Content="{Binding NetworkInfo}" />
-                    </aura:GroupBox>
-                </materialstyles:Card>
-            </Grid>
-        </Grid>
-    </Border>
+	Icon="/Assets/avalonia-logo.ico"
+	Title="Инвентарный менеджер"
+	x:Name="main"
+	x:Class="InvMan.Desktop.UI.Views.MainView">
+	<Border Padding="15" x:Name="border">
+		<shared:ModernMenu Title="Меню" StartMinimized="True"
+			MinMenuSize="70" MaxMenuSize="200">
+			<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
+				Content="{Binding DevicesMainView}" />
+			<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи" Content="{Binding UsersMainView}" />
+		</shared:ModernMenu>
+	</Border>
 </Window>

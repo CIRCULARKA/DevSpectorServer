@@ -33,9 +33,6 @@ namespace InvMan.Desktop.UI.ViewModels
             AuthorizationCommand = ReactiveCommand.CreateFromTask(
                 () => TryToAuthorize()
             );
-
-            AttemptingToLogIn = false;
-            LogInFailed = false;
         }
 
         public bool AttemptingToLogIn
@@ -77,7 +74,8 @@ namespace InvMan.Desktop.UI.ViewModels
                 LogInFailed = false;
                 AttemptingToLogIn = true;
 
-                var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
+                // var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
+                var accessToken = await _authManager.GetAccessTokenAsync("ruslan", "123Abc!");
 
                 _session.StartSession(Login, accessToken);
             }

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia;
+using Avalonia.Media;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Primitives;
@@ -15,6 +16,8 @@ namespace InvMan.Desktop.UI.Views.Shared
         private object _currentContent;
 
         private Button _mainButton;
+
+        private ModernMenuItem _selectedItem;
 
         private ColumnDefinition _menuColumn;
 
@@ -112,9 +115,9 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         private void SelectIndex(object sender, RoutedEventArgs info)
         {
-            var sourceButton = (sender as ModernMenuItem);
+            _selectedItem = sender as ModernMenuItem;
 
-            SelectedIndex = sourceButton.Index;
+            SelectedIndex = _selectedItem.Index;
         }
 
         private void SubscribeMenuItemsClickEvent()

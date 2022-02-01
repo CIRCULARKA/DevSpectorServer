@@ -34,7 +34,6 @@ namespace InvMan.Desktop.Service.DependencyInjection
         private void BindViews()
         {
             Bind<MainView>().ToSelf().InSingletonScope();
-            Bind<MainMenu>().ToSelf().InSingletonScope();
 
             Bind<AuthorizationView>().ToSelf().InSingletonScope();
 

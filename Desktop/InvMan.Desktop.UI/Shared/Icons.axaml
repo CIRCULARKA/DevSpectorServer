@@ -8,8 +8,12 @@
         Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M6,7H18V9H6V7M6,11H18V13H6V11M6,15H18V17H6V15Z" />
     <Path x:Key="maximizedMenuIcon" Fill="White"
         Data="M5,13L9,17L7.6,18.42L1.18,12L7.6,5.58L9,7L5,11H21V13H5M21,6V8H11V6H21M21,16V18H11V16H21Z" />
-    <Path x:Key="laptopIcon" Fill="{DynamicResource PrimaryHueLightBrush}"
-        Data="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
     <Path x:Key="singleUserIcon" Fill="{DynamicResource PrimaryHueLightBrush}"
         Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+    <Viewbox x:Key="singleDeviceIcon" Width="48" Height="48" Margin="0 0 10 0">
+        <Canvas Width="24" Height="24" >
+            <Path Fill="{DynamicResource PrimaryHueLightBrush}"
+                Data="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
+        </Canvas>
+    </Viewbox>
 </ResourceDictionary>

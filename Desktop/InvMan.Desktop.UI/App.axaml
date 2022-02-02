@@ -4,31 +4,35 @@
     xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.App">
     <Application.Resources>
-        <!--
-            MY
-        -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--
+                    MY
+                -->
 
-        <!-- Icons -->
-        <ResourceInclude Source="/Shared/Icons.axaml" />
+                <!-- Icons -->
+                <ResourceInclude Source="/Shared/Icons.axaml" />
 
-        <!--
-            !MY
-        -->
+                <!--
+                    !MY
+                -->
 
-        <!--
-            External
-        -->
+                <!--
+                    External
+                -->
 
-        <!--
-            Material.Avalonia
-            Primary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Primary
-            Secondary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Accent
-        -->
-        <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Amber" />
+                <!--
+                    Material.Avalonia
+                    Primary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Primary
+                    Secondary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Accent
+                -->
+                <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Amber" />
 
-        <!--
-            !External
-        -->
+                <!--
+                    !External
+                -->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
         <!--

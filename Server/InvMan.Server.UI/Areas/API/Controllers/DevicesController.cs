@@ -29,7 +29,6 @@ namespace InvMan.Server.UI.API.Controllers
 			return Json(_manager.GetAppliances());
 		}
 
-
 		[HttpPut("api/devices/create")]
 		public IActionResult CreateDevice(string networkName, string inventoryNumber, string type)
 		{

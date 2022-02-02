@@ -12,11 +12,18 @@
             IsVisible="{Binding AreThereAppliances}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding InventoryNumber}" />
-                        <TextBlock Text="{Binding NetworkName}" />
-                        <TextBlock Text="{Binding Type}" />
-                    </StackPanel>
+                    <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
+                        <Viewbox Width="48" Height="48" Margin="0 0 10 0">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{DynamicResource PrimaryHueLightBrush}"
+                                    Data="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
+                            </Canvas>
+                        </Viewbox>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding NetworkName}" Foreground="White" FontSize="20" />
+                            <TextBlock Text="{Binding Type}" Foreground="Gray" />
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

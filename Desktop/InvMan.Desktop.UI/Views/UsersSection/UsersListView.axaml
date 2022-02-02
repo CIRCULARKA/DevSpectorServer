@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+    xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+    xmlns:aura="using:Aura.UI.Controls"
+    x:Class="InvMan.Desktop.UI.Views.UsersListView" >
+    <Grid RowDefinitions="*" ColumnDefinitions="*">
+        <ListBox BorderThickness="0" Height="{Binding #base.Height}"
+            Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"
+            IsVisible="{Binding AreThereAppliances}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
+                        <Viewbox Width="48" Height="48" Margin="0 0 10 0">
+                            <Canvas Width="24" Height="24" >
+                                <!-- <Resource /> -->
+                                <Path Fill="{DynamicResource PrimaryHueLightBrush}"
+                                    Data="M4,6H20V16H4M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
+                            </Canvas>
+                        </Viewbox>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding NetworkName}" Foreground="White" FontSize="20" />
+                            <TextBlock Text="{Binding Type}" Foreground="Gray" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereAppliances}">
+            <progRing:ProgressRing IsVisible="{Binding !AreAppliancesLoaded}"
+                IsActive="{Binding !AreAppliancesLoaded}" Foreground="{DynamicResource PrimaryHueLightBrush}" Width="50" Height="50" />
+            <TextBlock Text="{Binding NoAppliancesMessage}"
+                IsVisible="{Binding AreAppliancesLoaded}"
+                Margin="3 0 3 0"
+                TextWrapping="Wrap" TextAlignment="Center"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                FontSize="26" Foreground="Gray" />
+        </Panel>
+    </Grid>
+</UserControl>

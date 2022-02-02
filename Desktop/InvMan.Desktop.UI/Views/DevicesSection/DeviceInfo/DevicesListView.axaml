@@ -1,11 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
-        xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
         xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
-		xmlns:aura="using:Aura.UI.Controls"
-        x:Class="InvMan.Desktop.UI.Views.DevicesListView"
-        Name="base">
+        x:Class="InvMan.Desktop.UI.Views.DevicesListView">
     <Grid RowDefinitions="*" ColumnDefinitions="*">
         <ListBox BorderThickness="0" Height="{Binding #base.Height}"
             Items="{Binding Appliances}" SelectedItem="{Binding SelectedAppliance}"

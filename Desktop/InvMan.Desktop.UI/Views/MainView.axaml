@@ -1,16 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:views="using:InvMan.Desktop.UI.Views"
 	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
-	xmlns:vms="using:InvMan.Desktop.UI.ViewModels"
-    Width="900" Height="900" MinWidth="1200"
+    xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+	x:Class="InvMan.Desktop.UI.Views.MainView"
 	Icon="/Assets/avalonia-logo.ico"
 	Title="Инвентарный менеджер"
-	x:Name="main"
-	x:Class="InvMan.Desktop.UI.Views.MainView">
+    Width="900" Height="900" MinWidth="1200">
 	<Border Padding="15" x:Name="border">
 		<shared:ModernMenu Title="Меню" StartMinimized="True"
-			MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1">
+			MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1"
+			Grid.Row="1">
 			<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
 				Content="{Binding DevicesMainView}" />
 			<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи" Content="{Binding UsersMainView}" />

@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="TextBlock.main">
+        <Setter Property="Margin" Value="0 0 0 8" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="TextBlock.note">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="Gray" />
+    </Style>
+    <Style Selector="TextBlock.Headline5">
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
+    </Style>
+</Styles>

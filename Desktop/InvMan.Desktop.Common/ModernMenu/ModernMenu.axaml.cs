@@ -1,9 +1,6 @@
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using Avalonia;
-using Avalonia.Media;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Primitives;
@@ -64,17 +61,9 @@ namespace InvMan.Desktop.UI.Views.Shared
             ToggleMenuSize();
         }
 
-        protected async override void OnInitialized()
+        protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            // I don't know why but I found very weird solution about why CurrentContent gets default value of SelectedIndexProperty
-            // instead of desired value that was set in the MainView.axaml
-            // and I don't know how does it work
-            // HELP MEEE
-            await Task.Run(() => Thread.Sleep(1));
-
-            CurrentContent = _menuItems[GetValue(SelectedIndexProperty)].Content;
 
             SubscribeMenuItemsClickEvent();
         }

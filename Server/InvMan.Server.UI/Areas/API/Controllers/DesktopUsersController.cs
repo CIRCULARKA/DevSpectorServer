@@ -58,10 +58,15 @@ namespace InvMan.Server.UI.API.Controllers
 		[HttpGet("api/users/authorize")]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
+			var wrongCredentialsResponse = Unauthorized(
+				new BadRequestErrorMessage {
+					Error = "Authorization failed",
+					Description = "Authorization wasn't completed - wrong credentials"
+				});
 			var targetUser = await _usersManager.FindByNameAsync(login ?? "");
 
 			if (targetUser == null)
-				return Unauthorized();
+				return wrongCredentialsResponse;
 
 			var result = await _signInManager.PasswordSignInAsync(
 				user: targetUser,
@@ -71,7 +76,7 @@ namespace InvMan.Server.UI.API.Controllers
 			);
 
 			if (!result.Succeeded)
-				return Unauthorized();
+				return wrongCredentialsResponse;
 
 			HttpContext.Response.Headers.Add("API", targetUser.Id);
 

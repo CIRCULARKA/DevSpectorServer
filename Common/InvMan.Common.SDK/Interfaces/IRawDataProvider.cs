@@ -9,6 +9,8 @@ namespace InvMan.Common.SDK
 
 		Task<string> GetDevicesAsync(string accessToken);
 
+		Task<string> GetUsersAsync(string accessToken);
+
 		Task<string> GetFreeIPAsync(string accessToken);
 
 		Task<string> GetHousingsAsync(string accessToken);

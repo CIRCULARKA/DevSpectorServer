@@ -9,6 +9,8 @@ namespace InvMan.Common.SDK
     {
         private Uri _pathToDevices;
 
+        private Uri _pathToUsers;
+
         private Uri _pathToFreeIpAddresses;
 
         private Uri _pathToHousings;
@@ -37,6 +39,9 @@ namespace InvMan.Common.SDK
 
         public Task<string> GetDevicesAsync(string accessToken) =>
             GetContentFromUriAsync(_pathToDevices.AbsoluteUri, accessToken);
+
+		public Task<string> GetUsersAsync(string acessToken) =>
+            GetContentFromUriAsync(_pathToUsers.AbsoluteUri, acessToken);
 
         public Task<string> GetHousingsAsync(string accessToken) =>
             GetContentFromUriAsync(_pathToHousings.AbsoluteUri, accessToken);
@@ -86,6 +91,7 @@ namespace InvMan.Common.SDK
         private void BuildEndpointPath()
         {
             _pathToDevices = BuildUriWithHostBaseAndPath("api/devices/");
+            _pathToUsers = BuildUriWithHostBaseAndPath("api/users/");
             _pathToFreeIpAddresses = BuildUriWithHostBaseAndPath("api/free-ip/");
             _pathToHousings = BuildUriWithHostBaseAndPath("api/location/housings/");
         }

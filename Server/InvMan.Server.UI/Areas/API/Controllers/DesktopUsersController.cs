@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using InvMan.Server.UI.Filters;
 using InvMan.Server.Domain.Models;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
@@ -22,6 +23,14 @@ namespace InvMan.Server.UI.API.Controllers
             _usersManager = usersManager;
 			_signInManager = signInManager;
 		}
+
+		[HttpGet("api/users")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		public JsonResult GetUsers() =>
+			Json(
+				_usersManager.Users.
+					Select(u => new User(u.Id, u.UserName))
+			);
 
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]

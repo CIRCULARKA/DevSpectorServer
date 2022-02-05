@@ -22,7 +22,7 @@ namespace InvMan.Server.Database
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
 
-		// public DbSet<DesktopUser> DesktopUsers { get; set; }
+		public DbSet<UserGroup> UserGroups { get; set; }
 
 		protected void ApplyModelConfigurations(ModelBuilder builder)
 		{

@@ -1,6 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.Views.UsersMainView">
-    <TextBlock Classes="Headline1" Text="UsersPane"
-        HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <Grid ColumnDefinitions="Auto,*">
+        <materialstyles:Card>
+            <ContentControl Content="{Binding UsersList}" />
+        </materialstyles:Card>
+    </Grid>
 </UserControl>

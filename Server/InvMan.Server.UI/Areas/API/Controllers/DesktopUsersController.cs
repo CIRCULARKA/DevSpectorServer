@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -51,8 +52,8 @@ namespace InvMan.Server.UI.API.Controllers
 						Description = result.Errors.Select(e => e.Description)
 					}
 				);
-			else
-				return Ok();
+
+			return Ok();
 		}
 
 		[HttpGet("api/users/authorize")]

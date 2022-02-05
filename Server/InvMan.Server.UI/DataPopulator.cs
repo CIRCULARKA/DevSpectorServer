@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using InvMan.Server.Database;
 using InvMan.Server.Domain.Models;
@@ -10,11 +9,20 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class DataPopulator
     {
-        public static IApplicationBuilder FillDbWithTemporaryData(this IApplicationBuilder @this)
-        {
-            var context = @this.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
-            var usersManager = @this.ApplicationServices.CreateScope().ServiceProvider.GetService<UserManager<DesktopUser>>();
+        // public static IApplicationBuilder AddUserGroups(
+        //     this IApplicationBuilder @this,
+        //     ApplicationDbContext context
+        // )
+        // {
+        //     return @this;
+        // }
 
+        public static IApplicationBuilder FillDbWithTemporaryData(
+            this IApplicationBuilder @this,
+            ApplicationDbContext context,
+            UserManager<DesktopUser> usersManager
+        )
+        {
             if (context == null)
                 throw new ArgumentNullException("Can't load database context from services. Ensure you configured it");
 

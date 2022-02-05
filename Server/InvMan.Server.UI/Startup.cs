@@ -47,9 +47,6 @@ namespace InvMan.Server.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // var context = app.ApplicationServices.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
-            // context.Database.Migrate();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,7 +57,11 @@ namespace InvMan.Server.UI
                         options.RoutePrefix = string.Empty;
                     }
                 );
-                app.FillDbWithTemporaryData();
+
+                var context = GetService<ApplicationDbContext>(app);
+                var usersManager = GetService<UserManager<DesktopUser>>(app);
+
+                app.FillDbWithTemporaryData(context, usersManager);
             }
 
             app.UseRouting();
@@ -70,5 +71,10 @@ namespace InvMan.Server.UI
                 endpoints.MapControllers();
             });
         }
+
+        private T GetService<T>(IApplicationBuilder builder) =>
+            builder.ApplicationServices.CreateScope().
+                ServiceProvider.
+                    GetService<T>();
     }
 }

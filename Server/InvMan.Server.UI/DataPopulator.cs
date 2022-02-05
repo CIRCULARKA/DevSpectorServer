@@ -9,13 +9,21 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class DataPopulator
     {
-        // public static IApplicationBuilder AddUserGroups(
-        //     this IApplicationBuilder @this,
-        //     ApplicationDbContext context
-        // )
-        // {
-        //     return @this;
-        // }
+        public static IApplicationBuilder AddUserGroups(
+            this IApplicationBuilder @this,
+            ApplicationDbContext context
+        )
+        {
+            if (!context.Roles.Any())
+                context.Roles.AddRange(
+                    new IdentityRole("Техник"),
+                    new IdentityRole("Администратор")
+                );
+
+            context.SaveChanges();
+
+            return @this;
+        }
 
         public static IApplicationBuilder FillDbWithTemporaryData(
             this IApplicationBuilder @this,
@@ -23,9 +31,6 @@ namespace Microsoft.AspNetCore.Builder
             UserManager<DesktopUser> usersManager
         )
         {
-            if (context == null)
-                throw new ArgumentNullException("Can't load database context from services. Ensure you configured it");
-
             if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
                 usersManager.CreateAsync(new DesktopUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }).GetAwaiter().GetResult();
 

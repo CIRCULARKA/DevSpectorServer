@@ -37,6 +37,7 @@ namespace InvMan.Server.UI
             services.AddControllers().AddFluentValidation();
 
             services.AddIdentity<DesktopUser, IdentityRole>().
+                AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<IValidator<Device>, DeviceValidator>();
@@ -47,6 +48,9 @@ namespace InvMan.Server.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var context = GetService<ApplicationDbContext>(app);
+            var usersManager = GetService<UserManager<DesktopUser>>(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,11 +62,11 @@ namespace InvMan.Server.UI
                     }
                 );
 
-                var context = GetService<ApplicationDbContext>(app);
-                var usersManager = GetService<UserManager<DesktopUser>>(app);
 
                 app.FillDbWithTemporaryData(context, usersManager);
             }
+
+            app.AddUserGroups(context);
 
             app.UseRouting();
 

@@ -29,16 +29,17 @@ namespace InvMan.Server.UI.API.Controllers
 		public JsonResult GetUsers() =>
 			Json(
 				_usersManager.Users.
-					Select(u => new User(u.Id, u.UserName))
+					Select(u => new User(u.Id, u.UserName, u.Group))
 			);
 
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
-        public async Task<IActionResult> CreateUser(string login, string password)
+        public async Task<IActionResult> CreateUser(string login, string password, string group)
 		{
 			var newUser = new DesktopUser {
 				UserName = login,
-				AccessKey = Guid.NewGuid().ToString()
+				AccessKey = Guid.NewGuid().ToString(),
+				Group = group
 			};
 
 			var result = await _usersManager.CreateAsync(newUser, password);

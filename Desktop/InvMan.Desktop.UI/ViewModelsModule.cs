@@ -20,6 +20,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<IDevicesMainViewModel>().To<DevicesMainViewModel>().InSingletonScope();
 
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>().InSingletonScope();
+            Bind<IUsersMainViewModel>().To<UsersMainViewModel>().InSingletonScope();
 
             Bind<ICommonInfoViewModel>().To<CommonInfoViewModel>().InSingletonScope();
             Bind<INetworkInfoViewModel>().To<NetworkInfoViewModel>().InSingletonScope();
@@ -41,6 +42,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<UsersMainView>().ToSelf().InSingletonScope();
 
             Bind<DevicesListView>().ToSelf();
+            Bind<UsersListView>().ToSelf();
 
             Bind<CommonInfoView>().ToSelf();
             Bind<SoftwareInfoView>().ToSelf();

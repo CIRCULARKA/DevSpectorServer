@@ -13,6 +13,7 @@
 
 ## Server
 - Modifying devices: add and delete
+- Manage users roles
 - Account devices software
 - Account devices credentials
 - Assign IP addresses to devices

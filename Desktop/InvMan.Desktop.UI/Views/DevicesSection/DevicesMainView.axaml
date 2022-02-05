@@ -8,11 +8,6 @@
     xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
     xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.Views.DevicesMainView">
-    <UserControl.Styles>
-        <Style Selector="materialstyles|Card">
-            <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
-        </Style>
-    </UserControl.Styles>
     <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
         <materialstyles:Card Grid.Row="0" Grid.Column="0"
             Margin="0 0 15 15">

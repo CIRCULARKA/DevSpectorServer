@@ -1,5 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+    xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles">
     <Style Selector="TextBlock.main">
         <Setter Property="Margin" Value="0 0 0 8" />
         <Setter Property="FontSize" Value="18" />
@@ -10,5 +12,8 @@
     </Style>
     <Style Selector="TextBlock.Headline5">
         <Setter Property="Foreground" Value="{DynamicResource SecondaryHueLightBrush}" />
+    </Style>
+    <Style Selector="materialstyles|Card">
+        <Setter Property="assist:ShadowAssist.ShadowDepth" Value="9" />
     </Style>
 </Styles>

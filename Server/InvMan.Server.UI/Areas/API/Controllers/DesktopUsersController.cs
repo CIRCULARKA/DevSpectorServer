@@ -1,5 +1,4 @@
 using System;
-using System.Security.Claims;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +34,7 @@ namespace InvMan.Server.UI.API.Controllers
 
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
+		[RequireParameters("login", "password", "group")]
         public async Task<IActionResult> CreateUser(string login, string password, string group)
 		{
 			var newUser = new DesktopUser {
@@ -47,9 +47,9 @@ namespace InvMan.Server.UI.API.Controllers
 
 			if (!result.Succeeded)
 				return BadRequest(
-					new BadRequestErrorMessage() {
+					new {
 						Error = "User wasn't created",
-						Description = result.Errors.Select(e => e.Description)
+						CriteriaWerentMet = result.Errors.Select(e => e.Description)
 					}
 				);
 
@@ -58,11 +58,20 @@ namespace InvMan.Server.UI.API.Controllers
 
 		[HttpPost("api/users/remove")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
+		[RequireParameters("login")]
 		public async Task<IActionResult> RemoveUser(string login)
 		{
 			var targetUser = await _usersManager.FindByNameAsync(login);
 
 			var result = await _usersManager.DeleteAsync(targetUser);
+
+			if (result == null)
+				return BadRequest(
+					new BadRequestErrorMessage {
+						Error = "User not found",
+						Description = "User with specified login doesn't exist"
+					}
+				);
 
 			if (!result.Succeeded)
 				return BadRequest(
@@ -76,6 +85,7 @@ namespace InvMan.Server.UI.API.Controllers
 		}
 
 		[HttpGet("api/users/authorize")]
+		[RequireParameters("login")]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
 			var wrongCredentialsResponse = Unauthorized(

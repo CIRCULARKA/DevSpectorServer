@@ -46,10 +46,29 @@ namespace InvMan.Server.UI.API.Controllers
 			var result = await _usersManager.CreateAsync(newUser, password);
 
 			if (!result.Succeeded)
-				return Json(
+				return BadRequest(
 					new BadRequestErrorMessage() {
 						Error = "User wasn't created",
 						Description = result.Errors.Select(e => e.Description)
+					}
+				);
+
+			return Ok();
+		}
+
+		[HttpPost("api/users/remove")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		public async Task<IActionResult> RemoveUser(string login)
+		{
+			var targetUser = await _usersManager.FindByNameAsync(login);
+
+			var result = await _usersManager.DeleteAsync(targetUser);
+
+			if (!result.Succeeded)
+				return BadRequest(
+					new BadRequestErrorMessage() {
+						Error = "Can't delete user",
+						Description = result.Errors.Select(ie => ie.Description)
 					}
 				);
 

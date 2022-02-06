@@ -20,7 +20,7 @@ namespace InvMan.Server.UI.Filters
         {
             var query = context.HttpContext.Request.Query;
             var request = context.HttpContext.Request;
-            var unauthorizedResult = new JsonResult(
+            var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestErrorMessage {
                     Error = "Wrong API key",
                     Description = "Provide an API key as an API header or via api query"

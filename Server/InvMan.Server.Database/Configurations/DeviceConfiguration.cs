@@ -12,7 +12,6 @@ namespace InvMan.Server.Database.Configurations
 			builder.HasKey(d => d.ID);
 			builder.Property(d => d.LocationID).IsRequired();
 			builder.Property(d => d.TypeID).IsRequired();
-			builder.Property(d => d.InventoryNumber).IsRequired();
 			builder.HasIndex(d => d.InventoryNumber).IsUnique();
 		}
 	}

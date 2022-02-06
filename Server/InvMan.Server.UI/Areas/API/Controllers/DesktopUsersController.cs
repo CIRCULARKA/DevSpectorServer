@@ -9,15 +9,15 @@ using InvMan.Common.SDK.Models;
 
 namespace InvMan.Server.UI.API.Controllers
 {
-	public class DesktopUsersController : ApiController
+	public class ClientUsersController : ApiController
 	{
-        private readonly UserManager<DesktopUser> _usersManager;
+        private readonly UserManager<ClientUser> _usersManager;
 
-		private readonly SignInManager<DesktopUser> _signInManager;
+		private readonly SignInManager<ClientUser> _signInManager;
 
-		public DesktopUsersController(
-            UserManager<DesktopUser> usersManager,
-			SignInManager<DesktopUser> signInManager
+		public ClientUsersController(
+            UserManager<ClientUser> usersManager,
+			SignInManager<ClientUser> signInManager
 		)
 		{
             _usersManager = usersManager;
@@ -37,7 +37,7 @@ namespace InvMan.Server.UI.API.Controllers
 		[RequireParameters("login", "password", "group")]
         public async Task<IActionResult> CreateUser(string login, string password, string group)
 		{
-			var newUser = new DesktopUser {
+			var newUser = new ClientUser {
 				UserName = login,
 				AccessKey = Guid.NewGuid().ToString(),
 				Group = group

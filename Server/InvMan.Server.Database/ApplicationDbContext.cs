@@ -5,7 +5,7 @@ using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.Database
 {
-	public class ApplicationDbContext : IdentityDbContext<DesktopUser>
+	public class ApplicationDbContext : IdentityDbContext<ClientUser>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
 			base(options) { }

@@ -30,11 +30,11 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder FillDbWithTemporaryData(
             this IApplicationBuilder @this,
             ApplicationDbContext context,
-            UserManager<DesktopUser> usersManager
+            UserManager<ClientUser> usersManager
         )
         {
             if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
-                usersManager.CreateAsync(new DesktopUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }).GetAwaiter().GetResult();
+                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }).GetAwaiter().GetResult();
 
             if (context.Devices.Count() != 0) return @this;
 

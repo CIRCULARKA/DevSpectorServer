@@ -8,9 +8,9 @@ namespace InvMan.Server.UI.Filters
 {
     public class AuthorizationFilter : IAsyncAuthorizationFilter
     {
-        private readonly UserManager<DesktopUser> _usersManager;
+        private readonly UserManager<ClientUser> _usersManager;
 
-        public AuthorizationFilter(UserManager<DesktopUser> usersManager)
+        public AuthorizationFilter(UserManager<ClientUser> usersManager)
         {
             _usersManager = usersManager;
         }

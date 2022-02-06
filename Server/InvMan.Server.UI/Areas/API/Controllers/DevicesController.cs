@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using InvMan.Server.Application;
 using InvMan.Server.UI.Filters;
 

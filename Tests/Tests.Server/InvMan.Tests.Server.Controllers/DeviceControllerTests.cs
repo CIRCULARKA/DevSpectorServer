@@ -79,8 +79,7 @@ namespace InvMan.Tests.Server.Controllers
 			);
 
 			_controller = new DevicesController(
-				devicesManagerMock,
-				new LoggerFactory().CreateLogger<DevicesController>()
+				devicesManagerMock
 			);
 		}
 

@@ -12,7 +12,7 @@ namespace InvMan.Server.UI.API.Controllers
 		private readonly IDevicesManager _manager;
 
 		public DevicesController(
-			IDevicesManager manager,
+			IDevicesManager manager
 		)
 		{
 			_manager = manager;

@@ -14,11 +14,13 @@ namespace Microsoft.AspNetCore.Builder
             ApplicationDbContext context
         )
         {
-            if (!context.Roles.Any())
-                context.Roles.AddRange(
-                    new IdentityRole("Техник"),
-                    new IdentityRole("Администратор")
-                );
+            var roles = context.Roles;
+            context.Roles.RemoveRange(roles);
+
+            context.Roles.AddRange(
+                new IdentityRole("Техник"),
+                new IdentityRole("Администратор")
+            );
 
             context.SaveChanges();
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,6 +11,11 @@ namespace InvMan.Server.UI.Filters
 
         public RequireParametersAttribute(params string[] parameters)
         {
+            var noParametersException = new ArgumentException("Parameters must be provided");
+
+            if (parameters == null)
+                throw noParametersException;
+
             _requiredParameters = parameters;
         }
 

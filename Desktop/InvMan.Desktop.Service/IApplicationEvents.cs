@@ -17,5 +17,9 @@ namespace InvMan.Desktop.Service
         event Action UserAuthorized;
 
         void RaiseUserAuthorized();
+
+        event Action<User> UserSelected;
+
+        void RaiseUserSelected(User user);
     }
 }

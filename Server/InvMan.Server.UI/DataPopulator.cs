@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using InvMan.Server.Database;
+using InvMan.Server.Application;
 using InvMan.Server.Domain.Models;
 
 namespace Microsoft.AspNetCore.Builder
@@ -30,11 +31,11 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder FillDbWithTemporaryData(
             this IApplicationBuilder @this,
             ApplicationDbContext context,
-            UserManager<ClientUser> usersManager
+            ClientUsersManager usersManager
         )
         {
             if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
-                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }).GetAwaiter().GetResult();
+                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }, "123Abc!").GetAwaiter().GetResult();
 
             if (context.Devices.Count() != 0) return @this;
 

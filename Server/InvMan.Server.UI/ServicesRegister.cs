@@ -1,5 +1,4 @@
 using InvMan.Server.Domain;
-using InvMan.Server.Database;
 using InvMan.Server.Application;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -13,6 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
 			@this.AddTransient<IDevicesManager, DevicesManager>();
 			@this.AddTransient<ILocationManager, LocationManager>();
 			@this.AddTransient<IIPAddressesManager, IPAddressesManager>();
+
+			@this.AddScoped<ClientUsersManager>();
 
 			return @this;
 		}

@@ -41,7 +41,6 @@ namespace InvMan.Server.UI
                 AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddScoped<ClientUsersManager>();
             services.AddTransient<IValidator<Device>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 

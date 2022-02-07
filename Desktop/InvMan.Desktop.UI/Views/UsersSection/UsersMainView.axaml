@@ -1,10 +1,49 @@
 <UserControl xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+    xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+    xmlns:aura="using:Aura.UI.Controls"
     x:Class="InvMan.Desktop.UI.Views.UsersMainView">
     <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
-        <materialstyles:Card Grid.Row="1" Grid.Column="0">
-            <ContentControl Content="{Binding UsersList}" />
+        <materialstyles:Card Margin="0 0 0 15">
+            <aura:GroupBox>
+                <aura:GroupBox.Header>
+                    <TextBlock Classes="Headline5" Text="Поиск" />
+                </aura:GroupBox.Header>
+                <StackPanel>
+                    <UserControl Content="{Binding Search}" />
+                </StackPanel>
+            </aura:GroupBox>
+        </materialstyles:Card>
+        <materialstyles:Card Grid.Row="1" Grid.RowSpan="2">
+            <aura:GroupBox>
+                <aura:GroupBox.Header>
+                    <TextBlock Classes="Headline5" Text="Пользователи" />
+                </aura:GroupBox.Header>
+                <ContentControl Content="{Binding UsersList}" />
+            </aura:GroupBox>
+        </materialstyles:Card>
+        <materialstyles:Card Margin="15 0 0 15"
+            Grid.Column="1">
+            <aura:GroupBox>
+                <aura:GroupBox.Header>
+                    <TextBlock Classes="Headline5" Text="Действия" />
+                </aura:GroupBox.Header>
+                <Grid ColumnDefinitions="*,*">
+                    <Button Content="Добавить" Height="40" Margin="0 0 10 0" />
+                    <Button Content="Удалить" Height="40"
+                        Grid.Column="1" />
+                </Grid>
+                <!-- <ContentControl Content="{Binding Actions}" /> -->
+            </aura:GroupBox>
+        </materialstyles:Card>
+        <materialstyles:Card Margin="15 0 0 0"
+            Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            <aura:GroupBox>
+                <aura:GroupBox.Header>
+                    <TextBlock Classes="Headline5" Text="Информация" />
+                </aura:GroupBox.Header>
+            </aura:GroupBox>
         </materialstyles:Card>
     </Grid>
 </UserControl>

@@ -54,6 +54,13 @@ namespace InvMan.Server.UI.API.Controllers
 					}
 				);
 
+			try { var roleResult = await _usersManager.AddToRoleAsync(newUser, group); }
+			catch
+			{
+				await _usersManager.DeleteAsync(newUser);
+				return BadRequest(new { Error = "User wasn't created", Details = "Specified role doesn't exists" });
+			}
+
 			return Ok();
 		}
 

@@ -18,8 +18,8 @@ namespace Microsoft.AspNetCore.Builder
             context.Roles.RemoveRange(roles);
 
             context.Roles.AddRange(
-                new IdentityRole("Техник"),
-                new IdentityRole("Администратор")
+                new IdentityRole("Техник") { NormalizedName = "ТЕХНИК" },
+                new IdentityRole("Администратор") { NormalizedName = "АДМИНИСТРАТОР" }
             );
 
             context.SaveChanges();

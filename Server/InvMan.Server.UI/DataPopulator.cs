@@ -35,7 +35,7 @@ namespace Microsoft.AspNetCore.Builder
         )
         {
             if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
-                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.Empty.ToString(), UserName = "root" }, "123Abc!").GetAwaiter().GetResult();
+                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.NewGuid().ToString(), UserName = "root" }, "123Abc!").GetAwaiter().GetResult();
 
             if (context.Devices.Count() != 0) return @this;
 

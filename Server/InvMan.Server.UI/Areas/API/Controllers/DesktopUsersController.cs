@@ -6,17 +6,18 @@ using Microsoft.AspNetCore.Identity;
 using InvMan.Server.UI.Filters;
 using InvMan.Server.Domain.Models;
 using InvMan.Common.SDK.Models;
+using InvMan.Server.Application;
 
 namespace InvMan.Server.UI.API.Controllers
 {
 	public class ClientUsersController : ApiController
 	{
-        private readonly UserManager<ClientUser> _usersManager;
+        private readonly ClientUsersManager _usersManager;
 
 		private readonly SignInManager<ClientUser> _signInManager;
 
 		public ClientUsersController(
-            UserManager<ClientUser> usersManager,
+            ClientUsersManager usersManager,
 			SignInManager<ClientUser> signInManager
 		)
 		{

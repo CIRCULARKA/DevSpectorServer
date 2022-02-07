@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using InvMan.Server.Database;
 using InvMan.Server.Domain.Models;
+using InvMan.Server.Application;
 using InvMan.Server.UI.Filters;
 using InvMan.Server.UI.Validators;
 
@@ -40,6 +41,7 @@ namespace InvMan.Server.UI
                 AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddScoped<ClientUsersManager>();
             services.AddTransient<IValidator<Device>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 

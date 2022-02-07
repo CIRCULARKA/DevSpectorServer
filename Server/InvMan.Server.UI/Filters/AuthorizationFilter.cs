@@ -2,20 +2,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
+using InvMan.Server.Application;
 using InvMan.Server.Domain.Models;
 
 namespace InvMan.Server.UI.Filters
 {
-    public class AuthorizationFilter : IAsyncAuthorizationFilter
+    public class AuthorizationFilter : IAuthorizationFilter
     {
-        private readonly UserManager<ClientUser> _usersManager;
+        private readonly ClientUsersManager _usersManager;
 
-        public AuthorizationFilter(UserManager<ClientUser> usersManager)
+        public AuthorizationFilter(ClientUsersManager usersManager)
         {
             _usersManager = usersManager;
         }
 
-        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             var query = context.HttpContext.Request.Query;
             var request = context.HttpContext.Request;
@@ -28,12 +29,10 @@ namespace InvMan.Server.UI.Filters
 
             string api = query["api"].Count == 0 ? request.Headers["API"] : query["api"];
 
-            var callingUser = await _usersManager.FindByIdAsync(api);
+            var callingUser = _usersManager.FindByApi(api);
 
             if (callingUser == null)
                 context.Result = unauthorizedResult;
-
-            return;
         }
     }
 }

@@ -121,7 +121,7 @@ namespace InvMan.Server.UI.API.Controllers
 			if (!result.Succeeded)
 				return wrongCredentialsResponse;
 
-			HttpContext.Response.Headers.Add("API", targetUser.Id);
+			HttpContext.Response.Headers.Add("API", targetUser.AccessKey);
 
 			return Json(
 				new {

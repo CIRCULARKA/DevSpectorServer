@@ -71,6 +71,11 @@ namespace InvMan.Server.UI.API.Controllers
 		{
 			var targetUser = await _usersManager.FindByNameAsync(login);
 
+			if (targetUser == null)
+				return BadRequest(
+					new { Error = "User wasn't deleted", Descritpion = "User with specified login doesn't exists" }
+				);
+
 			var result = await _usersManager.DeleteAsync(targetUser);
 
 			if (result == null)
@@ -83,7 +88,7 @@ namespace InvMan.Server.UI.API.Controllers
 
 			if (!result.Succeeded)
 				return BadRequest(
-					new BadRequestErrorMessage() {
+					new {
 						Error = "Can't delete user",
 						Description = result.Errors.Select(ie => ie.Description)
 					}

@@ -30,7 +30,7 @@ namespace InvMan.Server.UI.API.Controllers
 		public JsonResult GetUsers() =>
 			Json(
 				_usersManager.Users.
-					Select(u => new User(u.Id, u.UserName, u.Group))
+					Select(u => new User(u.AccessKey, u.UserName, u.Group))
 			);
 
         [HttpPost("api/users/create")]

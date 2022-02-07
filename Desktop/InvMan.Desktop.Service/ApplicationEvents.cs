@@ -23,5 +23,9 @@ namespace InvMan.Desktop.Service
         public void RaiseUserAuthorized() =>
             UserAuthorized?.Invoke();
 
+        public event Action<User> UserSelected;
+
+        public void RaiseUserSelected(User user) =>
+            UserSelected?.Invoke(user);
     }
 }

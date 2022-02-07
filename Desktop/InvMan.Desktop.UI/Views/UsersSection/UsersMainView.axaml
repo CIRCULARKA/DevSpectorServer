@@ -2,8 +2,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
     x:Class="InvMan.Desktop.UI.Views.UsersMainView">
-    <Grid ColumnDefinitions="Auto,*">
-        <materialstyles:Card>
+    <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
+        <materialstyles:Card Grid.Row="1" Grid.Column="0">
             <ContentControl Content="{Binding UsersList}" />
         </materialstyles:Card>
     </Grid>

@@ -79,6 +79,7 @@ namespace InvMan.Desktop.UI
             appEvents.UserAuthorized += _kernel.Get<MainView>().Show;
             appEvents.UserAuthorized += _kernel.Get<AuthorizationView>().Hide;
             appEvents.UserAuthorized += _kernel.Get<IDevicesListViewModel>().InitializeList;
+            appEvents.UserAuthorized += _kernel.Get<IUsersListViewModel>().InitializeList;
         }
     }
 }

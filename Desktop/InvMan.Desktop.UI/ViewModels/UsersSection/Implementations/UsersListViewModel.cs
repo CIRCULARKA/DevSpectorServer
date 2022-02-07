@@ -9,122 +9,85 @@ using ReactiveUI;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
-    public class UsersListViewModel : ViewModelBase, IUsersListViewModel
+    public class UsersListViewModel : ListViewModelBase<User>, IUsersListViewModel
     {
         private readonly IApplicationEvents _appEvents;
 
-        // private readonly IUsersProvider _usersProvider;
+        private readonly IUsersProvider _usersProvider;
 
         private readonly IUserSession _session;
 
-        // private User _selectedUser;
-
-        // private IEnumerable<User> _usersCache;
-
-        private string _noUsersMessage;
-
-        private bool _areThereUsers;
-
-        private bool _areUsersLoaded;
-
         public UsersListViewModel(
-            // IUsersProvider usersProvider,
+            IUsersProvider usersProvider,
             IApplicationEvents appEvents,
             IUserSession session
         )
         {
             _appEvents = appEvents;
             _session = session;
-            // _usersProvider = usersProvider;
-            _areUsersLoaded = false;
-            // _usersCache = new List<User>();
-
-            // Users = new ObservableCollection<User>();
+            _usersProvider = usersProvider;
         }
 
-        // public ObservableCollection<User> Users { get; set; }
-
-        // public IEnumerable<User> CachedUsers => _usersCache;
-
-        // public User SelectedUser
-        // {
-        //     get => _selectedUser;
-        //     set
-        //     {
-        //         this.RaiseAndSetIfChanged(ref _selectedUser, value);
-
-        //         _appEvents.RaiseUserSelected(_selectedUser);
-        //     }
-        // }
-
-        public bool AreUsersLoaded
+        public override User SelectedItem
         {
-            get => _areUsersLoaded;
-            set => this.RaiseAndSetIfChanged(ref _areUsersLoaded, value);
+            get => _selectedItem;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedItem, value);
+                _appEvents.RaiseUserSelected(_selectedItem);
+            }
         }
 
-        public bool AreThereUsers
+        public void LoadFromList(IEnumerable<User> devices)
         {
-            get => _areThereUsers;
-            set { this.RaiseAndSetIfChanged(ref _areThereUsers, value); }
+            Items.Clear();
+
+            foreach (var device in devices)
+                Items.Add(device);
+
+            if (Items.Count == 0) {
+                AreThereItems = false;
+                NoItemsMessage = "Пользователи не найдены";
+            }
+            else AreThereItems = true;
+
         }
 
-        public string NoUsersMessage
+        protected override async Task LoadItems()
         {
-            get => _noUsersMessage;
-            set { this.RaiseAndSetIfChanged(ref _noUsersMessage, value); }
+            AreItemsLoaded = false;
+
+            ItemsCache = await _usersProvider.GetUsersAsync(_session.AccessToken);
+            foreach (var user in ItemsCache)
+                Items.Add(user);
         }
 
-        // public void LoadUsers(IEnumerable<User> devices)
-        // {
-        //     Users.Clear();
+        public async void InitializeList()
+        {
+            try
+            {
+                await LoadItems();
 
-        //     foreach (var device in devices)
-        //         Users.Add(device);
-
-        //     if (Users.Count == 0) {
-        //         AreThereUsers = false;
-        //         NoUsersMessage = "Устройства не найдены";
-        //     }
-        //     else AreThereUsers = true;
-
-        // }
-
-        // private async Task LoadUsers()
-        // {
-        //     AreUsersLoaded = false;
-
-        //     _devicesCache = await _usersProvider.GetDevicesAsync(_session.AccessToken);
-        //     foreach (var device in _devicesCache)
-        //         Users.Add(device);
-        // }
-
-        // public async void InitializeList()
-        // {
-        //     try
-        //     {
-        //         await LoadUsers();
-
-        //         if (Users.Count > 0) {
-        //             AreThereUsers = true;
-        //             SelectedUser = Users[0];
-        //         }
-        //         else {
-        //             AreThereUsers = false;
-        //             NoUsersMessage = "Нет устройств";
-        //         }
-        //     }
-        //     catch (ArgumentException)
-        //     {
-        //         AreThereUsers = false;
-        //         NoUsersMessage = "Ошибка доступа";
-        //     }
-        //     catch
-        //     {
-        //         AreThereUsers = false;
-        //         NoUsersMessage = "Что-то пошло не так";
-        //     }
-        //     finally { AreUsersLoaded = true; }
-        // }
+                if (Items.Count > 0) {
+                    AreThereItems = true;
+                    SelectedItem = Items[0];
+                }
+                else {
+                    AreThereItems = false;
+                    NoItemsMessage = "Нет пользователей";
+                }
+            }
+            catch (ArgumentException)
+            {
+                AreThereItems = false;
+                NoItemsMessage = "Ошибка доступа";
+            }
+            catch
+            {
+                AreThereItems = false;
+                NoItemsMessage = "Что-то пошло не так";
+            }
+            finally { AreItemsLoaded = true; }
+        }
     }
 }

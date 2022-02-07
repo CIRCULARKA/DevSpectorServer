@@ -21,6 +21,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
 
             Bind<IDevicesListViewModel>().To<DevicesListViewModel>().InSingletonScope();
             Bind<IUsersMainViewModel>().To<UsersMainViewModel>().InSingletonScope();
+            Bind<IUsersListViewModel>().To<UsersListViewModel>().InSingletonScope();
 
             Bind<ICommonInfoViewModel>().To<CommonInfoViewModel>().InSingletonScope();
             Bind<INetworkInfoViewModel>().To<NetworkInfoViewModel>().InSingletonScope();

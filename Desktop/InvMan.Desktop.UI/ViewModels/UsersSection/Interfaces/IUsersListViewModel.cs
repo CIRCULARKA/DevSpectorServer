@@ -1,4 +1,7 @@
 namespace InvMan.Desktop.UI.ViewModels
 {
-    public interface IUsersListViewModel { }
+    public interface IUsersListViewModel
+    {
+        void InitializeList();
+    }
 }

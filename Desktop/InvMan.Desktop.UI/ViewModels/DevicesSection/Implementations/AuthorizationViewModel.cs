@@ -75,7 +75,7 @@ namespace InvMan.Desktop.UI.ViewModels
                 AttemptingToLogIn = true;
 
                 // var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
-                var accessToken = await _authManager.GetAccessTokenAsync("ruslan", "123Abc!");
+                var accessToken = await _authManager.GetAccessTokenAsync("root", "123Abc!");
 
                 _session.StartSession(Login, accessToken);
             }

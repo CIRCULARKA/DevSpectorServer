@@ -34,8 +34,11 @@ namespace Microsoft.AspNetCore.Builder
             ClientUsersManager usersManager
         )
         {
-            if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null)
-                usersManager.CreateAsync(new ClientUser { AccessKey = Guid.NewGuid().ToString(), UserName = "root" }, "123Abc!").GetAwaiter().GetResult();
+            if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null) {
+                var root = new ClientUser { AccessKey = Guid.NewGuid().ToString(), UserName = "root" };
+                usersManager.CreateAsync(root, "123Abc!").GetAwaiter().GetResult();
+                usersManager.AddToRoleAsync(root, "Администратор");
+            }
 
             if (context.Devices.Count() != 0) return @this;
 

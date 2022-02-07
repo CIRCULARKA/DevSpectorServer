@@ -50,7 +50,7 @@ namespace InvMan.Server.UI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var context = GetService<ApplicationDbContext>(app);
-            var usersManager = GetService<UserManager<ClientUser>>(app);
+            var usersManager = GetService<ClientUsersManager>(app);
 
             if (env.IsDevelopment())
             {

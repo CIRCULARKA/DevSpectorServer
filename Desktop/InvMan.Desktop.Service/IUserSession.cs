@@ -1,3 +1,5 @@
+using InvMan.Common.SDK.Models;
+
 namespace InvMan.Desktop.Service
 {
     public interface IUserSession
@@ -6,6 +8,6 @@ namespace InvMan.Desktop.Service
 
         string AccessToken { get; }
 
-        void StartSession(string login, string accessToken);
+        void StartSession(User user);
     }
 }

@@ -1,5 +1,7 @@
+using System.Reactive;
 using ReactiveUI;
 using InvMan.Common.SDK.Models;
+using InvMan.Desktop.Service;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
@@ -8,6 +10,19 @@ namespace InvMan.Desktop.UI.ViewModels
         private string _loggedUserLogin;
 
         private string _loggedUserGroup;
+
+        private readonly IApplicationEvents _appEvents;
+
+        public SessionBrokerViewModel(IApplicationEvents events)
+        {
+            _appEvents = events;
+
+            LogoutCommand = ReactiveCommand.Create(
+                () => _appEvents.RaiseLogout()
+            );
+        }
+
+        public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
 
         public string LoggedUserLogin
         {

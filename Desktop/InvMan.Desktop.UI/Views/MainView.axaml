@@ -14,8 +14,7 @@
 				MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1"
 				Grid.Row="1">
 				<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
-					Content="{Binding DevicesMainView}">
-				</shared:ModernMenuItem>
+					Content="{Binding DevicesMainView}" />
 				<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи"
 					Content="{Binding UsersMainView}" />
 			</shared:ModernMenu>

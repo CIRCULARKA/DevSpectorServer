@@ -7,15 +7,19 @@ namespace InvMan.Desktop.UI.ViewModels
     {
         public MainViewModel(
             DevicesMainView devicesMainView,
-            UsersMainView usersMainView
+            UsersMainView usersMainView,
+            SessionBrokerView sessionBrokerView
         )
         {
             DevicesMainView = devicesMainView;
             UsersMainView = usersMainView;
+            SessionBrokerView = sessionBrokerView;
         }
 
         public UserControl DevicesMainView { get; }
 
         public UserControl UsersMainView { get; }
+
+        public UserControl SessionBrokerView { get; }
     }
 }

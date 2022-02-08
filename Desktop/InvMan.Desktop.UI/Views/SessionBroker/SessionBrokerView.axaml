@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
+    xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+	x:Class="InvMan.Desktop.UI.Views.SessionBrokerView">
+	<materialstyles:Card Margin="0 0 0 15">
+		<Grid ColumnDefinitions="*,*,*">
+			<Button Classes="Flat" Content="Выйти" HorizontalAlignment="Left" />
+			<TextBlock Text="{Binding LoggedUserLogin}"
+				Foreground="Gray"
+				Grid.Column="1" HorizontalAlignment="Center" />
+		</Grid>
+	</materialstyles:Card>
+</UserControl>

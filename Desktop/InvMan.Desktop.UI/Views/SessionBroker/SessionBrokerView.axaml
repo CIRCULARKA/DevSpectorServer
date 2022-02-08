@@ -11,10 +11,9 @@
 					Foreground="White" FontSize="16"
 					HorizontalAlignment="Center" VerticalAlignment="Center" />
 				<TextBlock Text="{Binding LoggedUserGroup}"
-					Foreground="Gray" FontSize="10"
+					Foreground="Gray" FontSize="11"
 					HorizontalAlignment="Center" VerticalAlignment="Center" />
 			</StackPanel>
-
 		</Grid>
 	</materialstyles:Card>
 </UserControl>

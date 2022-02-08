@@ -6,10 +6,28 @@
         <Setter Property="Template">
             <ControlTemplate TargetType="views:ModernMenu">
                 <Grid x:Name="PART_menuContainer" RowDefinitions="Auto,*" ColumnDefinitions="250,*">
-                    <StackPanel Margin="0 0 15 0" Grid.RowSpan="2">
-                        <Button Classes="Flat" x:Name="PART_mainButton"
-                            Content="{TemplateBinding Title}" />
-                        <ItemsPresenter Items="{TemplateBinding MenuItems}">
+                    <Grid RowDefinitions="*,*" Margin="0 0 15 0" Grid.RowSpan="2">
+                        <StackPanel>
+                            <Button Classes="Flat" x:Name="PART_mainButton"
+                                Content="{TemplateBinding Title}" />
+                            <ItemsPresenter Items="{TemplateBinding MenuItems}"
+                                VerticalAlignment="Top">
+                                <ItemsPresenter.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Binding Path="." />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsPresenter.ItemTemplate>
+                                <ItemsPresenter.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsPresenter.ItemsPanel>
+                            </ItemsPresenter>
+                        </StackPanel>
+                        <ItemsPresenter VerticalAlignment="Bottom" Items="{TemplateBinding BottomMenuItems}"
+                            Grid.Row="1">
                             <ItemsPresenter.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
@@ -23,7 +41,7 @@
                                 </ItemsPanelTemplate>
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
-                    </StackPanel>
+                    </Grid>
                     <ContentControl Content="{TemplateBinding CurrentContent}"
                         Grid.Row="1" Grid.Column="1" />
                 </Grid>

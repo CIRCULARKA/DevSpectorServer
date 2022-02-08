@@ -6,9 +6,15 @@
 	<materialstyles:Card Margin="0 0 0 15">
 		<Grid ColumnDefinitions="*,*,*">
 			<Button Classes="Flat" Content="Выйти" HorizontalAlignment="Left" />
-			<TextBlock Text="{Binding LoggedUserLogin}"
-				Foreground="Gray"
-				Grid.Column="1" HorizontalAlignment="Center" />
+			<StackPanel Grid.Column="1">
+				<TextBlock Text="{Binding LoggedUserLogin}"
+					Foreground="White" FontSize="16"
+					HorizontalAlignment="Center" VerticalAlignment="Center" />
+				<TextBlock Text="{Binding LoggedUserGroup}"
+					Foreground="Gray" FontSize="10"
+					HorizontalAlignment="Center" VerticalAlignment="Center" />
+			</StackPanel>
+
 		</Grid>
 	</materialstyles:Card>
 </UserControl>

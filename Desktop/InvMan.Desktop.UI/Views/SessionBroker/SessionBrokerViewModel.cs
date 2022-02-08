@@ -7,15 +7,24 @@ namespace InvMan.Desktop.UI.ViewModels
     {
         private string _loggedUserLogin;
 
+        private string _loggedUserGroup;
+
         public string LoggedUserLogin
         {
             get => _loggedUserLogin;
             set => this.RaiseAndSetIfChanged(ref _loggedUserLogin, value);
         }
 
+        public string LoggedUserGroup
+        {
+            get => _loggedUserGroup;
+            set => this.RaiseAndSetIfChanged(ref _loggedUserGroup, value);
+        }
+
         public void UpdateLoggedUserInfo(User user)
         {
             LoggedUserLogin = user.Login;
+            LoggedUserGroup = user.Group;
         }
     }
 }

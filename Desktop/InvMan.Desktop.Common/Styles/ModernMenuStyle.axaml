@@ -8,7 +8,7 @@
                 <Grid x:Name="PART_menuContainer" RowDefinitions="Auto,*" ColumnDefinitions="250,*">
                     <Grid RowDefinitions="*,*" Margin="0 0 15 0" Grid.RowSpan="2">
                         <StackPanel>
-                            <Button Classes="Flat" x:Name="PART_mainButton"
+                            <Button Classes="Outline" x:Name="PART_mainButton"
                                 Content="{TemplateBinding Title}" />
                             <ItemsPresenter Items="{TemplateBinding MenuItems}"
                                 VerticalAlignment="Top">
@@ -26,7 +26,8 @@
                                 </ItemsPresenter.ItemsPanel>
                             </ItemsPresenter>
                         </StackPanel>
-                        <ItemsPresenter VerticalAlignment="Bottom" Items="{TemplateBinding BottomMenuItems}"
+                        <ItemsPresenter Items="{TemplateBinding BottomMenuItems}"
+                            VerticalAlignment="Bottom"
                             Grid.Row="1">
                             <ItemsPresenter.ItemTemplate>
                                 <DataTemplate>

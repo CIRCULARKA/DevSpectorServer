@@ -45,6 +45,11 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             item.Index = _allMenuItems.Count;
 
+            item.Initialized += (o, info) => {
+                if (SelectedIndex == item.Index)
+                    CurrentContent = item.Content;
+            };
+
             _allMenuItems.Add(item);
         }
 
@@ -64,6 +69,12 @@ namespace InvMan.Desktop.UI.Views.Shared
             _maximizedMenuIcon = Application.Current.FindResource("maximizedMenuIcon") as Path;
 
             ToggleMenuSize();
+
+            foreach (var item in _allMenuItems)
+                if (item.IsBottom)
+                    BottomMenuItems.Add(item);
+                else
+                    MenuItems.Add(item);
         }
 
         protected override void OnInitialized()
@@ -71,19 +82,6 @@ namespace InvMan.Desktop.UI.Views.Shared
             base.OnInitialized();
 
             SubscribeMenuItemsClickEvent();
-
-            foreach (var item in _allMenuItems)
-            {
-                if (item.IsBottom)
-                    BottomMenuItems.Add(item);
-                else
-                    MenuItems.Add(item);
-
-                item.Initialized += (o, info) => {
-                    if (SelectedIndex == item.Index)
-                        CurrentContent = item.Content;
-                };
-            }
         }
 
         private bool IsMinimized => _menuColumn.Width.Value == MinMenuSize;
@@ -108,13 +106,13 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             if (IsMinimized)
             {
-                foreach (var button in _menuItems)
+                foreach (var button in _allMenuItems)
                     button.MinimizeTitle();
                 _mainButton.Content = _minimizedMenuIcon;
             }
             else
             {
-                foreach (var button in _menuItems)
+                foreach (var button in _allMenuItems)
                     button.MaximizeTitle();
                 _mainButton.Content = "Меню";
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
 using InvMan.Desktop.Service;
 using InvMan.Common.SDK.Models;
@@ -38,19 +37,18 @@ namespace InvMan.Desktop.UI.ViewModels
             }
         }
 
-        public void LoadFromList(IEnumerable<User> devices)
+        public override void LoadItemsFromList(IEnumerable<User> items)
         {
             Items.Clear();
 
-            foreach (var device in devices)
-                Items.Add(device);
+            foreach (var item in items)
+                Items.Add(item);
 
             if (Items.Count == 0) {
                 AreThereItems = false;
                 NoItemsMessage = "Пользователи не найдены";
             }
             else AreThereItems = true;
-
         }
 
         protected override async Task LoadItems()
@@ -58,11 +56,12 @@ namespace InvMan.Desktop.UI.ViewModels
             AreItemsLoaded = false;
 
             ItemsCache = await _usersProvider.GetUsersAsync(_session.AccessToken);
+            Items.Clear();
             foreach (var user in ItemsCache)
                 Items.Add(user);
-        }
+         }
 
-        public async void InitializeList()
+        public override async void InitializeList()
         {
             try
             {

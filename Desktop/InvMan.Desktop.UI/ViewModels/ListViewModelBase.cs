@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
-    public abstract class ListViewModelBase<TModel> : ViewModelBase
+    public abstract class ListViewModelBase<TModel> : ViewModelBase, IListViewModel<TModel>
     {
         protected TModel _selectedItem;
 
@@ -46,6 +46,10 @@ namespace InvMan.Desktop.UI.ViewModels
             get => _noItemsMessage;
             set { this.RaiseAndSetIfChanged(ref _noItemsMessage, value); }
         }
+
+        public abstract void InitializeList();
+
+        public abstract void LoadItemsFromList(IEnumerable<TModel> items);
 
         protected abstract Task LoadItems();
     }

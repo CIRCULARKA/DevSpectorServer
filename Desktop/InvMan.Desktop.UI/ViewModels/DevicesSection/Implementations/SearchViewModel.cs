@@ -29,13 +29,13 @@ namespace InvMan.Desktop.UI.ViewModels
                 async () => {
                     try
                     {
-                        devicesListViewModel.AreAppliancesLoaded = false;
-                        devicesListViewModel.AreThereAppliances = false;
+                        devicesListViewModel.AreItemsLoaded = false;
+                        devicesListViewModel.AreThereItems = false;
                         events.RaiseSearchExecuted(
-                            await FilterDevicesAsync(devicesListViewModel.CachedDevices)
+                            await FilterDevicesAsync(devicesListViewModel.ItemsCache)
                         );
                     }
-                   finally { devicesListViewModel.AreAppliancesLoaded = true; }
+                   finally { devicesListViewModel.AreItemsLoaded = true; }
                 }
             );
         }

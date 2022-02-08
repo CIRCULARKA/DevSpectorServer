@@ -82,7 +82,7 @@ namespace InvMan.Desktop.UI
             // Subscribe appliances list update on search
             //
 
-            appEvents.SearchExecuted += devicesListVM.LoadAppliances;
+            appEvents.SearchExecuted += devicesListVM.LoadItemsFromList;
 
             //
             // Subscribe on authorization

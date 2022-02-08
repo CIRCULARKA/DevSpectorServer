@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using InvMan.Common.SDK;
 using InvMan.Desktop.Service;
 using InvMan.Common.SDK.Models;
@@ -9,23 +8,13 @@ using ReactiveUI;
 
 namespace InvMan.Desktop.UI.ViewModels
 {
-    public class DevicesListViewModel : ViewModelBase, IDevicesListViewModel
+    public class DevicesListViewModel : ListViewModelBase<Appliance>, IDevicesListViewModel
     {
         private readonly IApplicationEvents _appEvents;
 
         private readonly IDevicesProvider _devicesProvider;
 
         private readonly IUserSession _session;
-
-        private Appliance _selectedAppliance;
-
-        private IEnumerable<Appliance> _devicesCache;
-
-        private string _noAppliancesMessage;
-
-        private bool _areThereAppliances;
-
-        private bool _areAppliancesLoaded;
 
         public DevicesListViewModel(
             IDevicesProvider devicesProvider,
@@ -36,95 +25,69 @@ namespace InvMan.Desktop.UI.ViewModels
             _appEvents = appEvents;
             _session = session;
             _devicesProvider = devicesProvider;
-            _areAppliancesLoaded = false;
-            _devicesCache = new List<Appliance>();
-
-            Appliances = new ObservableCollection<Appliance>();
         }
 
-        public ObservableCollection<Appliance> Appliances { get; set; }
-
-        public IEnumerable<Appliance> CachedDevices => _devicesCache;
-
-        public Appliance SelectedAppliance
+        public override Appliance SelectedItem
         {
-            get => _selectedAppliance;
+            get => _selectedItem;
             set
             {
-                this.RaiseAndSetIfChanged(ref _selectedAppliance, value);
+                this.RaiseAndSetIfChanged(ref _selectedItem, value);
 
-                _appEvents.RaiseApplianceSelected(_selectedAppliance);
+                _appEvents.RaiseApplianceSelected(_selectedItem);
             }
         }
 
-        public bool AreAppliancesLoaded
+        public override void LoadItemsFromList(IEnumerable<Appliance> devices)
         {
-            get => _areAppliancesLoaded;
-            set => this.RaiseAndSetIfChanged(ref _areAppliancesLoaded, value);
-        }
-
-        public bool AreThereAppliances
-        {
-            get => _areThereAppliances;
-            set { this.RaiseAndSetIfChanged(ref _areThereAppliances, value); }
-        }
-
-        public string NoAppliancesMessage
-        {
-            get => _noAppliancesMessage;
-            set { this.RaiseAndSetIfChanged(ref _noAppliancesMessage, value); }
-        }
-
-        public void LoadAppliances(IEnumerable<Appliance> devices)
-        {
-            Appliances.Clear();
+            Items.Clear();
 
             foreach (var device in devices)
-                Appliances.Add(device);
+                Items.Add(device);
 
-            if (Appliances.Count == 0) {
-                AreThereAppliances = false;
-                NoAppliancesMessage = "Устройства не найдены";
+            if (Items.Count == 0) {
+                AreThereItems = false;
+                NoItemsMessage = "Устройства не найдены";
             }
-            else AreThereAppliances = true;
-
+            else AreThereItems = true;
         }
 
-        private async Task LoadAppliances()
+        protected override async Task LoadItems()
         {
-            AreAppliancesLoaded = false;
+            AreItemsLoaded = false;
 
-            _devicesCache = await _devicesProvider.GetDevicesAsync(_session.AccessToken);
-            foreach (var device in _devicesCache)
-                Appliances.Add(device);
+            ItemsCache = await _devicesProvider.GetDevicesAsync(_session.AccessToken);
+            Items.Clear();
+            foreach (var device in ItemsCache)
+                Items.Add(device);
         }
 
-        public async void InitializeList()
+        public override async void InitializeList()
         {
             try
             {
-                await LoadAppliances();
+                await LoadItems();
 
-                if (Appliances.Count > 0) {
-                    AreThereAppliances = true;
-                    SelectedAppliance = Appliances[0];
+                if (Items.Count > 0) {
+                    AreThereItems = true;
+                    SelectedItem = Items[0];
                 }
                 else {
-                    AreThereAppliances = false;
-                    NoAppliancesMessage = "Нет устройств";
+                    AreThereItems = false;
+                    NoItemsMessage = "Нет устройств";
                 }
             }
             catch (ArgumentException)
             {
-                AreThereAppliances = false;
-                NoAppliancesMessage = "Ошибка доступа";
+                AreThereItems = false;
+                NoItemsMessage = "Ошибка доступа";
             }
             catch
             {
-                AreThereAppliances = false;
-                NoAppliancesMessage = "Что-то пошло не так";
+                AreThereItems = false;
+                NoItemsMessage = "Что-то пошло не так";
             }
-            finally { AreAppliancesLoaded = true; }
+            finally { AreItemsLoaded = true; }
         }
     }
 }

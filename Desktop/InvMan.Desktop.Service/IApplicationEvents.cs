@@ -25,5 +25,10 @@ namespace InvMan.Desktop.Service
         event Action<User> UserSelected;
 
         void RaiseUserSelected(User user);
+
+        event Action Logout;
+
+        void RaiseLogout();
+
     }
 }

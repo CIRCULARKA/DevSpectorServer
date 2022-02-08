@@ -32,5 +32,10 @@ namespace InvMan.Desktop.Service
 
         public void RaiseUserSelected(User user) =>
             UserSelected?.Invoke(user);
+
+        public event Action Logout;
+
+        public void RaiseLogout() =>
+            Logout?.Invoke();
     }
 }

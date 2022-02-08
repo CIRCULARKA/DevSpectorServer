@@ -14,9 +14,13 @@ namespace InvMan.Desktop.Service
 
         void RaiseSearchExecuted(IEnumerable<Appliance> filtered);
 
-        event Action UserAuthorized;
+        event Action<User> UserAuthorized;
 
-        void RaiseUserAuthorized();
+        void RaiseUserAuthorized(User user);
+
+        event Action AuthorizationCompleted;
+
+        void RaiseAuthorizationCompleted();
 
         event Action<User> UserSelected;
 

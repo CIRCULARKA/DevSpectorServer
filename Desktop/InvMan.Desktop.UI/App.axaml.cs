@@ -76,10 +76,10 @@ namespace InvMan.Desktop.UI
 
             appEvents.SearchExecuted += devicesListVM.LoadAppliances;
 
-            appEvents.UserAuthorized += _kernel.Get<MainView>().Show;
-            appEvents.UserAuthorized += _kernel.Get<AuthorizationView>().Hide;
-            appEvents.UserAuthorized += _kernel.Get<IDevicesListViewModel>().InitializeList;
-            appEvents.UserAuthorized += _kernel.Get<IUsersListViewModel>().InitializeList;
+            appEvents.AuthorizationCompleted += _kernel.Get<MainView>().Show;
+            appEvents.AuthorizationCompleted += _kernel.Get<AuthorizationView>().Hide;
+            appEvents.AuthorizationCompleted += _kernel.Get<IDevicesListViewModel>().InitializeList;
+            appEvents.AuthorizationCompleted += _kernel.Get<IUsersListViewModel>().InitializeList;
         }
     }
 }

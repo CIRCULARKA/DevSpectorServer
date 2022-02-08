@@ -8,7 +8,7 @@
                 <Grid x:Name="PART_menuContainer" RowDefinitions="Auto,*" ColumnDefinitions="250,*">
                     <Grid RowDefinitions="*,*" Margin="0 0 15 0" Grid.RowSpan="2">
                         <StackPanel>
-                            <Button Classes="Outline" x:Name="PART_mainButton"
+                            <Button Classes="Flat" x:Name="PART_mainButton"
                                 Content="{TemplateBinding Title}" />
                             <ItemsPresenter Items="{TemplateBinding MenuItems}"
                                 VerticalAlignment="Top">

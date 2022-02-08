@@ -15,7 +15,7 @@
                 </StackPanel>
             </aura:GroupBox>
         </materialstyles:Card>
-        <materialstyles:Card Grid.Row="1">
+        <materialstyles:Card Grid.Row="1" Grid.RowSpan="2">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
                     <TextBlock Classes="Headline5" Text="Пользователи" />
@@ -31,14 +31,5 @@
                 </aura:GroupBox.Header>
             </aura:GroupBox>
         </materialstyles:Card>
-        <StackPanel Margin="0 15 0 0"
-            Grid.Row="2">
-            <materialstyles:Card>
-                <StackPanel>
-                    <Button Content="Добавить" Height="35" Margin="0 0 0 5" />
-                    <Button Content="Удалить" Height="35" />
-                </StackPanel>
-            </materialstyles:Card>
-        </StackPanel>
     </Grid>
 </UserControl>

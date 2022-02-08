@@ -54,6 +54,7 @@ namespace InvMan.Desktop.UI
             //
             // VM stands for View Model
 
+            var authVM = _kernel.Get<IAuthorizationViewModel>();
             var commonInfoVM = _kernel.Get<ICommonInfoViewModel>();
             var locationInfoVM = _kernel.Get<ILocationInfoViewModel>();
             var softwareInfoVM = _kernel.Get<ISoftwareInfoViewModel>();
@@ -84,7 +85,7 @@ namespace InvMan.Desktop.UI
             appEvents.SearchExecuted += devicesListVM.LoadAppliances;
 
             //
-            // Subscribe views on auth completed
+            // Subscribe on authorization
             //
 
             appEvents.AuthorizationCompleted += mainView.Show;
@@ -93,6 +94,13 @@ namespace InvMan.Desktop.UI
             appEvents.AuthorizationCompleted += usersListVM.InitializeList;
 
             appEvents.UserAuthorized += sessionBrokerVM.UpdateLoggedUserInfo;
+
+            //
+            // Subscribe on logout
+            //
+            appEvents.Logout += mainView.Hide;
+            appEvents.Logout += authView.Show;
+            appEvents.Logout += authVM.ClearCredentials;
         }
     }
 }

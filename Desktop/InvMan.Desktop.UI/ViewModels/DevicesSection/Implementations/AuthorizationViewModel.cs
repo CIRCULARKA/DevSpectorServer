@@ -99,5 +99,11 @@ namespace InvMan.Desktop.UI.ViewModels
             }
             finally { AttemptingToLogIn = false; }
         }
+
+        public void ClearCredentials()
+        {
+            Login = string.Empty;
+            Password = string.Empty;
+        }
     }
 }

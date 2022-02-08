@@ -36,15 +36,6 @@ namespace InvMan.Desktop.UI
 
             SubscribeToEvents();
 
-            // Unsuccesfull try of using hot reload. Will try later. Maybe
-            // desktop.MainWindow = new LiveViewHost(this, Console.WriteLine);
-
-            // var startupWindow = desktop.MainWindow as LiveViewHost;
-            // startupWindow.StartWatchingSourceFilesForHotReloading();
-            // startupWindow.Show();
-
-            // RxApp.DefaultExceptionHandler = Observer.Create<Exception>(Console.WriteLine);
-
             base.OnFrameworkInitializationCompleted();
         }
 
@@ -53,17 +44,35 @@ namespace InvMan.Desktop.UI
             var appEvents = _kernel.Get<IApplicationEvents>();
 
             //
+            // Get views
+            //
+            var mainView = _kernel.Get<MainView>();
+            var authView = _kernel.Get<AuthorizationView>();
+
+            //
+            // Get VM's
+            //
+            // VM stands for View Model
+
+            var commonInfoVM = _kernel.Get<ICommonInfoViewModel>();
+            var locationInfoVM = _kernel.Get<ILocationInfoViewModel>();
+            var softwareInfoVM = _kernel.Get<ISoftwareInfoViewModel>();
+            var networkInfoVM = _kernel.Get<INetworkInfoViewModel>();
+            var devicesListVM = _kernel.Get<IDevicesListViewModel>();
+            var usersListVM = _kernel.Get<IUsersListViewModel>();
+            var sessionBrokerVM = _kernel.Get<ISessionBrokerViewModel>();
+
+            //
             // Subscribe VMs UpdateDeviceInfo on appliance selection
             //
 
-            // VM stands for View Model
             var targetVMsAmount = 4;
             var deviceInfoVMs = new List<IDeviceInfoViewModel>(targetVMsAmount);
 
-            deviceInfoVMs.Add(_kernel.Get<ICommonInfoViewModel>());
-            deviceInfoVMs.Add(_kernel.Get<ILocationInfoViewModel>());
-            deviceInfoVMs.Add(_kernel.Get<ISoftwareInfoViewModel>());
-            deviceInfoVMs.Add(_kernel.Get<INetworkInfoViewModel>());
+            deviceInfoVMs.Add(commonInfoVM);
+            deviceInfoVMs.Add(locationInfoVM);
+            deviceInfoVMs.Add(softwareInfoVM);
+            deviceInfoVMs.Add(networkInfoVM);
 
             foreach (var vm in deviceInfoVMs)
                 appEvents.ApplianceSelected += vm.UpdateDeviceInfo;
@@ -72,14 +81,18 @@ namespace InvMan.Desktop.UI
             // Subscribe appliances list update on search
             //
 
-            appEvents.SearchExecuted += _kernel.Get<IDevicesListViewModel>().LoadAppliances;
+            appEvents.SearchExecuted += devicesListVM.LoadAppliances;
 
-            appEvents.AuthorizationCompleted += _kernel.Get<MainView>().Show;
-            appEvents.AuthorizationCompleted += _kernel.Get<AuthorizationView>().Hide;
-            appEvents.AuthorizationCompleted += _kernel.Get<IDevicesListViewModel>().InitializeList;
-            appEvents.AuthorizationCompleted += _kernel.Get<IUsersListViewModel>().InitializeList;
+            //
+            // Subscribe views on auth completed
+            //
 
-            appEvents.UserAuthorized += _kernel.Get<ISessionBrokerViewModel>().UpdateLoggedUserInfo;
+            appEvents.AuthorizationCompleted += mainView.Show;
+            appEvents.AuthorizationCompleted += authView.Hide;
+            appEvents.AuthorizationCompleted += devicesListVM.InitializeList;
+            appEvents.AuthorizationCompleted += usersListVM.InitializeList;
+
+            appEvents.UserAuthorized += sessionBrokerVM.UpdateLoggedUserInfo;
         }
     }
 }

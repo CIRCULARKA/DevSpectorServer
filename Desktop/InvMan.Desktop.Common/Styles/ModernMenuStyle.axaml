@@ -5,8 +5,8 @@
     <Style Selector="views|ModernMenu">
         <Setter Property="Template">
             <ControlTemplate TargetType="views:ModernMenu">
-                <Grid x:Name="PART_menuContainer" RowDefinitions="*" ColumnDefinitions="250,*">
-                    <StackPanel Margin="0 0 15 0">
+                <Grid x:Name="PART_menuContainer" RowDefinitions="Auto,*" ColumnDefinitions="250,*">
+                    <StackPanel Margin="0 0 15 0" Grid.RowSpan="2">
                         <Button Classes="Flat" x:Name="PART_mainButton"
                             Content="{TemplateBinding Title}" />
                         <ItemsPresenter Items="{TemplateBinding MenuItems}">
@@ -24,8 +24,10 @@
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
                     </StackPanel>
+                    <ContentControl Content="{TemplateBinding TopElement}"
+                        Grid.Column="1" />
                     <ContentControl Content="{TemplateBinding CurrentContent}"
-                        Grid.Row="0" Grid.Column="1" />
+                        Grid.Row="1" Grid.Column="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>

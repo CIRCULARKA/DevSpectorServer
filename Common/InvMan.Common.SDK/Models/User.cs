@@ -5,14 +5,14 @@ namespace InvMan.Common.SDK.Models
 	/// </summary>
 	public class User
 	{
-		public User(string acessToken, string login, string group)
+		public User(string accessToken, string login, string group)
 		{
-			AcessToken = acessToken;
+			AccessToken = accessToken;
 			Login = login;
 			Group = group;
 		}
 
-		public string AcessToken { get; }
+		public string AccessToken { get; }
 
 		public string Login { get; }
 

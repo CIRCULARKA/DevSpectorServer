@@ -4,7 +4,7 @@
     xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
     xmlns:aura="using:Aura.UI.Controls"
     x:Class="InvMan.Desktop.UI.Views.UsersMainView">
-    <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="2*,4*">
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*">
         <materialstyles:Card Margin="0 0 0 15">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
@@ -15,7 +15,7 @@
                 </StackPanel>
             </aura:GroupBox>
         </materialstyles:Card>
-        <materialstyles:Card Grid.Row="1" Grid.RowSpan="2">
+        <materialstyles:Card Grid.Row="1">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
                     <TextBlock Classes="Headline5" Text="Пользователи" />
@@ -23,27 +23,22 @@
                 <ContentControl Content="{Binding UsersList}" />
             </aura:GroupBox>
         </materialstyles:Card>
-        <materialstyles:Card Margin="15 0 0 15"
-            Grid.Column="1">
-            <aura:GroupBox>
-                <aura:GroupBox.Header>
-                    <TextBlock Classes="Headline5" Text="Действия" />
-                </aura:GroupBox.Header>
-                <Grid ColumnDefinitions="*,*">
-                    <Button Content="Добавить" Height="40" Margin="0 0 10 0" />
-                    <Button Content="Удалить" Height="40"
-                        Grid.Column="1" />
-                </Grid>
-                <!-- <ContentControl Content="{Binding Actions}" /> -->
-            </aura:GroupBox>
-        </materialstyles:Card>
         <materialstyles:Card Margin="15 0 0 0"
-            Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
                     <TextBlock Classes="Headline5" Text="Информация" />
                 </aura:GroupBox.Header>
             </aura:GroupBox>
         </materialstyles:Card>
+        <StackPanel Margin="0 15 0 0"
+            Grid.Row="2">
+            <materialstyles:Card>
+                <StackPanel>
+                    <Button Content="Добавить" Height="35" Margin="0 0 0 5" />
+                    <Button Content="Удалить" Height="35" />
+                </StackPanel>
+            </materialstyles:Card>
+        </StackPanel>
     </Grid>
 </UserControl>

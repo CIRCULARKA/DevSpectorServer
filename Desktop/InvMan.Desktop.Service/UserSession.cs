@@ -1,24 +1,30 @@
+using InvMan.Common.SDK.Models;
+
 namespace InvMan.Desktop.Service
 {
     public class UserSession : IUserSession
     {
         private readonly IApplicationEvents _events;
 
+        private User _loggedUser;
+
         public UserSession(IApplicationEvents events)
         {
             _events = events;
         }
 
-        public string Login { get; private set; }
+        public string Login => _loggedUser?.Login;
 
-        public string AccessToken { get; private set; }
+        public string Group => _loggedUser?.Group;
 
-        public void StartSession(string login, string acessToken)
+        public string AccessToken => _loggedUser?.AccessToken;
+
+        public void StartSession(User user)
         {
-            Login = login;
-            AccessToken = acessToken;
+            _loggedUser = user;
 
-            _events.RaiseUserAuthorized();
+            _events.RaiseUserAuthorized(user);
+            _events.RaiseAuthorizationCompleted();
         }
     }
 }

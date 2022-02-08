@@ -126,7 +126,8 @@ namespace InvMan.Server.UI.API.Controllers
 			return Json(
 				new {
 					Status = "Authorized",
-					Login = targetUser.UserName
+					Login = targetUser.UserName,
+					Group = targetUser.Group
 				}
 			);
 		}

@@ -2,40 +2,36 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 using InvMan.Common.SDK.Authorization;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Tests.Common.SDK.Authorization
 {
 	public class AuthorizationManagerTests
     {
         [Fact]
-        public async Task CanGetAccessToken()
+        public async Task CanGetUser()
         {
             // Arrange
             var manager = new AuthorizationManager();
-            var login = "ruslan";
-            var password = "123Abc!";
 
-            var expected = "51d45c0c-3811-4514-9fe5-1cb936a1c421";
+            var expectedLogin = "TestAdministrator";
+            var expectedGroup = "Администратор";
+            var expectedAccessToken = "2d436de5-ca4c-441f-9708-c5e5f955d955";
+
+            var password = "Admin1!";
+
+            var expected = new User(expectedAccessToken, expectedLogin, expectedGroup);
 
             // Act
-            var actual = await manager.GetAccessTokenAsync(login, password);
+            var actual = await manager.TrySignIn(expectedLogin, password);
 
             // Assert
-            Assert.Equal(expected, actual);
-        }
+            Assert.Equal(expected.AccessToken, actual.AccessToken);
+            Assert.Equal(expected.Login, actual.Login);
+            Assert.Equal(expected.Group, actual.Group);
 
-        [Fact]
-        public void CannotGetAccessToken()
-        {
-            // Arrange
-            var manager = new AuthorizationManager();
-            var login = "ruslan";
-            var password = "wrongPassword";
-
-            // Assert
-            Assert.ThrowsAsync(
-                new ArgumentException().GetType(),
-                async () => await manager.GetAccessTokenAsync(login, password)
+            await Assert.ThrowsAsync<ArgumentException>(
+                async () => await manager.TrySignIn(expectedLogin, password + "1")
             );
         }
     }

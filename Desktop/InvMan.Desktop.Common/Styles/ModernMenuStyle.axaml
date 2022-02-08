@@ -24,8 +24,6 @@
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
                     </StackPanel>
-                    <ContentControl Content="{TemplateBinding TopElement}"
-                        Grid.Column="1" />
                     <ContentControl Content="{TemplateBinding CurrentContent}"
                         Grid.Row="1" Grid.Column="1" />
                 </Grid>

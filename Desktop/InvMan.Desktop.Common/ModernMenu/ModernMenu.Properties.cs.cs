@@ -28,9 +28,6 @@ namespace InvMan.Desktop.UI.Views.Shared
         public static readonly StyledProperty<bool> StartMinimizedProperty =
             AvaloniaProperty.Register<ModernMenu, bool>(nameof(StartMinimized), false);
 
-        public static readonly StyledProperty<object> TopElementProperty =
-            AvaloniaProperty.Register<ModernMenu, object>(nameof(TopElement));
-
         public string Title
         {
             get => GetValue(TitleProperty) as string;
@@ -65,12 +62,6 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             get => GetValue(StartMinimizedProperty);
             set => SetValue(StartMinimizedProperty, value);
-        }
-
-        public object TopElement
-        {
-            get => GetValue(TopElementProperty);
-            set => SetValue(TopElementProperty, value);
         }
 
         public List<ModernMenuItem> MenuItems => _menuItems;

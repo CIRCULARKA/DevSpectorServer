@@ -6,16 +6,20 @@
 	Icon="/Assets/avalonia-logo.ico"
 	Title="Инвентарный менеджер"
     Width="900" Height="900" MinWidth="1200">
-	<Border Padding="15" x:Name="border">
-		<shared:ModernMenu Title="Меню" StartMinimized="True"
-			MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1"
-			TopElement="{Binding SessionBrokerView}"
+	<Grid RowDefinitions="Auto,*">
+		<ContentControl Content="{Binding SessionBrokerView}" />
+		<Border Padding="15 0 15 15" x:Name="border"
 			Grid.Row="1">
-			<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
-				Content="{Binding DevicesMainView}">
-			</shared:ModernMenuItem>
-			<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи"
-				Content="{Binding UsersMainView}" />
-		</shared:ModernMenu>
-	</Border>
+			<shared:ModernMenu Title="Меню" StartMinimized="True"
+				MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1"
+				Grid.Row="1">
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
+					Content="{Binding DevicesMainView}">
+				</shared:ModernMenuItem>
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи"
+					Content="{Binding UsersMainView}" />
+			</shared:ModernMenu>
+		</Border>
+	</Grid>
+
 </Window>

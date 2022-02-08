@@ -74,7 +74,7 @@ namespace InvMan.Desktop.UI.ViewModels
                 AttemptingToLogIn = true;
 
                 // var accessToken = await _authManager.TrySignIn(Login, Password);
-                var user = await _authManager.TrySignIn("root", "123Abc!");
+                var user = await _authManager.TrySignIn("TestAdministrator", "Admin1!");
 
                 _session.StartSession(user);
             }

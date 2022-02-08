@@ -22,9 +22,13 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         private Path _maximizedMenuIcon;
 
+        private List<ModernMenuItem> _allMenuItems;
+
         public ModernMenu()
         {
             _menuItems = new List<ModernMenuItem>();
+            _bottomItems = new List<ModernMenuItem>();
+            _allMenuItems = new List<ModernMenuItem>();
 
             SelectedIndexProperty.Changed.Subscribe(ChangeCurrentContent);
         }
@@ -32,15 +36,21 @@ namespace InvMan.Desktop.UI.Views.Shared
         private void ChangeCurrentContent(AvaloniaPropertyChangedEventArgs<int> info)
         {
             var incomingValue = info.NewValue.Value;
-            if (incomingValue >= _menuItems.Count) return;
+            if (incomingValue >= _allMenuItems.Count) return;
 
-            CurrentContent = _menuItems[info.NewValue.Value].Content;
+            CurrentContent = _allMenuItems[info.NewValue.Value].Content;
         }
 
         public void Add(ModernMenuItem item)
         {
-            item.Index = MenuItems.Count;
-            MenuItems.Add(item);
+            item.Index = _allMenuItems.Count;
+
+            item.Initialized += (o, info) => {
+                if (SelectedIndex == item.Index)
+                    CurrentContent = item.Content;
+            };
+
+            _allMenuItems.Add(item);
         }
 
         public void MainMenuButtonClicked(object _, RoutedEventArgs info) =>
@@ -59,6 +69,12 @@ namespace InvMan.Desktop.UI.Views.Shared
             _maximizedMenuIcon = Application.Current.FindResource("maximizedMenuIcon") as Path;
 
             ToggleMenuSize();
+
+            foreach (var item in _allMenuItems)
+                if (item.IsBottom)
+                    BottomMenuItems.Add(item);
+                else
+                    MenuItems.Add(item);
         }
 
         protected override void OnInitialized()
@@ -90,13 +106,13 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             if (IsMinimized)
             {
-                foreach (var button in _menuItems)
+                foreach (var button in _allMenuItems)
                     button.MinimizeTitle();
                 _mainButton.Content = _minimizedMenuIcon;
             }
             else
             {
-                foreach (var button in _menuItems)
+                foreach (var button in _allMenuItems)
                     button.MaximizeTitle();
                 _mainButton.Content = "Меню";
             }
@@ -111,7 +127,7 @@ namespace InvMan.Desktop.UI.Views.Shared
 
         private void SubscribeMenuItemsClickEvent()
         {
-            foreach (var button in _menuItems)
+            foreach (var button in _allMenuItems)
                 button.Click += SelectIndex;
         }
 

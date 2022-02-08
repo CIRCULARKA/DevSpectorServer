@@ -18,14 +18,24 @@ namespace InvMan.Desktop.Service
         public void RaiseSearchExecuted(IEnumerable<Appliance> filtered) =>
             SearchExecuted?.Invoke(filtered);
 
-        public event Action UserAuthorized;
+        public event Action<User> UserAuthorized;
 
-        public void RaiseUserAuthorized() =>
-            UserAuthorized?.Invoke();
+        public void RaiseUserAuthorized(User user) =>
+            UserAuthorized?.Invoke(user);
+
+        public event Action AuthorizationCompleted;
+
+        public void RaiseAuthorizationCompleted() =>
+            AuthorizationCompleted?.Invoke();
 
         public event Action<User> UserSelected;
 
         public void RaiseUserSelected(User user) =>
             UserSelected?.Invoke(user);
+
+        public event Action Logout;
+
+        public void RaiseLogout() =>
+            Logout?.Invoke();
     }
 }

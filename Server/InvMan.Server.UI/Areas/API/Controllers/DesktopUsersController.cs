@@ -121,12 +121,12 @@ namespace InvMan.Server.UI.API.Controllers
 			if (!result.Succeeded)
 				return wrongCredentialsResponse;
 
-			HttpContext.Response.Headers.Add("API", targetUser.AccessKey);
-
 			return Json(
 				new {
 					Status = "Authorized",
-					Login = targetUser.UserName
+					Login = targetUser.UserName,
+					Group = targetUser.Group,
+					AccessToken = targetUser.AccessKey
 				}
 			);
 		}

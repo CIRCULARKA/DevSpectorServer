@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using ReactiveUI;
 using InvMan.Desktop.Service;
@@ -74,10 +73,10 @@ namespace InvMan.Desktop.UI.ViewModels
                 LogInFailed = false;
                 AttemptingToLogIn = true;
 
-                // var accessToken = await _authManager.GetAccessTokenAsync(Login, Password);
-                var accessToken = await _authManager.GetAccessTokenAsync("root", "123Abc!");
+                // var user = await _authManager.TrySignIn(Login, Password);
+                var user = await _authManager.TrySignIn("TestAdministrator", "Admin1!");
 
-                _session.StartSession(Login, accessToken);
+                _session.StartSession(user);
             }
             catch (ArgumentException)
             {
@@ -99,6 +98,12 @@ namespace InvMan.Desktop.UI.ViewModels
                 ErrorMessage = "Что-то пошло не так :/";
             }
             finally { AttemptingToLogIn = false; }
+        }
+
+        public void ClearCredentials()
+        {
+            Login = string.Empty;
+            Password = string.Empty;
         }
     }
 }

@@ -5,11 +5,30 @@
     <Style Selector="views|ModernMenu">
         <Setter Property="Template">
             <ControlTemplate TargetType="views:ModernMenu">
-                <Grid x:Name="PART_menuContainer" RowDefinitions="*" ColumnDefinitions="250,*">
-                    <StackPanel Margin="0 0 15 0">
-                        <Button Classes="Flat" x:Name="PART_mainButton"
-                            Content="{TemplateBinding Title}" />
-                        <ItemsPresenter Items="{TemplateBinding MenuItems}">
+                <Grid x:Name="PART_menuContainer" RowDefinitions="Auto,*" ColumnDefinitions="250,*">
+                    <Grid RowDefinitions="*,*" Margin="0 0 15 0" Grid.RowSpan="2">
+                        <StackPanel>
+                            <Button Classes="Flat" x:Name="PART_mainButton"
+                                Content="{TemplateBinding Title}" />
+                            <ItemsPresenter Items="{TemplateBinding MenuItems}"
+                                VerticalAlignment="Top">
+                                <ItemsPresenter.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Binding Path="." />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsPresenter.ItemTemplate>
+                                <ItemsPresenter.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsPresenter.ItemsPanel>
+                            </ItemsPresenter>
+                        </StackPanel>
+                        <ItemsPresenter Items="{TemplateBinding BottomMenuItems}"
+                            VerticalAlignment="Bottom"
+                            Grid.Row="1">
                             <ItemsPresenter.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
@@ -23,9 +42,9 @@
                                 </ItemsPanelTemplate>
                             </ItemsPresenter.ItemsPanel>
                         </ItemsPresenter>
-                    </StackPanel>
+                    </Grid>
                     <ContentControl Content="{TemplateBinding CurrentContent}"
-                        Grid.Row="0" Grid.Column="1" />
+                        Grid.Row="1" Grid.Column="1" />
                 </Grid>
             </ControlTemplate>
         </Setter>

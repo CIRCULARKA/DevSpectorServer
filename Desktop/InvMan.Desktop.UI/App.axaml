@@ -26,7 +26,7 @@
                     Primary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Primary
                     Secondary colors: https://github.com/AvaloniaCommunity/Material.Avalonia/tree/dev/Material.Colors/Themes/Recommended/Accent
                 -->
-                <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Amber" />
+                <themes:BundledTheme BaseTheme="Dark" PrimaryColor="Indigo" SecondaryColor="Lime" />
 
                 <!--
                     !External

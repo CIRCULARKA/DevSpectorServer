@@ -8,6 +8,7 @@
         Data="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M6,7H18V9H6V7M6,11H18V13H6V11M6,15H18V17H6V15Z" />
     <Path x:Key="maximizedMenuIcon" Fill="White"
         Data="M5,13L9,17L7.6,18.42L1.18,12L7.6,5.58L9,7L5,11H21V13H5M21,6V8H11V6H21M21,16V18H11V16H21Z" />
+    <Path x:Key="logoutIcon" Fill="IndianRed" Data="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
     <Viewbox x:Key="singleDeviceIcon" Width="48" Height="48" Margin="0 0 10 0">
         <Canvas Width="24" Height="24" >
             <Path Fill="{DynamicResource PrimaryHueLightBrush}"

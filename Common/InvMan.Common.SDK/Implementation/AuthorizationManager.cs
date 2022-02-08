@@ -1,8 +1,9 @@
 using System;
-using System.Linq;
+using System.Text.Json;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using InvMan.Common.SDK.Models;
 
 namespace InvMan.Common.SDK.Authorization
 {
@@ -19,7 +20,7 @@ namespace InvMan.Common.SDK.Authorization
             _client = new HttpClient();
         }
 
-        public async Task<string> GetAccessTokenAsync(string login, string password)
+        public async Task<User> TrySignIn(string login, string password)
         {
             var targetEndpoint = BuildTargetEndpoint(login, password);
 
@@ -28,7 +29,12 @@ namespace InvMan.Common.SDK.Authorization
             if (response.StatusCode != HttpStatusCode.OK)
                 throw new ArgumentException("Wrong credentials");
 
-            return response.Headers.GetValues("API").ToList()[0];
+            var result = await JsonSerializer.DeserializeAsync<User>(
+                await response.Content.ReadAsStreamAsync(),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+            );
+
+            return result;
         }
 
         private Uri BuildTargetEndpoint(string login, string password)

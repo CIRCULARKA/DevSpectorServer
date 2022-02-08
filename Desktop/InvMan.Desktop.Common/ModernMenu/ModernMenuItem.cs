@@ -17,17 +17,13 @@ namespace InvMan.Desktop.UI.Views.Shared
             AvaloniaProperty.Register<ModernMenu, object>(nameof(RegularTitle), "Menu item title");
 
         public static readonly StyledProperty<object> MinimizedTitleProperty =
-            AvaloniaProperty.Register<ModernMenu, object>(nameof(MinimizedTitle), "T");
+            AvaloniaProperty.Register<ModernMenu, object>(nameof(IsBottom));
 
         public new static readonly StyledProperty<object> ContentProperty =
             AvaloniaProperty.Register<ModernMenu, object>(nameof(Content), "Content should be here");
 
-        public ModernMenuItem()
-        {
-            // RegularTitleProperty.Changed.Subscribe(
-            //     o => Title = o.NewValue
-            // );
-        }
+        public static readonly StyledProperty<bool> IsBottomProperty =
+            AvaloniaProperty.Register<ModernMenu, bool>(nameof(IsBottom));
 
         public int Index { get; set; }
 
@@ -53,6 +49,12 @@ namespace InvMan.Desktop.UI.Views.Shared
         {
             get => GetValue(MinimizedTitleProperty);
             set => SetValue(MinimizedTitleProperty, value);
+        }
+
+        public bool IsBottom
+        {
+            get => GetValue(IsBottomProperty);
+            set => SetValue(IsBottomProperty, value);
         }
 
         public void MinimizeTitle() =>

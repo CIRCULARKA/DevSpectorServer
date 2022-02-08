@@ -28,9 +28,11 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<ISoftwareInfoViewModel>().To<SoftwareInfoViewModel>().InSingletonScope();
             Bind<ILocationInfoViewModel>().To<LocationInfoViewModel>().InSingletonScope();
 
-            Bind<ISearchViewModel>().To<SearchViewModel>().InSingletonScope();
+            Bind<ISearchViewModel>().To<SearchViewModel>();
 
             Bind<IAuthorizationViewModel>().To<AuthorizationViewModel>().InSingletonScope();
+
+            Bind<ISessionBrokerViewModel>().To<SessionBrokerViewModel>().InSingletonScope();
         }
 
         private void BindViews()
@@ -51,6 +53,8 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<NetworkInfoView>().ToSelf();
 
             Bind<SearchView>().ToSelf();
+
+            Bind<SessionBrokerView>().ToSelf();
         }
     }
 }

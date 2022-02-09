@@ -42,6 +42,7 @@
         <StyleInclude Source="/Shared/CommonStyles.axaml" />
         <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/ModernMenuStyle.axaml" />
         <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/ModernMenuItemStyle.axaml" />
+        <StyleInclude Source="avares://InvMan.Desktop.Common/Styles/HiddenableTextBlockStyle.axaml" />
 
         <!--
             !MY

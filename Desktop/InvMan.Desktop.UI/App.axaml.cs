@@ -61,6 +61,7 @@ namespace InvMan.Desktop.UI
             var networkInfoVM = _kernel.Get<INetworkInfoViewModel>();
             var devicesListVM = _kernel.Get<IDevicesListViewModel>();
             var usersListVM = _kernel.Get<IUsersListViewModel>();
+            var userInfoVM = _kernel.Get<IUserInfoViewModel>();
             var sessionBrokerVM = _kernel.Get<ISessionBrokerViewModel>();
 
             //
@@ -77,6 +78,11 @@ namespace InvMan.Desktop.UI
 
             foreach (var vm in deviceInfoVMs)
                 appEvents.ApplianceSelected += vm.UpdateDeviceInfo;
+
+            //
+            // Update current user info on user change
+            //
+            appEvents.UserSelected += userInfoVM.UpdateUserInfo;
 
             //
             // Subscribe appliances list update on search

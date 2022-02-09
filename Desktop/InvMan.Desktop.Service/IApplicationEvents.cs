@@ -29,6 +29,5 @@ namespace InvMan.Desktop.Service
         event Action Logout;
 
         void RaiseLogout();
-
     }
 }

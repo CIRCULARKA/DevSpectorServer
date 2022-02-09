@@ -2,7 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
     x:Class="InvMan.Desktop.UI.Views.UsersListView" >
-    <Grid RowDefinitions="*" ColumnDefinitions="*">
+    <Grid RowDefinitions="*,Auto,Auto" ColumnDefinitions="*">
         <ListBox BorderThickness="0" Height="{Binding #base.Height}"
             Items="{Binding Items}" SelectedItem="{Binding SelectedItem}"
             IsVisible="{Binding AreThereItems}">
@@ -23,7 +23,12 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereItems}">
+        <Button Content="Добавить" Height="35" Margin="0 5 0 5"
+            Grid.Row="1" />
+        <Button Content="Удалить" Height="35"
+            Grid.Row="2" />
+        <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereItems}"
+            Grid.RowSpan="3">
             <progRing:ProgressRing IsVisible="{Binding !AreItemsLoaded}"
                 IsActive="{Binding !AreItemsLoaded}" Foreground="{DynamicResource PrimaryHueLightBrush}" Width="50" Height="50" />
             <TextBlock Text="{Binding NoItemsMessage}"

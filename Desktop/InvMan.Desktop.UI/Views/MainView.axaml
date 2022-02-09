@@ -17,6 +17,8 @@
 					Content="{Binding DevicesMainView}" />
 				<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи"
 					Content="{Binding UsersMainView}" />
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource settingsIcon}" RegularTitle="Настройки"
+					Content="{Binding UsersMainView}" IsBottom="True" />
 			</shared:ModernMenu>
 		</Border>
 	</Grid>

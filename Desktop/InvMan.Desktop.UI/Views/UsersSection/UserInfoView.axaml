@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
+		xmlns:aura="using:Aura.UI.Controls"
+        x:Class="InvMan.Desktop.UI.Views.UserInfoView">
+		<StackPanel>
+			<TextBlock Text="Логин" Classes="note" />
+			<TextBlock Text="{Binding Login}" Classes="main" />
+			<TextBlock Text="Роль" Classes="note" />
+			<TextBlock Text="{Binding Group}" Classes="main" />
+			<TextBlock Text="Ключ доступа" Classes="note" />
+			<TextBlock Text="{Binding AccessToken}" Classes="main" />
+		</StackPanel>
+</UserControl>

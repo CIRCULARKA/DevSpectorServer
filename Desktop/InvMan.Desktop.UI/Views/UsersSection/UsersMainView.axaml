@@ -29,6 +29,7 @@
                 <aura:GroupBox.Header>
                     <TextBlock Classes="Headline5" Text="Информация" />
                 </aura:GroupBox.Header>
+                <ContentControl Content="{Binding UserInfo}" />
             </aura:GroupBox>
         </materialstyles:Card>
     </Grid>

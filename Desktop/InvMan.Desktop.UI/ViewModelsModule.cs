@@ -27,6 +27,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<INetworkInfoViewModel>().To<NetworkInfoViewModel>().InSingletonScope();
             Bind<ISoftwareInfoViewModel>().To<SoftwareInfoViewModel>().InSingletonScope();
             Bind<ILocationInfoViewModel>().To<LocationInfoViewModel>().InSingletonScope();
+            Bind<IUserInfoViewModel>().To<UserInfoViewModel>().InSingletonScope();
 
             Bind<ISearchViewModel>().To<SearchViewModel>();
 
@@ -51,6 +52,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
             Bind<SoftwareInfoView>().ToSelf();
             Bind<LocationInfoView>().ToSelf();
             Bind<NetworkInfoView>().ToSelf();
+            Bind<UserInfoView>().ToSelf();
 
             Bind<SearchView>().ToSelf();
 

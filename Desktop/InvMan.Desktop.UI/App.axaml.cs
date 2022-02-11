@@ -33,9 +33,10 @@ namespace InvMan.Desktop.UI
         {
             var lm = _kernel.Get<ILanguageManager>();
             lm.SetLanguage("en");
+
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             desktop.MainWindow = _kernel.Get<AuthorizationView>();
-            
+
             SubscribeToEvents();
 
             base.OnFrameworkInitializationCompleted();

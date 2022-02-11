@@ -2,7 +2,6 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
 	xmlns:ms="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
-	xmlns:wpf="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
 	x:Class="InvMan.Desktop.UI.Views.UserInfoView">
 	<StackPanel>
 		<TextBlock Text="Логин" Classes="note" />
@@ -11,6 +10,6 @@
 		<TextBlock Text="{Binding Group}" Classes="main" />
 		<TextBlock Text="Ключ доступа" Classes="note" />
 		<TextBox Classes="revealPasswordButton" Margin="0 -4 0 0"
-			PasswordChar="*" Text="Hello" IsReadOnly="True" />
+			PasswordChar="*" Text="{Binding AccessToken}" IsReadOnly="True" />
 	</StackPanel>
 </UserControl>

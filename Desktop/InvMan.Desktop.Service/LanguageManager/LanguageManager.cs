@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
-using InvMan.Common.SDK.Models;
 
 namespace InvMan.Desktop.Service
 {
-    public class LanguageManager : ILanguageManager
+    public class LanguageSwitcher : ILanguageSwitcher
     {
-        public LanguageManager()
+        private Dictionary<string, LanguageInfo> _availableLanguages { get; }
+
+        public LanguageSwitcher()
         {
             _availableLanguages = GetAvailableLanguages();
-            DefaultLanguage = createLanguageModel(CultureInfo.GetCultureInfo("ru"));
+            DefaultLanguage = CreateLanguageInfo(CultureInfo.GetCultureInfo("ru"));
         }
 
-        private Dictionary<string, LanguageModel> _availableLanguages { get; }
-        public LanguageModel CurrentLanguage => createLanguageModel(Thread.CurrentThread.CurrentUICulture);
+        public LanguageInfo CurrentLanguage => CreateLanguageInfo(Thread.CurrentThread.CurrentUICulture);
 
-        public LanguageModel DefaultLanguage { get; set; }
-        public List<LanguageModel> AllLanguages => new(_availableLanguages.Values);
+        public LanguageInfo DefaultLanguage { get; set; }
+
+        public List<LanguageInfo> AllLanguages => new(_availableLanguages.Values);
 
         public void SetLanguage(string code)
         {
@@ -31,23 +32,25 @@ namespace InvMan.Desktop.Service
             // TODO: Update settings here when implemented
         }
 
-        public void SetLanguage(LanguageModel model)
-        {
+        public void SetLanguage(LanguageInfo model) =>
             SetLanguage(model.Code);
-        }
 
-        private Dictionary<string, LanguageModel> GetAvailableLanguages()
+        private Dictionary<string, LanguageInfo> GetAvailableLanguages()
         {
             var locals = new List<string> { "en", "ru" };
-            return locals.Select(l => createLanguageModel(new CultureInfo(l))).ToDictionary(lm => lm.Code, lm => lm);
+            return locals.Select(
+                l => CreateLanguageInfo(new CultureInfo(l))
+            ).ToDictionary(lm => lm.Code, lm => lm);
         }
 
-        private LanguageModel createLanguageModel(CultureInfo cultureInfo)
+        private LanguageInfo CreateLanguageInfo(CultureInfo cultureInfo)
         {
-            return cultureInfo is null
-                ? DefaultLanguage
-                : new LanguageModel(cultureInfo.EnglishName, cultureInfo.NativeName,
-                    cultureInfo.TwoLetterISOLanguageName);
+            return cultureInfo is null ? DefaultLanguage :
+                new LanguageInfo(
+                    cultureInfo.EnglishName,
+                    cultureInfo.NativeName,
+                    cultureInfo.TwoLetterISOLanguageName
+                );
         }
     }
 }

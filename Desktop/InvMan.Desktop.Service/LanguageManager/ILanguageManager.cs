@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using InvMan.Common.SDK.Models;
 
 namespace InvMan.Desktop.Service
 {
-    public interface ILanguageManager
+    public interface ILanguageSwitcher
     {
-        LanguageModel CurrentLanguage { get; }
-        
-        LanguageModel DefaultLanguage { get; }
-        
-        List<LanguageModel> AllLanguages { get; }
+        LanguageInfo CurrentLanguage { get; }
+
+        LanguageInfo DefaultLanguage { get; }
+
+        List<LanguageInfo> AllLanguages { get; }
 
         void SetLanguage(string code);
 
-        void SetLanguage(LanguageModel model);
+        void SetLanguage(LanguageInfo model);
     }
 }

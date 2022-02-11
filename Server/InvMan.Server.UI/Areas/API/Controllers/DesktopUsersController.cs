@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +27,7 @@ namespace InvMan.Server.UI.API.Controllers
 
 		[HttpGet("api/users")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
-		public async Task<JsonResult> GetUsers() =>
+		public JsonResult GetUsers() =>
 			Json(
 				_usersManager.Users.
 					Select(

@@ -4,8 +4,8 @@ namespace InvMan.Server.Domain.Models
 {
     public class ClientUser : IdentityUser
     {
-        public string AccessKey { get; init; }
+        public string AccessKey { get; set; }
 
-        public string Group { get; init; }
+        public string Group { get; set; }
     }
 }

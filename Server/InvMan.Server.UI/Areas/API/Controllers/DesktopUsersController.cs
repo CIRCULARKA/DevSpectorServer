@@ -30,7 +30,13 @@ namespace InvMan.Server.UI.API.Controllers
 		public JsonResult GetUsers() =>
 			Json(
 				_usersManager.Users.
-					Select(u => new User(u.AccessKey, u.UserName, u.Group))
+					Select(
+						u => new User(
+							u.AccessKey,
+							u.UserName,
+							u.Group
+						)
+					)
 			);
 
         [HttpPost("api/users/create")]
@@ -64,7 +70,7 @@ namespace InvMan.Server.UI.API.Controllers
 			return Ok();
 		}
 
-		[HttpPost("api/users/remove")]
+		[HttpDelete("api/users/remove")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login")]
 		public async Task<IActionResult> RemoveUser(string login)
@@ -102,10 +108,11 @@ namespace InvMan.Server.UI.API.Controllers
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
 			var wrongCredentialsResponse = Unauthorized(
-				new BadRequestErrorMessage {
+				new {
 					Error = "Authorization failed",
 					Description = "Authorization wasn't completed - wrong credentials"
 				});
+
 			var targetUser = await _usersManager.FindByNameAsync(login ?? "");
 
 			if (targetUser == null)
@@ -129,6 +136,32 @@ namespace InvMan.Server.UI.API.Controllers
 					AccessToken = targetUser.AccessKey
 				}
 			);
+		}
+
+		[HttpPut("api/users/revoke-api")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		[RequireParameters("login", "password")]
+		public async Task<IActionResult> RevokeUserApi(string login, string password)
+		{
+			var badRequestResult = new {
+				Error = "Can't revoke API key",
+				Description = "Login or password is wrong"
+			};
+
+			var targetUser = await _usersManager.FindByNameAsync(login);
+
+			if (targetUser == null)
+				return BadRequest(badRequestResult);
+
+			var result = await _signInManager.CheckPasswordSignInAsync(targetUser, password, false);
+
+			if (!result.Succeeded)
+				return BadRequest(badRequestResult);
+
+			targetUser.AccessKey = Guid.NewGuid().ToString();
+			await _usersManager.UpdateAsync(targetUser);
+
+			return Ok();
 		}
 	}
 }

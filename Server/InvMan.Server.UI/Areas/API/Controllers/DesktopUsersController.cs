@@ -132,7 +132,7 @@ namespace InvMan.Server.UI.API.Controllers
 				new {
 					Status = "Authorized",
 					Login = targetUser.UserName,
-					Group = (await _usersManager.GetRolesAsync(targetUser))[0],
+					Group = targetUser.Group,
 					AccessToken = targetUser.AccessKey
 				}
 			);

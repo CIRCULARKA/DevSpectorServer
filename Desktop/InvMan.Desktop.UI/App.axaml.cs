@@ -31,8 +31,8 @@ namespace InvMan.Desktop.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
-            var lm = _kernel.Get<ILanguageManager>();
-            lm.SetLanguage("en");
+            var langManager = _kernel.Get<ILanguageSwitcher>();
+            langManager.SetLanguage("en");
 
             var desktop = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             desktop.MainWindow = _kernel.Get<AuthorizationView>();

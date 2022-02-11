@@ -30,16 +30,16 @@
     <ProjectReference Include="..\InvMan.Desktop.Service\InvMan.Desktop.Service.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Lang.resx">
+    <EmbeddedResource Update="Localization\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Properties\Lang.Designer.cs">
+    <Compile Update="Localization\Messages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Lang.resx</DependentUpon>
+      <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

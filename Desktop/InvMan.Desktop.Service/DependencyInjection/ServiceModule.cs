@@ -7,7 +7,7 @@ namespace InvMan.Desktop.Service.DependencyInjection
 		public override void Load()
 		{
             Bind<IApplicationEvents>().To<ApplicationEvents>().InSingletonScope();
-            Bind<ILanguageManager>().To<LanguageManager>().InSingletonScope();
+            Bind<ILanguageSwitcher>().To<LanguageSwitcher>().InSingletonScope();
 		}
 	}
 }

@@ -25,9 +25,15 @@ namespace InvMan.Server.UI.Filters
 
             var missingParameters = new List<string>();
 
-            foreach (var param in _requiredParameters)
-                if (!context.HttpContext.Request.Query.ContainsKey(param))
-                    missingParameters.Add(param);
+            foreach (var param in _requiredParameters) {
+                string value;
+                try
+                {
+                    value = context.HttpContext.Request.Query[param];
+                    if (string.IsNullOrWhiteSpace(value)) throw new Exception();
+                }
+                catch { missingParameters.Add(param); }
+            }
 
             if (missingParameters.Count == 0)
                 return;

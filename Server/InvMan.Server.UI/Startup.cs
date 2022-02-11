@@ -52,6 +52,8 @@ namespace InvMan.Server.UI
             var context = GetService<ApplicationDbContext>(app);
             var usersManager = GetService<ClientUsersManager>(app);
 
+            app.AddUserGroups(context);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,8 +68,6 @@ namespace InvMan.Server.UI
 
                 app.FillDbWithTemporaryData(context, usersManager);
             }
-
-            app.AddUserGroups(context);
 
             app.UseRouting();
 

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Login" xml:space="preserve">
+        <value>Войти</value>
+    </data>
+    <data name="Search" xml:space="preserve">
+        <value>Поиск</value>
+    </data>
+    <data name="Devices" xml:space="preserve">
+        <value>Устройства</value>
+    </data>
+    <data name="Users" xml:space="preserve">
+        <value>Пользователи</value>
+    </data>
+    <data name="Information" xml:space="preserve">
+        <value>Информация</value>
+    </data>
+    <data name="Add" xml:space="preserve">
+        <value>Добавить</value>
+    </data>
+    <data name="Delete" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="Menu" xml:space="preserve">
+        <value>Меню</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>Устройства</value>
+    </data>
+    <data name="Software" xml:space="preserve">
+        <value>Программное обеспечение</value>
+    </data>
+    <data name="InventoryNumber" xml:space="preserve">
+        <value>Инвентарный номер</value>
+    </data>
+    <data name="Type" xml:space="preserve">
+        <value>Тип</value>
+    </data>
+    <data name="BuildingBody" xml:space="preserve">
+        <value>Корпус</value>
+    </data>
+    <data name="Cabinet" xml:space="preserve">
+        <value>Кабинет</value>
+    </data>
+    <data name="NetworkName" xml:space="preserve">
+        <value>Сетевое имя</value>
+    </data>
+    <data name="IPAddresses" xml:space="preserve">
+        <value>IP-адреса</value>
+    </data>
+</root>

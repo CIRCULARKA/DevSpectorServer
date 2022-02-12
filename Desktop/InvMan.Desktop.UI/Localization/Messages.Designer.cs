@@ -10,8 +10,8 @@
 
 namespace InvMan.Desktop.UI.Localization {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,15 +23,15 @@ namespace InvMan.Desktop.UI.Localization {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Messages {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Messages() {
+        public Messages() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace InvMan.Desktop.UI.Localization {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Добавить.
         /// </summary>
@@ -68,7 +68,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Add", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Корпус.
         /// </summary>
@@ -77,7 +77,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("BuildingBody", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Кабинет.
         /// </summary>
@@ -86,7 +86,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Cabinet", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
@@ -95,7 +95,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Устройства.
         /// </summary>
@@ -104,7 +104,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Devices", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Информация.
         /// </summary>
@@ -113,7 +113,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Information", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Инвентарный номер.
         /// </summary>
@@ -122,7 +122,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("InventoryNumber", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to IP-адреса.
         /// </summary>
@@ -131,7 +131,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("IPAddresses", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Войти.
         /// </summary>
@@ -140,7 +140,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Login", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Меню.
         /// </summary>
@@ -149,7 +149,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Menu", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Сетевое имя.
         /// </summary>
@@ -158,7 +158,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("NetworkName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Поиск.
         /// </summary>
@@ -167,7 +167,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Search", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Устройства.
         /// </summary>
@@ -176,7 +176,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Программное обеспечение.
         /// </summary>
@@ -185,7 +185,7 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Software", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Тип.
         /// </summary>
@@ -194,13 +194,46 @@ namespace InvMan.Desktop.UI.Localization {
                 return ResourceManager.GetString("Type", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Пользователи.
         /// </summary>
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        public static string CommonInfo {
+            get {
+                return ResourceManager.GetString("CommonInfo", resourceCulture);
+            }
+        }
+
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+
+        public static string NetworkInfo {
+            get {
+                return ResourceManager.GetString("NetworkInfo", resourceCulture);
+            }
+        }
+
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+
+        public static string AccessKey {
+            get {
+                return ResourceManager.GetString("AccessKey", resourceCulture);
             }
         }
     }

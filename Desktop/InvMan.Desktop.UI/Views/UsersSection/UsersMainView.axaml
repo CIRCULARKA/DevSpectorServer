@@ -3,12 +3,13 @@
     xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
     xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
     xmlns:aura="using:Aura.UI.Controls"
+	xmlns:l="clr-namespace:InvMan.Desktop.UI.Localization"
     x:Class="InvMan.Desktop.UI.Views.UsersMainView">
     <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*">
         <materialstyles:Card Margin="0 0 0 15">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
-                    <TextBlock Classes="Headline5" Text="Поиск" />
+                    <TextBlock Classes="Headline5" Text="{x:Static l:Messages.Search}" />
                 </aura:GroupBox.Header>
                 <StackPanel>
                     <UserControl Content="{Binding Search}" />
@@ -18,7 +19,7 @@
         <materialstyles:Card Grid.Row="1" Grid.RowSpan="2">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
-                    <TextBlock Classes="Headline5" Text="Пользователи" />
+                    <TextBlock Classes="Headline5" Text="{x:Static l:Messages.Users}" />
                 </aura:GroupBox.Header>
                 <ContentControl Content="{Binding UsersList}" />
             </aura:GroupBox>
@@ -27,7 +28,7 @@
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
             <aura:GroupBox>
                 <aura:GroupBox.Header>
-                    <TextBlock Classes="Headline5" Text="Информация" />
+                    <TextBlock Classes="Headline5" Text="{x:Static l:Messages.Information}" />
                 </aura:GroupBox.Header>
                 <ContentControl Content="{Binding UserInfo}" />
             </aura:GroupBox>

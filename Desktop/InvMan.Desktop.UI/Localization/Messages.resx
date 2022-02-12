@@ -66,4 +66,19 @@
     <data name="IPAddresses" xml:space="preserve">
         <value>IP-адреса</value>
     </data>
+    <data name="CommonInfo" xml:space="preserve">
+        <value>Общая информация</value>
+    </data>
+    <data name="Location" xml:space="preserve">
+        <value>Расположение</value>
+    </data>
+    <data name="NetworkInfo" xml:space="preserve">
+        <value>Сетевая информация</value>
+    </data>
+    <data name="Role" xml:space="preserve">
+        <value>Роль</value>
+    </data>
+    <data name="AccessKey" xml:space="preserve">
+        <value>Ключ доступа</value>
+    </data>
 </root>

@@ -2,6 +2,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
     xmlns:materialstyles="clr-namespace:Material.Styles;assembly=Material.Styles"
+    xmlns:l="clr-namespace:InvMan.Desktop.UI.Localization"
 	x:Class="InvMan.Desktop.UI.Views.MainView"
 	Icon="/Assets/avalonia-logo.ico"
 	Title="Инвентарный менеджер"
@@ -10,14 +11,14 @@
 		<ContentControl Content="{Binding SessionBrokerView}" />
 		<Border Padding="15 0 15 15" x:Name="border"
 			Grid.Row="1">
-			<shared:ModernMenu Title="Меню" StartMinimized="True"
+			<shared:ModernMenu Title="{x:Static l:Messages.Menu}" StartMinimized="True"
 				MinMenuSize="70" MaxMenuSize="200" SelectedIndex="1"
 				Grid.Row="1">
-				<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="Устройства"
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource devicesIcon}" RegularTitle="{x:Static l:Messages.Devices}"
 					Content="{Binding DevicesMainView}" />
-				<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="Пользователи"
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource usersIcon}" RegularTitle="{x:Static l:Messages.Users}"
 					Content="{Binding UsersMainView}" />
-				<shared:ModernMenuItem MinimizedTitle="{StaticResource settingsIcon}" RegularTitle="Настройки"
+				<shared:ModernMenuItem MinimizedTitle="{StaticResource settingsIcon}" RegularTitle="{x:Static l:Messages.Settings}"
 					Content="{Binding UsersMainView}" IsBottom="True" />
 			</shared:ModernMenu>
 		</Border>

@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+	xmlns:l="clr-namespace:InvMan.Desktop.UI.Localization"
     x:Class="InvMan.Desktop.UI.Views.UsersListView" >
     <Grid RowDefinitions="*,Auto,Auto" ColumnDefinitions="*">
         <ListBox BorderThickness="0" Height="{Binding #base.Height}"
@@ -23,9 +24,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Добавить" Height="35" Margin="0 5 0 5"
+        <Button Content="{x:Static l:Messages.Add}" Height="35" Margin="0 5 0 5"
             Grid.Row="1" />
-        <Button Content="Удалить" Height="35"
+        <Button Content="{x:Static l:Messages.Delete}" Height="35"
             Grid.Row="2" />
         <Panel Height="{Binding #base.Height}" IsVisible="{Binding !AreThereItems}"
             Grid.RowSpan="3">

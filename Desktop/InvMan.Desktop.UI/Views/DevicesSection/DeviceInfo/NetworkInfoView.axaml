@@ -2,11 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
 		xmlns:aura="using:Aura.UI.Controls"
+		xmlns:l="clr-namespace:InvMan.Desktop.UI.Localization"
         x:Class="InvMan.Desktop.UI.Views.NetworkInfoView">
 		<StackPanel>
-			<TextBlock Text="Сетевое имя" Classes="note" />
+			<TextBlock Text="{x:Static l:Messages.NetworkName}" Classes="note" />
 			<TextBlock Text="{Binding NetworkName}" Classes="main" />
-			<TextBlock Text="IP-адреса" Classes="note" />
+			<TextBlock Text="{x:Static l:Messages.IPAddresses}" Classes="note" />
 			<TextBlock Text="{Binding IPAddresses}" Classes="main" />
 		</StackPanel>
 </UserControl>

@@ -3,14 +3,14 @@
     xmlns:shared="using:InvMan.Desktop.UI.Views.Shared"
     xmlns:vm="using:InvMan.Desktop.UI.ViewModels"
     xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
-    xmlns:p="clr-namespace:InvMan.Desktop.UI.Localization"
+    xmlns:l="clr-namespace:InvMan.Desktop.UI.Localization"
     xmlns:aura="using:Aura.UI.Controls"
     x:Class="InvMan.Desktop.UI.Views.AuthorizationView"
     Height="600" Width="350">
     <Border Padding="15 50 15 0">
         <StackPanel>
             <Image Source="/Assets/logo.png" Width="200" HorizontalAlignment="Center" />
-            <TextBlock Classes="note" Text="Логин" />
+            <TextBlock Classes="note" Text="{x:Static l:Messages.Login}" />
             <TextBox Classes="clearButton" Text="{Binding Login}"
                 MaxLength="50"
                 IsEnabled="{Binding !AttemptingToLogin}" />
@@ -18,7 +18,7 @@
             <TextBox Classes="clearButton" Text="{Binding Password}"
                 PasswordChar="*" MaxLength="50" Tag="hello"
                 IsEnabled="{Binding !AttemptingToLogin}" />
-            <Button Content="{x:Static p:Messages.Login}" HorizontalAlignment="Stretch"
+            <Button Content="{x:Static l:Messages.Login}" HorizontalAlignment="Stretch"
                 Command="{Binding AuthorizationCommand}" />
             <Panel HorizontalAlignment="Stretch" Height="200">
                 <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" TextAlignment="Center"

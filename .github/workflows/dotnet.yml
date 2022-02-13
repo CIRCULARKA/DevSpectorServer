@@ -25,11 +25,13 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
-    - name: Install dotnet-ef
+    - name: Install dotnet tools
       run: dotnet tool install --global dotnet-ef
-    - name: Update database
+    - name: Update Database
       run: dotnet-ef database update --no-build
     - name: Run Server
       run: dotnet run --project Server/InvMan.Server.UI
     - name: Test SDK
-      run: dotnet run --project Server/InvMan.Server.UI && dotnet test Tests/Tests.Common
+      run: dotnet test Tests/Tests.Common
+    - name: Test Server
+      run: dotnet test Tests/Tests.Server

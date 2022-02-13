@@ -1,9 +1,6 @@
 name: .NET
 
-on:
-  push:
-    branches: [master]
-
+on: [ push, pull_request ]
 jobs:
   build-run-test:
     runs-on: ubuntu-latest
@@ -28,7 +25,7 @@ jobs:
     - name: Install dotnet tools
       run: dotnet tool install --global dotnet-ef
     - name: Update Database
-      run: dotnet-ef database update --no-build
+      run: dotnet-ef --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI database update --no-build
     - name: Run Server
       run: dotnet run --project Server/InvMan.Server.UI
     - name: Test SDK

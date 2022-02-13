@@ -1,10 +1,20 @@
 name: .NET
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
 
 jobs:
-  build:
+  build-run-test:
     runs-on: ubuntu-latest
+    services:
+      sql.data:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: ${{ secrets.DB_PWD }}
+          ACCEPT_EULA: Y
+        ports:
+          - "1433:1433"
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -15,16 +25,11 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
-  # run-server:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Run Server
-  #     run: dotnet run --project Server/InvMan.Server.UI
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
+    - name: Install dotnet-ef
+      run: dotnet tool install --global dotnet-ef
+    - name: Update database
+      run: dotnet-ef database update --no-build
+    - name: Run Server
+      run: dotnet run --project Server/InvMan.Server.UI
     - name: Test SDK
       run: dotnet run --project Server/InvMan.Server.UI && dotnet test Tests/Tests.Common

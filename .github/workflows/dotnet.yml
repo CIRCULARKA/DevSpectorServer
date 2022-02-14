@@ -15,4 +15,4 @@ jobs:
     - name: Build Server
       run: dotnet build --no-restore
     - name: Run Server
-      run: dotnet run --no-build --no-restore Server/InvMan.Server.UI
+      run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI

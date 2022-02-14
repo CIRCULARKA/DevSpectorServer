@@ -1,4 +1,5 @@
 # Own
+*.db
 /.vscode
 Server/**/*.txt
 appsettings.json

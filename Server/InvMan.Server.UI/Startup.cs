@@ -26,8 +26,6 @@ namespace InvMan.Server.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen();
-
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                     // options.UseSqlServer(

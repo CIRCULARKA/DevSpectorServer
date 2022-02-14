@@ -17,8 +17,8 @@ jobs:
     - name: Install dotnet tools
       run: dotnet tool install dotnet-ef --global
     - name: Create database migration
-      run: dotnet ef migrations --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI add Init --no-build
+      run: dotnet ef migrations --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI add Init
     - name: Create database
-      run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update --no-build
+      run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update
     - name: Run Server
       run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI

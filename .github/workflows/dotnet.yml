@@ -20,5 +20,5 @@ jobs:
       run: dotnet ef migrations --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI add Init
     - name: Create database
       run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update
-    - name: Run Server
-      run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI
+    # - name: Run Server
+    #   run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI

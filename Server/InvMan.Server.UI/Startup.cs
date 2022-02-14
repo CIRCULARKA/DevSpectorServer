@@ -30,9 +30,10 @@ namespace InvMan.Server.UI
 
             services.AddDbContext<ApplicationDbContext>(
                 options =>
-                    options.UseSqlServer(
-                        Configuration["ConnectionString"]
-                    )
+                    // options.UseSqlServer(
+                    //     Configuration["ConnectionString"]
+                    // )
+                    options.UseSqlite("Data Source=invman.db")
             );
 
             services.AddControllers().AddFluentValidation();
@@ -57,15 +58,6 @@ namespace InvMan.Server.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(
-                    options => {
-                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                        options.RoutePrefix = string.Empty;
-                    }
-                );
-
-
                 app.FillDbWithTemporaryData(context, usersManager);
             }
 

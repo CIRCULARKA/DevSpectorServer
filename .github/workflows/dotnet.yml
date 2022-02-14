@@ -2,7 +2,7 @@ name: .NET
 
 on: [ push ]
 jobs:
-  Build:
+  Build & Run:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -14,5 +14,7 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
+    - name: Initialize database
+      run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update --no-build
     - name: Run Server
       run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI

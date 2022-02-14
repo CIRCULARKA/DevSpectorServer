@@ -15,7 +15,7 @@ jobs:
     - name: Build Server
       run: dotnet build --no-restore
     - name: Install dotnet tools
-      run: dotnet tools install dotnet-ef --global
+      run: dotnet tool install dotnet-ef --global
     - name: Create database
       run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update --no-build
     - name: Run Server

@@ -1,34 +1,21 @@
-# Inherit this image from Microsoft's one which is installing to
-# container dotnet SDK of specified below version
 FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
-# Set working directory for current context
-# Creates the "src" folder and "cd" to it
 WORKDIR /src
 
-# Copy all files relative to this Dockerfile (recursively) and put
-# them into /src folder (as this folder is CWD now)
-COPY . .
+COPY src .
 
-# COPY . /src # this is how it'll look like if WORKDIR command wasn't used
+RUN dotnet tool install dotnet-ef --global
 
-# This command is used to run things on image build. So it is executes only one time
-# Because of this, this command is useful to setup environment, i.e. download tools
-# from the internet or something like this and we do not want to do it each run of
-# container
-# RUN dotnet tools --install dotnet-ef --global
+RUN dotnet dev-certs https
 
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
-# CMD launches commands below each run of the container
-# so it is useful for starting application each container run which is logical
-CMD [ "dotnet", "run", "--project", "Server/DevSpector.UI" ]
+RUN dotnet ef migrations --project DevSpector.Database --startup-project DevSpector.UI add Init
+RUN dotnet ef database --project DevSpector.Database --startup-project DevSpector.UI update
 
-# [Optional]
-# Set kind of PORT environment variable that can be used in application
-# so the webapp could be started on specified port
-# I don't know how to get this value from app
-# (I searched in PORT variable but nothing there)
-# EXPOSE 5040
+CMD [ "dotnet", "run", "--project", "DevSpector.UI", "--launch-profile", "Default" ]
+
+EXPOSE 5005
 
 # [Optional]
 # This command allow to setup environment variables

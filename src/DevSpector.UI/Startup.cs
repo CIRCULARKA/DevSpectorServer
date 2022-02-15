@@ -17,21 +17,25 @@ namespace DevSpector.UI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public IWebHostEnvironment Environment { get; }
+
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                     // options.UseSqlServer(
                     //     Configuration["ConnectionString"]
                     // )
-                    options.UseSqlite($"Data Source={env.ContentRootPath}/Data.db")
+                    options.UseSqlite($"Data Source={Environment.ContentRootPath}/Data.db")
             );
 
             services.AddControllers().AddFluentValidation();

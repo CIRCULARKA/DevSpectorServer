@@ -14,7 +14,7 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
-    - name: Install dotnet tools
+    # - name: Install dotnet tools
     #   run: dotnet tool install dotnet-ef --global
     # - name: Create database migration
     #   run: dotnet ef migrations --project Server/DevSpector.Database --startup-project Server/DevSpector.UI add Init

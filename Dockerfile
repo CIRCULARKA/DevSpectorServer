@@ -21,7 +21,7 @@ COPY . .
 
 # CMD launches commands below each run of the container
 # so it is useful for starting application each container run which is logical
-CMD [ "dotnet", "run", "--project", "Server/InvMan.Server.UI" ]
+CMD [ "dotnet", "run", "--project", "Server/DevSpector.UI" ]
 
 # [Optional]
 # Set kind of PORT environment variable that can be used in application

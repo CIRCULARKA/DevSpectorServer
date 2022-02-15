@@ -1,1 +1,1 @@
-web: dotnet run --project Server/InvMan.Server.UI
+web: dotnet run --project src/DevSpector.UI

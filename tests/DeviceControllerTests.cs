@@ -5,7 +5,7 @@ using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
 using DevSpector.Domain;
-using DevSpector.Server.SDK.Models;
+using DevSpector.SDK.Models;
 using DevSpector.Application;
 using DevSpector.Domain.Models;
 using DevSpector.UI.API.Controllers;

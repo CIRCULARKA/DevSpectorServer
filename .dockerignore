@@ -1,0 +1,4 @@
+bin
+obj
+src/DevSpector.Database/Migrations/*
+src/DevSpector.Database/DevSpector.Server.db

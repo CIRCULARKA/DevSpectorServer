@@ -2,7 +2,7 @@ name: .NET
 
 on: [ push ]
 jobs:
-  build-and-run:
+  run:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -15,10 +15,10 @@ jobs:
     - name: Build Server
       run: dotnet build --no-restore
     - name: Install dotnet tools
-      run: dotnet tool install dotnet-ef --global
-    - name: Create database migration
-      run: dotnet ef migrations --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI add Init
-    - name: Create database
-      run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update
+    #   run: dotnet tool install dotnet-ef --global
+    # - name: Create database migration
+    #   run: dotnet ef migrations --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI add Init
+    # - name: Create database
+    #   run: dotnet ef database --project Server/InvMan.Server.Database --startup-project Server/InvMan.Server.UI update
     # - name: Run Server
     #   run: dotnet run --no-build --no-restore --project Server/InvMan.Server.UI

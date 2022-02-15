@@ -15,4 +15,4 @@ RUN dotnet ef database --project DevSpector.Database --startup-project DevSpecto
 
 RUN dotnet publish DevSpector.UI -c Release -r linux-x64 -o /src/publish
 
-CMD ASPNETCORE_URLS=*:${PORT} ./src/publish/DevSpector.UI
+CMD ASPNETCORE_URLS=*:${PORT} ./publish/DevSpector.UI

@@ -24,14 +24,14 @@ namespace DevSpector.UI
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                     // options.UseSqlServer(
                     //     Configuration["ConnectionString"]
                     // )
-                    options.UseSqlite("Data Source=DevSpector.Server.db")
+                    options.UseSqlite($"Data Source={env.ContentRootPath}/Data.db")
             );
 
             services.AddControllers().AddFluentValidation();

@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
 WORKDIR /app
 
+EXPOSE 5000
+
 COPY DevSpectorServer.sln .
 COPY src src
 COPY tests tests
@@ -14,7 +16,6 @@ RUN dotnet dev-certs https
 RUN dotnet tool install dotnet-ef --global
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
-ENV PORT=5040
 
 RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit
 RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update DockerInit

@@ -1,18 +1,26 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
-WORKDIR /src
+WORKDIR /app
 
-COPY src .
+COPY DevSpectorServer.sln .
+COPY src src
+COPY tests tests
 
-RUN dotnet tool install dotnet-ef --global
+RUN dotnet restore
+RUN dotnet build --no-restore
 
 RUN dotnet dev-certs https
 
+RUN dotnet tool install dotnet-ef --global
+
 ENV PATH="${PATH}:/root/.dotnet/tools"
+ENV PORT=5040
 
-RUN dotnet ef migrations --project DevSpector.Database --startup-project DevSpector.UI add Init
-RUN dotnet ef database --project DevSpector.Database --startup-project DevSpector.UI update
+RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit
+RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update DockerInit
 
-RUN dotnet publish DevSpector.UI -c Release -r linux-x64 -o /src/publish
+RUN dotnet publish src/DevSpector.UI -c Release -r linux-x64 -o publish
 
-CMD ASPNETCORE_URLS=*:${PORT} ./publish/DevSpector.UI
+RUN cp src/DevSpector.UI/Data.db publish/Data.db
+
+CMD ASPNETCORE_URLS=http://+:${PORT} ./publish/DevSpector.UI

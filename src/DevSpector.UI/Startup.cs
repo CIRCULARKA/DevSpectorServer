@@ -35,7 +35,7 @@ namespace DevSpector.UI
                     // options.UseSqlServer(
                     //     Configuration["ConnectionString"]
                     // )
-                    options.UseSqlite($"Data Source={Environment.ContentRootPath}/Data.db")
+                    options.UseSqlite("Data Source=Data.db")
             );
 
             services.AddControllers().AddFluentValidation();

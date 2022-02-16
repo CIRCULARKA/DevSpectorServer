@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.Database;
 using DevSpector.Application;
@@ -15,6 +16,8 @@ namespace Microsoft.AspNetCore.Builder
             ApplicationDbContext context
         )
         {
+            context.Database.Migrate();
+
             var roles = context.Roles;
             context.Roles.RemoveRange(roles);
 

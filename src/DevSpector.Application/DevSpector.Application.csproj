@@ -5,7 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevSpectorLibrary" Version="1.0.6" />
+    <PackageReference Include="DevSpectorLibrary" Version="1.0.7" />
   </ItemGroup>
 
   <PropertyGroup>

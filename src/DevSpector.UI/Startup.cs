@@ -22,6 +22,7 @@ namespace DevSpector.UI
         {
             Configuration = configuration;
             Environment = env;
+            env.IsDevelopment();
         }
 
         public IConfiguration Configuration { get; }
@@ -31,11 +32,12 @@ namespace DevSpector.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options =>
-                    // options.UseSqlServer(
-                    //     Configuration["ConnectionString"]
-                    // )
-                    options.UseSqlite("Data Source=Data.db")
+                options => {
+                    if (Environment.IsDevelopment())
+                        options.UseSqlite("Data Source=Data.db");
+                    else
+                        options.UseSqlServer(Configuration["ConnectionString"]);
+                }
             );
 
             services.AddControllers().AddFluentValidation();

@@ -20,11 +20,11 @@ jobs:
     - name: Setup heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
-        env:
-          ASPNETCORE_ENVIRONMENT: Development
         branch: dev
         usedocker: true
         docker_heroku_process_type: web
         heroku_api_key: ${{secrets.HEROKU_KEY}}
         heroku_app_name: dev-devspector
         heroku_email: ruslan.getmail@gmail.com
+      env:
+        ASPNETCORE_ENVIRONMENT: Development

@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy development environment
 on:
   push:
     branches:
@@ -16,8 +16,7 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
-    - run: git config user.email "donkardon@list.ru" && git config user.name "CIRCULARKA" && git add -A && git commit -m "Updated code"
-    - name: Setup heroku
+    - name: Push to Heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
         branch: dev

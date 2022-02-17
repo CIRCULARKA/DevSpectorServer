@@ -16,9 +16,12 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
+    - run: git config user.email "donkardon@list.ru" && git config user.name "CIRCULARKA" && git add -A && git commit -m "Updated code"
     - name: Setup heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
         branch: dev
         usedocker: true
         docker_heroku_process_type: web

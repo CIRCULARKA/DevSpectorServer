@@ -19,6 +19,8 @@ jobs:
     - name: Setup heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
+        env:
+          ASPNETCORE_ENVIRONMENT: Production
         usedocker: true
         docker_heroku_process_type: web
         heroku_api_key: ${{secrets.HEROKU_KEY}}

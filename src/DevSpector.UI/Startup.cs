@@ -36,9 +36,9 @@ namespace DevSpector.UI
             services.AddDbContext<ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
-                        options.UseSqlite(Configuration["ConnectionString"]);
+                        options.UseSqlite();
                     else
-                        options.UseSqlServer(Configuration["ConnectionString"]);
+                        options.UseSqlServer();
                 }
             );
 

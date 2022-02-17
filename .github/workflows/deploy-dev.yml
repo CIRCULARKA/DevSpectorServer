@@ -16,9 +16,11 @@ jobs:
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
         branch: dev
-        env_file: ".env"
         usedocker: true
         docker_heroku_process_type: web
         heroku_api_key: ${{secrets.HEROKU_KEY}}
         heroku_app_name: dev-devspector
         heroku_email: ruslan.getmail@gmail.com
+      env:
+        HD_ASPNETCORE_ENVIRONMENT: Development
+        HD_CON_STR: "Data Source=Data.db"

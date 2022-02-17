@@ -31,6 +31,8 @@ namespace DevSpector.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ILogger<Startup>, Logger<Startup>>();
+
             services.AddDbContext<ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
@@ -52,12 +54,12 @@ namespace DevSpector.UI
             services.AddApplicationServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             var context = GetService<ApplicationDbContext>(app);
             var usersManager = GetService<ClientUsersManager>(app);
 
-            Console.WriteLine("Running in " + Environment.EnvironmentName + " environment");
+            logger.LogInformation("Running in " + Environment.EnvironmentName + " environment");
 
             app.AddUserGroups(context);
 

@@ -1,7 +1,6 @@
 # Own
 *.db
 /.vscode
-Server/**/*.txt
 appsettings.json
 .local.vimrc
 .vimspector.json

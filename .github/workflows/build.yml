@@ -1,7 +1,11 @@
 name: Build
-on: [ push ]
+on:
+  push:
+    branches-ignore:
+    - dev*
+    - release*
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

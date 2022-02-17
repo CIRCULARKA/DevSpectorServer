@@ -18,7 +18,7 @@ RUN dotnet tool install dotnet-ef --global
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit
-RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update DockerInit --connection "$CON_STR"
+RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update DockerInit --connection "${CON_STR}"
 
 RUN dotnet publish src/DevSpector.UI -c Release -r linux-x64 -o publish
 

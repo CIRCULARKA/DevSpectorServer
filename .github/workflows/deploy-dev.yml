@@ -19,7 +19,7 @@ jobs:
     - name: Push to Heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
-        branch: master
+        branch: dev
         usedocker: true
         docker_heroku_process_type: web
         heroku_api_key: ${{secrets.HEROKU_KEY}}

@@ -21,6 +21,6 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_KEY}}
         heroku_app_name: dev-devspector
         heroku_email: ruslan.getmail@gmail.com
-        docker_build_args: |
-          ASPNETCORE_ENVIRONMENT=Development
-          CON_STR="DataSource=Data.db"
+        docker_build_args:
+          ASPNETCORE_ENVIRONMENT: Development
+          CON_STR: "DataSource=Data.db"

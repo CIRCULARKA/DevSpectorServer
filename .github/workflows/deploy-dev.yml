@@ -12,10 +12,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore Dependencies
-      run: dotnet restore
-    - name: Build Server
-      run: dotnet build --no-restore
+    - run: git add src/DevSpector.UI/appsettings.json
     - name: Push to Heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
       with:

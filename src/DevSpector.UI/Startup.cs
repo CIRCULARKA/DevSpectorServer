@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -18,13 +19,10 @@ namespace DevSpector.UI
 {
     public class Startup
     {
-        private readonly ILogger<Startup> _logger;
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment env, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             Environment = env;
-            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -36,7 +34,7 @@ namespace DevSpector.UI
             services.AddDbContext<ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
-                        options.UseSqlite("Data Source=Data.db");
+                        options.UseSqlite(Configuration["ConnectionString"]);
                     else
                         options.UseSqlServer(Configuration["ConnectionString"]);
                 }
@@ -50,7 +48,6 @@ namespace DevSpector.UI
 
             services.AddTransient<IValidator<Device>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
-            services.AddTransient<ILogger<Startup>>();
 
             services.AddApplicationServices();
         }
@@ -60,7 +57,7 @@ namespace DevSpector.UI
             var context = GetService<ApplicationDbContext>(app);
             var usersManager = GetService<ClientUsersManager>(app);
 
-            _logger.LogInformation("Running in " + Environment.EnvironmentName + " environment");
+            Console.WriteLine("Running in " + Environment.EnvironmentName + " environment");
 
             app.AddUserGroups(context);
 

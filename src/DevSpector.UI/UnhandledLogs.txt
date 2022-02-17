@@ -419,3 +419,99 @@ Stack trace:
    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
    at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpector.Server/Server/DevSpector.UI/Program.cs:line 14
+[22:34 February 17, 2022]
+Message: Unable to resolve service for type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' while attempting to activate 'DevSpector.UI.Startup'.
+Assembly: Microsoft.Extensions.DependencyInjection.Abstractions
+Method: System.Object CreateInstance(System.IServiceProvider)
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+
+[22:35 February 17, 2022]
+Message: Unable to resolve service for type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' while attempting to activate 'DevSpector.UI.Startup'.
+Assembly: Microsoft.Extensions.DependencyInjection.Abstractions
+Method: System.Object CreateInstance(System.IServiceProvider)
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+
+[22:35 February 17, 2022]
+Message: Unable to resolve service for type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' while attempting to activate 'DevSpector.UI.Startup'.
+Assembly: Microsoft.Extensions.DependencyInjection.Abstractions
+Method: System.Object CreateInstance(System.IServiceProvider)
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+
+[22:37 February 17, 2022]
+Message: Unable to resolve service for type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' while attempting to activate 'DevSpector.UI.Startup'.
+Assembly: Microsoft.Extensions.DependencyInjection.Abstractions
+Method: System.Object CreateInstance(System.IServiceProvider)
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+
+[22:38 February 17, 2022]
+Message: Cannot instantiate implementation type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' for service type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]'.
+Assembly: Microsoft.Extensions.DependencyInjection
+Method: Void Populate()
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.Populate()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory..ctor(IEnumerable`1 descriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine..ctor(IEnumerable`1 serviceDescriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CompiledServiceProviderEngine..ctor(IEnumerable`1 serviceDescriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory.CreateServiceProvider(IServiceCollection containerBuilder)
+   at Microsoft.Extensions.Hosting.Internal.ServiceFactoryAdapter`1.CreateServiceProvider(Object containerBuilder)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+
+[22:40 February 17, 2022]
+Message: Cannot instantiate implementation type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]' for service type 'Microsoft.Extensions.Logging.ILogger`1[DevSpector.UI.Startup]'.
+Assembly: Microsoft.Extensions.DependencyInjection
+Method: Void Populate()
+No inner exception
+Stack trace:
+    at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory.Populate()
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteFactory..ctor(IEnumerable`1 descriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngine..ctor(IEnumerable`1 serviceDescriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CompiledServiceProviderEngine..ctor(IEnumerable`1 serviceDescriptors)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionContainerBuilderExtensions.BuildServiceProvider(IServiceCollection services, ServiceProviderOptions options)
+   at Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory.CreateServiceProvider(IServiceCollection containerBuilder)
+   at Microsoft.Extensions.Hosting.Internal.ServiceFactoryAdapter`1.CreateServiceProvider(Object containerBuilder)
+   at Microsoft.Extensions.Hosting.HostBuilder.CreateServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at DevSpector.UI.Program.Main(String[] args) in /home/ruslan/code/DevSpectorServer/src/DevSpector.UI/Program.cs:line 14
+
+

@@ -6,10 +6,8 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
 WORKDIR /app
 
-EXPOSE 5000
-
 ENV DB_FILE="Data.db"
-ENV CON_STR="Data Source=Data.db"
+ENV CON_STR="Data Source=${DB_FILE}"
 
 COPY DevSpectorServer.sln .
 COPY src src
@@ -31,4 +29,4 @@ RUN dotnet publish src/DevSpector.UI -c Debug -r linux-x64 -o publish
 
 RUN cp src/DevSpector.UI/${DB_FILE} publish/${DB_FILE}
 
-CMD ASPNETCORE_URLS=http://+:${PORT} && ASPNETCORE_ENVIRONMENT=Development ./publish/DevSpector.UI
+CMD ASPNETCORE_URLS=http://+:${PORT} && ASPNETCORE_ENVIRONMENT=Development && ./publish/DevSpector.UI

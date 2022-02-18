@@ -6,17 +6,12 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
 WORKDIR /app
 
-# Set environment variables
-ENV ASPNETCORE_URLS="http://+:${PORT}"
-
-EXPOSE 5000
-
 # Copy all files excluding ones in .dockerignore
 COPY . .
 
 # Restore and build all subprojects
 RUN dotnet restore
-RUN dotnet build --no-restore
+RUN dotnet build -c Release --no-restore
 
 # Configure developer certificate
 RUN dotnet dev-certs https

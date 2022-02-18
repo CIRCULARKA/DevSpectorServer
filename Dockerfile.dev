@@ -9,6 +9,8 @@ WORKDIR /app
 # Set environment variables
 ENV ASPNETCORE_URLS="http://+:${PORT}"
 
+EXPOSE 5000
+
 # Copy all files excluding ones in .dockerignore
 COPY . .
 

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -31,9 +32,14 @@ namespace DevSpector.UI
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(
-                    webBuilder => webBuilder.UseStartup<Startup>()
+            Host.CreateDefaultBuilder(args).
+                ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>()).
+                ConfigureAppConfiguration(
+                    (context, config) => {
+                        config.AddJsonFile("appsettings.json", optional: false);
+                        config.AddJsonFile("appsettings.Development.json", optional: false);
+                    }
                 );
+
     }
 }

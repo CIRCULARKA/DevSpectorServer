@@ -2,6 +2,7 @@
 *.db
 /.vscode
 appsettings.json
+UnhandledLogs.txt
 .local.vimrc
 .vimspector.json
 

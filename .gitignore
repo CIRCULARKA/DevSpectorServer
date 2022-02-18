@@ -3,6 +3,7 @@
 /.vscode
 appsettings.json
 UnhandledLogs.txt
+Makefile
 .local.vimrc
 .vimspector.json
 

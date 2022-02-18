@@ -20,7 +20,7 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Migrate and update database
 RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit --no-build
-RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update
+RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update --connection ${CON_STR}
 
 # Run entry subproject when deployed
 CMD dotnet run --project src/DevSpector.UI --launch-profile Production

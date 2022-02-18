@@ -12,8 +12,7 @@
     "Default": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
-      "launchBrowser": true,
-      "applicationUrl": "http://+:5000",
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -5,7 +5,7 @@ bin
 obj
 *.db
 *.txt
-Migrations
 Makefile
 Dockerfile*
 *.md
+src/DevSpector.Database/Migrations/*

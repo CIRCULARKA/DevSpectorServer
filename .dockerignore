@@ -1,5 +1,11 @@
 .git
+.github
+.gitignore
 bin
 obj
-src/DevSpector.Database/Migrations/*
-src/**/*.db
+*.db
+*.txt
+Migrations
+Makefile
+Dockerfile*
+*.md

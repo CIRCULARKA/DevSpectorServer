@@ -29,5 +29,5 @@ jobs:
         process_type: web
         email: ${{secrets.MY_EMAIL}}
         heroku_api_key: ${{secrets.HEROKU_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APPNAME}}
+        heroku_app_name: ${{secrets.HEROKU_APPNAME_PROD}}
         dockerfile_name: Dockerfile.prod

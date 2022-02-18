@@ -1,11 +1,14 @@
 .git
 .github
 .gitignore
+.vscode
+.dockerignore
 bin
 obj
-*.db
 *.txt
 Makefile
 Dockerfile*
+global.json
 *.md
+src/DevSpector.Database/*.db
 src/DevSpector.Database/Migrations/*

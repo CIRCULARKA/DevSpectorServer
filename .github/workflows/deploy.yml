@@ -31,6 +31,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APPNAME_PROD}}
         dockerfile_name: Dockerfile.prod
-        docker_options:
-        - "--build-arg"
-        - "${{secrets.DB_PROD_CON_STR}}
+        docker_options: "--build-arg CON_STR=${{secrets.DB_PROD_CON_STR}}"

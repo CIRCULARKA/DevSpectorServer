@@ -8,6 +8,9 @@ WORKDIR /app
 
 EXPOSE 5000
 
+ENV DB_FILE="Data.db"
+ENV CON_STR="Data Source=Data.db"
+
 COPY DevSpectorServer.sln .
 COPY src src
 COPY tests tests
@@ -26,6 +29,6 @@ RUN dotnet ef database --project src/DevSpector.Database --startup-project src/D
 
 RUN dotnet publish src/DevSpector.UI -c Debug -r linux-x64 -o publish
 
-RUN cp src/DevSpector.UI/Data.db publish/Data.db
+RUN cp src/DevSpector.UI/${DB_FILE} publish/${DB_FILE}
 
 CMD ASPNETCORE_URLS=http://+:${PORT} && ASPNETCORE_ENVIRONMENT=Development ./publish/DevSpector.UI

@@ -27,4 +27,4 @@ RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src
 RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update
 
 # Run entry subproject when deployed
-CMD dotnet run --project src/DevSpector.UI --launch-profile Development
+CMD dotnet run --project src/DevSpector.UI -c Release --launch-profile Development

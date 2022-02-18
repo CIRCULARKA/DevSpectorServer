@@ -6,27 +6,28 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
 WORKDIR /app
 
-ENV DB_FILE="Data.db"
-ENV CON_STR="Data Source=${DB_FILE}"
+# Set environment variables
+ENV ASPNETCORE_URLS="http://+:${PORT}"
 
-COPY DevSpectorServer.sln .
-COPY src src
-COPY tests tests
+# Copy all files excluding ones in .dockerignore
+COPY . .
 
+# Restore and build all subprojects
 RUN dotnet restore
 RUN dotnet build --no-restore
 
+# Configure developer certificate
 RUN dotnet dev-certs https
 
+# Install tools for database migration
 RUN dotnet tool install dotnet-ef --global
 
+# Add installed tools to PATH
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit
+# Migrate and update database
+RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit --no-build
 RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update
 
-RUN dotnet publish src/DevSpector.UI -c Debug -r linux-x64 -o publish
-
-RUN cp src/DevSpector.UI/${DB_FILE} publish/${DB_FILE}
-
-CMD ASPNETCORE_URLS=http://+:${PORT} && ASPNETCORE_ENVIRONMENT=Development && ./publish/DevSpector.UI
+# Run entry subproject when deployed
+CMD dotnet run --project src/DevSpector.UI --no-build --launch-profile Development

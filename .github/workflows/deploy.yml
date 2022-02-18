@@ -22,12 +22,4 @@ jobs:
         heroku_email: ${{secrets.MY_EMAIL}}
       env:
         HD_TARGET_ENV: Production
-    # - name: Push container to Heroku
-    #   uses: gonuit/heroku-docker-deploy@v1.3.3
-    #   with:
-    #     process_type: web
-    #     email: ${{secrets.MY_EMAIL}}
-    #     heroku_api_key: ${{secrets.HEROKU_KEY}}
-    #     heroku_app_name: ${{secrets.HEROKU_APPNAME_PROD}}
-    #     docker_options: "--build-arg CON_STR=\"${{secrets.DB_PROD_CON_STR}}\""
-    #     dockerfile_name: Dockerfile.prod
+        HD_CON_STR: ${{secrets.DB_PROD_CON_STR}}

@@ -33,14 +33,12 @@ namespace DevSpector.UI
         {
             services.AddTransient<ILogger<Startup>, Logger<Startup>>();
 
-            Console.WriteLine("Is development: " + Environment.IsDevelopment());
-
             services.AddDbContext<ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
                         options.UseSqlite(Configuration["ConnectionString"]);
                     else
-                        options.UseSqlServer();
+                        options.UseSqlServer(Configuration["ConnectionString"]);
                 }
             );
 

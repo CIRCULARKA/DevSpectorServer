@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -33,6 +32,13 @@ namespace DevSpector.UI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).
-                ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+                ConfigureWebHostDefaults(
+                    webBuilder => {
+                        var port = Environment.GetEnvironmentVariable("PORT");
+
+                        webBuilder.UseStartup<Startup>().
+                            UseUrls($"http://*:{port}");
+                    }
+                );
     }
 }

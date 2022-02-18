@@ -33,6 +33,8 @@ namespace DevSpector.UI
         {
             services.AddTransient<ILogger<Startup>, Logger<Startup>>();
 
+            Console.WriteLine("Is development: " + Environment.IsDevelopment());
+
             services.AddDbContext<ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
@@ -58,8 +60,6 @@ namespace DevSpector.UI
         {
             var context = GetService<ApplicationDbContext>(app);
             var usersManager = GetService<ClientUsersManager>(app);
-
-            logger.LogInformation("Running in " + Environment.EnvironmentName + " environment");
 
             app.AddUserGroups(context);
 

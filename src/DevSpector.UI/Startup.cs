@@ -39,8 +39,7 @@ namespace DevSpector.UI
                         options.UseSqlite(Configuration["ConnectionString"]);
                     else {
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
-                        // because it checkouts my repo without that file as it is added to .gitignore (there is production)
-                        // connection string
+                        // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)
                         // My approach with docker where I use dotnet ef database update --connection <con-string> just ignored
                         var connectionString = System.Environment.GetEnvironmentVariable("CON_STR");
                         options.UseSqlServer(connectionString);

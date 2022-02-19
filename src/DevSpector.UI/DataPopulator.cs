@@ -43,8 +43,8 @@ namespace Microsoft.AspNetCore.Builder
                 AccessKey = Guid.NewGuid().ToString()
             };
 
-            context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD"));
-            context.AddToRoleAsync(rootUser, rootUser.Group);
+            var creationResult = context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD")).Result;
+            var roleResult = context.AddToRoleAsync(rootUser, rootUser.Group).Result;
 
             return @this;
         }

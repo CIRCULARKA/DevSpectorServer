@@ -1,8 +1,6 @@
-#
-# This Docker file defined for deploying development version of server for testing purposes
-#
-
 FROM mcr.microsoft.com/dotnet/sdk:5.0.405
+
+ENV ASPNETCORE_ENVIRONMENT=${TARGET_ENV}
 
 WORKDIR /app
 
@@ -24,7 +22,7 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Migrate and update database
 RUN dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit --no-build
-RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update --connection ${CON_STR}
+RUN dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update
 
 # Run entry subproject when deployed
 CMD dotnet run --project src/DevSpector.UI --launch-profile ${TARGET_ENV}

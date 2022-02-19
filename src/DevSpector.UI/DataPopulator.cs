@@ -16,8 +16,6 @@ namespace Microsoft.AspNetCore.Builder
             ApplicationDbContext context
         )
         {
-            context.Database.Migrate();
-
             var roles = context.Roles;
             context.Roles.RemoveRange(roles);
 
@@ -27,6 +25,25 @@ namespace Microsoft.AspNetCore.Builder
             );
 
             context.SaveChanges();
+
+            return @this;
+        }
+
+        public static IApplicationBuilder AddRootUser(
+            this IApplicationBuilder @this,
+            ClientUsersManager context
+        )
+        {
+            if (context.FindByNameAsync("root").Result != null)
+                return @this;
+
+            var rootUser = new ClientUser {
+                UserName = "root",
+                Group = "Администратор", // Administrator
+                AccessKey = Guid.NewGuid().ToString()
+            };
+
+            context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD"));
 
             return @this;
         }

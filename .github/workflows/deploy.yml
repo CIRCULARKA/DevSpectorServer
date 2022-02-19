@@ -23,3 +23,4 @@ jobs:
       env:
         HD_TARGET_ENV: Production
         HD_CON_STR: ${{secrets.DB_PROD_CON_STR}}
+        HD_ROOT_PWD: ${{secrets.ROOT_PWD}}

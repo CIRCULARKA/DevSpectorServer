@@ -71,6 +71,8 @@ namespace DevSpector.UI
                 app.UseDeveloperExceptionPage();
                 app.FillDbWithTemporaryData(context, usersManager);
             }
+            else
+                app.AddRootUser(usersManager);
 
             app.UseRouting();
 

@@ -12,20 +12,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    # - name: Push to Heroku
-    #   uses: AkhileshNS/heroku-deploy@v3.12.12
-    #   with:
-    #     branch: dev
-    #     usedocker: true
-    #     docker_heroku_process_type: web
-    #     heroku_api_key: ${{secrets.HEROKU_KEY}}
-    #     heroku_app_name: ${{secrets.HEROKU_APPNAME_DEV}}
-    #     heroku_email: ${{secrets.MY_EMAIL}}
-    - name: Push container to Heroku
-      uses: gonuit/heroku-docker-deploy@v1.3.3
+    - name: Push to Heroku
+      uses: AkhileshNS/heroku-deploy@v3.12.12
       with:
-        process_type: web
-        email: ${{secrets.MY_EMAIL}}
+        branch: dev
+        usedocker: true
+        docker_heroku_process_type: web
         heroku_api_key: ${{secrets.HEROKU_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APPNAME_DEV}}
-        dockerfile_name: Dockerfile.dev
+        heroku_email: ${{secrets.MY_EMAIL}}
+      env:
+        HD_TARGET_ENV: Development

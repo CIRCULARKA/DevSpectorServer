@@ -104,7 +104,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/users/authorize")]
-		[RequireParameters("login")]
+		[RequireParameters("login", "password")]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
 			var wrongCredentialsResponse = Unauthorized(
@@ -139,7 +139,6 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/users/revoke-api")]
-		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login", "password")]
 		public async Task<IActionResult> RevokeUserApi(string login, string password)
 		{
@@ -161,7 +160,9 @@ namespace DevSpector.UI.API.Controllers
 			targetUser.AccessKey = Guid.NewGuid().ToString();
 			await _usersManager.UpdateAsync(targetUser);
 
-			return Ok();
+			return Ok(
+				new { NewKey = targetUser.AccessKey }
+			);
 		}
 	}
 }

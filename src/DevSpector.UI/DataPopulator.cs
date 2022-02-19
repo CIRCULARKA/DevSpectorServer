@@ -44,6 +44,7 @@ namespace Microsoft.AspNetCore.Builder
             };
 
             context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD"));
+            context.AddToRoleAsync(rootUser, rootUser.Group);
 
             return @this;
         }

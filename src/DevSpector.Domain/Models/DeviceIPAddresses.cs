@@ -8,9 +8,9 @@ namespace DevSpector.Domain.Models
 
 		public Guid DeviceID { get; set; }
 
-		public Device Device { get; set; }
-
 		public Guid IPAddressID { get; set; }
+
+		public Device Device { get; set; }
 
 		public IPAddress IPAddress { get; set; }
 	}

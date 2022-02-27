@@ -18,8 +18,14 @@ namespace DevSpector.Application
 
 		public void CreateDevice(Device device)
 		{
-			// Get N/A cabinet in N/A housing
-			var defaultLocationID = _repo.GetSingle<Cabinet>(
+			// InventoryNumber should be unique for each device
+			// So if there is the device with same InventoryNumber then throw the exception
+			var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == device.InventoryNumber);
+			if (sameDevice != null)
+				throw new ArgumentException("Device with ");
+
+			// Get N/A cabinet in N/A housing to put it as device's location
+			var defaultCabinetID = _repo.GetSingle<Cabinet>(
 				include: "Housing",
 				filter: l => l.Name == "N/A" && l.Housing.Name == "N/A"
 			).ID;
@@ -38,6 +44,15 @@ namespace DevSpector.Application
 			};
 
 			_repo.Add<Device>(newDevice);
+			_repo.Save();
+
+			// Assign N/A cabinet to newly created device
+			_repo.Add<DeviceCabinet>(
+				new DeviceCabinet {
+					DeviceID = newDevice.ID,
+					CabinetID = defaultCabinetID
+				}
+			);
 			_repo.Save();
 		}
 

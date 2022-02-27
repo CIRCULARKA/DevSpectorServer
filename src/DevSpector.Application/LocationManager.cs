@@ -13,15 +13,12 @@ namespace DevSpector.Application
 		public LocationManager(IRepository repo) =>
 			_repo = repo;
 
-		public IEnumerable<string> Housings =>
-			_repo.Get<Housing>().Select(
-				h => h.Name
-			);
+		public IEnumerable<Housing> Housings =>
+			_repo.Get<Housing>();
 
-		public IEnumerable<string> GetCabinets(Guid housingID) =>
+		public IEnumerable<Cabinet> GetCabinets(Guid housingID) =>
 			_repo.Get<Cabinet>(
 				filter: c => c.HousingID == housingID
-			).Select(c => c.Name).
-				OrderBy(n => int.Parse(n));
+			);
 	}
 }

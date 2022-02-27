@@ -16,9 +16,9 @@ namespace DevSpector.Application
 			_repo = repo;
 		}
 
-		public void CreateDevice(string networkName, string inventoryNumber, string type)
+		public void CreatePC(Device device)
 		{
-			var targetTypeID = _repo.GetSingle<DeviceType>(dt => dt.Name == type).ID;
+			var targetTypeID = _repo.GetSingle<DeviceType>(dt => dt.Name == (device.Type.Name ?? "Персональный компьютер")).ID;
 			var defaultLocationID = _repo.GetSingle<Cabinet>(
 				include: "Housing",
 				filter: l => l.Name == "N/A" && l.Housing.Name == "N/A"
@@ -26,8 +26,7 @@ namespace DevSpector.Application
 
 			var newDevice = new Device()
 			{
-				InventoryNumber = inventoryNumber,
-				NetworkName = networkName,
+				InventoryNumber = device.InventoryNumber,
 				TypeID = targetTypeID
 			};
 

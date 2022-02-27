@@ -7,7 +7,7 @@ namespace DevSpector.Application
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(string networkName, string inventoryNumber, string type);
+		void CreatePC(Device device);
 
 		Device GetDeviceByID(Guid deviceID);
 

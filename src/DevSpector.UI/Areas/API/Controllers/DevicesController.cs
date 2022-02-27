@@ -1,7 +1,7 @@
 using System;
-using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
+using DevSpector.Domain.Models;
 using DevSpector.UI.Filters;
 
 namespace DevSpector.UI.API.Controllers
@@ -20,24 +20,33 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/devices")]
 		public JsonResult GetAppliances() {
-			Thread.Sleep(5000);
 			return Json(_manager.GetAppliances());
 		}
 
-		[HttpPut("api/devices/create")]
-		[RequireParameters("type", "inventoryNumber", "networkName")]
-		public IActionResult CreateDevice(string networkName, string inventoryNumber, string type)
+		[HttpPost("api/devices/add")]
+		public IActionResult CreateDevice([FromBody] Device device)
 		{
 			try
 			{
-				_manager.CreateDevice(networkName, inventoryNumber, type);
+				_manager.CreateDevice(device);
 
 				return Ok();
 			}
 			catch (Exception e)
 			{
-				return BadRequest(e);
+				return BadRequest(
+					new {
+						Error = "Can't add device",
+						Description = e.Message
+					}
+				);
 			}
+		}
+
+		[HttpPut("api/devices/update")]
+		public IActionResult UpdateDevice([FromBody] Device device)
+		{
+			return Ok();
 		}
 	}
 }

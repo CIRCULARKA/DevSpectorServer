@@ -107,7 +107,7 @@ namespace Microsoft.AspNetCore.Builder
             }
 
             // Add N/A cabinet with N/A housing
-            var naCabinet = new Cabinet { ID = Guid.NewGuid(), Name = "N/A " };
+            var naCabinet = new Cabinet { ID = Guid.NewGuid(), Name = "N/A" };
             naCabinet.HousingID = housings[0].ID;
             context.Cabinets.Add(naCabinet);
             context.SaveChanges();

@@ -10,7 +10,6 @@ namespace DevSpector.Database.Configurations
 		public void Configure(EntityTypeBuilder<Device> builder)
 		{
 			builder.HasKey(d => d.ID);
-			builder.Property(d => d.LocationID).IsRequired();
 			builder.Property(d => d.TypeID).IsRequired();
 			builder.HasIndex(d => d.InventoryNumber).IsUnique();
 		}

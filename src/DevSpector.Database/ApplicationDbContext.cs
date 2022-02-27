@@ -16,9 +16,9 @@ namespace DevSpector.Database
 
 		public DbSet<Cabinet> Cabinets { get; set; }
 
-		public DbSet<Location> Locations { get; set; }
-
 		public DbSet<Device> Devices { get; set; }
+
+		public DbSet<DeviceCabinet> DeviceCabinets { get; set; }
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
 

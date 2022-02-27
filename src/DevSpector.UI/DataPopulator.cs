@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.Database;
 using DevSpector.Application;
@@ -83,39 +82,34 @@ namespace Microsoft.AspNetCore.Builder
 
  			var cabinets = new List<Cabinet>();
 
-            var locations = new List<Location>();
-
+            // Add cabinets to "Главный" (Main) housing
             for (int j = 0; j < 4; j++)
             {
                 for (int i = 1; i <= 12; i++)
                 {
                     var newCabinet = new Cabinet { ID = Guid.NewGuid(), Name = $"{(j == 0 ? "" : j.ToString()) + i.ToString()}" };
+                    newCabinet.HousingID = housings[1].ID;
                     context.Cabinets.Add(newCabinet);
                     context.SaveChanges();
-                    locations.Add(new Location { ID = Guid.NewGuid(), CabinetID = newCabinet.ID, HousingID = housings[1].ID });
                 }
             }
 
+            // Add cabinets to "Второй" (Secondary) housing
             for (int j = 0; j < 3; j++)
             {
                 for (int i = 1; i <= 12; i++)
                 {
                     var newCabinet = new Cabinet { ID = Guid.NewGuid(), Name = $"{(j == 0 ? "" : j.ToString()) + i.ToString()}" };
+                    newCabinet.HousingID = housings[2].ID;
                     context.Cabinets.Add(newCabinet);
                     context.SaveChanges();
-                    locations.Add(new Location { ID = Guid.NewGuid(), CabinetID = newCabinet.ID, HousingID = housings[2].ID });
                 }
             }
 
+            // Add N/A cabinet with N/A housing
             var naCabinet = new Cabinet { ID = Guid.NewGuid(), Name = "N/A " };
+            naCabinet.HousingID = housings[0].ID;
             context.Cabinets.Add(naCabinet);
-            context.SaveChanges();
-
-            locations.Add(
-                new Location { ID = Guid.NewGuid(), CabinetID = naCabinet.ID, HousingID = housings[0].ID }
-            );
-
-            context.Locations.AddRange(locations);
             context.SaveChanges();
 
             var deviceTypes = new List<DeviceType>();
@@ -139,7 +133,6 @@ namespace Microsoft.AspNetCore.Builder
                             ID = Guid.NewGuid(),
                             NetworkName = $"TempNetworkName:{Guid.NewGuid()}",
                             InventoryNumber = $"TempInventoryNumber:{Guid.NewGuid()}",
-                            LocationID = locations[locationIterator].ID,
                             TypeID = type.ID
                         }
                     );

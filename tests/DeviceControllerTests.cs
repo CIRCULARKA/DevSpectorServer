@@ -20,26 +20,30 @@ namespace DevSpector.Server.Tests.Server.Controllers
 
 		public DeviceControllerTests()
 		{
+			var testCabinet1 = new Cabinet { Name = "cab1 "};
+			testCabinet1.Housing = new Housing { Name = "h1" };
+
+			var testCabinet2 = new Cabinet { Name = "cab2 "};
+			testCabinet2.Housing = new Housing { Name = "h2" };
+
+			var testLocations = new Cabinet[]
+			{
+				testCabinet1,
+				testCabinet2
+			};
+
 			var testDevices = new List<Device> {
 				new Device {
 					ID = Guid.NewGuid(),
 					InventoryNumber = "inv1",
 					NetworkName = "net1",
-					Type = new DeviceType { Name = "type1" },
-					Location = new Location {
-						Cabinet = new Cabinet { Name = "cab1" },
-						Housing = new Housing { Name = "h1" }
-					}
+					Type = new DeviceType { Name = "type1" }
 				},
 				new Device {
 					ID = Guid.NewGuid(),
 					InventoryNumber = "inv2",
 					NetworkName = "net2",
-					Type = new DeviceType { Name = "type2" },
-					Location = new Location {
-						Cabinet = new Cabinet { Name = "cab2" },
-						Housing = new Housing { Name = "h2" }
-					}
+					Type = new DeviceType { Name = "type2" }
 				}
 			};
 
@@ -53,13 +57,13 @@ namespace DevSpector.Server.Tests.Server.Controllers
 			_expected = new List<Appliance> {
 				new Appliance(testDevices[0].ID, testDevices[0].InventoryNumber,
 					testDevices[0].Type.Name, testDevices[0].NetworkName,
-					testDevices[0].Location.Housing.Name, testDevices[0].Location.Cabinet.Name,
+					testLocations[0].Housing.Name, testLocations[0].Name,
 					new List<string> { testIPs[0].Address, testIPs[1].Address },
 					null
 				),
 				new Appliance(testDevices[1].ID, testDevices[1].InventoryNumber,
 					testDevices[1].Type.Name, testDevices[1].NetworkName,
-					testDevices[1].Location.Housing.Name, testDevices[1].Location.Cabinet.Name,
+					testLocations[1].Housing.Name, testLocations[1].Name,
 					new List<string> { testIPs[2].Address, testIPs[3].Address },
 					null
 				)

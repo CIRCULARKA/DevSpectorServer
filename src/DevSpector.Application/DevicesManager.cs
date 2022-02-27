@@ -19,16 +19,16 @@ namespace DevSpector.Application
 		public void CreateDevice(string networkName, string inventoryNumber, string type)
 		{
 			var targetTypeID = _repo.GetSingle<DeviceType>(dt => dt.Name == type).ID;
-			var defaultLocationID = _repo.GetSingle<Location>(
-				filter: l => l.Cabinet.Name == "N/A" && l.Housing.Name == "N/A"
+			var defaultLocationID = _repo.GetSingle<Cabinet>(
+				include: "Housing",
+				filter: l => l.Name == "N/A" && l.Housing.Name == "N/A"
 			).ID;
 
 			var newDevice = new Device()
 			{
 				InventoryNumber = inventoryNumber,
 				NetworkName = networkName,
-				TypeID = targetTypeID,
-				LocationID = defaultLocationID
+				TypeID = targetTypeID
 			};
 
 			_repo.Add<Device>(newDevice);
@@ -39,19 +39,28 @@ namespace DevSpector.Application
 			_repo.GetByID<Device>(deviceID);
 
 		public IEnumerable<Device> GetDevices() =>
-			_repo.Get<Device>(include: "Type,Location,Location.Housing,Location.Cabinet");
+			_repo.Get<Device>(include: "Type");
 
-		public IEnumerable<Appliance> GetAppliances() =>
-			GetDevices().Select(d =>
-				new Appliance(
-					d.ID, d.InventoryNumber, d.Type.Name,
-					d.NetworkName, d.Location.Housing.Name,
-					d.Location.Cabinet.Name,
+		public Cabinet GetDeviceCabinet(Guid deviceID) =>
+			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing").Cabinet;
+
+		public IEnumerable<Appliance> GetAppliances()
+		{
+			return GetDevices().Select(d => {
+				var deviceCabinet = GetDeviceCabinet(d.ID);
+				return new Appliance(
+					d.ID,
+					d.InventoryNumber,
+					d.Type.Name,
+					d.NetworkName,
+					deviceCabinet.Housing.Name,
+					deviceCabinet.Name,
 					_repo.Get<IPAddress>(
 						filter: ip => ip.DeviceID == d.ID
 					).Select(ip => ip.Address).ToList(),
 					null
-				)
-			);
+				);
+			});
+		}
 	}
 }

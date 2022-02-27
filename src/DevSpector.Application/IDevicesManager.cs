@@ -16,5 +16,7 @@ namespace DevSpector.Application
 		IEnumerable<Device> GetDevices();
 
 		IEnumerable<Appliance> GetAppliances();
+
+		IEnumerable<DeviceType> GetDeviceTypes();
 	}
 }

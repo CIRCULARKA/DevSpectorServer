@@ -94,5 +94,8 @@ namespace DevSpector.Application
 				);
 			});
 		}
+
+		public IEnumerable<DeviceType> GetDeviceTypes() =>
+			_repo.Get<DeviceType>();
 	}
 }

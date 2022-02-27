@@ -34,12 +34,12 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(
+				return Json(BadRequest(
 					new {
 						Error = "Can't add device",
 						Description = e.Message
 					}
-				);
+				));
 			}
 		}
 
@@ -48,5 +48,9 @@ namespace DevSpector.UI.API.Controllers
 		{
 			return Ok();
 		}
+
+		[HttpGet("api/devices/types")]
+		public JsonResult GetDeviceTypes() =>
+			Json(_manager.GetDeviceTypes());
 	}
 }

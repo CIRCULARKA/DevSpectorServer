@@ -16,21 +16,40 @@ namespace DevSpector.Application
 			_repo = repo;
 		}
 
-		public void CreatePC(Device device)
+		public void CreateDevice(Device device)
 		{
-			var targetTypeID = _repo.GetSingle<DeviceType>(dt => dt.Name == (device.Type.Name ?? "Персональный компьютер")).ID;
+			// Get N/A cabinet in N/A housing
 			var defaultLocationID = _repo.GetSingle<Cabinet>(
 				include: "Housing",
 				filter: l => l.Name == "N/A" && l.Housing.Name == "N/A"
 			).ID;
 
+			// Try to get device type from specified ID
+			// If no type then throw the exception
+			var targetType = _repo.GetSingle<DeviceType>(dt => dt.ID == device.TypeID);
+			if (targetType == null)
+				throw new ArgumentException("Device type with specified ID wasn't found");
+
 			var newDevice = new Device()
 			{
 				InventoryNumber = device.InventoryNumber,
-				TypeID = targetTypeID
+				TypeID = targetType.ID,
+				NetworkName = device.NetworkName
 			};
 
 			_repo.Add<Device>(newDevice);
+			_repo.Save();
+		}
+
+		public void UpdateDevice(Device device)
+		{
+			// Check for device's persistance in database
+			// If there is no such device then trow the exception
+			var targetDevice = _repo.Get<Device>(d => d.ID == device.ID);
+			if (targetDevice == null)
+				throw new ArgumentException("Could not update device with specified ID - no such device");
+
+			_repo.Update<Device>(device);
 			_repo.Save();
 		}
 

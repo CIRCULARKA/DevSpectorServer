@@ -22,12 +22,11 @@ namespace DevSpector.Application
 			// So if there is the device with same InventoryNumber then throw the exception
 			var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == device.InventoryNumber);
 			if (sameDevice != null)
-				throw new ArgumentException("Device with ");
+				throw new ArgumentException("Device with the same inventory number already exists");
 
 			// Get N/A cabinet in N/A housing to put it as device's location
 			var defaultCabinetID = _repo.GetSingle<Cabinet>(
-				include: "Housing",
-				filter: l => l.Name == "N/A" && l.Housing.Name == "N/A"
+				c => c.Name == "N/A"
 			).ID;
 
 			// Try to get device type from specified ID

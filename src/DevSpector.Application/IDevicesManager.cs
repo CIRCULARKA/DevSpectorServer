@@ -7,12 +7,16 @@ namespace DevSpector.Application
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(string networkName, string inventoryNumber, string type);
+		void CreateDevice(Device device);
+
+		void UpdateDevice(Device device);
 
 		Device GetDeviceByID(Guid deviceID);
 
 		IEnumerable<Device> GetDevices();
 
 		IEnumerable<Appliance> GetAppliances();
+
+		IEnumerable<DeviceType> GetDeviceTypes();
 	}
 }

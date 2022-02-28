@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
 using DevSpector.UI.Filters;
@@ -13,7 +15,15 @@ namespace DevSpector.UI.API.Controllers
 			_manager = manager;
 
 		[HttpGet("api/location/housings")]
-		public JsonResult Get() =>
-			Json(_manager.Housings);
+		public JsonResult GetHousings() =>
+			Json(_manager.Housings.Select(
+				h => new { ID = h.ID, Name = h.Name }
+			));
+
+		[HttpGet("api/location/cabinets")]
+		public JsonResult GetCabinets(Guid housingID) =>
+			Json(_manager.GetCabinets(housingID).Select(
+				c => new { ID = c.ID, Name = c.Name }
+			));
 	}
 }

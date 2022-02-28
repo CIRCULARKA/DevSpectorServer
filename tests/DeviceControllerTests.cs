@@ -86,11 +86,5 @@ namespace DevSpector.Server.Tests.Server.Controllers
 				devicesManagerMock
 			);
 		}
-
-		[Fact]
-		public void CanCreateDevice()
-		{
-			_controller.CreateDevice("TestNetworkName", "TestInvNum", "Сервер");
-		}
 	}
 }

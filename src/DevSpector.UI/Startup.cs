@@ -52,7 +52,7 @@ namespace DevSpector.UI
                 AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<IValidator<Device>, DeviceValidator>();
+            // services.AddTransient<IValidator<Device>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 
             services.AddApplicationServices();

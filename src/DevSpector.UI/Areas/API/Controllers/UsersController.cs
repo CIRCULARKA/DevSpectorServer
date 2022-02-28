@@ -10,13 +10,13 @@ using DevSpector.Application;
 
 namespace DevSpector.UI.API.Controllers
 {
-	public class ClientUsersController : ApiController
+	public class UsersController : ApiController
 	{
         private readonly ClientUsersManager _usersManager;
 
 		private readonly SignInManager<ClientUser> _signInManager;
 
-		public ClientUsersController(
+		public UsersController(
             ClientUsersManager usersManager,
 			SignInManager<ClientUser> signInManager
 		)

@@ -59,9 +59,22 @@ namespace DevSpector.Application
 		{
 			// Check for device's persistance in database
 			// If there is no such device then trow the exception
-			var targetDevice = _repo.Get<Device>(d => d.ID == device.ID);
+			var targetDevice = _repo.GetSingle<Device>(d => d.ID == device.ID);
 			if (targetDevice == null)
 				throw new ArgumentException("Could not update device with specified ID - no such device");
+
+			// Check if specified type is existing
+			var targetType = _repo.GetByID<DeviceType>(device.TypeID);
+			if (targetType == null)
+				throw new ArgumentException("Can't assign device type to device - no such type with the specified ID");
+
+			targetDevice.TypeID = device.TypeID;
+
+			if (device.InventoryNumber != null)
+				targetDevice.InventoryNumber = device.InventoryNumber;
+
+			if (device.NetworkName != null)
+				targetDevice.NetworkName = device.NetworkName;
 
 			_repo.Update<Device>(device);
 			_repo.Save();

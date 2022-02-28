@@ -19,8 +19,13 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/devices")]
-		public JsonResult GetAppliances() {
-			return Json(_manager.GetAppliances());
+		public JsonResult GetDevices() {
+			return Json(_manager.GetDevices());
+		}
+
+		[HttpGet("api/devices/{deviceID}")]
+		public JsonResult GetDevice(Guid deviceID) {
+			return Json(_manager.GetDeviceByID(deviceID));
 		}
 
 		[HttpPost("api/devices/add")]
@@ -46,7 +51,21 @@ namespace DevSpector.UI.API.Controllers
 		[HttpPut("api/devices/update")]
 		public IActionResult UpdateDevice([FromBody] Device device)
 		{
-			return Ok();
+			try
+			{
+				_manager.UpdateDevice(device);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return Json(BadRequest(
+					new {
+						Error = "Can't add device",
+						Description = e.Message
+					}
+				));
+			}
 		}
 
 		[HttpGet("api/devices/types")]

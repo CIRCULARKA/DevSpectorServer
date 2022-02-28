@@ -63,12 +63,14 @@ namespace DevSpector.Application
 			if (targetDevice == null)
 				throw new ArgumentException("Could not update device with specified ID - no such device");
 
-			// Check if specified type is existing
-			var targetType = _repo.GetByID<DeviceType>(device.TypeID);
-			if (targetType == null)
-				throw new ArgumentException("Can't assign device type to device - no such type with the specified ID");
-
-			targetDevice.TypeID = device.TypeID;
+			// Check if specified type is existing if device type ID is specified
+			DeviceType targetType;
+			if (device.TypeID != Guid.Empty) {
+				targetType = _repo.GetByID<DeviceType>(device.TypeID);
+				if (targetType == null)
+					throw new ArgumentException("Can't assign device type to device - no such type with the specified ID");
+				targetDevice.TypeID = device.TypeID;
+			}
 
 			if (device.InventoryNumber != null)
 				targetDevice.InventoryNumber = device.InventoryNumber;

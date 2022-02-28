@@ -6,13 +6,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
-using DevSpector.SDK.Models;
 
 namespace DevSpector.Application
 {
 	public class ClientUsersManager : UserManager<ClientUser>
 	{
+		private IRepository _repository;
+
         public ClientUsersManager(
+			IRepository repo,
 			IUserStore<ClientUser> store,
 			IOptions<IdentityOptions> optionsAccessor,
 			IPasswordHasher<ClientUser> passwordHasher,
@@ -30,5 +32,8 @@ namespace DevSpector.Application
 
 		public ClientUser FindByApi(string key) =>
 			Users.FirstOrDefault(u => u.AccessKey == key);
+
+		public UserGroup GetUserGroup(Guid groupID) =>
+			_repository.GetByID<UserGroup>(groupID);
 	}
 }

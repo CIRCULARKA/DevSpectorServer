@@ -72,13 +72,24 @@ namespace DevSpector.Application
 				targetDevice.TypeID = device.TypeID;
 			}
 
-			if (device.InventoryNumber != null)
+			if (device.InventoryNumber != null) {
+				// Check if there is already device with such inventory number
+				var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == device.InventoryNumber);
+				if (sameDevice != null)
+					throw new ArgumentException("Can't update device - there is already device with inventory number specified");
+
 				targetDevice.InventoryNumber = device.InventoryNumber;
+			}
 
-			if (device.NetworkName != null)
+			if (device.NetworkName != null) {
+				// Check if there is already device with such network name
+				var sameDevice = _repo.GetSingle<Device>(d => d.NetworkName == device.NetworkName);
+				if (sameDevice != null)
+					throw new ArgumentException("Can't update device - there is already device with network name specified");
 				targetDevice.NetworkName = device.NetworkName;
+			}
 
-			_repo.Update<Device>(device);
+			_repo.Update<Device>(targetDevice);
 			_repo.Save();
 		}
 

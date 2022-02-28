@@ -61,7 +61,7 @@ namespace DevSpector.UI.API.Controllers
 			{
 				return Json(BadRequest(
 					new {
-						Error = "Can't add device",
+						Error = "Can't update device",
 						Description = e.Message
 					}
 				));

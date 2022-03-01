@@ -33,7 +33,7 @@ namespace DevSpector.Application
 		public async Task CreateUserAsync(string login, string password, Guid groupID)
 		{
 			// Check if there is user already exists
-			var existingUser = _baseUsersManager.FindByNameAsync(login);
+			var existingUser = await _baseUsersManager.FindByNameAsync(login);
 			if (existingUser != null)
 				throw new ArgumentException("User with specified login already exists");
 
@@ -132,7 +132,7 @@ namespace DevSpector.Application
 
 		public IdentityRole GetGroup(Guid id) =>
 			_repository.
-				GetByID<IdentityRole>(id);
+				GetByID<IdentityRole>(id.ToString());
 
 		public IdentityRole GetGroup(string groupName) =>
 			_repository.

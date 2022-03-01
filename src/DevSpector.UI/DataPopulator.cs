@@ -59,7 +59,6 @@ namespace Microsoft.AspNetCore.Builder
 
             if (context.Devices.Count() != 0) return @this;
 
-            // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var housings = new List<Housing>() {
@@ -129,6 +128,13 @@ namespace Microsoft.AspNetCore.Builder
                     );
 
             context.Devices.AddRange(devices);
+            context.SaveChanges();
+
+            // Assign N/A location for each device
+            foreach (var device in devices)
+                context.DeviceCabinets.Add(
+                    new DeviceCabinet { DeviceID = device.ID, CabinetID = naCabinet.ID }
+                );
             context.SaveChanges();
 
             var ipAddresses = new List<IPAddress>();

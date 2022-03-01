@@ -59,7 +59,7 @@ namespace DevSpector.UI
             services.AddApplicationServices();
         }
 
-        public async Task Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.AddUserGroup("Техник");
             app.AddUserGroup("Администратор");
@@ -67,10 +67,10 @@ namespace DevSpector.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                await app.FillDbWithTemporaryDataAsync();
+                app.FillDbWithTemporaryDataAsync().GetAwaiter().GetResult();
             }
             else
-                await app.AddRootUserAsync();
+                app.AddRootUserAsync().GetAwaiter().GetResult();
 
             app.UseRouting();
 

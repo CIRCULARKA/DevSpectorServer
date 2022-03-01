@@ -63,7 +63,7 @@ namespace DevSpector.UI.API.Controllers
 			{
 				await _usersManager.UpdateUserAsync(targetUserLogin, info);
 
-				Ok();
+				return Ok();
 			}
 			catch (Exception e)
 			{

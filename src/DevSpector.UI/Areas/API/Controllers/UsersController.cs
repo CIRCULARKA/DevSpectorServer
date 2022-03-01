@@ -55,6 +55,25 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
+		[HttpPost("api/users/update")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		public async Task<IActionResult> UpdateUserAsync(Guid targetUserID, [FromBody] UserInfo info)
+		{
+			try
+			{
+				await _usersManager.UpdateUserAsync(targetUserID, info);
+
+				Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Couldn't update the user",
+					Description = e.Message
+				});
+			}
+		}
+
 		[HttpDelete("api/users/remove")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login")]

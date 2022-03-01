@@ -45,6 +45,9 @@ namespace DevSpector.Application
 			var newUser = new ClientUser {
 				UserName = newUserInfo.Login,
 				AccessKey = Guid.NewGuid().ToString(),
+				FirstName = newUserInfo.FirstName,
+				Surname = newUserInfo.Surname,
+				Patronymic = newUserInfo.Patronymic
 			};
 
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);

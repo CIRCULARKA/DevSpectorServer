@@ -57,11 +57,11 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPost("api/users/update")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
-		public async Task<IActionResult> UpdateUserAsync(Guid targetUserID, [FromBody] UserInfo info)
+		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserInfo info)
 		{
 			try
 			{
-				await _usersManager.UpdateUserAsync(targetUserID, info);
+				await _usersManager.UpdateUserAsync(targetUserLogin, info);
 
 				Ok();
 			}

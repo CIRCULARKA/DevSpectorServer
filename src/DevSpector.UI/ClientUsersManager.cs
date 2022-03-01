@@ -33,8 +33,8 @@ namespace DevSpector.Application
 		public ClientUser FindByApi(string key) =>
 			Users.FirstOrDefault(u => u.AccessKey == key);
 
-		public IEnumerable<UserGroup> GetUserGroups() =>
-			_repository.Get<UserGroup>();
+		public IEnumerable<IdentityRole> GetUserGroups() =>
+			_repository.Get<IdentityRole>();
 
 		public IdentityRole GetUserGroup(string groupName) =>
 			_repository.

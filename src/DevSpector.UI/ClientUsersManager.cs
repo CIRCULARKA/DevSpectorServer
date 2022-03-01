@@ -48,7 +48,6 @@ namespace DevSpector.Application
 			};
 
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, password);
-
 			if (!creationResult.Succeeded)
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 

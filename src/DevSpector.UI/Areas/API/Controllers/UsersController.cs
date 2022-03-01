@@ -66,10 +66,12 @@ namespace DevSpector.UI.API.Controllers
 
 				return Ok();
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-
-				throw;
+				return BadRequest(new {
+					Error = "Can't delete user",
+					Description = e.Message
+				});
 			}
 		}
 

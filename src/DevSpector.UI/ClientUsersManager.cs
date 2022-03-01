@@ -27,7 +27,7 @@ namespace DevSpector.Application
 			base (store, optionsAccessor, passwordHasher, userValidators,
 				passwordValidators, keyNormalizer, errors, services, logger)
 		{
-
+			_repository = repo;
 		}
 
 		public ClientUser FindByApi(string key) =>

@@ -33,7 +33,7 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> AddRootUser(
+        public async static Task<IApplicationBuilder> AddRootUserAsync(
             this IApplicationBuilder @this
         )
         {
@@ -54,7 +54,7 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> FillDbWithTemporaryData(
+        public async static Task<IApplicationBuilder> FillDbWithTemporaryDataAsync(
             this IApplicationBuilder @this
         )
         {

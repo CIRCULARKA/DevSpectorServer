@@ -36,7 +36,8 @@ namespace DevSpector.Application
 		public IEnumerable<UserGroup> GetUserGroups() =>
 			_repository.Get<UserGroup>();
 
-		public UserGroup GetUserGroup(Guid groupID) =>
-			_repository.GetByID<UserGroup>(groupID);
+		public IdentityRole GetUserGroup(string groupName) =>
+			_repository.
+				GetSingle<IdentityRole>(r => r.NormalizedName == groupName.ToUpper());
 	}
 }

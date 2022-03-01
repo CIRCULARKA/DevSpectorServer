@@ -55,7 +55,7 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPost("api/users/update")]
+		[HttpPut("api/users/update")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserInfo info)
 		{

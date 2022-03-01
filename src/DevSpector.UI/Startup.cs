@@ -70,7 +70,7 @@ namespace DevSpector.UI
                 app.FillDbWithTemporaryDataAsync().GetAwaiter().GetResult();
             }
             else
-                app.AddRootUserAsync().GetAwaiter().GetResult();
+                app.AddAdministrator("root", System.Environment.GetEnvironmentVariable("ROOT_PWD")).GetAwaiter().GetResult();
 
             app.UseRouting();
 

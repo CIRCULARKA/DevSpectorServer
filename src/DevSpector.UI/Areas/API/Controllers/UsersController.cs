@@ -42,30 +42,29 @@ namespace DevSpector.UI.API.Controllers
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login", "password", "group")]
-        public async Task<IActionResult> CreateUser(string login, string password, string group)
+        public async Task<IActionResult> CreateUser(string login, string password, Guid groupID)
 		{
 			var newUser = new ClientUser {
 				UserName = login,
-				AccessKey = Guid.NewGuid().ToString(),
-				Group = group
+				AccessKey = Guid.NewGuid().ToString()
 			};
 
 			var result = await _usersManager.CreateAsync(newUser, password);
 
-			if (!result.Succeeded)
-				return BadRequest(
-					new {
-						Error = "User wasn't created",
-						CriteriaWerentMet = result.Errors.Select(e => e.Description)
-					}
-				);
+			// if (!result.Succeeded)
+			// 	return BadRequest(
+			// 		new {
+			// 			Error = "User wasn't created",
+			// 			CriteriaWerentMet = result.Errors.Select(e => e.Description)
+			// 		}
+			// 	);
 
-			try { var roleResult = await _usersManager.AddToRoleAsync(newUser, group); }
-			catch
-			{
-				await _usersManager.DeleteAsync(newUser);
-				return BadRequest(new { Error = "User wasn't created", Details = "Specified role doesn't exists" });
-			}
+			// try { var roleResult = await _usersManager.AddToRoleAsync(newUser, group); }
+			// catch
+			// {
+			// 	await _usersManager.DeleteAsync(newUser);
+			// 	return BadRequest(new { Error = "User wasn't created", Details = "Specified role doesn't exists" });
+			// }
 
 			return Ok();
 		}
@@ -164,5 +163,13 @@ namespace DevSpector.UI.API.Controllers
 				new { NewKey = targetUser.AccessKey }
 			);
 		}
+
+		[HttpGet("api/users/groups")]
+		public JsonResult GetUserGroups() =>
+			Json(_usersManager.GetUserGroups().
+				Select(r => new {
+					ID = r.Id,
+					Name = r.Name
+				}));
 	}
 }

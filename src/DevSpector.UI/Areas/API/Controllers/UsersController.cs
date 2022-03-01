@@ -28,10 +28,10 @@ namespace DevSpector.UI.API.Controllers
 			Json(
 				_usersManager.GetAllUsers().
 					Select(
-						u => new User(
+						async u => new User(
 							u.AccessKey,
 							u.UserName,
-
+							await _usersManager.GetUserGroup(u)
 						)
 					)
 			);
@@ -39,11 +39,11 @@ namespace DevSpector.UI.API.Controllers
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login", "password", "groupID")]
-        public async Task<IActionResult> CreateUser([FromBody] string login, [FromBody] string password, [FromBody] Guid groupID)
+        public async Task<IActionResult> CreateUserAsync([FromBody] string login, [FromBody] string password, [FromBody] Guid groupID)
 		{
 			try
 			{
-				await _usersManager.CreateUser(login, password, groupID);
+				await _usersManager.CreateUserAsync(login, password, groupID);
 
 				return Ok();
 			}
@@ -59,34 +59,19 @@ namespace DevSpector.UI.API.Controllers
 		[HttpDelete("api/users/remove")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login")]
-		public async Task<IActionResult> RemoveUser(string login)
+		public async Task<IActionResult> RemoveUserAsync(string login)
 		{
-			var targetUser = await _usersManager.FindByNameAsync(login);
+			try
+			{
+				await _usersManager.DeleteUserAsync(login);
 
-			if (targetUser == null)
-				return BadRequest(
-					new { Error = "User wasn't deleted", Descritpion = "User with specified login doesn't exists" }
-				);
+				return Ok();
+			}
+			catch (Exception)
+			{
 
-			var result = await _usersManager.DeleteAsync(targetUser);
-
-			if (result == null)
-				return BadRequest(
-					new BadRequestErrorMessage {
-						Error = "User not found",
-						Description = "User with specified login doesn't exist"
-					}
-				);
-
-			if (!result.Succeeded)
-				return BadRequest(
-					new {
-						Error = "Can't delete user",
-						Description = result.Errors.Select(ie => ie.Description)
-					}
-				);
-
-			return Ok();
+				throw;
+			}
 		}
 
 		[HttpGet("api/users/authorize")]

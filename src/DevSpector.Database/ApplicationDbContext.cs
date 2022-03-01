@@ -22,8 +22,6 @@ namespace DevSpector.Database
 
 		public DbSet<IPAddress> IPAddresses { get; set; }
 
-		public DbSet<UserGroup> UserGroups { get; set; }
-
 		protected void ApplyModelConfigurations(ModelBuilder builder)
 		{
 			builder.ApplyConfigurationsFromAssembly(

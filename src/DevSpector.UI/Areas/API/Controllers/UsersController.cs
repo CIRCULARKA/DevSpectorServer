@@ -28,10 +28,10 @@ namespace DevSpector.UI.API.Controllers
 			Json(
 				_usersManager.GetAllUsers().
 					Select(
-						async u => new User(
+						u => new User(
 							u.AccessKey,
 							u.UserName,
-							await _usersManager.GetUserGroup(u)
+							_usersManager.GetUserGroup(u).Result
 						)
 					)
 			);

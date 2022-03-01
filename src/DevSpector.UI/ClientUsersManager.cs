@@ -27,7 +27,7 @@ namespace DevSpector.Application
 			_baseUsersManager = baseUsersManager;
 		}
 
-		public async Task<string> GetUserRoleAsync(ClientUser user) =>
+		public async Task<string> GetUserGroup(ClientUser user) =>
 			(await _baseUsersManager.GetRolesAsync(user)).FirstOrDefault();
 
 		public async Task CreateUser(string login, string password, Guid groupID)
@@ -38,7 +38,7 @@ namespace DevSpector.Application
 				throw new ArgumentException("User with specified login already exists");
 
 			// Check if group with specified ID exists
-			var existingGroup = GetUserGroup(groupID);
+			var existingGroup = GetGroup(groupID);
 			if (existingGroup == null)
 				throw new ArgumentException("There is no user group with specified ID");
 
@@ -94,11 +94,11 @@ namespace DevSpector.Application
 		public IEnumerable<IdentityRole> GetUserGroups() =>
 			_repository.Get<IdentityRole>();
 
-		public IdentityRole GetUserGroup(Guid id) =>
+		public IdentityRole GetGroup(Guid id) =>
 			_repository.
 				GetByID<IdentityRole>(id);
 
-		public IdentityRole GetUserGroup(string groupName) =>
+		public IdentityRole GetGroup(string groupName) =>
 			_repository.
 				GetSingle<IdentityRole>(r => r.NormalizedName == groupName.ToUpper());
 	}

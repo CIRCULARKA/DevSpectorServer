@@ -14,59 +14,46 @@ namespace DevSpector.UI.API.Controllers
 	{
         private readonly ClientUsersManager _usersManager;
 
-		private readonly SignInManager<ClientUser> _signInManager;
-
 		public UsersController(
             ClientUsersManager usersManager,
 			SignInManager<ClientUser> signInManager
 		)
 		{
             _usersManager = usersManager;
-			_signInManager = signInManager;
 		}
 
 		[HttpGet("api/users")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		public JsonResult GetUsers() =>
 			Json(
-				_usersManager.Users.
+				_usersManager.GetAllUsers().
 					Select(
 						u => new User(
 							u.AccessKey,
 							u.UserName,
-							u.Group
+
 						)
 					)
 			);
 
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
-		[RequireParameters("login", "password", "group")]
-        public async Task<IActionResult> CreateUser(string login, string password, Guid groupID)
+		[RequireParameters("login", "password", "groupID")]
+        public async Task<IActionResult> CreateUser([FromBody] string login, [FromBody] string password, [FromBody] Guid groupID)
 		{
-			var newUser = new ClientUser {
-				UserName = login,
-				AccessKey = Guid.NewGuid().ToString()
-			};
+			try
+			{
+				await _usersManager.CreateUser(login, password, groupID);
 
-			var result = await _usersManager.CreateAsync(newUser, password);
-
-			// if (!result.Succeeded)
-			// 	return BadRequest(
-			// 		new {
-			// 			Error = "User wasn't created",
-			// 			CriteriaWerentMet = result.Errors.Select(e => e.Description)
-			// 		}
-			// 	);
-
-			// try { var roleResult = await _usersManager.AddToRoleAsync(newUser, group); }
-			// catch
-			// {
-			// 	await _usersManager.DeleteAsync(newUser);
-			// 	return BadRequest(new { Error = "User wasn't created", Details = "Specified role doesn't exists" });
-			// }
-
-			return Ok();
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Failed to create new user",
+					Description = e.Message
+				});
+			}
 		}
 
 		[HttpDelete("api/users/remove")]

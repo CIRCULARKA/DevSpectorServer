@@ -33,7 +33,7 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> AddAdministrator(
+        public async static Task<IApplicationBuilder> AddAdministratorAsync(
             this IApplicationBuilder @this,
             string login,
             string password
@@ -57,17 +57,7 @@ namespace Microsoft.AspNetCore.Builder
             var context = GetService<ApplicationDbContext>(@this);
             var usersManager = GetService<ClientUsersManager>(@this);
 
-            if ((await usersManager.FindByLoginAsync("root")) == null) {
-                var group = usersManager.GetUserGroup("администратор").Name;
-                var root = new ClientUser {
-                    AccessKey = Guid.NewGuid().ToString(),
-                    UserName = "root",
-                    Group = group
-                };
-
-                await usersManager.CreateAsync(root, "123Abc!");
-                await usersManager.AddToRoleAsync(root, group);
-            }
+            await @this.AddAdministratorAsync("root", "123Abc!");
 
             if (context.Devices.Count() != 0) return @this;
 

@@ -41,7 +41,7 @@ namespace Microsoft.AspNetCore.Builder
         {
             var context = GetService<ClientUsersManager>(@this);
 
-            if (context.FindByLoginAsync(login).Result != null)
+            if ((await context.FindByLoginAsync(login)) != null)
                 return @this;
 
             var administratorGroup = context.GetGroup("Администратор");
@@ -50,14 +50,12 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> FillDbWithTemporaryDataAsync(
+        public static IApplicationBuilder FillDbWithTemporaryDataAsync(
             this IApplicationBuilder @this
         )
         {
             var context = GetService<ApplicationDbContext>(@this);
             var usersManager = GetService<ClientUsersManager>(@this);
-
-            await @this.AddAdministratorAsync("root", "123Abc!");
 
             if (context.Devices.Count() != 0) return @this;
 

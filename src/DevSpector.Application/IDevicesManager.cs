@@ -13,6 +13,8 @@ namespace DevSpector.Application
 
 		Device GetDeviceByID(Guid deviceID);
 
+		Cabinet GetDeviceCabinet(Guid deviceID);
+
 		IEnumerable<Device> GetDevices();
 
 		IEnumerable<Appliance> GetAppliances();

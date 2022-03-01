@@ -1,31 +1,33 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
 using DevSpector.Domain.Models;
 using DevSpector.UI.Filters;
+using DevSpector.SDK.Models;
 
 namespace DevSpector.UI.API.Controllers
 {
 	[ServiceFilter(typeof(AuthorizationFilter))]
 	public class DevicesController : ApiController
 	{
-		private readonly IDevicesManager _manager;
+		private readonly IDevicesManager _devicesManager;
 
 		public DevicesController(
-			IDevicesManager manager
+			IDevicesManager devicesManager
 		)
 		{
-			_manager = manager;
+			_devicesManager = devicesManager;
 		}
 
 		[HttpGet("api/devices")]
 		public JsonResult GetDevices() {
-			return Json(_manager.GetDevices());
+			return Json(_devicesManager.GetAppliances());
 		}
 
 		[HttpGet("api/devices/{deviceID}")]
 		public JsonResult GetDevice(Guid deviceID) {
-			return Json(_manager.GetDeviceByID(deviceID));
+			return Json(_devicesManager.GetDeviceByID(deviceID));
 		}
 
 		[HttpPost("api/devices/add")]
@@ -33,7 +35,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_manager.CreateDevice(device);
+				_devicesManager.CreateDevice(device);
 
 				return Ok();
 			}
@@ -53,7 +55,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_manager.UpdateDevice(device);
+				_devicesManager.UpdateDevice(device);
 
 				return Ok();
 			}

@@ -33,23 +33,19 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> AddRootUserAsync(
-            this IApplicationBuilder @this
+        public async static Task<IApplicationBuilder> AddAdministrator(
+            this IApplicationBuilder @this,
+            string login,
+            string password
         )
         {
             var context = GetService<ClientUsersManager>(@this);
 
-            if (context.FindByNameAsync("root").Result != null)
+            if (context.FindByLoginAsync(login).Result != null)
                 return @this;
 
-            var rootUser = new ClientUser {
-                UserName = "root",
-                Group = context.GetUserGroup("администратор").Name,
-                AccessKey = Guid.NewGuid().ToString()
-            };
-
-            await context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD"));
-            await context.AddToRoleAsync(rootUser, rootUser.Group);
+            var administratorGroup = context.GetGroup("Администратор");
+            await context.CreateUserAsync(login, password, new Guid(administratorGroup.Id));
 
             return @this;
         }
@@ -61,7 +57,7 @@ namespace Microsoft.AspNetCore.Builder
             var context = GetService<ApplicationDbContext>(@this);
             var usersManager = GetService<ClientUsersManager>(@this);
 
-            if ((await usersManager.FindByNameAsync("root")) == null) {
+            if ((await usersManager.FindByLoginAsync("root")) == null) {
                 var group = usersManager.GetUserGroup("администратор").Name;
                 var root = new ClientUser {
                     AccessKey = Guid.NewGuid().ToString(),

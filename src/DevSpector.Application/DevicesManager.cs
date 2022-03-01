@@ -100,7 +100,8 @@ namespace DevSpector.Application
 			_repo.Get<Device>(include: "Type");
 
 		public Cabinet GetDeviceCabinet(Guid deviceID) =>
-			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing").Cabinet;
+			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing",
+				filter: dc => dc.DeviceID == deviceID).Cabinet;
 
 		public IEnumerable<Appliance> GetAppliances()
 		{

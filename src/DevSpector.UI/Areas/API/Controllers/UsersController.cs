@@ -39,7 +39,7 @@ namespace DevSpector.UI.API.Controllers
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login", "password", "groupID")]
-        public async Task<IActionResult> CreateUserAsync([FromBody] string login, [FromBody] string password, [FromBody] Guid groupID)
+        public async Task<IActionResult> CreateUserAsync(string login, string password, Guid groupID)
 		{
 			try
 			{

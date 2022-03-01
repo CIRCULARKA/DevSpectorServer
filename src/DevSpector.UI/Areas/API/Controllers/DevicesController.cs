@@ -72,6 +72,6 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/devices/types")]
 		public JsonResult GetDeviceTypes() =>
-			Json(_manager.GetDeviceTypes());
+			Json(_devicesManager.GetDeviceTypes());
 	}
 }

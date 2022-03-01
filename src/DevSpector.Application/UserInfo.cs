@@ -1,3 +1,5 @@
+using System;
+
 namespace DevSpector.Application
 {
     /// <summary>
@@ -15,5 +17,7 @@ namespace DevSpector.Application
         public string Login { get; set; }
 
         public string Password { get; set; }
+
+        public Guid GroupID { get; set; }
     }
 }

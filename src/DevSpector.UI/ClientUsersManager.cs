@@ -27,6 +27,9 @@ namespace DevSpector.Application
 			_baseUsersManager = baseUsersManager;
 		}
 
+		public async Task<string> GetUserRoleAsync(ClientUser user) =>
+			(await _baseUsersManager.GetRolesAsync(user)).FirstOrDefault();
+
 		public async Task CreateUser(string login, string password, Guid groupID)
 		{
 			// Check if there is user already exists

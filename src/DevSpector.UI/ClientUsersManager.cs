@@ -68,6 +68,35 @@ namespace DevSpector.Application
 				throw GenerateExceptionFromErrors(deletionResult.Errors);
 		}
 
+		/// <summary>
+		/// Returns authorized user
+		/// </summary>
+		public async Task<ClientUser> AuthorizeUser(string login, string password)
+		{
+			if (login == null)
+				throw new ArgumentException("In order to authorize user, user's login can't be null");
+			if (password == null)
+				throw new ArgumentException("In order to authorize user, user's password can't be null");
+
+			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+
+			var targetUser = await this.FindByLoginAsync(login);
+			if (targetUser == null)
+				throw wrongCredentialsException;
+
+			var signInResult = await _signInManager.PasswordSignInAsync(
+				user: targetUser,
+				password: password,
+				isPersistent: false,
+				lockoutOnFailure: false
+			);
+
+			if (!signInResult.Succeeded)
+				throw wrongCredentialsException;
+
+			return targetUser;
+		}
+
 		public IEnumerable<ClientUser> GetAllUsers() =>
 			_baseUsersManager.Users;
 

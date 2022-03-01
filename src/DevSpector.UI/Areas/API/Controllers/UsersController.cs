@@ -78,35 +78,18 @@ namespace DevSpector.UI.API.Controllers
 		[RequireParameters("login", "password")]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
-			var wrongCredentialsResponse = Unauthorized(
-				new {
-					Error = "Authorization failed",
-					Description = "Authorization wasn't completed - wrong credentials"
+			try
+			{
+				await _usersManager.AuthorizeUser(login, password);
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Failed to authorize",
+					Description = e.Message
 				});
-
-			var targetUser = await _usersManager.FindByNameAsync(login ?? "");
-
-			if (targetUser == null)
-				return wrongCredentialsResponse;
-
-			var result = await _signInManager.PasswordSignInAsync(
-				user: targetUser,
-				password: password ?? "",
-				isPersistent: false,
-				lockoutOnFailure: false
-			);
-
-			if (!result.Succeeded)
-				return wrongCredentialsResponse;
-
-			return Json(
-				new {
-					Status = "Authorized",
-					Login = targetUser.UserName,
-					Group = targetUser.Group,
-					AccessToken = targetUser.AccessKey
-				}
-			);
+			}
 		}
 
 		[HttpPut("api/users/revoke-api")]

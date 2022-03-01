@@ -32,29 +32,58 @@ namespace DevSpector.Application
 
 		public async Task CreateUserAsync(UserInfo newUserInfo)
 		{
-			// Check if there is user already exists
-			var existingUser = await _baseUsersManager.FindByNameAsync(newUserInfo.Login);
-			if (existingUser != null)
-				throw new ArgumentException("User with specified login already exists");
+			await ThrowIfUser(EntityExistance.Exists, newUserInfo.Login);
 
-			// Check if group with specified ID exists
-			var existingGroup = GetGroup(newUserInfo.GroupID);
-			if (existingGroup == null)
-				throw new ArgumentException("There is no user group with specified ID");
+			ThrowIfUserGroupNotExists(newUserInfo.GroupID);
 
-			var newUser = new ClientUser {
-				UserName = newUserInfo.Login,
-				AccessKey = Guid.NewGuid().ToString(),
-				FirstName = newUserInfo.FirstName,
-				Surname = newUserInfo.Surname,
-				Patronymic = newUserInfo.Patronymic
-			};
+			var newUser = FormUserFrom(newUserInfo);
 
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);
 			if (!creationResult.Succeeded)
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 
-			await _baseUsersManager.AddToRoleAsync(newUser, existingGroup.Name);
+			await _baseUsersManager.AddToRoleAsync(newUser, GetGroup(newUserInfo.GroupID).Name);
+		}
+
+		public async Task UpdateUserAsync(string targetUserLogin, UserInfo updatedInfo)
+		{
+			await ThrowIfUser(EntityExistance.DoesNotExist, targetUserLogin);
+
+			var target = await this.FindByLoginAsync(targetUserLogin);
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Login))
+				target.UserName = updatedInfo.Login;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.FirstName))
+				target.FirstName = updatedInfo.FirstName;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Surname))
+				target.Surname = updatedInfo.Surname;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Patronymic))
+				target.Patronymic = updatedInfo.Patronymic;
+
+			if (updatedInfo.GroupID != Guid.Empty)
+				await ChangeUserGroup(targetUserLogin, updatedInfo.GroupID);
+
+			await _baseUsersManager.UpdateAsync(target);
+		}
+
+		public async Task ChangeUserGroup(string targetLogin, Guid groupID)
+		{
+			ThrowIfUserGroupNotExists(groupID);
+
+			await ThrowIfUser(EntityExistance.DoesNotExist, targetLogin);
+
+			var targetUser = await this.FindByLoginAsync(targetLogin);
+
+			var currentGroupName = await GetUserGroup(targetUser);
+
+			await _baseUsersManager.RemoveFromRoleAsync(targetUser, currentGroupName);
+
+			var targetGroup = GetGroup(groupID);
+
+			await _baseUsersManager.AddToRoleAsync(targetUser, targetGroup.Name);
 		}
 
 		public async Task DeleteUserAsync(string login)
@@ -139,6 +168,35 @@ namespace DevSpector.Application
 		public IdentityRole GetGroup(string groupName) =>
 			_repository.
 				GetSingle<IdentityRole>(r => r.NormalizedName == groupName.ToUpper());
+
+		private async Task ThrowIfUser(EntityExistance existance, string login)
+		{
+			var existingUser = await _baseUsersManager.FindByNameAsync(login);
+
+			if (existance == EntityExistance.Exists) {
+				if (existingUser != null)
+					throw new ArgumentException("User with specified login already exists");
+			}
+			else {
+				if (existingUser == null)
+					throw new ArgumentException("User with specified login does not exist");
+			}
+		}
+
+		private void ThrowIfUserGroupNotExists(Guid groupID)
+		{
+			if (GetGroup(groupID) == null)
+				throw new ArgumentException("User group with specified ID doesn't exists");
+		}
+
+		private ClientUser FormUserFrom(UserInfo info) =>
+			new ClientUser {
+				UserName = info.Login,
+				AccessKey = Guid.NewGuid().ToString(),
+				FirstName = info.FirstName,
+				Surname = info.Surname,
+				Patronymic = info.Patronymic
+			};
 
 		private ArgumentException GenerateExceptionFromErrors(IEnumerable<IdentityError> errors)
 		{

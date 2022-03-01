@@ -67,7 +67,8 @@ namespace DevSpector.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.FillDbWithTemporaryDataAsync().GetAwaiter().GetResult();
+                app.AddAdministratorAsync("root", "123Abc!").GetAwaiter().GetResult();
+                app.FillDbWithTemporaryDataAsync();
             }
             else
                 app.AddAdministratorAsync("root", System.Environment.GetEnvironmentVariable("ROOT_PWD")).GetAwaiter().GetResult();

@@ -30,24 +30,24 @@ namespace DevSpector.Application
 		public async Task<string> GetUserGroup(ClientUser user) =>
 			(await _baseUsersManager.GetRolesAsync(user)).FirstOrDefault();
 
-		public async Task CreateUserAsync(string login, string password, Guid groupID)
+		public async Task CreateUserAsync(UserInfo newUserInfo)
 		{
 			// Check if there is user already exists
-			var existingUser = await _baseUsersManager.FindByNameAsync(login);
+			var existingUser = await _baseUsersManager.FindByNameAsync(newUserInfo.Login);
 			if (existingUser != null)
 				throw new ArgumentException("User with specified login already exists");
 
 			// Check if group with specified ID exists
-			var existingGroup = GetGroup(groupID);
+			var existingGroup = GetGroup(newUserInfo.GroupID);
 			if (existingGroup == null)
 				throw new ArgumentException("There is no user group with specified ID");
 
 			var newUser = new ClientUser {
-				UserName = login,
+				UserName = newUserInfo.Login,
 				AccessKey = Guid.NewGuid().ToString(),
 			};
 
-			var creationResult = await _baseUsersManager.CreateAsync(newUser, password);
+			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);
 			if (!creationResult.Succeeded)
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 

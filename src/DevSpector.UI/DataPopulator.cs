@@ -45,7 +45,13 @@ namespace Microsoft.AspNetCore.Builder
                 return @this;
 
             var administratorGroup = context.GetGroup("Администратор");
-            await context.CreateUserAsync(login, password, new Guid(administratorGroup.Id));
+            var newUserInfo = new UserInfo {
+                Login = "root",
+                Password = password,
+                GroupID = new Guid(administratorGroup.Id)
+            };
+
+            await context.CreateUserAsync(newUserInfo);
 
             return @this;
         }

@@ -141,27 +141,21 @@ namespace DevSpector.UI.API.Controllers
 		[RequireParameters("login", "password")]
 		public async Task<IActionResult> RevokeUserApi(string login, string password)
 		{
-			var badRequestResult = new {
-				Error = "Can't revoke API key",
-				Description = "Login or password is wrong"
-			};
+			try
+			{
+				var newKey = await _usersManager.RevokeUserAPIAsync(login, password);
 
-			var targetUser = await _usersManager.FindByNameAsync(login);
-
-			if (targetUser == null)
-				return BadRequest(badRequestResult);
-
-			var result = await _signInManager.CheckPasswordSignInAsync(targetUser, password, false);
-
-			if (!result.Succeeded)
-				return BadRequest(badRequestResult);
-
-			targetUser.AccessKey = Guid.NewGuid().ToString();
-			await _usersManager.UpdateAsync(targetUser);
-
-			return Ok(
-				new { NewKey = targetUser.AccessKey }
-			);
+				return Ok(
+					new { NewKey = newKey }
+				);
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not revoke API",
+					Description = e.Message
+				});
+			}
 		}
 
 		[HttpGet("api/users/groups")]

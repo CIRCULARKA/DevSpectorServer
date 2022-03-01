@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,8 +14,11 @@ namespace DevSpector.Application
 	{
 		private IRepository _repository;
 
+		private SignInManager<ClientUser> _signInManager;
+
         public ClientUsersManager(
 			IRepository repo,
+			SignInManager<ClientUser> signInManager,
 			IUserStore<ClientUser> store,
 			IOptions<IdentityOptions> optionsAccessor,
 			IPasswordHasher<ClientUser> passwordHasher,
@@ -28,6 +32,28 @@ namespace DevSpector.Application
 				passwordValidators, keyNormalizer, errors, services, logger)
 		{
 			_repository = repo;
+			_signInManager = signInManager;
+		}
+
+		public async Task<string> RevokeUserAPIAsync(string login, string password)
+		{
+			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+
+			// If there is no user with specified login then throw the exception
+			var targetUser = await this.FindByNameAsync(login);
+			if (targetUser == null)
+				throw wrongCredentialsException;
+
+			// If user's password is wrong the throw the same exception
+			var signInResult = await _signInManager.CheckPasswordSignInAsync(targetUser, password, false);
+			if (!signInResult.Succeeded)
+				throw wrongCredentialsException;
+
+			// If credentials are OK then update user's access key
+			targetUser.AccessKey = Guid.NewGuid().ToString();
+			await this.UpdateAsync(targetUser);
+
+			return targetUser.AccessKey;
 		}
 
 		public ClientUser FindByApi(string key) =>

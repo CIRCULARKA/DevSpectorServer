@@ -25,11 +25,6 @@ namespace DevSpector.UI.API.Controllers
 			return Json(_devicesManager.GetAppliances());
 		}
 
-		[HttpGet("api/devices/{deviceID}")]
-		public JsonResult GetDevice(Guid deviceID) {
-			return Json(_devicesManager.GetDeviceByID(deviceID));
-		}
-
 		[HttpPost("api/devices/add")]
 		public IActionResult CreateDevice([FromBody] Device device)
 		{

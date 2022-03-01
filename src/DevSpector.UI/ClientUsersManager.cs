@@ -50,13 +50,7 @@ namespace DevSpector.Application
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, password);
 
 			if (!creationResult.Succeeded)
-			{
-				var errorsBuilder = new StringBuilder();
-				foreach (var error in creationResult.Errors)
-					errorsBuilder.AppendLine(error.Description);
-
-				throw new ArgumentException($"Some errors have occured:\n{errorsBuilder.ToString()}");
-			}
+				throw GenerateExceptionFromErrors(creationResult.Errors);
 
 			await _baseUsersManager.AddToRoleAsync(newUser, existingGroup.Name);
 		}
@@ -68,7 +62,10 @@ namespace DevSpector.Application
 			if (existingUser == null)
 				throw new ArgumentException("There is no user with specified login");
 
-			await _baseUsersManager.DeleteAsync(existingUser);
+			var deletionResult = await _baseUsersManager.DeleteAsync(existingUser);
+
+			if (!deletionResult.Succeeded)
+				throw GenerateExceptionFromErrors(deletionResult.Errors);
 		}
 
 		public IEnumerable<ClientUser> GetAllUsers() =>
@@ -111,5 +108,16 @@ namespace DevSpector.Application
 		public IdentityRole GetGroup(string groupName) =>
 			_repository.
 				GetSingle<IdentityRole>(r => r.NormalizedName == groupName.ToUpper());
+
+		private ArgumentException GenerateExceptionFromErrors(IEnumerable<IdentityError> errors)
+		{
+			var builder = new StringBuilder();
+			foreach (var error in errors)
+				builder.AppendLine(error.Description);
+
+			var result = new ArgumentException($"Some errors have occured:\n{builder.ToString()}");
+
+			return result;
+		}
 	}
 }

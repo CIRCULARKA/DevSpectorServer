@@ -96,12 +96,11 @@ namespace DevSpector.Application
 
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 
-			var newLocation = new DeviceCabinet {
-				DeviceID = targetDevice.ID,
-				CabinetID = targetCabinet.ID
-			};
+			var deviceCabinet = _repo.GetSingle<DeviceCabinet>(dc => dc.DeviceID == targetDevice.ID);
 
-			_repo.Add<DeviceCabinet>(newLocation);
+			deviceCabinet.CabinetID = cabinetID;
+
+			_repo.Update<DeviceCabinet>(deviceCabinet);
 			_repo.Save();
 		}
 

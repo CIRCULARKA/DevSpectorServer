@@ -33,12 +33,12 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return Json(BadRequest(
+				return BadRequest(
 					new {
 						Error = "Can't add device",
 						Description = e.Message
 					}
-				));
+				);
 			}
 		}
 
@@ -54,12 +54,12 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return Json(BadRequest(
+				return BadRequest(
 					new {
 						Error = "Can't update device",
 						Description = e.Message
 					}
-				));
+				);
 			}
 		}
 

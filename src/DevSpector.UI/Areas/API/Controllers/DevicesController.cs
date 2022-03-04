@@ -26,11 +26,11 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPost("api/devices/add")]
-		public IActionResult CreateDevice([FromBody] Device device)
+		public IActionResult CreateDevice([FromBody] DeviceInfo newDeviceInfo)
 		{
 			try
 			{
-				_devicesManager.CreateDevice(device);
+				_devicesManager.CreateDevice(newDeviceInfo);
 
 				return Ok();
 			}
@@ -46,11 +46,11 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/update")]
-		public IActionResult UpdateDevice([FromBody] Device device)
+		public IActionResult UpdateDevice([FromBody] DeviceInfo updatedInfo)
 		{
 			try
 			{
-				_devicesManager.UpdateDevice(device);
+				_devicesManager.UpdateDevice(updatedInfo);
 
 				return Ok();
 			}

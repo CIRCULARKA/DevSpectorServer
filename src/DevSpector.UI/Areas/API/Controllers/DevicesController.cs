@@ -63,7 +63,7 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPut]
+		[HttpDelete("api/devices/remove")]
 		[RequireParameters("inventoryNumber")]
 		public IActionResult RemoveDevice(string inventoryNumber)
 		{

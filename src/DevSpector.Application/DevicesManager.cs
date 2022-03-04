@@ -86,6 +86,25 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
+		public void MoveDevice(string inventoryNumber, Guid cabinetID)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetCabinet = _repo.GetByID<Cabinet>(cabinetID);
+			if (targetCabinet == null)
+				throw new ArgumentException("Could not find cabinet with specified ID");
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			var newLocation = new DeviceCabinet {
+				DeviceID = targetDevice.ID,
+				CabinetID = targetCabinet.ID
+			};
+
+			_repo.Add<DeviceCabinet>(newLocation);
+			_repo.Save();
+		}
+
 		public Device GetDeviceByInventoryNumber(string invNum) =>
 			_repo.GetSingle<Device>(d => d.InventoryNumber == invNum);
 

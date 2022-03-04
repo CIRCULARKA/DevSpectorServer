@@ -86,5 +86,24 @@ namespace DevSpector.UI.API.Controllers
 		[HttpGet("api/devices/types")]
 		public JsonResult GetDeviceTypes() =>
 			Json(_devicesManager.GetDeviceTypes());
+
+		[HttpPut("api/devices/move")]
+		[RequireParameters("inventoryNumber", "cabinetID")]
+		public IActionResult MoveDevice(string inventoryNumber, Guid cabinetID)
+		{
+			try
+			{
+				_devicesManager.MoveDevice(inventoryNumber, cabinetID);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not move device",
+					Description = e.Message
+				});
+			}
+		}
 	}
 }

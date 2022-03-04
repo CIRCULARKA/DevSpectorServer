@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
@@ -11,6 +12,8 @@ namespace DevSpector.Application
 		void UpdateDevice(string targetDeviceInventoryNumber, DeviceInfo info);
 
 		void DeleteDevice(string inventoryNumber);
+
+		void MoveDevice(string inventoryNumber, Guid cabinetID);
 
 		Device GetDeviceByInventoryNumber(string inventoryNumber);
 

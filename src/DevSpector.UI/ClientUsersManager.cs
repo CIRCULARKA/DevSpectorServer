@@ -51,7 +51,20 @@ namespace DevSpector.Application
 
 			var target = await this.FindByLoginAsync(targetUserLogin);
 
-			await FormUserFrom(updatedInfo);
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Login))
+				target.UserName = updatedInfo.Login;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.FirstName))
+				target.FirstName = updatedInfo.FirstName;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Surname))
+				target.Surname = updatedInfo.Surname;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Patronymic))
+				target.Patronymic = updatedInfo.Patronymic;
+
+			if (updatedInfo.GroupID != Guid.Empty)
+				await ChangeUserGroup(targetUserLogin, updatedInfo.GroupID);
 
 			await _baseUsersManager.UpdateAsync(target);
 		}

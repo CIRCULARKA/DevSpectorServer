@@ -27,6 +27,8 @@ namespace DevSpector.UI
                         "\n"
                     }
                 );
+
+                throw;
             }
         }
 

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,20 +59,19 @@ namespace DevSpector.UI
             services.AddApplicationServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var context = GetService<ApplicationDbContext>(app);
-            var usersManager = GetService<ClientUsersManager>(app);
-
-            app.AddUserGroups(context);
+            app.AddUserGroup("Техник");
+            app.AddUserGroup("Администратор");
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.FillDbWithTemporaryData(context, usersManager);
+                app.AddAdministratorAsync("root", "123Abc!").GetAwaiter().GetResult();
+                app.FillDbWithTemporaryDataAsync();
             }
             else
-                app.AddRootUser(usersManager);
+                app.AddAdministratorAsync("root", System.Environment.GetEnvironmentVariable("ROOT_PWD")).GetAwaiter().GetResult();
 
             app.UseRouting();
 

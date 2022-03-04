@@ -6,6 +6,10 @@ namespace DevSpector.Domain.Models
     {
         public string AccessKey { get; set; }
 
-        public string Group { get; set; }
+        public string FirstName { get; set; }
+
+        public string Surname { get; set; }
+
+        public string Patronymic { get; set; }
     }
 }

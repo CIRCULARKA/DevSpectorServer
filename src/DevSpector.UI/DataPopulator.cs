@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using DevSpector.Database;
 using DevSpector.Application;
 using DevSpector.Domain.Models;
@@ -10,17 +12,20 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class DataPopulator
     {
-        public static IApplicationBuilder AddUserGroups(
+        public static IApplicationBuilder AddUserGroup(
             this IApplicationBuilder @this,
-            ApplicationDbContext context
+            string groupName
         )
         {
+            var context = GetService<ApplicationDbContext>(@this);
+
             var roles = context.Roles;
-            context.Roles.RemoveRange(roles);
+
+            if (roles.FirstOrDefault(r => r.NormalizedName == groupName.ToUpper()) != null)
+                return @this;
 
             context.Roles.AddRange(
-                new IdentityRole("Техник") { NormalizedName = "ТЕХНИК" },
-                new IdentityRole("Администратор") { NormalizedName = "АДМИНИСТРАТОР" }
+                new IdentityRole(groupName) { NormalizedName = groupName.ToUpper() }
             );
 
             context.SaveChanges();
@@ -28,47 +33,38 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public static IApplicationBuilder AddRootUser(
+        public async static Task<IApplicationBuilder> AddAdministratorAsync(
             this IApplicationBuilder @this,
-            ClientUsersManager context
+            string login,
+            string password
         )
         {
-            if (context.FindByNameAsync("root").Result != null)
+            var context = GetService<ClientUsersManager>(@this);
+
+            if ((await context.FindByLoginAsync(login)) != null)
                 return @this;
 
-            var rootUser = new ClientUser {
-                UserName = "root",
-                Group = "Администратор", // Administrator
-                AccessKey = Guid.NewGuid().ToString()
+            var administratorGroup = context.GetGroup("Администратор");
+            var newUserInfo = new UserInfo {
+                Login = "root",
+                Password = password,
+                GroupID = new Guid(administratorGroup.Id)
             };
 
-            var creationResult = context.CreateAsync(rootUser, Environment.GetEnvironmentVariable("ROOT_PWD")).Result;
-            var roleResult = context.AddToRoleAsync(rootUser, rootUser.Group).Result;
+            await context.CreateUserAsync(newUserInfo);
 
             return @this;
         }
 
-        public static IApplicationBuilder FillDbWithTemporaryData(
-            this IApplicationBuilder @this,
-            ApplicationDbContext context,
-            ClientUsersManager usersManager
+        public static IApplicationBuilder FillDbWithTemporaryDataAsync(
+            this IApplicationBuilder @this
         )
         {
-            if (usersManager.FindByNameAsync("root").GetAwaiter().GetResult() == null) {
-                var group = "Администратор"; // Administrator
-                var root = new ClientUser {
-                    AccessKey = Guid.NewGuid().ToString(),
-                    UserName = "root",
-                    Group = group
-                };
-
-                usersManager.CreateAsync(root, "123Abc!").GetAwaiter().GetResult();
-                usersManager.AddToRoleAsync(root, group).GetAwaiter().GetResult();
-            }
+            var context = GetService<ApplicationDbContext>(@this);
+            var usersManager = GetService<ClientUsersManager>(@this);
 
             if (context.Devices.Count() != 0) return @this;
 
-            // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var housings = new List<Housing>() {
@@ -140,6 +136,13 @@ namespace Microsoft.AspNetCore.Builder
             context.Devices.AddRange(devices);
             context.SaveChanges();
 
+            // Assign N/A location for each device
+            foreach (var device in devices)
+                context.DeviceCabinets.Add(
+                    new DeviceCabinet { DeviceID = device.ID, CabinetID = naCabinet.ID }
+                );
+            context.SaveChanges();
+
             var ipAddresses = new List<IPAddress>();
 
             for (int i = 0, j = -1; i <= 255; i++)
@@ -164,5 +167,11 @@ namespace Microsoft.AspNetCore.Builder
 
             return @this;
         }
+
+        private static T GetService<T>(IApplicationBuilder builder) =>
+            builder.ApplicationServices.
+                CreateScope().
+                ServiceProvider.
+                GetService<T>();
     }
 }

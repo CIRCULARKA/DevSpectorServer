@@ -149,15 +149,5 @@ namespace DevSpector.Application
 
 			return newDevice;
 		}
-		private ArgumentException GenerateExceptionFromErrors(IEnumerable<string> errors)
-		{
-			var builder = new StringBuilder();
-			foreach (var error in errors)
-				builder.Append($"{error}; ");
-
-			var result = new ArgumentException($"Some errors have occured: {builder.ToString()}");
-
-			return result;
-		}
 	}
 }

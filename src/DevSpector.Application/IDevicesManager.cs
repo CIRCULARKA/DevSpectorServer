@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
@@ -7,13 +6,13 @@ namespace DevSpector.Application
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(Device device);
+		void CreateDevice(DeviceInfo info);
 
-		void UpdateDevice(Device device);
+		void UpdateDevice(Device info);
 
-		Device GetDeviceByID(Guid deviceID);
+		Device GetDeviceByInventoryNumber(string inventoryNumber);
 
-		Cabinet GetDeviceCabinet(Guid deviceID);
+		Cabinet GetDeviceCabinet(string inventoryNumber);
 
 		IEnumerable<Device> GetDevices();
 

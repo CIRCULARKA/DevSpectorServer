@@ -83,6 +83,7 @@ namespace DevSpector.Application
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 
 			_repo.Remove<Device>(targetDevice.ID);
+			_repo.Save();
 		}
 
 		public Device GetDeviceByInventoryNumber(string invNum) =>

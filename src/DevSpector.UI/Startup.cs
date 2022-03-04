@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,9 +10,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using DevSpector.Database;
 using DevSpector.Domain.Models;
-using DevSpector.Application;
 using DevSpector.UI.Filters;
-using DevSpector.UI.Validators;
 
 namespace DevSpector.UI
 {
@@ -80,10 +77,5 @@ namespace DevSpector.UI
                 endpoints.MapControllers();
             });
         }
-
-        private T GetService<T>(IApplicationBuilder builder) =>
-            builder.ApplicationServices.CreateScope().
-                ServiceProvider.
-                    GetService<T>();
     }
 }

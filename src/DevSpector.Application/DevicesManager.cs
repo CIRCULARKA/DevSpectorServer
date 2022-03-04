@@ -76,6 +76,15 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
+		public void DeleteDevice(string inventoryNumber)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			_repo.Remove<Device>(targetDevice.ID);
+		}
+
 		public Device GetDeviceByInventoryNumber(string invNum) =>
 			_repo.GetSingle<Device>(d => d.InventoryNumber == invNum);
 

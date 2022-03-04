@@ -63,6 +63,26 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
+		[HttpPut]
+		[RequireParameters("inventoryNumber")]
+		public IActionResult RemoveDevice(string inventoryNumber)
+		{
+			try
+			{
+				_devicesManager.DeleteDevice(inventoryNumber);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not remove device",
+					Description = e.Message
+				});
+			}
+
+		}
+
 		[HttpGet("api/devices/types")]
 		public JsonResult GetDeviceTypes() =>
 			Json(_devicesManager.GetDeviceTypes());

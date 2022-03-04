@@ -10,6 +10,8 @@ namespace DevSpector.Application
 
 		void UpdateDevice(string targetDeviceInventoryNumber, DeviceInfo info);
 
+		void DeleteDevice(string inventoryNumber);
+
 		Device GetDeviceByInventoryNumber(string inventoryNumber);
 
 		Cabinet GetDeviceCabinet(string inventoryNumber);

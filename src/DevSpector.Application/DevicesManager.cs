@@ -56,7 +56,6 @@ namespace DevSpector.Application
 				targetDevice.TypeID = info.TypeID;
 			}
 
-
 			if (info.InventoryNumber != null) {
 				// Check if there is already device with such inventory number
 				var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == info.InventoryNumber);

@@ -21,9 +21,21 @@ namespace DevSpector.UI.API.Controllers
 			));
 
 		[HttpGet("api/location/cabinets")]
-		public JsonResult GetCabinets(Guid housingID) =>
-			Json(_manager.GetCabinets(housingID).Select(
-				c => new { ID = c.ID, Name = c.Name }
-			));
+		public IActionResult GetCabinets(Guid housingID)
+		{
+			try
+			{
+				return Json(_manager.GetCabinets(housingID).Select(
+					c => new { ID = c.ID, Name = c.Name }
+				));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Can't get cabinets from housing",
+					Description = e.Message
+				});
+			}
+		}
 	}
 }

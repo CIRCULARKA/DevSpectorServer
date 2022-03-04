@@ -8,7 +8,7 @@ namespace DevSpector.Application
 	{
 		void CreateDevice(DeviceInfo info);
 
-		void UpdateDevice(Device info);
+		void UpdateDevice(DeviceInfo info);
 
 		Device GetDeviceByInventoryNumber(string inventoryNumber);
 

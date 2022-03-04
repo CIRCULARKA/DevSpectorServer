@@ -105,9 +105,6 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
-		public Device GetDeviceByInventoryNumber(string invNum) =>
-			_repo.GetSingle<Device>(d => d.InventoryNumber == invNum);
-
 		public IEnumerable<Device> GetDevices() =>
 			_repo.Get<Device>(include: "Type");
 

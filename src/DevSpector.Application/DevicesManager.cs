@@ -19,29 +19,16 @@ namespace DevSpector.Application
 
 		public void CreateDevice(DeviceInfo info)
 		{
-			// InventoryNumber should be unique for each device
-			// So if there is the device with same InventoryNumber then throw the exception
-			var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == info.InventoryNumber);
-			if (sameDevice != null)
-				throw new ArgumentException("Device with the same inventory number already exists");
+			ThrowIfDevice(EntityExistance.Exists, info.InventoryNumber);
 
 			// Get N/A cabinet in N/A housing to put it as device's location
 			var defaultCabinetID = _repo.GetSingle<Cabinet>(
 				c => c.Name == "N/A"
 			).ID;
 
-			// Try to get device type from specified ID
-			// If no type then throw the exception
-			var targetType = _repo.GetSingle<DeviceType>(dt => dt.ID == info.TypeID);
-			if (targetType == null)
-				throw new ArgumentException("Device type with specified ID wasn't found");
+			ThrowIfDeviceTypeNotExists(info.TypeID);
 
-			var newDevice = new Device()
-			{
-				InventoryNumber = info.InventoryNumber,
-				TypeID = targetType.ID,
-				NetworkName = info.NetworkName
-			};
+			var newDevice = FormDeviceFrom(info);
 
 			_repo.Add<Device>(newDevice);
 			_repo.Save();
@@ -56,22 +43,17 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
-		public void UpdateDevice(DeviceInfo info)
+		public void UpdateDevice(string targetInventoryNumber, DeviceInfo info)
 		{
-			// Check for device's persistance in database
-			// If there is no such device then trow the exception
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == info.InventoryNumber);
-			if (targetDevice == null)
-				throw new ArgumentException("Could not update device with specified ID - no such device");
+			ThrowIfDevice(EntityExistance.DoesNotExist, targetInventoryNumber);
 
-			// Check if specified type is existing if device type ID is specified
-			DeviceType targetType;
-			if (info.TypeID != Guid.Empty) {
-				targetType = _repo.GetByID<DeviceType>(info.TypeID);
-				if (targetType == null)
-					throw new ArgumentException("Can't assign device type to device - no such type with the specified ID");
-				targetDevice.TypeID = info.TypeID;
-			}
+			var targetDevice = _repo.GetSingle<Device>(
+				d => d.InventoryNumber == targetInventoryNumber);
+
+			if (info.TypeID != Guid.Empty)
+				ThrowIfDeviceTypeNotExists(info.TypeID);
+
+			targetDevice.TypeID = info.TypeID;
 
 			if (info.InventoryNumber != null) {
 				// Check if there is already device with such inventory number

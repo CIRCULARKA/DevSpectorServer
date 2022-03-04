@@ -51,9 +51,11 @@ namespace DevSpector.Application
 				d => d.InventoryNumber == targetInventoryNumber);
 
 			if (info.TypeID != Guid.Empty)
+			{
 				ThrowIfDeviceTypeNotExists(info.TypeID);
+				targetDevice.TypeID = info.TypeID;
+			}
 
-			targetDevice.TypeID = info.TypeID;
 
 			if (info.InventoryNumber != null) {
 				// Check if there is already device with such inventory number

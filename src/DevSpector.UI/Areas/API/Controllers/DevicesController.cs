@@ -1,10 +1,7 @@
 using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
-using DevSpector.Domain.Models;
 using DevSpector.UI.Filters;
-using DevSpector.SDK.Models;
 
 namespace DevSpector.UI.API.Controllers
 {
@@ -46,11 +43,12 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/update")]
-		public IActionResult UpdateDevice([FromBody] DeviceInfo updatedInfo)
+		[RequireParameters("targetInventoryNumber")]
+		public IActionResult UpdateDevice(string targetInventoryNumber, [FromBody] DeviceInfo updatedInfo)
 		{
 			try
 			{
-				_devicesManager.UpdateDevice(updatedInfo);
+				_devicesManager.UpdateDevice(targetInventoryNumber, updatedInfo);
 
 				return Ok();
 			}

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
@@ -124,5 +125,57 @@ namespace DevSpector.Application
 
 		public IEnumerable<DeviceType> GetDeviceTypes() =>
 			_repo.Get<DeviceType>();
+
+		private void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
+		{
+			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			if (existance == EntityExistance.Exists) {
+				if (existingDevice != null)
+					throw new ArgumentException("Device with specified inventory number already exists");
+			}
+			else {
+				if (existingDevice == null)
+					throw new ArgumentException("Device with specified inventory number does not exist");
+			}
+		}
+
+		private void ThrowIfDeviceTypeNotExists(Guid typeID)
+		{
+			if (_repo.GetByID<DeviceType>(typeID) == null)
+				throw new ArgumentException("Device type with specified ID doesn't exists");
+		}
+
+		private Device FormDeviceFrom(DeviceInfo info)
+		{
+			var newDevice = new Device();
+
+			if (!string.IsNullOrWhiteSpace(info.InventoryNumber))
+				newDevice.InventoryNumber = info.InventoryNumber;
+
+			if (!string.IsNullOrWhiteSpace(info.NetworkName))
+				newDevice.NetworkName = info.NetworkName;
+
+			if (!string.IsNullOrWhiteSpace(info.ModelName))
+				newDevice.ModelName = info.ModelName;
+
+			if (!string.IsNullOrWhiteSpace(info.ModelName))
+				newDevice.ModelName = info.ModelName;
+
+			if (info.TypeID != Guid.Empty)
+				newDevice.TypeID = info.TypeID;
+
+			return newDevice;
+		}
+		private ArgumentException GenerateExceptionFromErrors(IEnumerable<string> errors)
+		{
+			var builder = new StringBuilder();
+			foreach (var error in errors)
+				builder.Append($"{error}; ");
+
+			var result = new ArgumentException($"Some errors have occured: {builder.ToString()}");
+
+			return result;
+		}
 	}
 }

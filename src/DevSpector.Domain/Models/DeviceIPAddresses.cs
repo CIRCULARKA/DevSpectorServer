@@ -2,7 +2,7 @@ using System;
 
 namespace DevSpector.Domain.Models
 {
-	public class DeviceIPAddresses
+	public class DeviceIPAddress
 	{
 		public Guid ID { get; set; }
 

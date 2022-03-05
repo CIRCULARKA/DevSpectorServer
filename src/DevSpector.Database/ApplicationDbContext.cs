@@ -20,6 +20,8 @@ namespace DevSpector.Database
 
 		public DbSet<DeviceCabinet> DeviceCabinets { get; set; }
 
+		public DbSet<DeviceSoftware> DeviceSoftware { get; set; }
+
 		public DbSet<IPAddress> IPAddresses { get; set; }
 
 		protected void ApplyModelConfigurations(ModelBuilder builder)

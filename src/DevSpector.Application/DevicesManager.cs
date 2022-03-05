@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
+using DevSpector.Database;
 
 namespace DevSpector.Application
 {

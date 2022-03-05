@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.Domain;
+using DevSpector.Database;
 using DevSpector.Domain.Models;
 
 namespace DevSpector.Application

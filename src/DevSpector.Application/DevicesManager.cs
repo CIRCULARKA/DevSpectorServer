@@ -109,8 +109,19 @@ namespace DevSpector.Application
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			// Check if device already has software with the same name AND version
+			var existingSoftware = _repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == targetDevice.ID) &&
+					(ds.SoftwareName == info.SoftwareName) &&
+					(ds.SoftwareVersion == info.SoftwareVersion)
+			);
+			if (existingSoftware != null)
+				throw new ArgumentException("Specified device already has software with specified version");
+
 			var newDeviceSoftware = new DeviceSoftware {
-				DeviceID = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber).ID,
+				DeviceID = targetDevice.ID,
 				SoftwareName = info.SoftwareName,
 				SoftwareVersion = info.SoftwareVersion
 			};

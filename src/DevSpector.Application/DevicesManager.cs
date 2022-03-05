@@ -156,6 +156,8 @@ namespace DevSpector.Application
 		{
 			return GetDevices().Select(d => {
 				var deviceCabinet = GetDeviceCabinet(d.InventoryNumber);
+				var deviceSoftware = GetDeviceSoftware(d.ID);
+				var deviceIPs = GetIPAddresses(d.ID);
 				return new Appliance(
 					d.ID,
 					d.InventoryNumber,
@@ -163,16 +165,22 @@ namespace DevSpector.Application
 					d.NetworkName,
 					deviceCabinet.Housing.Name,
 					deviceCabinet.Name,
-					_repo.Get<IPAddress>(
-						filter: ip => ip.DeviceID == d.ID
-					).Select(ip => ip.Address).ToList(),
-					null
+					deviceIPs.Select(ip => ip.Address).ToList(),
+					deviceSoftware.Select(
+						s => $"{s.SoftwareName} ({s.SoftwareVersion})"
+					).ToList()
 				);
 			});
 		}
 
 		public IEnumerable<DeviceType> GetDeviceTypes() =>
 			_repo.Get<DeviceType>();
+
+		public IEnumerable<IPAddress> GetIPAddresses(Guid deviceID) =>
+			_repo.Get<DeviceIPAddress>(
+				include: "IPAddress",
+				filter: di => di.DeviceID == deviceID
+			).Select(di => di.IPAddress);
 
 		private void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
 		{

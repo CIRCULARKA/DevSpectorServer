@@ -22,6 +22,8 @@ namespace DevSpector.Application
 
 		Cabinet GetDeviceCabinet(string inventoryNumber);
 
+		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
+
 		IEnumerable<Device> GetDevices();
 
 		IEnumerable<Appliance> GetAppliances();

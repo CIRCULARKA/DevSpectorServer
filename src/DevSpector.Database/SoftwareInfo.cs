@@ -1,4 +1,4 @@
-namespace DevSpector.Application
+namespace DevSpector.Database
 {
     /// <summary>
     /// This is the DTO object needed to provide information from HTTP request to controller's action methods

@@ -109,6 +109,14 @@ namespace DevSpector.Application
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 
+			var newDeviceSoftware = new DeviceSoftware {
+				DeviceID = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber).ID,
+				SoftwareName = info.SoftwareName,
+				SoftwareVersion = info.SoftwareVersion
+			};
+
+			_repo.Add<DeviceSoftware>(newDeviceSoftware);
+			_repo.Save();
 		}
 
 		public IEnumerable<Device> GetDevices() =>

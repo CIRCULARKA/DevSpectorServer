@@ -107,8 +107,8 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPost("api/devices/assign-software")]
-		[RequireParameters("inventoryNumber", "softwareName", "softwareVersion")]
+		[HttpPost("api/devices/add-software")]
+		[RequireParameters("inventoryNumber")]
 		public IActionResult AssignSoftware(string inventoryNumber, SoftwareInfo newSoftwareInfo)
 		{
 			try
@@ -121,6 +121,25 @@ namespace DevSpector.UI.API.Controllers
 			{
 				return BadRequest(new {
 					Error = "Could not add software to device",
+					Description = e.Message
+				});
+			}
+		}
+
+		[HttpDelete("api/devices/remove-software")]
+		[RequireParameters("inventoryNumber")]
+		public IActionResult RemoveSoftware(string inventoryNumber, SoftwareInfo softwareToRemove)
+		{
+			try
+			{
+				_devicesManager.RemoveSoftware(inventoryNumber, softwareToRemove);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not remove software from device",
 					Description = e.Message
 				});
 			}

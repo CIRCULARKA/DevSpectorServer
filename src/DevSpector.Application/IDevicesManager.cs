@@ -18,6 +18,8 @@ namespace DevSpector.Application
 
 		void AddSoftware(string inventoryNumber, SoftwareInfo info);
 
+		void RemoveSoftware(string inventoryNumber, SoftwareInfo info);
+
 		Cabinet GetDeviceCabinet(string inventoryNumber);
 
 		IEnumerable<Device> GetDevices();

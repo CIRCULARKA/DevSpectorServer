@@ -112,11 +112,7 @@ namespace DevSpector.Application
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 
 			// Check if device already has software with the same name AND version
-			var existingSoftware = _repo.GetSingle<DeviceSoftware>(
-				ds => (ds.DeviceID == targetDevice.ID) &&
-					(ds.SoftwareName == info.SoftwareName) &&
-					(ds.SoftwareVersion == info.SoftwareVersion)
-			);
+			var existingSoftware = GetDeviceSoftware(targetDevice.ID, info);
 			if (existingSoftware != null)
 				throw new ArgumentException("Specified device already has software with specified version");
 
@@ -127,6 +123,20 @@ namespace DevSpector.Application
 			};
 
 			_repo.Add<DeviceSoftware>(newDeviceSoftware);
+			_repo.Save();
+		}
+
+		public void RemoveSoftware(string inventoryNumber, SoftwareInfo info)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			var existingSoftware = GetDeviceSoftware(targetDevice.ID, info);
+			if (existingSoftware == null)
+				throw new ArgumentException("Software with specified name or version does not exist");
+
+			_repo.Remove<DeviceSoftware>(existingSoftware);
 			_repo.Save();
 		}
 
@@ -200,5 +210,12 @@ namespace DevSpector.Application
 
 			return newDevice;
 		}
+
+		private DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo info) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == info.SoftwareName) &&
+					(ds.SoftwareVersion == info.SoftwareVersion)
+			);
 	}
 }

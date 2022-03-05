@@ -147,6 +147,11 @@ namespace DevSpector.Application
 			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing,Device",
 				filter: dc => dc.Device.InventoryNumber == inventoryNumber).Cabinet;
 
+		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
+			_repo.Get<DeviceSoftware>(
+				ds => ds.DeviceID == deviceID
+			);
+
 		public IEnumerable<Appliance> GetAppliances()
 		{
 			return GetDevices().Select(d => {

@@ -104,6 +104,12 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
+		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+		}
+
 		public IEnumerable<Device> GetDevices() =>
 			_repo.Get<Device>(include: "Type");
 

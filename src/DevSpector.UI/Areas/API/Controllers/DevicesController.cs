@@ -105,5 +105,24 @@ namespace DevSpector.UI.API.Controllers
 				});
 			}
 		}
+
+		[HttpPost("api/devices/assign-software")]
+		[RequireParameters("inventoryNumber", "softwareName", "softwareVersion")]
+		public IActionResult AssignSoftware(string inventoryNumber, SoftwareInfo newSoftwareInfo)
+		{
+			try
+			{
+				_devicesManager.AddSoftware(inventoryNumber, newSoftwareInfo);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not add software to device",
+					Description = e.Message
+				});
+			}
+		}
 	}
 }

@@ -15,6 +15,8 @@ namespace DevSpector.Application
 
 		void MoveDevice(string inventoryNumber, Guid cabinetID);
 
+		void AddSoftware(string inventoryNumber, SoftwareInfo info);
+
 		Cabinet GetDeviceCabinet(string inventoryNumber);
 
 		IEnumerable<Device> GetDevices();

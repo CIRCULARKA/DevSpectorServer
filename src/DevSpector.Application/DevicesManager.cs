@@ -177,10 +177,9 @@ namespace DevSpector.Application
 			_repo.Get<DeviceType>();
 
 		public IEnumerable<IPAddress> GetIPAddresses(Guid deviceID) =>
-			_repo.Get<DeviceIPAddress>(
-				include: "IPAddress",
+			_repo.Get<IPAddress>(
 				filter: di => di.DeviceID == deviceID
-			).Select(di => di.IPAddress);
+			);
 
 		private void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
 		{

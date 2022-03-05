@@ -1,5 +1,3 @@
-using System;
-
 namespace DevSpector.Application
 {
     /// <summary>
@@ -8,8 +6,6 @@ namespace DevSpector.Application
     /// </summary>
     public class SoftwareInfo
     {
-        public string DeviceInventoryNumber { get; set; }
-
         public string SoftwareName { get; set; }
 
         public string SoftwareVersion { get; set; }

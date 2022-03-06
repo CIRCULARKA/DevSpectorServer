@@ -14,7 +14,7 @@ namespace DevSpector.UI.API.Controllers
 			_manager = manager;
 		}
 
-		[HttpGet("api/free-ip")]
+		[HttpGet("api/ip/free")]
 		public JsonResult GetFreeIP(bool sorted) =>
 			sorted ? Json(_manager.GetSortedFreeIP()) :
 				Json(_manager.GetFreeIP());

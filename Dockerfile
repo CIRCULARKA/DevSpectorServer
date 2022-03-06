@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0.405
 
 # ENV ASPNETCORE_ENVIRONMENT=${TARGET_ENV}
+ARG TARGET_ENV
 ENV ASPNETCORE_ENVIRONMENT=${TARGET_ENV}
 
 # Use "app" as workdir root

@@ -25,5 +25,20 @@ namespace DevSpector.Application
 					ThenBy(address => int.Parse(address.Split(".")[1])).
 					ThenBy(address => int.Parse(address.Split(".")[2])).
 					ThenBy(address => int.Parse(address.Split(".")[3]));
+
+		public void AddIPAddressToDevice(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var ip4Regexp = new Regex("\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b");
+			if (ip4Regexp.IsMatch(ipAddress) )
+		}
+
+		public void RemoveIPAddressFromDevice(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+		}
+
 	}
 }

@@ -20,6 +20,10 @@ namespace DevSpector.Application
 
 		void RemoveSoftware(string inventoryNumber, SoftwareInfo info);
 
+		void AddIPAddress(string inventoryNumber, string ipAddress);
+
+		void RemoveIPAddress(string inventoryNumber, string ipAddress);
+
 		Cabinet GetDeviceCabinet(string inventoryNumber);
 
 		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);

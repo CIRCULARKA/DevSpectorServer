@@ -144,5 +144,41 @@ namespace DevSpector.UI.API.Controllers
 				});
 			}
 		}
+
+		[HttpPut("api/devices/add-ip")]
+		public IActionResult AddIPAddress(string inventoryNumber, string ipAddress)
+		{
+			try
+			{
+				_devicesManager.AddIPAddress(inventoryNumber, ipAddress);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not add IP address to device",
+					Description = e.Message
+				});
+			}
+		}
+
+		[HttpPut("api/devices/remove-ip")]
+		public IActionResult RemoveIPAddress(string inventoryNumber, string ipAddress)
+		{
+			try
+			{
+				_devicesManager.RemoveIPAddress(inventoryNumber, ipAddress);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new {
+					Error = "Could not add IP address to device",
+					Description = e.Message
+				});
+			}
+		}
 	}
 }

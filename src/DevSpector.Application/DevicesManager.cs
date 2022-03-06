@@ -13,9 +13,12 @@ namespace DevSpector.Application
 	{
 		private readonly IRepository _repo;
 
-		public DevicesManager(IRepository repo)
+		private readonly IIPAddressesManager _ipManager;
+
+		public DevicesManager(IRepository repo, IIPAddressesManager ipManager)
 		{
 			_repo = repo;
+			_ipManager = ipManager;
 		}
 
 		public void CreateDevice(DeviceInfo info)
@@ -186,16 +189,27 @@ namespace DevSpector.Application
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 
-			var ip4Regexp = new Regex("\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b");
-			if (ip4Regexp.IsMatch(ipAddress))
-				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+			ThrowIfIPAddressIsInvalid(ipAddress);
 
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			targetIP.DeviceID = targetDevice.ID;
 
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
 		}
 
 		public void RemoveIPAddressFromDevice(string inventoryNumber, string ipAddress)
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			ThrowIfIPAddressIsInvalid(ipAddress);
+
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			targetIP.DeviceID = null;
+
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
 		}
 
 		public void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
@@ -246,5 +260,14 @@ namespace DevSpector.Application
 					(ds.SoftwareName == info.SoftwareName) &&
 					(ds.SoftwareVersion == info.SoftwareVersion)
 			);
+
+		private void ThrowIfIPAddressIsInvalid(string ipAddress)
+		{
+			if (!_ipManager.MathesIPv4(ipAddress))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+
+			if (!_ipManager.IsAddressFree(ipAddress))
+				throw new InvalidOperationException("Specified IP address is already in use");
+		}
 	}
 }

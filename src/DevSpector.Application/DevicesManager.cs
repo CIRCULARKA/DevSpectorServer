@@ -182,6 +182,22 @@ namespace DevSpector.Application
 				filter: di => di.DeviceID == deviceID
 			);
 
+		public void AddIPAddressToDevice(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var ip4Regexp = new Regex("\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b");
+			if (ip4Regexp.IsMatch(ipAddress))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+
+
+		}
+
+		public void RemoveIPAddressFromDevice(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+		}
+
 		public void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
 		{
 			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);

@@ -177,7 +177,7 @@ namespace DevSpector.UI.API.Controllers
 			catch (Exception e)
 			{
 				return BadRequest(new {
-					Error = "Could not add IP address to device",
+					Error = "Could not remove IP address from device",
 					Description = e.Message
 				});
 			}

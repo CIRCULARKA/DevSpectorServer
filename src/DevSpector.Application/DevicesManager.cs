@@ -191,6 +191,9 @@ namespace DevSpector.Application
 
 			ThrowIfIPAddressIsInvalid(ipAddress);
 
+			if (!_ipManager.IsAddressFree(ipAddress))
+				throw new InvalidOperationException("Specified IP address is already in use");
+
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 			targetIP.DeviceID = targetDevice.ID;
@@ -204,6 +207,9 @@ namespace DevSpector.Application
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 
 			ThrowIfIPAddressIsInvalid(ipAddress);
+
+			if (!HasIP(inventoryNumber, ipAddress))
+				throw new InvalidOperationException("Device doesn't have specified IP address");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 			targetIP.DeviceID = null;
@@ -265,9 +271,19 @@ namespace DevSpector.Application
 		{
 			if (!_ipManager.MathesIPv4(ipAddress))
 				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+		}
 
-			if (!_ipManager.IsAddressFree(ipAddress))
-				throw new InvalidOperationException("Specified IP address is already in use");
+		private bool HasIP(string inventoryNumber, string ipAddress)
+		{
+			if (!_ipManager.MathesIPv4(ipAddress))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+
+			var ip = _repo.GetSingle<IPAddress>(
+				include: "Device",
+				filter: ip => (ip.Address == ipAddress) && (ip.Device.InventoryNumber == inventoryNumber)
+			);
+
+			return ip != null;
 		}
 	}
 }

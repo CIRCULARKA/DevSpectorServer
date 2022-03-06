@@ -7,5 +7,9 @@ namespace DevSpector.Application
 		IEnumerable<string> GetFreeIP();
 
 		IEnumerable<string> GetSortedFreeIP();
+
+		bool IsAddressFree(string ipAddress);
+
+		bool MathesIPv4(string ipAddress);
 	}
 }

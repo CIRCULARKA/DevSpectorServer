@@ -24,8 +24,8 @@ RUN dotnet tool install dotnet-ef --global
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Migrate and update database
-RUN if [ "${TARGET_ENV}" = "Development" ] ; then dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit --no-build ; echo "Migration skipped" ; fi
-RUN if [ "${TARGET_ENV}" = "Development" ] ; then dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update ; echo "Database update skipped" ; fi
+RUN if [ "${TARGET_ENV}" = "Development" ] ; then dotnet ef migrations --project src/DevSpector.Database --startup-project src/DevSpector.UI add DockerInit --no-build ; else echo "Migration skipped" ; fi
+RUN if [ "${TARGET_ENV}" = "Development" ] ; then dotnet ef database --project src/DevSpector.Database --startup-project src/DevSpector.UI update ; else echo "Database update skipped" ; fi
 
 # Run entry subproject when deployed
 CMD dotnet run --project src/DevSpector.UI --launch-profile ${TARGET_ENV}

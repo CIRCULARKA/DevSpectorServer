@@ -185,7 +185,7 @@ namespace DevSpector.Application
 				filter: di => di.DeviceID == deviceID
 			);
 
-		public void AddIPAddressToDevice(string inventoryNumber, string ipAddress)
+		public void AddIPAddress(string inventoryNumber, string ipAddress)
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 
@@ -199,7 +199,7 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
-		public void RemoveIPAddressFromDevice(string inventoryNumber, string ipAddress)
+		public void RemoveIPAddress(string inventoryNumber, string ipAddress)
 		{
 			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
 

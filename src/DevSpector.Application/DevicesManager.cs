@@ -192,7 +192,7 @@ namespace DevSpector.Application
 			ThrowIfIPAddressIsInvalid(ipAddress);
 
 			if (!_ipManager.IsAddressFree(ipAddress))
-				throw new InvalidOperationException("Specified IP address is already in use");
+				throw new InvalidOperationException("Specified IP address is already in use or out of range");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);

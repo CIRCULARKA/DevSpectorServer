@@ -24,5 +24,6 @@ jobs:
         docker_build_args: |
           TARGET_ENV
           Development
+          HELLO: 0
       env:
         HD_TARGET_ENV: Development

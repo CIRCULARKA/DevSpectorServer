@@ -6,6 +6,8 @@ UnhandledLogs.txt
 Makefile
 .local.vimrc
 .vimspector.json
+*.db-shm
+*.db-wal
 
 # User-specific files
 *.rsuser

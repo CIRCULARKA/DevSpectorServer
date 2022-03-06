@@ -22,6 +22,7 @@ jobs:
         heroku_app_name: ${{secrets.HEROKU_APPNAME_DEV}}
         heroku_email: ${{secrets.MY_EMAIL}}
         docker_build_args: |
-          TARGET_ENV: Development
+          TARGET_ENV
+          Development
       env:
         HD_TARGET_ENV: Development

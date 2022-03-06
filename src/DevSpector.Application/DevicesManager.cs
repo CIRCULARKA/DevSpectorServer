@@ -182,7 +182,7 @@ namespace DevSpector.Application
 				filter: di => di.DeviceID == deviceID
 			);
 
-		private void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
+		public void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
 		{
 			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 

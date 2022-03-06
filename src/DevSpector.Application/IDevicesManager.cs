@@ -20,9 +20,7 @@ namespace DevSpector.Application
 
 		void RemoveSoftware(string inventoryNumber, SoftwareInfo info);
 
-		void AddIPAddress(string inventoryNumber, string ipAddress);
-
-		void RemoveIPAddress(string inventoryNumber, string ipAddress);
+		void ThrowIfDevice(EntityExistance existance, string inventoryNumber);
 
 		Cabinet GetDeviceCabinet(string inventoryNumber);
 

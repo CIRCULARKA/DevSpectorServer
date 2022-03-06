@@ -41,6 +41,5 @@ namespace DevSpector.Application
 			var ip4Pattern = @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b";
 			return Regex.IsMatch(ipAddress, ip4Pattern);
 		}
-
 	}
 }

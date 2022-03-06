@@ -65,8 +65,6 @@ namespace Microsoft.AspNetCore.Builder
 
             if (context.Devices.Count() != 0) return @this;
 
-            context.Database.EnsureCreated();
-
             var housings = new List<Housing>() {
 				new Housing { ID = Guid.NewGuid(), Name = "N/A" },
 				new Housing { ID = Guid.NewGuid(), Name = "Главный" },

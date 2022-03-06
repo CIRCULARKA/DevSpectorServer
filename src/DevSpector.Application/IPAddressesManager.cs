@@ -36,9 +36,11 @@ namespace DevSpector.Application
 			return GetFreeIP().Contains(ipAddress);
 		}
 
-		public bool MathesIPv4(string ipAddress) =>
-			new Regex("\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b").
-				IsMatch(ipAddress);
+		public bool MathesIPv4(string ipAddress)
+		{
+			var ip4Pattern = @"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b";
+			return Regex.IsMatch(ipAddress, ip4Pattern);
+		}
 
 	}
 }

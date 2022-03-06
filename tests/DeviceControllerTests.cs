@@ -79,7 +79,8 @@ namespace DevSpector.Server.Tests.Server.Controllers
 			// ).Returns(testIPs);
 
 			var devicesManagerMock = new DevicesManager(
-				repoMock.Object
+				repoMock.Object,
+				null
 			);
 
 			_controller = new DevicesController(

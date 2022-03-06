@@ -109,7 +109,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPost("api/devices/add-software")]
 		[RequireParameters("inventoryNumber")]
-		public IActionResult AssignSoftware(string inventoryNumber, SoftwareInfo newSoftwareInfo)
+		public IActionResult AddSoftware(string inventoryNumber, SoftwareInfo newSoftwareInfo)
 		{
 			try
 			{

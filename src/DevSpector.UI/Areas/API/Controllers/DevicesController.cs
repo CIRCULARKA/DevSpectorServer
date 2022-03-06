@@ -146,6 +146,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/add-ip")]
+		[RequireParameters("inventoryNumber", "ipAddress")]
 		public IActionResult AddIPAddress(string inventoryNumber, string ipAddress)
 		{
 			try
@@ -164,6 +165,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/remove-ip")]
+		[RequireParameters("inventoryNumber", "ipAddress")]
 		public IActionResult RemoveIPAddress(string inventoryNumber, string ipAddress)
 		{
 			try

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -61,6 +62,8 @@ namespace DevSpector.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            MigrateDatabase(app);
+
             app.AddUserGroup("Техник");
             app.AddUserGroup("Администратор");
 
@@ -79,6 +82,13 @@ namespace DevSpector.UI
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void MigrateDatabase(IApplicationBuilder builder)
+        {
+            var context = GetService<ApplicationDbContext>(builder);
+            if (context.Database.GetPendingMigrations().Any())
+                context.Database.Migrate();
         }
 
         private T GetService<T>(IApplicationBuilder builder) =>

@@ -13,5 +13,7 @@ namespace DevSpector.Domain.Models
 		public string InventoryNumber { get; set; }
 
 		public string NetworkName { get; set; }
+
+		public string ModelName { get; set; }
 	}
 }

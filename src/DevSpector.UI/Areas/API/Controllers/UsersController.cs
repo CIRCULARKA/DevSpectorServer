@@ -7,6 +7,7 @@ using DevSpector.UI.Filters;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
 using DevSpector.Application;
+using DevSpector.Database;
 
 namespace DevSpector.UI.API.Controllers
 {

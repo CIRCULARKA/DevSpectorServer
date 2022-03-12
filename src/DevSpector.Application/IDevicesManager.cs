@@ -2,18 +2,35 @@ using System;
 using System.Collections.Generic;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
+using DevSpector.Database;
 
 namespace DevSpector.Application
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(Device device);
+		void CreateDevice(DeviceInfo info);
 
-		void UpdateDevice(Device device);
+		void UpdateDevice(string targetDeviceInventoryNumber, DeviceInfo info);
 
-		Device GetDeviceByID(Guid deviceID);
+		void DeleteDevice(string inventoryNumber);
 
-		Cabinet GetDeviceCabinet(Guid deviceID);
+		void MoveDevice(string inventoryNumber, Guid cabinetID);
+
+		void AddSoftware(string inventoryNumber, SoftwareInfo info);
+
+		void RemoveSoftware(string inventoryNumber, SoftwareInfo info);
+
+		void AddIPAddress(string inventoryNumber, string ipAddress);
+
+		void RemoveIPAddress(string inventoryNumber, string ipAddress);
+
+		void ThrowIfDevice(EntityExistance existance, string inventoryNumber);
+
+		Cabinet GetDeviceCabinet(string inventoryNumber);
+
+		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
+
+		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
 
 		IEnumerable<Device> GetDevices();
 

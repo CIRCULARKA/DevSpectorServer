@@ -10,7 +10,7 @@ namespace DevSpector.Domain.Models
 
 		public Guid CabinetID { get; set; }
 
-		public Device Devcie { get; set; }
+		public Device Device { get; set; }
 
 		public Cabinet Cabinet { get; set; }
 	}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
+using DevSpector.Database;
 
 namespace DevSpector.Application
 {
@@ -11,36 +12,26 @@ namespace DevSpector.Application
 	{
 		private readonly IRepository _repo;
 
-		public DevicesManager(IRepository repo)
+		private readonly IIPAddressesManager _ipManager;
+
+		public DevicesManager(IRepository repo, IIPAddressesManager ipManager)
 		{
 			_repo = repo;
+			_ipManager = ipManager;
 		}
 
-		public void CreateDevice(Device device)
+		public void CreateDevice(DeviceInfo info)
 		{
-			// InventoryNumber should be unique for each device
-			// So if there is the device with same InventoryNumber then throw the exception
-			var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == device.InventoryNumber);
-			if (sameDevice != null)
-				throw new ArgumentException("Device with the same inventory number already exists");
+			ThrowIfDevice(EntityExistance.Exists, info.InventoryNumber);
 
 			// Get N/A cabinet in N/A housing to put it as device's location
 			var defaultCabinetID = _repo.GetSingle<Cabinet>(
 				c => c.Name == "N/A"
 			).ID;
 
-			// Try to get device type from specified ID
-			// If no type then throw the exception
-			var targetType = _repo.GetSingle<DeviceType>(dt => dt.ID == device.TypeID);
-			if (targetType == null)
-				throw new ArgumentException("Device type with specified ID wasn't found");
+			ThrowIfDeviceTypeNotExists(info.TypeID);
 
-			var newDevice = new Device()
-			{
-				InventoryNumber = device.InventoryNumber,
-				TypeID = targetType.ID,
-				NetworkName = device.NetworkName
-			};
+			var newDevice = FormDeviceFrom(info);
 
 			_repo.Add<Device>(newDevice);
 			_repo.Save();
@@ -55,58 +46,121 @@ namespace DevSpector.Application
 			_repo.Save();
 		}
 
-		public void UpdateDevice(Device device)
+		public void UpdateDevice(string targetInventoryNumber, DeviceInfo info)
 		{
-			// Check for device's persistance in database
-			// If there is no such device then trow the exception
-			var targetDevice = _repo.GetSingle<Device>(d => d.ID == device.ID);
-			if (targetDevice == null)
-				throw new ArgumentException("Could not update device with specified ID - no such device");
+			ThrowIfDevice(EntityExistance.DoesNotExist, targetInventoryNumber);
 
-			// Check if specified type is existing if device type ID is specified
-			DeviceType targetType;
-			if (device.TypeID != Guid.Empty) {
-				targetType = _repo.GetByID<DeviceType>(device.TypeID);
-				if (targetType == null)
-					throw new ArgumentException("Can't assign device type to device - no such type with the specified ID");
-				targetDevice.TypeID = device.TypeID;
+			var targetDevice = _repo.GetSingle<Device>(
+				d => d.InventoryNumber == targetInventoryNumber);
+
+			if (info.TypeID != Guid.Empty)
+			{
+				ThrowIfDeviceTypeNotExists(info.TypeID);
+				targetDevice.TypeID = info.TypeID;
 			}
 
-			if (device.InventoryNumber != null) {
+			if (info.InventoryNumber != null) {
 				// Check if there is already device with such inventory number
-				var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == device.InventoryNumber);
+				var sameDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == info.InventoryNumber);
 				if (sameDevice != null)
 					throw new ArgumentException("Can't update device - there is already device with inventory number specified");
 
-				targetDevice.InventoryNumber = device.InventoryNumber;
+				targetDevice.InventoryNumber = info.InventoryNumber;
 			}
 
-			if (device.NetworkName != null) {
+			if (info.NetworkName != null) {
 				// Check if there is already device with such network name
-				var sameDevice = _repo.GetSingle<Device>(d => d.NetworkName == device.NetworkName);
+				var sameDevice = _repo.GetSingle<Device>(d => d.NetworkName == info.NetworkName);
 				if (sameDevice != null)
 					throw new ArgumentException("Can't update device - there is already device with network name specified");
-				targetDevice.NetworkName = device.NetworkName;
+				targetDevice.NetworkName = info.NetworkName;
 			}
 
 			_repo.Update<Device>(targetDevice);
 			_repo.Save();
 		}
 
-		public Device GetDeviceByID(Guid deviceID) =>
-			_repo.GetByID<Device>(deviceID);
+		public void DeleteDevice(string inventoryNumber)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			_repo.Remove<Device>(targetDevice.ID);
+			_repo.Save();
+		}
+
+		public void MoveDevice(string inventoryNumber, Guid cabinetID)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetCabinet = _repo.GetByID<Cabinet>(cabinetID);
+			if (targetCabinet == null)
+				throw new ArgumentException("Could not find cabinet with specified ID");
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			var deviceCabinet = _repo.GetSingle<DeviceCabinet>(dc => dc.DeviceID == targetDevice.ID);
+
+			deviceCabinet.CabinetID = cabinetID;
+
+			_repo.Update<DeviceCabinet>(deviceCabinet);
+			_repo.Save();
+		}
+
+		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			// Check if device already has software with the same name AND version
+			var existingSoftware = GetDeviceSoftware(targetDevice.ID, info);
+			if (existingSoftware != null)
+				throw new ArgumentException("Specified device already has software with specified version");
+
+			var newDeviceSoftware = new DeviceSoftware {
+				DeviceID = targetDevice.ID,
+				SoftwareName = info.SoftwareName,
+				SoftwareVersion = info.SoftwareVersion
+			};
+
+			_repo.Add<DeviceSoftware>(newDeviceSoftware);
+			_repo.Save();
+		}
+
+		public void RemoveSoftware(string inventoryNumber, SoftwareInfo info)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			var existingSoftware = GetDeviceSoftware(targetDevice.ID, info);
+			if (existingSoftware == null)
+				throw new ArgumentException("Software with specified name or version does not exist");
+
+			_repo.Remove<DeviceSoftware>(existingSoftware);
+			_repo.Save();
+		}
 
 		public IEnumerable<Device> GetDevices() =>
 			_repo.Get<Device>(include: "Type");
 
-		public Cabinet GetDeviceCabinet(Guid deviceID) =>
-			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing",
-				filter: dc => dc.DeviceID == deviceID).Cabinet;
+		public Cabinet GetDeviceCabinet(string inventoryNumber) =>
+			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing,Device",
+				filter: dc => dc.Device.InventoryNumber == inventoryNumber).Cabinet;
+
+		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
+			_repo.Get<DeviceSoftware>(
+				ds => ds.DeviceID == deviceID
+			);
 
 		public IEnumerable<Appliance> GetAppliances()
 		{
 			return GetDevices().Select(d => {
-				var deviceCabinet = GetDeviceCabinet(d.ID);
+				var deviceCabinet = GetDeviceCabinet(d.InventoryNumber);
+				var deviceSoftware = GetDeviceSoftware(d.ID);
+				var deviceIPs = GetIPAddresses(d.ID);
 				return new Appliance(
 					d.ID,
 					d.InventoryNumber,
@@ -114,15 +168,121 @@ namespace DevSpector.Application
 					d.NetworkName,
 					deviceCabinet.Housing.Name,
 					deviceCabinet.Name,
-					_repo.Get<IPAddress>(
-						filter: ip => ip.DeviceID == d.ID
-					).Select(ip => ip.Address).ToList(),
-					null
+					deviceIPs.Select(ip => ip.Address).ToList(),
+					deviceSoftware.Select(
+						s => $"{s.SoftwareName} ({s.SoftwareVersion})"
+					).ToList()
 				);
 			});
 		}
 
 		public IEnumerable<DeviceType> GetDeviceTypes() =>
 			_repo.Get<DeviceType>();
+
+		public IEnumerable<IPAddress> GetIPAddresses(Guid deviceID) =>
+			_repo.Get<IPAddress>(
+				filter: di => di.DeviceID == deviceID
+			);
+
+		public void AddIPAddress(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			ThrowIfIPAddressIsInvalid(ipAddress);
+
+			if (!_ipManager.IsAddressFree(ipAddress))
+				throw new InvalidOperationException("Specified IP address is already in use or out of range");
+
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			targetIP.DeviceID = targetDevice.ID;
+
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
+		}
+
+		public void RemoveIPAddress(string inventoryNumber, string ipAddress)
+		{
+			ThrowIfDevice(EntityExistance.DoesNotExist, inventoryNumber);
+
+			ThrowIfIPAddressIsInvalid(ipAddress);
+
+			if (!HasIP(inventoryNumber, ipAddress))
+				throw new InvalidOperationException("Device doesn't have specified IP address");
+
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			targetIP.DeviceID = null;
+
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
+		}
+
+		public void ThrowIfDevice(EntityExistance existance, string inventoryNumber)
+		{
+			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			if (existance == EntityExistance.Exists) {
+				if (existingDevice != null)
+					throw new ArgumentException("Device with specified inventory number already exists");
+			}
+			else {
+				if (existingDevice == null)
+					throw new ArgumentException("Device with specified inventory number does not exist");
+			}
+		}
+
+		private void ThrowIfDeviceTypeNotExists(Guid typeID)
+		{
+			if (_repo.GetByID<DeviceType>(typeID) == null)
+				throw new ArgumentException("Device type with specified ID doesn't exists");
+		}
+
+		private Device FormDeviceFrom(DeviceInfo info)
+		{
+			var newDevice = new Device();
+
+			if (!string.IsNullOrWhiteSpace(info.InventoryNumber))
+				newDevice.InventoryNumber = info.InventoryNumber;
+
+			if (!string.IsNullOrWhiteSpace(info.NetworkName))
+				newDevice.NetworkName = info.NetworkName;
+
+			if (!string.IsNullOrWhiteSpace(info.ModelName))
+				newDevice.ModelName = info.ModelName;
+
+			if (!string.IsNullOrWhiteSpace(info.ModelName))
+				newDevice.ModelName = info.ModelName;
+
+			if (info.TypeID != Guid.Empty)
+				newDevice.TypeID = info.TypeID;
+
+			return newDevice;
+		}
+
+		private DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo info) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == info.SoftwareName) &&
+					(ds.SoftwareVersion == info.SoftwareVersion)
+			);
+
+		private void ThrowIfIPAddressIsInvalid(string ipAddress)
+		{
+			if (!_ipManager.MathesIPv4(ipAddress))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+		}
+
+		private bool HasIP(string inventoryNumber, string ipAddress)
+		{
+			if (!_ipManager.MathesIPv4(ipAddress))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+
+			var ip = _repo.GetSingle<IPAddress>(
+				include: "Device",
+				filter: ip => (ip.Address == ipAddress) && (ip.Device.InventoryNumber == inventoryNumber)
+			);
+
+			return ip != null;
+		}
 	}
 }

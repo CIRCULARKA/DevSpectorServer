@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.Domain;
+using DevSpector.Database;
 using DevSpector.Domain.Models;
 
 namespace DevSpector.Application
@@ -36,7 +37,7 @@ namespace DevSpector.Application
 
 			ThrowIfUserGroupNotExists(newUserInfo.GroupID);
 
-			var newUser = FormUserFrom(newUserInfo);
+			var newUser = await FormUserFrom(newUserInfo);
 
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);
 			if (!creationResult.Succeeded)
@@ -189,14 +190,29 @@ namespace DevSpector.Application
 				throw new ArgumentException("User group with specified ID doesn't exists");
 		}
 
-		private ClientUser FormUserFrom(UserInfo info) =>
-			new ClientUser {
-				UserName = info.Login,
-				AccessKey = Guid.NewGuid().ToString(),
-				FirstName = info.FirstName,
-				Surname = info.Surname,
-				Patronymic = info.Patronymic
+		private async Task<ClientUser> FormUserFrom(UserInfo updatedInfo)
+		{
+			var newUser = new ClientUser {
+				AccessKey = Guid.NewGuid().ToString()
 			};
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Login))
+				newUser.UserName = updatedInfo.Login;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.FirstName))
+				newUser.FirstName = updatedInfo.FirstName;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Surname))
+				newUser.Surname = updatedInfo.Surname;
+
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Patronymic))
+				newUser.Patronymic = updatedInfo.Patronymic;
+
+			if (updatedInfo.GroupID != Guid.Empty)
+				await ChangeUserGroup(updatedInfo.Login, updatedInfo.GroupID);
+
+			return newUser;
+		}
 
 		private ArgumentException GenerateExceptionFromErrors(IEnumerable<IdentityError> errors)
 		{

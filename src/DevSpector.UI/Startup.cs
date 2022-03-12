@@ -12,9 +12,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using DevSpector.Database;
 using DevSpector.Domain.Models;
-using DevSpector.Application;
 using DevSpector.UI.Filters;
-using DevSpector.UI.Validators;
 
 namespace DevSpector.UI
 {
@@ -48,7 +46,8 @@ namespace DevSpector.UI
                 }
             );
 
-            services.AddControllers().AddFluentValidation();
+            // services.AddControllers().AddFluentValidation();
+            services.AddControllers();
 
             services.AddIdentity<ClientUser, IdentityRole>().
                 AddRoles<IdentityRole>().

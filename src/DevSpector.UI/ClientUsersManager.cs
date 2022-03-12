@@ -43,7 +43,8 @@ namespace DevSpector.Application
 			if (!creationResult.Succeeded)
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 
-			await _baseUsersManager.AddToRoleAsync(newUser, GetGroup(newUserInfo.GroupID).Name);
+			await ChangeUserGroup(newUserInfo.Login, newUserInfo.GroupID);
+			// await _baseUsersManager.AddToRoleAsync(newUser, GetGroup(newUserInfo.GroupID).Name);
 		}
 
 		public async Task UpdateUserAsync(string targetUserLogin, UserInfo updatedInfo)
@@ -79,8 +80,8 @@ namespace DevSpector.Application
 			var targetUser = await this.FindByLoginAsync(targetLogin);
 
 			var currentGroupName = await GetUserGroup(targetUser);
-
-			await _baseUsersManager.RemoveFromRoleAsync(targetUser, currentGroupName);
+			if (currentGroupName != null)
+				await _baseUsersManager.RemoveFromRoleAsync(targetUser, currentGroupName);
 
 			var targetGroup = GetGroup(groupID);
 
@@ -207,9 +208,6 @@ namespace DevSpector.Application
 
 			if (!string.IsNullOrWhiteSpace(updatedInfo.Patronymic))
 				newUser.Patronymic = updatedInfo.Patronymic;
-
-			if (updatedInfo.GroupID != Guid.Empty)
-				await ChangeUserGroup(updatedInfo.Login, updatedInfo.GroupID);
 
 			return newUser;
 		}

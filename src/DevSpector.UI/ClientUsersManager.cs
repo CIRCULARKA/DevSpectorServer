@@ -191,7 +191,7 @@ namespace DevSpector.Application
 				throw new ArgumentException("User group with specified ID doesn't exists");
 		}
 
-		private async Task<ClientUser> FormUserFrom(UserInfo updatedInfo)
+		private ClientUser FormUserFrom(UserInfo updatedInfo)
 		{
 			var newUser = new ClientUser {
 				AccessKey = Guid.NewGuid().ToString()

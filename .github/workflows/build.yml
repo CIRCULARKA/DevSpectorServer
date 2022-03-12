@@ -2,8 +2,8 @@ name: Build
 on:
   push:
     branches-ignore:
-    - dev*
-    - release*
+    - dev-*
+    - release-*
 jobs:
   Build:
     runs-on: ubuntu-latest

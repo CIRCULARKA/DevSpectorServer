@@ -105,7 +105,7 @@ namespace DevSpector.UI.API.Controllers
 				var authorizedUser = await _usersManager.AuthorizeUser(login, password);
 				return Ok(new {
 					Login = authorizedUser.UserName,
-					AccessKey = authorizedUser.AccessKey,
+					AccessToken = authorizedUser.AccessKey,
 					Group = await _usersManager.GetUserGroup(authorizedUser)
 				});
 			}

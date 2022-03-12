@@ -37,7 +37,7 @@ namespace DevSpector.Application
 
 			ThrowIfUserGroupNotExists(newUserInfo.GroupID);
 
-			var newUser = await FormUserFrom(newUserInfo);
+			var newUser = FormUserFrom(newUserInfo);
 
 			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);
 			if (!creationResult.Succeeded)

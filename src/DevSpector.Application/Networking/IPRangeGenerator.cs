@@ -29,7 +29,7 @@ namespace DevSpector.Application.Networking
 			_ipValidator = ipValidator;
 		}
 
-		public IList<IPAddress> GenerateRange(string netwokAddress, int mask)
+		public IList<string> GenerateRange(string netwokAddress, int mask)
 		{
 			SetCurrentMask(mask);
 
@@ -38,9 +38,11 @@ namespace DevSpector.Application.Networking
 			var firstHostBytes = GetFirstHostBytes(netwokAddress);
 			var lastHostBytes = GetLastHostBytes(netwokAddress);
 
-			var result = new List<IPAddress>(hostsAmount);
+			var result = new List<string>(hostsAmount);
 
 			var currentIP = firstHostBytes;
+
+			result.Add(GetAddressFromOctets(currentIP));
 
 			throw new NotImplementedException();
 		}

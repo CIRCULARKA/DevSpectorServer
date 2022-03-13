@@ -8,7 +8,7 @@ namespace DevSpector.Application
 
 		IEnumerable<string> GetSortedFreeIP();
 
-		void GenerateRange(int mask);
+		void GenerateRange(string networkAddress, int mask);
 
 		bool IsAddressFree(string ipAddress);
 

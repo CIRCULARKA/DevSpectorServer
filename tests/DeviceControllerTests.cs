@@ -82,7 +82,7 @@ namespace DevSpector.Server.Tests.Server.Controllers
 			var devicesManagerMock = new DevicesManager(
 				repoMock.Object,
 				null,
-				new IP4Validator()
+				new IPValidator()
 			);
 
 			_controller = new DevicesController(

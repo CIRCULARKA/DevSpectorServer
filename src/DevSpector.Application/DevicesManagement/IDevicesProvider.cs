@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using DevSpector.SDK.Models;
+using DevSpector.Domain.Models;
+
+namespace DevSpector.Application
+{
+	public interface IDevicesProvider
+	{
+		IEnumerable<Device> GetDevices();
+
+		IEnumerable<DeviceType> GetDeviceTypes();
+
+		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
+
+		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
+
+		IEnumerable<Appliance> GetDevicesAsAppliances();
+
+		Cabinet GetDeviceCabinet(Guid deviceID);
+	}
+}

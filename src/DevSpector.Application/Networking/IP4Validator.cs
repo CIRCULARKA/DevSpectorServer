@@ -14,11 +14,16 @@ namespace DevSpector.Application.Networking
             if (protocolVersion != IPProtocol.Version4)
                 throw new NotImplementedException("Can't validate IP address - only IPv4 supported");
 
+            return MatchesIP4(value);
+        }
+
+        private bool MatchesIP4(string value)
+        {
 			try { return Regex.IsMatch(value, _Ip4Pattern); }
             catch (ArgumentNullException)
             {
                 throw new ArgumentNullException(
-                    "Could not validate IP address - value can not be null"
+                    "Could not validate IPv4 address - value can not be null"
                 );
             }
         }

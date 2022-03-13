@@ -9,17 +9,23 @@ namespace DevSpector.UI.API.Controllers
 	[ServiceFilter(typeof(AuthorizationFilter))]
 	public class IPAddressController : ApiController
 	{
-		private readonly IIPAddressesManager _manager;
+		private readonly IIPAddressEditor _ipAddressEditor;
 
-		public IPAddressController(IIPAddressesManager manager)
+		private readonly IIPAddressProvider _ipAddressProvider;
+
+		public IPAddressController(
+			IIPAddressProvider ipProvider,
+			IIPAddressEditor ipEditor
+		)
 		{
-			_manager = manager;
+			_ipAddressProvider = ipProvider;
+			_ipAddressEditor = ipEditor;
 		}
 
 		[HttpGet("api/ip/free")]
 		public JsonResult GetFreeIP(bool sorted) =>
-			sorted ? Json(_manager.GetSortedFreeIP()) :
-				Json(_manager.GetFreeIP());
+			sorted ? Json(_ipAddressProvider.GetFreeIPSorted()) :
+				Json(_ipAddressProvider.GetFreeIP());
 
 		[HttpPut("api/ip/generate")]
 		[RequireParameters("networkAddress", "mask")]
@@ -27,7 +33,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_manager.GenerateRange(networkAddress, mask);
+				_ipAddressEditor.GenerateRange(networkAddress, mask);
 
 				return Ok();
 			}

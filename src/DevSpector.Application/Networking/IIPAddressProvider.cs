@@ -3,7 +3,7 @@ using DevSpector.Domain.Models;
 
 namespace DevSpector.Application.Networking
 {
-	public interface IIPAddressesProvider
+	public interface IIPAddressProvider
 	{
 		IEnumerable<IPAddress> GetFreeIP();
 

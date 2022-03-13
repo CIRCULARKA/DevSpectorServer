@@ -33,7 +33,8 @@ namespace Microsoft.Extensions.DependencyInjection
 			services.AddTransient<IIPValidator, IPValidator>();
 			services.AddTransient<IIPRangeGenerator, IP4RangeGenerator>();
 
-			services.AddTransient<IIPAddressesManager, IPAddressesManager>();
+			services.AddTransient<IIPAddressProvider, IPAddressProvider>();
+			services.AddTransient<IIPAddressEditor, IPAddressEditor>();
 		}
 	}
 }

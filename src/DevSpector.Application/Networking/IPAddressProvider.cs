@@ -7,7 +7,7 @@ using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {
-	public class IPAddressesManager : IIPAddressesProvider
+	public class IPAddressProvider : IIPAddressProvider
 	{
 		private IRepository _repo;
 
@@ -15,7 +15,7 @@ namespace DevSpector.Application.Networking
 
 		private IIPRangeGenerator _ipRangeGenerator;
 
-		public IPAddressesManager(
+		public IPAddressProvider(
 			IRepository repo,
 			IIPValidator ipValidator,
 			IIPRangeGenerator ipRangeGenerator

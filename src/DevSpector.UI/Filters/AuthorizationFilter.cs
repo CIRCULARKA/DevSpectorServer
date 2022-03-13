@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using DevSpector.Application;
-using DevSpector.Domain.Models;
 
 namespace DevSpector.UI.Filters
 {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.Database;
@@ -121,7 +122,7 @@ namespace DevSpector.Application.Devices
 			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 
 			// Check if device already has software with the same name AND version
-			if (_devicesProvider.HasSoftware(targetDevice.ID, info))
+			if (_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
 				throw new InvalidOperationException("Specified device already has software with specified version");
 
 			var newDeviceSoftware = new DeviceSoftware {
@@ -136,7 +137,32 @@ namespace DevSpector.Application.Devices
 
 		public void RemoveSoftware(string inventoryNumber, SoftwareInfo info)
 		{
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
+				throw new InvalidOperationException("There is no device with specified inventory number");
 
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			if (info.SoftwareVersion != null)
+			{
+				if (!_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
+					throw new InvalidOperationException("There is no software with specified name and version");
+
+				var targetSoftware = _devicesProvider.GetDeviceSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion);
+
+				_repo.Remove<DeviceSoftware>(targetSoftware);
+				_repo.Save();
+			}
+			else
+			{
+				if (!_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName))
+					throw new InvalidOperationException("There is no software with specified name");
+
+				IEnumerable<DeviceSoftware> targetSoftware = _devicesProvider.GetDeviceSoftware(targetDevice.ID, info.SoftwareName);
+
+				foreach (var software in targetSoftware)
+					_repo.Remove<DeviceSoftware>(software);
+				_repo.Save();
+			}
 		}
 
 		public void AddIPAddress(string inventoryNumber, string ipAddress)

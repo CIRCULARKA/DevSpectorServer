@@ -8,6 +8,6 @@ namespace DevSpector.Application.Networking
 	/// </summary>
 	public interface IIPRangeGenerator
 	{
-		IList<IPAddress> GenerateRange(string netwokAddress, int mask);
+		IList<string> GenerateRange(string netwokAddress, int mask);
 	}
 }

@@ -9,7 +9,7 @@ namespace DevSpector.Application.Networking
 	/// <summary>
 	/// Class for generating the range of IP addresses using specified mask
 	/// </summary>
-	public class IP4RangeGenerator
+	public class IP4RangeGenerator : IIPRangeGenerator
 	{
 		private const int _OctetSize = 8;
 

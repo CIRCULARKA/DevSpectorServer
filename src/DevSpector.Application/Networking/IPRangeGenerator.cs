@@ -30,6 +30,9 @@ namespace DevSpector.Application.Networking
 
 		public IList<string> GenerateRange(string netwokAddress, int mask)
 		{
+			if (!_ipValidator.Matches(netwokAddress, IPProtocol.Version4))
+				throw new ArgumentException("Network address does not mathches IPv4 pattern");
+
 			SetCurrentMask(mask);
 			SetCurrentLocalAddressBytes(mask);
 

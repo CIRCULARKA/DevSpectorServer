@@ -13,13 +13,19 @@ namespace DevSpector.Application.Devices
             _repo = repo;
         }
 
-        public bool DoesDeviceExists(string inventoryNumber)
+        public bool IsInventoryNumberUnique(string inventoryNumber)
         {
 			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
-            return existingDevice != null;
+            return existingDevice == null;
         }
 
         public bool DoesDeviceTypeExists(Guid typeID) =>
 			_repo.GetByID<DeviceType>(typeID) != null;
+
+        public bool IsNetworkNameUnique(string networkName)
+        {
+            var existingDevice = _repo.GetSingle<Device>(d => d.NetworkName == networkName);
+            return existingDevice == null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DevSpector.Database;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
 
@@ -14,6 +15,8 @@ namespace DevSpector.Application
 		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
 
 		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
+
+		DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo softwareInfo);
 
 		IEnumerable<Appliance> GetDevicesAsAppliances();
 

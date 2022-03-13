@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DevSpector.Database;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
@@ -30,6 +31,13 @@ namespace DevSpector.Application
 		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
 			_repo.Get<DeviceSoftware>(
 				ds => (ds.DeviceID == deviceID)
+			);
+
+		public DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo info) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == info.SoftwareName) &&
+					(ds.SoftwareVersion == info.SoftwareVersion)
 			);
 
 		public IEnumerable<Appliance> GetDevicesAsAppliances()

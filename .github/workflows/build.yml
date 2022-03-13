@@ -1,11 +1,11 @@
-name: Build
+name: Build-And-Test
 on:
   push:
     branches-ignore:
     - dev-*
     - release-*
 jobs:
-  Build:
+  Build-And-Test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,3 +17,5 @@ jobs:
       run: dotnet restore
     - name: Build Server
       run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test

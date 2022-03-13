@@ -18,7 +18,14 @@ namespace DevSpector.Application
 
 		IEnumerable<Appliance> GetDevicesAsAppliances();
 
+		/// <summary>
+		/// Returns all versions of specified software name
+		/// </summary>
+		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName);
+
 		Cabinet GetDeviceCabinet(Guid deviceID);
+
+		DeviceSoftware GetDeviceSoftware(Guid deviceID, string softwareName, string softwareVersion);
 
         bool DoesDeviceExist(string inventoryNumber);
 

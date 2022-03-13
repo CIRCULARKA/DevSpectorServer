@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DevSpector.Database;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
@@ -54,9 +53,22 @@ namespace DevSpector.Application
 			});
 		}
 
+		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName) =>
+			_repo.Get<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == softwareName)
+			);
+
 		public Cabinet GetDeviceCabinet(Guid deviceID) =>
 			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing",
 				filter: dc => dc.DeviceID == deviceID).Cabinet;
+
+		public DeviceSoftware GetDeviceSoftware(Guid deviceID, string softwareName, string softwareVersion) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == softwareName) &&
+					(ds.SoftwareVersion == softwareVersion)
+			);
 
         public bool DoesDeviceExist(string inventoryNumber)
         {
@@ -74,16 +86,9 @@ namespace DevSpector.Application
 			_repo.GetByID<DeviceType>(typeID) != null;
 
 		public bool HasSoftware(Guid deviceID, string softwareName) =>
-			_repo.GetSingle<DeviceSoftware>(
-				ds => (ds.DeviceID == deviceID) &&
-					(ds.SoftwareName == softwareName)
-			) != null;
+			GetDeviceSoftware(deviceID, softwareName) != null;
 
 		public bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion) =>
-			_repo.GetSingle<DeviceSoftware>(
-				ds => (ds.DeviceID == deviceID) &&
-					(ds.SoftwareName == softwareName) &&
-					(ds.SoftwareVersion == softwareVersion)
-			) != null;
+			GetDeviceSoftware(deviceID, softwareName, softwareVersion) != null;
 	}
 }

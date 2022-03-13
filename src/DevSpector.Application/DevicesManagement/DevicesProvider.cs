@@ -56,5 +56,20 @@ namespace DevSpector.Application
 		public Cabinet GetDeviceCabinet(Guid deviceID) =>
 			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing",
 				filter: dc => dc.DeviceID == deviceID).Cabinet;
+
+        public bool DoesDeviceExist(string inventoryNumber)
+        {
+			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+            return existingDevice != null;
+        }
+
+        public bool IsNetworkNameUnique(string networkName)
+        {
+            var existingDevice = _repo.GetSingle<Device>(d => d.NetworkName == networkName);
+            return existingDevice == null;
+        }
+
+        public bool DoesDeviceTypeExist(Guid typeID) =>
+			_repo.GetByID<DeviceType>(typeID) != null;
 	}
 }

@@ -18,5 +18,11 @@ namespace DevSpector.Application
 		IEnumerable<Appliance> GetDevicesAsAppliances();
 
 		Cabinet GetDeviceCabinet(Guid deviceID);
+
+        bool DoesDeviceExist(string inventoryNumber);
+
+        bool IsNetworkNameUnique(string networkName);
+
+        bool DoesDeviceTypeExist(Guid typeID);
 	}
 }

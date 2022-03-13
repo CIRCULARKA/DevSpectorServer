@@ -44,7 +44,6 @@ namespace DevSpector.Application
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 
 			await ChangeUserGroup(newUserInfo.Login, newUserInfo.GroupID);
-			// await _baseUsersManager.AddToRoleAsync(newUser, GetGroup(newUserInfo.GroupID).Name);
 		}
 
 		public async Task UpdateUserAsync(string targetUserLogin, UserInfo updatedInfo)

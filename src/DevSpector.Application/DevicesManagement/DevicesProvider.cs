@@ -82,11 +82,8 @@ namespace DevSpector.Application
 		public Device GetDevice(string inventoryNumber) =>
 			_repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
 
-        public bool DoesDeviceExist(string inventoryNumber)
-        {
-			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
-            return existingDevice != null;
-        }
+        public bool DoesDeviceExist(string inventoryNumber) =>
+			GetDevice(inventoryNumber) != null;
 
         public bool IsNetworkNameUnique(string networkName)
         {

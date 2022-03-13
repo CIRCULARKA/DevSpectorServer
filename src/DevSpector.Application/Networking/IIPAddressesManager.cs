@@ -11,7 +11,5 @@ namespace DevSpector.Application.Networking
 		void GenerateRange(string networkAddress, int mask);
 
 		bool IsAddressFree(string ipAddress);
-
-		bool MathesIPv4(string ipAddress);
 	}
 }

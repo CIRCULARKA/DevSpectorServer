@@ -15,10 +15,17 @@ namespace DevSpector.Application
 
 		private readonly IIPAddressesManager _ipManager;
 
-		public DevicesManager(IRepository repo, IIPAddressesManager ipManager)
+		private readonly IIPValidator _ipValidator;
+
+		public DevicesManager(
+			IRepository repo,
+			IIPAddressesManager ipManager,
+			IIPValidator ipValidator
+		)
 		{
 			_repo = repo;
 			_ipManager = ipManager;
+			_ipValidator = ipValidator;
 		}
 
 		public void CreateDevice(DeviceInfo info)
@@ -269,13 +276,13 @@ namespace DevSpector.Application
 
 		private void ThrowIfIPAddressIsInvalid(string ipAddress)
 		{
-			if (!_ipManager.MathesIPv4(ipAddress))
+			if (!_ipValidator.Matches(ipAddress))
 				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
 		}
 
 		private bool HasIP(string inventoryNumber, string ipAddress)
 		{
-			if (!_ipManager.MathesIPv4(ipAddress))
+			if (!_ipValidator.Matches(ipAddress))
 				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
 
 			var ip = _repo.GetSingle<IPAddress>(

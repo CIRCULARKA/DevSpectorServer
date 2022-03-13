@@ -11,8 +11,16 @@ namespace DevSpector.Application.Networking
 	{
 		private IRepository _repo;
 
-		public IPAddressesManager(IRepository repo) =>
+		private IIPValidator _ipValidator;
+
+		public IPAddressesManager(
+			IRepository repo,
+			IIPValidator ipValidator
+		)
+		{
 			_repo = repo;
+			_ipValidator = ipValidator;
+		}
 
 		public IEnumerable<string> GetFreeIP() =>
 			_repo.Get<IPAddress>(
@@ -30,7 +38,7 @@ namespace DevSpector.Application.Networking
 
 		public void GenerateRange(string networkAddress, int mask)
 		{
-			if (!MathesIPv4(networkAddress))
+			if (!_ipValidator.Matches(networkAddress))
 				throw new ArgumentException("Network address does not match IPv4 pattern");
 
 			if (mask < 20 && mask > 30)
@@ -39,16 +47,10 @@ namespace DevSpector.Application.Networking
 
 		public bool IsAddressFree(string ipAddress)
 		{
-			if (!MathesIPv4(ipAddress))
+			if (!_ipValidator.Matches(ipAddress))
 				throw new ArgumentException("IP address does not match IPv4 pattern");
 
 			return GetFreeIP().Contains(ipAddress);
-		}
-
-		public bool MathesIPv4(string ipAddress)
-		{
-			var ip4Pattern = @"^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$";
-			return Regex.IsMatch(ipAddress, ip4Pattern);
 		}
 	}
 }

@@ -21,12 +21,12 @@ namespace DevSpector.UI.API.Controllers
 				Json(_manager.GetFreeIP());
 
 		[HttpPut("api/ip/generate")]
-		[RequireParameters("mask")]
-		public IActionResult GenerateIPAddresses(int mask)
+		[RequireParameters("networkAddress", "mask")]
+		public IActionResult GenerateIPAddresses(string networkAddress, int mask)
 		{
 			try
 			{
-				_manager.GenerateRange(mask);
+				_manager.GenerateRange(networkAddress, mask);
 
 				return Ok();
 			}

@@ -33,12 +33,19 @@ namespace DevSpector.Application.Networking
 		{
 			SetCurrentMask(mask);
 
-			var firstHost = GetFirstHost(netwokAddress);
+			var hostsAmount = (int)Math.Pow(2, _MaxMask - mask) - 2;
+
+			var firstHostBytes = GetFirstHostBytes(netwokAddress);
+			var lastHostBytes = GetLastHostBytes(netwokAddress);
+
+			var result = new List<IPAddress>(hostsAmount);
+
+			var currentIP = firstHostBytes;
 
 			throw new NotImplementedException();
 		}
 
-		private IPAddress GetFirstHost(string address)
+		private byte[] GetFirstHostBytes(string address)
 		{
 			if (_ipValidator.Matches(address, IPProtocol.Version4))
 				throw new ArgumentException("Can't process first host - specified address doesn't match IPv4 pattern");
@@ -50,10 +57,10 @@ namespace DevSpector.Application.Networking
 				result[i] = (byte)(networkAddressOctets[i] & _currentLocalAddressBytes[i]);
 			if (result[result.Length - 1] < 255) result[result.Length - 1]++;
 
-			return new IPAddress { Address = GetAddressFromOctets(result), DeviceID = Guid.Empty };
+			return result;
 		}
 
-		private IPAddress GetLastHost(string address)
+		private byte[] GetLastHostBytes(string address)
 		{
 			if (_ipValidator.Matches(address, IPProtocol.Version4))
 				throw new ArgumentException("Can't process last host - specified address doesn't match IPv4 pattern");
@@ -65,7 +72,7 @@ namespace DevSpector.Application.Networking
 				result[i] = (byte)(networkAddressOctets[i] | ~_currentLocalAddressBytes[i]);
 			if (result[result.Length - 1] != 0) result[result.Length - 1]--;
 
-			return new IPAddress { Address = GetAddressFromOctets(result) };
+			return result;
 		}
 
 		private byte[] GetLocalAddressBytes(int mask)

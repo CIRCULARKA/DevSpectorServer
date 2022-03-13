@@ -79,6 +79,9 @@ namespace DevSpector.Application
 					(ds.SoftwareVersion == softwareVersion)
 			);
 
+		public Device GetDevice(string inventoryNumber) =>
+			_repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
         public bool DoesDeviceExist(string inventoryNumber)
         {
 			var existingDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);

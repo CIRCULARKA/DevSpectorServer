@@ -27,6 +27,8 @@ namespace DevSpector.Application
 
 		DeviceSoftware GetDeviceSoftware(Guid deviceID, string softwareName, string softwareVersion);
 
+		Device GetDevice(string inventoryNumber);
+
         bool DoesDeviceExist(string inventoryNumber);
 
         bool IsNetworkNameUnique(string networkName);

@@ -31,6 +31,7 @@ namespace DevSpector.Application.Networking
 		public IList<string> GenerateRange(string netwokAddress, int mask)
 		{
 			SetCurrentMask(mask);
+			SetCurrentLocalAddressBytes(mask);
 
 			var hostsAmount = (int)Math.Pow(2, _MaxMask - mask) - 2;
 

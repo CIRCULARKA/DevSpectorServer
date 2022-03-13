@@ -6,17 +6,33 @@ namespace Microsoft.Extensions.DependencyInjection
 {
 	public static class ServiceRegister
 	{
-		public static IServiceCollection AddApplicationServices(this IServiceCollection @this)
+		public static IServiceCollection AddApplicationServices(this IServiceCollection services)
 		{
-			@this.AddTransient<IRepository, Repository>();
+			services.AddTransient<IRepository, Repository>();
 
-			@this.AddTransient<IDevicesManager, DevicesManager>();
-			@this.AddTransient<ILocationManager, LocationManager>();
-			@this.AddTransient<IIPAddressesManager, IPAddressesManager>();
+			AddDevicesManagementServices(services);
+			AddUserManagementServices(services);
+			AddNetworkingServices(services);
 
-			@this.AddScoped<UsersManager>();
+			return services;
+		}
 
-			return @this;
+		private static void AddDevicesManagementServices(IServiceCollection services)
+		{
+			services.AddTransient<IDevicesManager, DevicesManager>();
+			services.AddTransient<ILocationManager, LocationManager>();
+		}
+
+		private static void AddUserManagementServices(IServiceCollection services)
+		{
+			services.AddScoped<UsersManager>();
+		}
+
+		private static void AddNetworkingServices(IServiceCollection services)
+		{
+			services.AddTransient<IIPValidator, IP4Validator>();
+
+			services.AddTransient<IIPAddressesManager, IPAddressesManager>();
 		}
 	}
 }

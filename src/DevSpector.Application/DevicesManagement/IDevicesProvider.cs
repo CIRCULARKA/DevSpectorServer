@@ -16,8 +16,6 @@ namespace DevSpector.Application
 
 		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
 
-		DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo softwareInfo);
-
 		IEnumerable<Appliance> GetDevicesAsAppliances();
 
 		Cabinet GetDeviceCabinet(Guid deviceID);
@@ -27,5 +25,7 @@ namespace DevSpector.Application
         bool IsNetworkNameUnique(string networkName);
 
         bool DoesDeviceTypeExist(Guid typeID);
+
+		bool HasSoftware(Guid deviceID, SoftwareInfo softwareInfo);
 	}
 }

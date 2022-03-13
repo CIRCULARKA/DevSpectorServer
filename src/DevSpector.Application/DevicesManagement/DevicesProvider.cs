@@ -33,13 +33,6 @@ namespace DevSpector.Application
 				ds => (ds.DeviceID == deviceID)
 			);
 
-		public DeviceSoftware GetDeviceSoftware(Guid deviceID, SoftwareInfo info) =>
-			_repo.GetSingle<DeviceSoftware>(
-				ds => (ds.DeviceID == deviceID) &&
-					(ds.SoftwareName == info.SoftwareName) &&
-					(ds.SoftwareVersion == info.SoftwareVersion)
-			);
-
 		public IEnumerable<Appliance> GetDevicesAsAppliances()
 		{
 			return GetDevices().Select(d => {
@@ -79,5 +72,13 @@ namespace DevSpector.Application
 
         public bool DoesDeviceTypeExist(Guid typeID) =>
 			_repo.GetByID<DeviceType>(typeID) != null;
+
+		public bool HasSoftware(Guid deviceID, SoftwareInfo info) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == info.SoftwareName) &&
+					(ds.SoftwareVersion == info.SoftwareVersion)
+			) != null;
+
 	}
 }

@@ -31,6 +31,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		private static void AddNetworkingServices(IServiceCollection services)
 		{
 			services.AddTransient<IIPValidator, IPValidator>();
+			services.AddTransient<IIPRangeGenerator, IP4RangeGenerator>();
 
 			services.AddTransient<IIPAddressesManager, IPAddressesManager>();
 		}

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
+using DevSpector.Application.Networking.Enumerations;
 
 namespace DevSpector.Application.Networking
 {
@@ -37,7 +38,7 @@ namespace DevSpector.Application.Networking
 
 		public void GenerateRange(string networkAddress, int mask)
 		{
-			if (!_ipValidator.Matches(networkAddress))
+			if (!_ipValidator.Matches(networkAddress, IPProtocol.Version4))
 				throw new ArgumentException("Network address does not match IPv4 pattern");
 
 			if (mask < 20 && mask > 30)
@@ -46,7 +47,7 @@ namespace DevSpector.Application.Networking
 
 		public bool IsAddressFree(string ipAddress)
 		{
-			if (!_ipValidator.Matches(ipAddress))
+			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
 				throw new ArgumentException("IP address does not match IPv4 pattern");
 
 			return GetFreeIP().Contains(ipAddress);

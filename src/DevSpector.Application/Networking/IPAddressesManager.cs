@@ -13,13 +13,17 @@ namespace DevSpector.Application.Networking
 
 		private IIPValidator _ipValidator;
 
+		private IIPRangeGenerator _ipRangeGenerator;
+
 		public IPAddressesManager(
 			IRepository repo,
-			IIPValidator ipValidator
+			IIPValidator ipValidator,
+			IIPRangeGenerator ipRangeGenerator
 		)
 		{
 			_repo = repo;
 			_ipValidator = ipValidator;
+			_ipRangeGenerator = ipRangeGenerator;
 		}
 
 		public IEnumerable<string> GetFreeIP() =>
@@ -38,11 +42,28 @@ namespace DevSpector.Application.Networking
 
 		public void GenerateRange(string networkAddress, int mask)
 		{
-			if (!_ipValidator.Matches(networkAddress, IPProtocol.Version4))
-				throw new ArgumentException("Network address does not match IPv4 pattern");
+			// Get ip addresses according to mask and put them into new IPAddress objects
+			var ips = _ipRangeGenerator.GenerateRange(networkAddress, mask);
 
-			if (mask < 20 && mask > 30)
-				throw new ArgumentException("Mask should be in range from 20 to 30");
+			var newIps = new IPAddress[ips.Count];
+			for (int i = 0; i < ips.Count; i++)
+			{
+				newIps[i] = new IPAddress {
+					Address = ips[i],
+					DeviceID = null
+				};
+			}
+
+			// Remove existing IP addresses from database and add new ones
+			var existingIps = _repo.Get<IPAddress>();
+			foreach (var ip in existingIps)
+				_repo.Remove<IPAddress>(ip);
+			_repo.Save();
+
+			foreach (var ip in newIps)
+				_repo.Add<IPAddress>(ip);
+
+			_repo.Save();
 		}
 
 		public bool IsAddressFree(string ipAddress)

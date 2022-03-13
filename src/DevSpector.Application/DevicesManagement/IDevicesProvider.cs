@@ -26,6 +26,8 @@ namespace DevSpector.Application
 
         bool DoesDeviceTypeExist(Guid typeID);
 
-		bool HasSoftware(Guid deviceID, SoftwareInfo softwareInfo);
+		bool HasSoftware(Guid deviceID, string softwareName);
+
+		bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion);
 	}
 }

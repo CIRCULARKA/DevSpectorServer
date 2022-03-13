@@ -73,12 +73,17 @@ namespace DevSpector.Application
         public bool DoesDeviceTypeExist(Guid typeID) =>
 			_repo.GetByID<DeviceType>(typeID) != null;
 
-		public bool HasSoftware(Guid deviceID, SoftwareInfo info) =>
+		public bool HasSoftware(Guid deviceID, string softwareName) =>
 			_repo.GetSingle<DeviceSoftware>(
 				ds => (ds.DeviceID == deviceID) &&
-					(ds.SoftwareName == info.SoftwareName) &&
-					(ds.SoftwareVersion == info.SoftwareVersion)
+					(ds.SoftwareName == softwareName)
 			) != null;
 
+		public bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion) =>
+			_repo.GetSingle<DeviceSoftware>(
+				ds => (ds.DeviceID == deviceID) &&
+					(ds.SoftwareName == softwareName) &&
+					(ds.SoftwareVersion == softwareVersion)
+			) != null;
 	}
 }

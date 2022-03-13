@@ -25,9 +25,7 @@ namespace DevSpector.Application
 
 		void RemoveIPAddress(string inventoryNumber, string ipAddress);
 
-		void ThrowIfDevice(EntityExistance existance, string inventoryNumber);
-
-		Cabinet GetDeviceCabinet(string inventoryNumber);
+		Cabinet GetDeviceCabinet(Guid deviceID);
 
 		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
 
@@ -35,7 +33,7 @@ namespace DevSpector.Application
 
 		IEnumerable<Device> GetDevices();
 
-		IEnumerable<Appliance> GetAppliances();
+		IEnumerable<Appliance> GetDevicesAsAppliances();
 
 		IEnumerable<DeviceType> GetDeviceTypes();
 	}

@@ -10,25 +10,25 @@ using DevSpector.Domain.Models;
 
 namespace DevSpector.Application
 {
-	public class ClientUsersManager
+	public class UsersManager
 	{
 		private IRepository _repository;
 
-		private SignInManager<ClientUser> _signInManager;
+		private SignInManager<User> _signInManager;
 
-		private UserManager<ClientUser> _baseUsersManager;
+		private UserManager<User> _baseUsersManager;
 
-        public ClientUsersManager(
+        public UsersManager(
 			IRepository repo,
-			SignInManager<ClientUser> signInManager,
-			UserManager<ClientUser> baseUsersManager)
+			SignInManager<User> signInManager,
+			UserManager<User> baseUsersManager)
 		{
 			_repository = repo;
 			_signInManager = signInManager;
 			_baseUsersManager = baseUsersManager;
 		}
 
-		public async Task<string> GetUserGroup(ClientUser user) =>
+		public async Task<string> GetUserGroup(User user) =>
 			(await _baseUsersManager.GetRolesAsync(user)).FirstOrDefault();
 
 		public async Task CreateUserAsync(UserInfo newUserInfo)
@@ -103,7 +103,7 @@ namespace DevSpector.Application
 		/// <summary>
 		/// Returns authorized user
 		/// </summary>
-		public async Task<ClientUser> AuthorizeUser(string login, string password)
+		public async Task<User> AuthorizeUser(string login, string password)
 		{
 			if (login == null)
 				throw new ArgumentException("In order to authorize user, user's login can't be null");
@@ -129,7 +129,7 @@ namespace DevSpector.Application
 			return targetUser;
 		}
 
-		public IEnumerable<ClientUser> GetAllUsers() =>
+		public IEnumerable<User> GetAllUsers() =>
 			_baseUsersManager.Users;
 
 		public async Task<string> RevokeUserAPIAsync(string login, string password)
@@ -153,10 +153,10 @@ namespace DevSpector.Application
 			return targetUser.AccessKey;
 		}
 
-		public async Task<ClientUser> FindByLoginAsync(string login) =>
+		public async Task<User> FindByLoginAsync(string login) =>
 			await _baseUsersManager.FindByNameAsync(login);
 
-		public ClientUser FindByApi(string key) =>
+		public User FindByApi(string key) =>
 			_baseUsersManager.Users.FirstOrDefault(u => u.AccessKey == key);
 
 		public IEnumerable<IdentityRole> GetUserGroups() =>
@@ -190,9 +190,9 @@ namespace DevSpector.Application
 				throw new ArgumentException("User group with specified ID doesn't exists");
 		}
 
-		private ClientUser FormUserFrom(UserInfo updatedInfo)
+		private User FormUserFrom(UserInfo updatedInfo)
 		{
-			var newUser = new ClientUser {
+			var newUser = new User {
 				AccessKey = Guid.NewGuid().ToString()
 			};
 

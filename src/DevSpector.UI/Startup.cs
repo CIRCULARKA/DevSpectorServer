@@ -49,7 +49,7 @@ namespace DevSpector.UI
             // services.AddControllers().AddFluentValidation();
             services.AddControllers();
 
-            services.AddIdentity<ClientUser, IdentityRole>().
+            services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationDbContext>();
 

@@ -5,7 +5,7 @@ using DevSpector.Domain.Models;
 
 namespace DevSpector.Database
 {
-	public class ApplicationDbContext : IdentityDbContext<ClientUser>
+	public class ApplicationDbContext : IdentityDbContext<User>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
 			base(options) { }

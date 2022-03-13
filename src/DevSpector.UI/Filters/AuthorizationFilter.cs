@@ -9,9 +9,9 @@ namespace DevSpector.UI.Filters
 {
     public class AuthorizationFilter : IAuthorizationFilter
     {
-        private readonly ClientUsersManager _usersManager;
+        private readonly UsersManager _usersManager;
 
-        public AuthorizationFilter(ClientUsersManager usersManager)
+        public AuthorizationFilter(UsersManager usersManager)
         {
             _usersManager = usersManager;
         }

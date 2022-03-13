@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
 			@this.AddTransient<ILocationManager, LocationManager>();
 			@this.AddTransient<IIPAddressesManager, IPAddressesManager>();
 
-			@this.AddScoped<ClientUsersManager>();
+			@this.AddScoped<UsersManager>();
 
 			return @this;
 		}

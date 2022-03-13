@@ -13,11 +13,11 @@ namespace DevSpector.UI.API.Controllers
 {
 	public class UsersController : ApiController
 	{
-        private readonly ClientUsersManager _usersManager;
+        private readonly UsersManager _usersManager;
 
 		public UsersController(
-            ClientUsersManager usersManager,
-			SignInManager<ClientUser> signInManager
+            UsersManager usersManager,
+			SignInManager<DevSpector.Domain.Models.User> signInManager
 		)
 		{
             _usersManager = usersManager;
@@ -29,7 +29,7 @@ namespace DevSpector.UI.API.Controllers
 			Json(
 				_usersManager.GetAllUsers().
 					Select(
-						u => new User(
+						u => new DevSpector.SDK.Models.User(
 							u.AccessKey,
 							u.UserName,
 							_usersManager.GetUserGroup(u).Result

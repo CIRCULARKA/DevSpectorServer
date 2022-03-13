@@ -39,7 +39,7 @@ namespace Microsoft.AspNetCore.Builder
             string password
         )
         {
-            var context = GetService<ClientUsersManager>(@this);
+            var context = GetService<UsersManager>(@this);
 
             if ((await context.FindByLoginAsync(login)) != null)
                 return @this;
@@ -61,7 +61,7 @@ namespace Microsoft.AspNetCore.Builder
         )
         {
             var context = GetService<ApplicationDbContext>(@this);
-            var usersManager = GetService<ClientUsersManager>(@this);
+            var usersManager = GetService<UsersManager>(@this);
 
             if (context.Devices.Count() != 0) return @this;
 

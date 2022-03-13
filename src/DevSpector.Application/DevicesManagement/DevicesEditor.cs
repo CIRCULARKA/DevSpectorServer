@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.Database;
+using DevSpector.Application.Networking;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Devices
 {
@@ -12,13 +14,23 @@ namespace DevSpector.Application.Devices
 
 		private IDevicesProvider _devicesProvider;
 
+		private IIPValidator _ipValidator;
+
+		private IIPAddressesProvider _ipProvider;
+
 		public DevicesEditor(
 			IRepository repo,
-			IDevicesProvider devicesProvider
+			IDevicesProvider devicesProvider,
+			IIPValidator ipValidator,
+			IIPAddressesProvider ipProvider
 		)
 		{
 			_repo = repo;
+
 			_devicesProvider = devicesProvider;
+			_ipProvider = ipProvider;
+
+			_ipValidator = ipValidator;
 		}
 
 		public void CreateDevice(DeviceInfo info)
@@ -167,7 +179,21 @@ namespace DevSpector.Application.Devices
 
 		public void AddIPAddress(string inventoryNumber, string ipAddress)
 		{
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
+				throw new ArgumentException("There is no device with specified inventory number");
 
+			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
+				throw new ArgumentException("Specified IP address does not match IPv4 pattern");
+
+			if (!_ipProvider.IsAddressFree(ipAddress))
+				throw new InvalidOperationException("Specified IP address is already in use or out of range");
+
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			targetIP.DeviceID = targetDevice.ID;
+
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
 		}
 
 		public void RemoveIPAddress(string inventoryNumber, string ipAddress)

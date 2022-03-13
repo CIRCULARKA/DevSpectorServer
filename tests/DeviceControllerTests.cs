@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using DevSpector.Domain;
 using DevSpector.SDK.Models;
 using DevSpector.Application;
+using DevSpector.Application.Networking;
 using DevSpector.Domain.Models;
 using DevSpector.UI.API.Controllers;
 
@@ -80,7 +81,8 @@ namespace DevSpector.Server.Tests.Server.Controllers
 
 			var devicesManagerMock = new DevicesManager(
 				repoMock.Object,
-				null
+				null,
+				new IP4Validator()
 			);
 
 			_controller = new DevicesController(

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using DevSpector.Domain.Models;
 using DevSpector.Application.Networking.Enumerations;
 
 namespace DevSpector.Application.Networking
@@ -44,7 +43,16 @@ namespace DevSpector.Application.Networking
 
 			result.Add(GetAddressFromOctets(currentIP));
 
-			throw new NotImplementedException();
+			for (int i = 0; i < hostsAmount - 1; i++)
+				for (int j = _OctetsAmount - 1; j > 0; j--)
+					if (firstHostBytes[j] < lastHostBytes[j])
+					{
+						currentIP[j]++;
+						result.Add(GetAddressFromOctets(currentIP));
+						break;
+					}
+
+			return result;
 		}
 
 		private byte[] GetFirstHostBytes(string address)

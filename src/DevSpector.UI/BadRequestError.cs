@@ -1,6 +1,6 @@
 namespace DevSpector.UI
 {
-    public class BadRequestErrorMessage
+    public class BadRequestError
     {
         public string Error { get; init; }
 

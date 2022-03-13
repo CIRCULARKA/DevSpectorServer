@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Networking
 {
 	public interface IIPAddressesManager
 	{
@@ -8,8 +8,8 @@ namespace DevSpector.Application
 
 		IEnumerable<string> GetSortedFreeIP();
 
-		bool IsAddressFree(string ipAddress);
+		void GenerateRange(string networkAddress, int mask);
 
-		bool MathesIPv4(string ipAddress);
+		bool IsAddressFree(string ipAddress);
 	}
 }

@@ -28,6 +28,11 @@ namespace DevSpector.Application
 					ThenBy(address => int.Parse(address.Split(".")[2])).
 					ThenBy(address => int.Parse(address.Split(".")[3]));
 
+		public void GenerateRange(int mask)
+		{
+
+		}
+
 		public bool IsAddressFree(string ipAddress)
 		{
 			if (!MathesIPv4(ipAddress))

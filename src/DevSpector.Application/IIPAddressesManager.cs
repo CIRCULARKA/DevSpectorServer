@@ -8,6 +8,8 @@ namespace DevSpector.Application
 
 		IEnumerable<string> GetSortedFreeIP();
 
+		void GenerateRange(int mask);
+
 		bool IsAddressFree(string ipAddress);
 
 		bool MathesIPv4(string ipAddress);

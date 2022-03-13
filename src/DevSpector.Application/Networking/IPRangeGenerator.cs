@@ -57,7 +57,7 @@ namespace DevSpector.Application.Networking
 
 		private byte[] GetFirstHostBytes(string address)
 		{
-			if (_ipValidator.Matches(address, IPProtocol.Version4))
+			if (!_ipValidator.Matches(address, IPProtocol.Version4))
 				throw new ArgumentException("Can't process first host - specified address doesn't match IPv4 pattern");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);
@@ -72,7 +72,7 @@ namespace DevSpector.Application.Networking
 
 		private byte[] GetLastHostBytes(string address)
 		{
-			if (_ipValidator.Matches(address, IPProtocol.Version4))
+			if (!_ipValidator.Matches(address, IPProtocol.Version4))
 				throw new ArgumentException("Can't process last host - specified address doesn't match IPv4 pattern");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);

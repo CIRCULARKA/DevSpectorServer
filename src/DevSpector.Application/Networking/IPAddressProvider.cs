@@ -7,7 +7,7 @@ using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {
-	public class IPAddressesManager : IIPAddressesManager
+	public class IPAddressesManager : IIPAddressesProvider
 	{
 		private IRepository _repo;
 
@@ -31,7 +31,7 @@ namespace DevSpector.Application.Networking
 				filter: ip => ip.DeviceID == null
 			).Select(ip => ip.Address);
 
-		public IEnumerable<string> GetSortedFreeIP() =>
+		public IEnumerable<string> GetFreeIPSorted() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
 			).Select(ip => ip.Address).

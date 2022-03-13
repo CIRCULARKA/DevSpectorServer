@@ -20,7 +20,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/devices")]
 		public JsonResult GetDevices() {
-			return Json(_devicesManager.GetAppliances());
+			return Json(_devicesManager.GetDevicesAsAppliances());
 		}
 
 		[HttpPost("api/devices/add")]

@@ -115,7 +115,23 @@ namespace DevSpector.Application.Devices
 
 		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
 		{
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
+				throw new InvalidOperationException("There is no device with specified ID");
 
+			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+
+			// Check if device already has software with the same name AND version
+			if (_devicesProvider.HasSoftware(targetDevice.ID, info))
+				throw new InvalidOperationException("Specified device already has software with specified version");
+
+			var newDeviceSoftware = new DeviceSoftware {
+				DeviceID = targetDevice.ID,
+				SoftwareName = info.SoftwareName,
+				SoftwareVersion = info.SoftwareVersion
+			};
+
+			_repo.Add<DeviceSoftware>(newDeviceSoftware);
+			_repo.Save();
 		}
 
 		public void RemoveSoftware(string inventoryNumber, SoftwareInfo info)

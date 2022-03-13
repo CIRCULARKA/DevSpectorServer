@@ -198,7 +198,22 @@ namespace DevSpector.Application.Devices
 
 		public void RemoveIPAddress(string inventoryNumber, string ipAddress)
 		{
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
+				throw new ArgumentException("There is no device with specified invnentory number");
 
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
+
+			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
+				throw new ArgumentException("Specified IP address does not match IPv4 pattern");
+
+			if (!_devicesProvider.HasIP(targetDevice.ID, ipAddress))
+				throw new InvalidOperationException("Device doesn't have specified IP address");
+
+			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
+			targetIP.DeviceID = null;
+
+			_repo.Update<IPAddress>(targetIP);
+			_repo.Save();
 		}
 
 		private Device FormDeviceFrom(DeviceInfo info)

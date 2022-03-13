@@ -1,5 +1,5 @@
 using DevSpector.Application.Networking;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 using Xunit;
 
 namespace DevSpector.Tests.Application.Networking

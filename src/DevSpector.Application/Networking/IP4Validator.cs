@@ -1,6 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {

@@ -1,4 +1,4 @@
-namespace DevSpector.Application
+namespace DevSpector.Application.Enumerations
 {
     public enum EntityExistance
     {

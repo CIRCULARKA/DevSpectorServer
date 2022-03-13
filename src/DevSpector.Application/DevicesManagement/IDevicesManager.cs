@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
 using DevSpector.Database;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {

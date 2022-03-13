@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {

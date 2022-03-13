@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {

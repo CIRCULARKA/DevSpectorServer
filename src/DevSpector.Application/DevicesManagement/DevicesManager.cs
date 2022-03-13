@@ -6,7 +6,7 @@ using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
 using DevSpector.Database;
 using DevSpector.Application.Networking;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {

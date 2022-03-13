@@ -16,13 +16,13 @@ namespace DevSpector.Application.Devices
 
 		private IIPValidator _ipValidator;
 
-		private IIPAddressesProvider _ipProvider;
+		private IIPAddressProvider _ipProvider;
 
 		public DevicesEditor(
 			IRepository repo,
 			IDevicesProvider devicesProvider,
 			IIPValidator ipValidator,
-			IIPAddressesProvider ipProvider
+			IIPAddressProvider ipProvider
 		)
 		{
 			_repo = repo;
@@ -61,13 +61,12 @@ namespace DevSpector.Application.Devices
 			_repo.Save();
 		}
 
-		public void UpdateDevice(string targetInventoryNumber, DeviceInfo info)
+		public void UpdateDevice(string inventoryNumber, DeviceInfo info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(info.InventoryNumber))
 				throw new InvalidOperationException("There is no device with specified inventory number");
 
-			var targetDevice = _repo.GetSingle<Device>(
-				d => d.InventoryNumber == targetInventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			if (info.TypeID != Guid.Empty)
 			{
@@ -100,7 +99,7 @@ namespace DevSpector.Application.Devices
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new InvalidOperationException("There is no device with specified inventory number");
 
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			_repo.Remove<Device>(targetDevice.ID);
 			_repo.Save();
@@ -115,7 +114,7 @@ namespace DevSpector.Application.Devices
 			if (targetCabinet == null)
 				throw new ArgumentException("Could not find cabinet with specified ID");
 
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			var deviceCabinet = _repo.GetSingle<DeviceCabinet>(dc => dc.DeviceID == targetDevice.ID);
 
@@ -131,7 +130,7 @@ namespace DevSpector.Application.Devices
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new InvalidOperationException("There is no device with specified ID");
 
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			// Check if device already has software with the same name AND version
 			if (_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
@@ -152,7 +151,7 @@ namespace DevSpector.Application.Devices
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new InvalidOperationException("There is no device with specified inventory number");
 
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			if (info.SoftwareVersion != null)
 			{
@@ -189,7 +188,7 @@ namespace DevSpector.Application.Devices
 				throw new InvalidOperationException("Specified IP address is already in use or out of range");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
-			var targetDevice = _repo.GetSingle<Device>(d => d.InventoryNumber == inventoryNumber);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 			targetIP.DeviceID = targetDevice.ID;
 
 			_repo.Update<IPAddress>(targetIP);

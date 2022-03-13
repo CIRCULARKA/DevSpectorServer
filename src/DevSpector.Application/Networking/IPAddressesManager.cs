@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Networking
 {
 	public class IPAddressesManager : IIPAddressesManager
 	{

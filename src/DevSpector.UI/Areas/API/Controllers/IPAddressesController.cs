@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
 using DevSpector.UI.Filters;
+using DevSpector.Application.Networking;
 
 namespace DevSpector.UI.API.Controllers
 {

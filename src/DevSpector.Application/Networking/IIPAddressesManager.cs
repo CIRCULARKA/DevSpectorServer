@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Networking
 {
 	public interface IIPAddressesManager
 	{

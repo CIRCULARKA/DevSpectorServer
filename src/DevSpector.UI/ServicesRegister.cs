@@ -1,5 +1,6 @@
 using DevSpector.Domain;
 using DevSpector.Application;
+using DevSpector.Application.Networking;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

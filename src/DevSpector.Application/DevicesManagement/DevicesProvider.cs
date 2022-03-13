@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.SDK.Models;
+using DevSpector.Application.Networking;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {
@@ -11,9 +13,16 @@ namespace DevSpector.Application
 	{
 		private readonly IRepository _repo;
 
-		public DevicesProvider(IRepository repo)
+		private readonly IIPValidator _ipValidator;
+
+		public DevicesProvider(
+			IRepository repo,
+			IIPValidator ipValidator
+		)
 		{
 			_repo = repo;
+
+			_ipValidator = ipValidator;
 		}
 
 		public IEnumerable<Device> GetDevices() =>
@@ -90,5 +99,15 @@ namespace DevSpector.Application
 
 		public bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion) =>
 			GetDeviceSoftware(deviceID, softwareName, softwareVersion) != null;
+
+		public bool HasIP(Guid deviceID, string ipAddress)
+		{
+			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
+				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
+
+			var deviceIp = _repo.GetSingle<IPAddress>(ip => (ip.DeviceID == deviceID) && (ip.Address == ipAddress));
+
+			return deviceID != null;
+		}
 	}
 }

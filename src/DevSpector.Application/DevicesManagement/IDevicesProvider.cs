@@ -36,5 +36,7 @@ namespace DevSpector.Application
 		bool HasSoftware(Guid deviceID, string softwareName);
 
 		bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion);
+
+		bool HasIP(Guid deviceID, string ipAddress);
 	}
 }

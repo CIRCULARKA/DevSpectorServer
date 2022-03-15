@@ -4,7 +4,7 @@ using DevSpector.Database;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Devices
 {
 	public interface IDevicesProvider
 	{

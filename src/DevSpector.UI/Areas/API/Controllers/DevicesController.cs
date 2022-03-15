@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
+using DevSpector.Application.Devices;
 using DevSpector.Database;
 using DevSpector.UI.Filters;
 

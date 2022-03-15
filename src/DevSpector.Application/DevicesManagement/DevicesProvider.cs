@@ -7,7 +7,7 @@ using DevSpector.SDK.Models;
 using DevSpector.Application.Networking;
 using DevSpector.Application.Enumerations;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Devices
 {
 	public class DevicesProvider : IDevicesProvider
 	{

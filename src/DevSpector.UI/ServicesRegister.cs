@@ -1,5 +1,6 @@
 using DevSpector.Domain;
 using DevSpector.Application;
+using DevSpector.Application.Devices;
 using DevSpector.Application.Networking;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -20,6 +21,8 @@ namespace Microsoft.Extensions.DependencyInjection
 		private static void AddDevicesManagementServices(IServiceCollection services)
 		{
 			services.AddTransient<IDevicesManager, DevicesManager>();
+			services.AddTransient<IDevicesProvider, DevicesProvider>();
+			services.AddTransient<IDevicesEditor, DevicesEditor>();
 			services.AddTransient<ILocationManager, LocationManager>();
 		}
 
@@ -33,7 +36,8 @@ namespace Microsoft.Extensions.DependencyInjection
 			services.AddTransient<IIPValidator, IPValidator>();
 			services.AddTransient<IIPRangeGenerator, IP4RangeGenerator>();
 
-			services.AddTransient<IIPAddressesManager, IPAddressesManager>();
+			services.AddTransient<IIPAddressProvider, IPAddressProvider>();
+			services.AddTransient<IIPAddressEditor, IPAddressEditor>();
 		}
 	}
 }

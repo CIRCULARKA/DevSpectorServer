@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,8 +7,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using DevSpector.Database;
 using DevSpector.Domain.Models;
 using DevSpector.UI.Filters;
@@ -32,7 +29,7 @@ namespace DevSpector.UI
         {
             services.AddTransient<ILogger<Startup>, Logger<Startup>>();
 
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<ApplicationContextBase, ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
                         options.UseSqlite(Configuration["ConnectionString"]);
@@ -51,7 +48,7 @@ namespace DevSpector.UI
 
             services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().
-                AddEntityFrameworkStores<ApplicationDbContext>();
+                AddEntityFrameworkStores<ApplicationContextBase>();
 
             // services.AddTransient<IValidator<Device>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
@@ -85,7 +82,7 @@ namespace DevSpector.UI
 
         private void MigrateDatabase(IApplicationBuilder builder)
         {
-            var context = GetService<ApplicationDbContext>(builder);
+            var context = GetService<ApplicationContextBase>(builder);
             if (context.Database.GetPendingMigrations().Any())
                 context.Database.Migrate();
         }

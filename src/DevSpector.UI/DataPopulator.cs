@@ -17,7 +17,7 @@ namespace Microsoft.AspNetCore.Builder
             string groupName
         )
         {
-            var context = GetService<ApplicationDbContext>(@this);
+            var context = GetService<ApplicationContextBase>(@this);
 
             var roles = context.Roles;
 
@@ -60,7 +60,7 @@ namespace Microsoft.AspNetCore.Builder
             this IApplicationBuilder @this
         )
         {
-            var context = GetService<ApplicationDbContext>(@this);
+            var context = GetService<ApplicationContextBase>(@this);
             var usersManager = GetService<UsersManager>(@this);
 
             if (context.Devices.Count() != 0) return @this;

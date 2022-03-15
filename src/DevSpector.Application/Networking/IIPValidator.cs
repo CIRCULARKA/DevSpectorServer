@@ -1,4 +1,4 @@
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {

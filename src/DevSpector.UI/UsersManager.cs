@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using DevSpector.Domain;
 using DevSpector.Database;
 using DevSpector.Domain.Models;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {

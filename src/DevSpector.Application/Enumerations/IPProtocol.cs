@@ -1,4 +1,4 @@
-namespace DevSpector.Application.Networking.Enumerations
+namespace DevSpector.Application.Enumerations
 {
     public enum IPProtocol
     {

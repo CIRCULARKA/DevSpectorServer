@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using DevSpector.Domain.Models;
 
 namespace DevSpector.Application.Networking
 {
-	public interface IIPAddressesManager
+	public interface IIPAddressProvider
 	{
-		IEnumerable<string> GetFreeIP();
+		IEnumerable<IPAddress> GetFreeIP();
 
-		IEnumerable<string> GetSortedFreeIP();
+		IEnumerable<IPAddress> GetFreeIPSorted();
+
+		IPAddress GetIP(string address);
 
 		void GenerateRange(string networkAddress, int mask);
 

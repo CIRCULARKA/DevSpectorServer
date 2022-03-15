@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
 using DevSpector.Database;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {
-	public interface IDevicesManager
+	public interface IDevicesEditor
 	{
 		void CreateDevice(DeviceInfo info);
 
@@ -23,19 +24,5 @@ namespace DevSpector.Application
 		void AddIPAddress(string inventoryNumber, string ipAddress);
 
 		void RemoveIPAddress(string inventoryNumber, string ipAddress);
-
-		void ThrowIfDevice(EntityExistance existance, string inventoryNumber);
-
-		Cabinet GetDeviceCabinet(string inventoryNumber);
-
-		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
-
-		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
-
-		IEnumerable<Device> GetDevices();
-
-		IEnumerable<Appliance> GetAppliances();
-
-		IEnumerable<DeviceType> GetDeviceTypes();
 	}
 }

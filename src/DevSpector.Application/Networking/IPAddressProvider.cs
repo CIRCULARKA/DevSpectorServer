@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
-using DevSpector.Application.Networking.Enumerations;
+using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application.Networking
 {
-	public class IPAddressesManager : IIPAddressesManager
+	public class IPAddressProvider : IIPAddressProvider
 	{
 		private IRepository _repo;
 
@@ -15,7 +15,7 @@ namespace DevSpector.Application.Networking
 
 		private IIPRangeGenerator _ipRangeGenerator;
 
-		public IPAddressesManager(
+		public IPAddressProvider(
 			IRepository repo,
 			IIPValidator ipValidator,
 			IIPRangeGenerator ipRangeGenerator
@@ -26,19 +26,21 @@ namespace DevSpector.Application.Networking
 			_ipRangeGenerator = ipRangeGenerator;
 		}
 
-		public IEnumerable<string> GetFreeIP() =>
+		public IEnumerable<IPAddress> GetFreeIP() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
-			).Select(ip => ip.Address);
+			);
 
-		public IEnumerable<string> GetSortedFreeIP() =>
+		public IEnumerable<IPAddress> GetFreeIPSorted() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
-			).Select(ip => ip.Address).
-				OrderBy(address => int.Parse(address.Split(".")[0])).
-					ThenBy(address => int.Parse(address.Split(".")[1])).
-					ThenBy(address => int.Parse(address.Split(".")[2])).
-					ThenBy(address => int.Parse(address.Split(".")[3]));
+			).OrderBy(ip => int.Parse(ip.Address.Split(".")[0])).
+				ThenBy(ip => int.Parse(ip.Address.Split(".")[1])).
+				ThenBy(ip => int.Parse(ip.Address.Split(".")[2])).
+				ThenBy(ip => int.Parse(ip.Address.Split(".")[3]));
+
+		public IPAddress GetIP(string address) =>
+			_repo.GetSingle<IPAddress>(ip => ip.Address == address);
 
 		public void GenerateRange(string networkAddress, int mask)
 		{
@@ -71,7 +73,7 @@ namespace DevSpector.Application.Networking
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
 				throw new ArgumentException("IP address does not match IPv4 pattern");
 
-			return GetFreeIP().Contains(ipAddress);
+			return GetFreeIP().Where(ip => ip.Address == ipAddress).Count() == 1;
 		}
 	}
 }

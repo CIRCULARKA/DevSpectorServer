@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 using System.Linq;
 using DevSpector.Tests.Database;
@@ -136,6 +137,20 @@ namespace DevSpector.Tests.Application.Devices
 
             foreach (var device in targetDevices)
                 Assert.True(_provider.IsNetworkNameUnique(device.NetworkName + "_mess"));
+        }
+
+        [Fact]
+        public void DoesDeviceTypeExistsTest()
+        {
+            // Arrange
+            var types = _provider.GetDeviceTypes();
+
+            // Assert
+            foreach (var type in types)
+                Assert.True(_provider.DoesDeviceTypeExist(type.ID));
+
+            Assert.False(_provider.DoesDeviceTypeExist(Guid.NewGuid()));
+            Assert.False(_provider.DoesDeviceTypeExist(Guid.Empty));
         }
     }
 }

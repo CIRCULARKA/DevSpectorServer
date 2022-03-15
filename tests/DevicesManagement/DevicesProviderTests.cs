@@ -123,5 +123,19 @@ namespace DevSpector.Tests.Application.Devices
             foreach (var ip in anotherIps)
                 Assert.False(_provider.HasIP(targetDevice.ID, ip.Address));
         }
+
+        [Fact]
+        public void IsNetworkNameUniqueTest()
+        {
+            // Arrange
+            var targetDevices = _provider.GetDevices();
+
+            // Assert
+            foreach (var device in targetDevices)
+                Assert.False(_provider.IsNetworkNameUnique(device.NetworkName));
+
+            foreach (var device in targetDevices)
+                Assert.True(_provider.IsNetworkNameUnique(device.NetworkName + "_mess"));
+        }
     }
 }

@@ -25,23 +25,23 @@ namespace DevSpector.Application.Devices
 			_ipValidator = ipValidator;
 		}
 
-		public IEnumerable<Device> GetDevices() =>
-			_repo.Get<Device>(include: "Type");
+		public List<Device> GetDevices() =>
+			_repo.Get<Device>(include: "Type").ToList();
 
-		public IEnumerable<DeviceType> GetDeviceTypes() =>
-			_repo.Get<DeviceType>();
+		public List<DeviceType> GetDeviceTypes() =>
+			_repo.Get<DeviceType>().ToList();
 
-		public IEnumerable<IPAddress> GetIPAddresses(Guid deviceID) =>
+		public List<IPAddress> GetIPAddresses(Guid deviceID) =>
 			_repo.Get<IPAddress>(
 				filter: di => di.DeviceID == deviceID
-			);
+			).ToList();
 
-		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
+		public List<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
 			_repo.Get<DeviceSoftware>(
 				ds => (ds.DeviceID == deviceID)
-			);
+			).ToList();
 
-		public IEnumerable<Appliance> GetDevicesAsAppliances()
+		public List<Appliance> GetDevicesAsAppliances()
 		{
 			return GetDevices().Select(d => {
 				var deviceCabinet = GetDeviceCabinet(d.ID);
@@ -59,14 +59,14 @@ namespace DevSpector.Application.Devices
 						s => $"{s.SoftwareName} ({s.SoftwareVersion})"
 					).ToList()
 				);
-			});
+			}).ToList();
 		}
 
-		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName) =>
+		public List<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName) =>
 			_repo.Get<DeviceSoftware>(
 				ds => (ds.DeviceID == deviceID) &&
 					(ds.SoftwareName == softwareName)
-			);
+			).ToList();
 
 		public Cabinet GetDeviceCabinet(Guid deviceID) =>
 			_repo.GetSingle<DeviceCabinet>(include: "Cabinet,Cabinet.Housing",

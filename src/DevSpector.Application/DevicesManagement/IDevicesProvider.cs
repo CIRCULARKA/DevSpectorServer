@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DevSpector.Database;
 using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
 
@@ -8,20 +7,20 @@ namespace DevSpector.Application.Devices
 {
 	public interface IDevicesProvider
 	{
-		IEnumerable<Device> GetDevices();
+		List<Device> GetDevices();
 
-		IEnumerable<DeviceType> GetDeviceTypes();
+		List<DeviceType> GetDeviceTypes();
 
-		IEnumerable<IPAddress> GetIPAddresses(Guid deviceID);
+		List<IPAddress> GetIPAddresses(Guid deviceID);
 
-		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
+		List<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
 
-		IEnumerable<Appliance> GetDevicesAsAppliances();
+		List<Appliance> GetDevicesAsAppliances();
 
 		/// <summary>
 		/// Returns all versions of specified software name
 		/// </summary>
-		IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName);
+		List<DeviceSoftware> GetDeviceSoftware(Guid deviceID, string softwareName);
 
 		Cabinet GetDeviceCabinet(Guid deviceID);
 

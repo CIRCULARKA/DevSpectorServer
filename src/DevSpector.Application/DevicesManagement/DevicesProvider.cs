@@ -107,7 +107,7 @@ namespace DevSpector.Application.Devices
 
 			var deviceIp = _repo.GetSingle<IPAddress>(ip => (ip.DeviceID == deviceID) && (ip.Address == ipAddress));
 
-			return deviceID != null;
+			return deviceIp != null;
 		}
 	}
 }

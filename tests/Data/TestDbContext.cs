@@ -7,18 +7,6 @@ namespace DevSpector.Tests.Database
 {
     public class TestDbContext : ApplicationContextBase
     {
-        private const int _DeviceTypesAmount = 5;
-
-        private const int _DevicesAmount = 10;
-
-        private const int _SoftwareAmount = 20;
-
-        private const int _IPAmount = 50;
-
-        private const int _DeviceSoftwareAmount = 2;
-
-        private const int _DeivcesIPAmount = 5;
-
         private List<Device> _devices;
 
         private List<DeviceType> _deviceTypes;
@@ -31,14 +19,8 @@ namespace DevSpector.Tests.Database
             base(new DbContextOptions<TestDbContext>())
         {
             RecreateDatabase();
-        }
 
-        public void InitializeTestData()
-        {
-            InitializeDeviceTypes();
-            InitializeDevices();
-            InitializeDeviceSoftware();
-            InitializeIPAddresses();
+            InitializeTestData();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -48,11 +30,19 @@ namespace DevSpector.Tests.Database
             builder.UseSqlite("Data Source=./TestData.db");
         }
 
+        private void InitializeTestData()
+        {
+            InitializeDeviceTypes();
+            InitializeDevices();
+            InitializeDeviceSoftware();
+            InitializeIPAddresses();
+        }
+
         private void InitializeDeviceTypes()
         {
             _deviceTypes = new List<DeviceType>();
 
-            for (int i = 0; i < _DeviceTypesAmount; i++)
+            for (int i = 0; i < 5; i++)
             {
                 _deviceTypes.Add(new DeviceType {
                     Name = $"TestDeviceType_{i + 1}"
@@ -68,7 +58,7 @@ namespace DevSpector.Tests.Database
         {
             _devices = new List<Device>();
 
-            for (int i = 0; i < _DevicesAmount; i++)
+            for (int i = 0; i < 10; i++)
             {
                 _devices.Add(new Device {
                     InventoryNumber = $"TestInventoryNumber_{i + 1}",
@@ -88,13 +78,13 @@ namespace DevSpector.Tests.Database
         {
             _deviceSoftware = new List<DeviceSoftware>();
 
-            for (int i = 0; i < _SoftwareAmount; i++)
+            for (int i = 0; i < 20; i++)
             {
                 _deviceSoftware.Add(new DeviceSoftware {
                     SoftwareName = $"TestSoftwareName_{i + 1}",
                     SoftwareVersion = $"TestSoftwareVersion_{i + 1}",
                     // Each device have 2 software
-                    DeviceID = _devices[i / _DeviceSoftwareAmount].ID
+                    DeviceID = _devices[i / 2].ID
                 });
 
                 this.DeviceSoftware.Add(_deviceSoftware[i]);
@@ -107,12 +97,12 @@ namespace DevSpector.Tests.Database
         {
             _ipAddresses = new List<IPAddress>();
 
-            for (int i = 0; i < _IPAmount; i++)
+            for (int i = 0; i < 50; i++)
             {
                 _ipAddresses.Add(new IPAddress {
                     Address = $"198.62.14.{i + 1}",
                     // Each device have 5 IP's
-                    DeviceID = _devices[i / _DeivcesIPAmount].ID
+                    DeviceID = _devices[i / 5].ID
                 });
 
                 this.IPAddresses.Add(_ipAddresses[i]);

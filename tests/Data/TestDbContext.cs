@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using DevSpector.Database;
@@ -14,6 +15,10 @@ namespace DevSpector.Tests.Database
         private List<DeviceSoftware> _deviceSoftware;
 
         private List<IPAddress> _ipAddresses;
+
+        private List<Housing> _housings;
+
+        private List<Cabinet> _cabinets;
 
         public TestDbContext() :
             base(new DbContextOptions<TestDbContext>())
@@ -36,6 +41,7 @@ namespace DevSpector.Tests.Database
             InitializeDevices();
             InitializeDeviceSoftware();
             InitializeIPAddresses();
+            InitializeCabinets();
         }
 
         private void InitializeDeviceTypes()
@@ -107,6 +113,34 @@ namespace DevSpector.Tests.Database
 
                 this.IPAddresses.Add(_ipAddresses[i]);
             }
+
+            this.SaveChanges();
+        }
+
+        private void InitializeCabinets()
+        {
+            _housings = new List<Housing>();
+
+            for (int i = 0; i < 2; i++)
+            {
+                _housings.Add(new Housing {
+                    Name = $"TestHousing_{i + 1}"
+                });
+
+                this.Housings.Add(_housings[i]);
+
+                for (int j = 0; j < 5; j++)
+                {
+                    this.Cabinets.Add(new Cabinet {
+                        Name = $"TestCabinet_{i + 1}",
+                        HousingID = _housings[i].ID
+                    });
+                }
+            }
+
+            this.Housings.Add(new Housing {
+                Name = "N/A"
+            });
 
             this.SaveChanges();
         }

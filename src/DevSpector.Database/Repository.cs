@@ -9,9 +9,9 @@ namespace DevSpector.Domain
 {
     public class Repository : IRepository
     {
-        protected ApplicationDbContext _context;
+        protected ApplicationContextBase _context;
 
-        public Repository(ApplicationDbContext context) =>
+        public Repository(ApplicationContextBase context) =>
             _context = context;
 
         public virtual IEnumerable<T> Get<T>(

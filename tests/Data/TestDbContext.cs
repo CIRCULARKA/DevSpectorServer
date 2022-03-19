@@ -117,6 +117,16 @@ namespace DevSpector.Tests.Database
                 this.IPAddresses.Add(_ipAddresses[i]);
             }
 
+            // Add some free IPs
+            for (int i = 0; i < 25; i++)
+            {
+                _ipAddresses.Add(new IPAddress {
+                    Address = $"198.62.13.{i + 1}",
+                });
+
+                this.IPAddresses.Add(_ipAddresses[i]);
+            }
+
             this.SaveChanges();
         }
 

@@ -14,6 +14,8 @@ namespace DevSpector.Tests.Database
 
         private List<DeviceSoftware> _deviceSoftware;
 
+        private List<DeviceCabinet> _deviceCabinets;
+
         private List<IPAddress> _ipAddresses;
 
         private List<Housing> _housings;
@@ -42,6 +44,7 @@ namespace DevSpector.Tests.Database
             InitializeDeviceSoftware();
             InitializeIPAddresses();
             InitializeCabinets();
+            AssignCabinetsToDevices();
         }
 
         private void InitializeDeviceTypes()
@@ -120,7 +123,9 @@ namespace DevSpector.Tests.Database
         private void InitializeCabinets()
         {
             _housings = new List<Housing>();
+            _cabinets = new List<Cabinet>();
 
+            var lastCabinetIndex = 0;
             for (int i = 0; i < 2; i++)
             {
                 _housings.Add(new Housing {
@@ -129,18 +134,52 @@ namespace DevSpector.Tests.Database
 
                 this.Housings.Add(_housings[i]);
 
+                this.SaveChanges();
+
                 for (int j = 0; j < 5; j++)
                 {
-                    this.Cabinets.Add(new Cabinet {
-                        Name = $"TestCabinet_{i + 1}",
-                        HousingID = _housings[i].ID
+                    _cabinets.Add(new Cabinet {
+                        Name = $"TestCabinet_{lastCabinetIndex + 1}",
+                        HousingID = _housings[i].ID,
                     });
+
+                    this.Cabinets.Add(_cabinets[lastCabinetIndex]);
+                    this.SaveChanges();
+
+                    ++lastCabinetIndex;
                 }
             }
 
-            this.Housings.Add(new Housing {
+            var naHousing = new Housing {
                 Name = "N/A"
-            });
+            };
+
+            _housings.Add(naHousing);
+            this.Housings.Add(naHousing);
+            this.SaveChanges();
+
+            var naCabinet = new Cabinet {
+                Name = "N/A",
+                HousingID = naHousing.ID
+            };
+            _cabinets.Add(naCabinet);
+            this.Cabinets.Add(naCabinet);
+            this.SaveChanges();
+        }
+
+        private void AssignCabinetsToDevices()
+        {
+            _deviceCabinets = new List<DeviceCabinet>();
+
+            for (int i = 0; i < _cabinets.Count - 1; i++)
+            {
+                _deviceCabinets.Add(new DeviceCabinet {
+                    DeviceID = _devices[i].ID,
+                    CabinetID = _cabinets[i].ID
+                });
+
+                this.DeviceCabinets.Add(_deviceCabinets[i]);
+            }
 
             this.SaveChanges();
         }

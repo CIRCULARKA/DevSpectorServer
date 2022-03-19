@@ -8,6 +8,8 @@ namespace DevSpector.Tests.Database
 {
     public class TestDbContext : ApplicationContextBase
     {
+        private string _connectionString;
+
         private List<Device> _devices;
 
         private List<DeviceType> _deviceTypes;
@@ -22,9 +24,11 @@ namespace DevSpector.Tests.Database
 
         private List<Cabinet> _cabinets;
 
-        public TestDbContext() :
+        public TestDbContext(string connectionString = "Data Source=./TestData.db") :
             base(new DbContextOptions<TestDbContext>())
         {
+            _connectionString = connectionString;
+
             RecreateDatabase();
 
             InitializeTestData();
@@ -34,7 +38,7 @@ namespace DevSpector.Tests.Database
         {
             base.OnConfiguring(builder);
 
-            builder.UseSqlite("Data Source=./TestData.db");
+            builder.UseSqlite(_connectionString);
         }
 
         private void InitializeTestData()

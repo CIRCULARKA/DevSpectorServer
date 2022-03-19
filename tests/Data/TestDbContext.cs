@@ -122,6 +122,7 @@ namespace DevSpector.Tests.Database
             {
                 _ipAddresses.Add(new IPAddress {
                     Address = $"198.62.13.{i + 1}",
+                    DeviceID = null
                 });
 
                 this.IPAddresses.Add(_ipAddresses[i]);

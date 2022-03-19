@@ -5,7 +5,7 @@ using DevSpector.Domain.Models;
 using DevSpector.Database;
 using DevSpector.Application.Enumerations;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Devices
 {
 	public interface IDevicesEditor
 	{

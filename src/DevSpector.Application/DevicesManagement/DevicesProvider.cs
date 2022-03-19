@@ -94,8 +94,17 @@ namespace DevSpector.Application.Devices
         public bool DoesDeviceTypeExist(Guid typeID) =>
 			_repo.GetByID<DeviceType>(typeID) != null;
 
-		public bool HasSoftware(Guid deviceID, string softwareName) =>
-			GetDeviceSoftware(deviceID, softwareName) != null;
+		public bool HasSoftware(Guid deviceID, string softwareName)
+		{
+			var soft = GetDeviceSoftware(deviceID, softwareName);
+			if (soft == null)
+				return false;
+
+			if (soft.Count == 0)
+				return false;
+
+			return true;
+		}
 
 		public bool HasSoftware(Guid deviceID, string softwareName, string softwareVersion) =>
 			GetDeviceSoftware(deviceID, softwareName, softwareVersion) != null;

@@ -42,6 +42,7 @@ namespace DevSpector.Tests.Application.Networking
             Assert.Equal(expected.Count, actual.Count);
             for (int i = 0; i < expected.Count; i++)
             {
+                Assert.True(_provider.IsAddressFree(expected[i].Address));
                 Assert.Equal(expected[i].Address, actual[i].Address);
                 Assert.Equal(expected[i].DeviceID, actual[i].DeviceID);
             }

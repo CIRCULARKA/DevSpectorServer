@@ -143,6 +143,30 @@ namespace DevSpector.Tests.Application.Devices
         }
 
         [Fact]
+        public void HasSoftwareTest()
+        {
+            // Arrange
+            Device targetDevice = _context.Devices.FirstOrDefault();
+            Device anotherDevice = _context.Devices.Skip(3).FirstOrDefault();
+
+            List<DeviceSoftware> targetSoft = _provider.GetDeviceSoftware(targetDevice.ID);
+            List<DeviceSoftware> anotherSoft = _provider.GetDeviceSoftware(anotherDevice.ID);
+
+            // Assert
+            foreach (var soft in targetSoft)
+            {
+                Assert.True(_provider.HasSoftware(targetDevice.ID, soft.SoftwareName));
+                Assert.True(_provider.HasSoftware(targetDevice.ID, soft.SoftwareName, soft.SoftwareVersion));
+            }
+
+            foreach (var soft in anotherSoft)
+            {
+                Assert.False(_provider.HasSoftware(targetDevice.ID, soft.SoftwareName));
+                Assert.False(_provider.HasSoftware(targetDevice.ID, soft.SoftwareName, soft.SoftwareVersion));
+            }
+        }
+
+        [Fact]
         public void IsNetworkNameUniqueTest()
         {
             // Arrange

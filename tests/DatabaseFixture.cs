@@ -8,7 +8,7 @@ namespace DevSpector.Tests.Database
 
         public DatabaseFixture()
         {
-            _context = new TestDbContext();
+            _context = new TestDbContext("Data Source=./TestDb.db");
         }
 
         public TestDbContext DbContext => _context;

@@ -24,7 +24,7 @@ namespace DevSpector.Tests.Database
 
         private List<Cabinet> _cabinets;
 
-        public TestDbContext(string connectionString = "Data Source=./TestData.db") :
+        public TestDbContext(string connectionString) :
             base(new DbContextOptions<TestDbContext>())
         {
             _connectionString = connectionString;

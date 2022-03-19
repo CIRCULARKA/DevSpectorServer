@@ -6,6 +6,7 @@ using DevSpector.Tests.Database;
 using DevSpector.Application.Devices;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
+using DevSpector.Database;
 using DevSpector.Application.Networking;
 
 namespace DevSpector.Tests.Application.Devices
@@ -94,6 +95,37 @@ namespace DevSpector.Tests.Application.Devices
             {
                 Assert.Equal(expectedSoftware[i].SoftwareName, actualSoftware[i].SoftwareName);
                 Assert.Equal(expectedSoftware[i].SoftwareVersion, actualSoftware[i].SoftwareVersion);
+            }
+        }
+
+        [Fact]
+        public void ReturnsSingleSoftware()
+        {
+            // Arrange
+            Device targetDevice = _context.Devices.FirstOrDefault();
+            List<DeviceSoftware> deviceSoft = _context.DeviceSoftware.Where(
+                ds => (ds.DeviceID == targetDevice.ID)
+            ).ToList();
+
+            var actualSoft = new List<SoftwareInfo>();
+
+            // Act
+            foreach (var soft in deviceSoft)
+            {
+                DeviceSoftware actual = _provider.GetDeviceSoftware(targetDevice.ID, soft.SoftwareName, soft.SoftwareVersion);
+
+                actualSoft.Add(new SoftwareInfo {
+                    SoftwareName = actual.SoftwareName,
+                    SoftwareVersion = actual.SoftwareVersion
+                });
+            }
+
+            // Assert
+            for (int i = 0; i < deviceSoft.Count; i++)
+            {
+                Assert.Equal(deviceSoft[i].SoftwareName, actualSoft[i].SoftwareName);
+                Assert.Equal(deviceSoft[i].SoftwareVersion, actualSoft[i].SoftwareVersion);
+                Assert.Null(_provider.GetDeviceSoftware(targetDevice.ID, actualSoft[i].SoftwareName, "wrongVersion"));
             }
         }
 

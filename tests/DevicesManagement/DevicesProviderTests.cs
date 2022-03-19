@@ -1,9 +1,11 @@
 using System;
-using Xunit;
 using System.Linq;
+using System.Collections.Generic;
+using Xunit;
 using DevSpector.Tests.Database;
 using DevSpector.Application.Devices;
 using DevSpector.Domain;
+using DevSpector.Domain.Models;
 using DevSpector.Application.Networking;
 
 namespace DevSpector.Tests.Application.Devices
@@ -105,6 +107,21 @@ namespace DevSpector.Tests.Application.Devices
             Assert.True(_provider.DoesDeviceExist(targetDevice.InventoryNumber));
             Assert.False(_provider.DoesDeviceExist(targetDevice.InventoryNumber + "_"));
             Assert.False(_provider.DoesDeviceExist(targetDevice.InventoryNumber + " "));
+        }
+
+        [Fact]
+        public void ReturnsValidDeviceLocation()
+        {
+            // Arrange
+            var devicesCabinet = _context.DeviceCabinets.ToList();
+
+            // Assert
+            foreach (var deviceCabinet in devicesCabinet)
+            {
+                var cabinet = _provider.GetDeviceCabinet(deviceCabinet.DeviceID);
+                Assert.Equal(deviceCabinet.Cabinet.Name, cabinet.Name);
+                Assert.Equal(deviceCabinet.Cabinet.Housing.Name, cabinet.Housing.Name);
+            }
         }
 
         [Fact]

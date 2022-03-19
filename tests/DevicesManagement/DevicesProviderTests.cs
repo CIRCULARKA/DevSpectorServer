@@ -152,5 +152,47 @@ namespace DevSpector.Tests.Application.Devices
             Assert.False(_provider.DoesDeviceTypeExist(Guid.NewGuid()));
             Assert.False(_provider.DoesDeviceTypeExist(Guid.Empty));
         }
+
+        [Fact]
+        public void GetDevicesAsAppliancesTest()
+        {
+            // Arrange
+            var devices = _provider.GetDevices();
+
+            // Act
+            var appliances = _provider.GetDevicesAsAppliances();
+
+            // Assert
+            Assert.Equal(devices.Count, appliances.Count);
+            for (int i = 0; i < devices.Count; i++)
+            {
+                var ips = _provider.GetIPAddresses(devices[i].ID);
+                var soft = _provider.GetDeviceSoftware(devices[i].ID);
+                var cabinet = _provider.GetDeviceCabinet(devices[i].ID);
+
+                Assert.Equal(devices[i].ID, appliances[i].ID);
+                Assert.Equal(devices[i].InventoryNumber, appliances[i].InventoryNumber);
+                Assert.Equal(devices[i].NetworkName, appliances[i].NetworkName);
+                Assert.Equal(devices[i].Type.Name, appliances[i].Type);
+
+                Assert.Equal(cabinet.Name, appliances[i].Cabinet);
+                Assert.Equal(cabinet.Housing.Name, appliances[i].Housing);
+
+                // Compare IP addresses
+                Assert.Equal(ips.Count, appliances[i].IPAddresses.Count);
+                for (int j = 0; j < ips.Count; j++)
+                    Assert.Equal(ips[j].Address, appliances[i].IPAddresses[j]);
+
+                // Compare software
+                Assert.Equal(soft.Count, appliances[i].Software.Count);
+                for (int j = 0; j < soft.Count; j++)
+                {
+                    Assert.Equal(
+                        $"{soft[j].SoftwareName} ({soft[j].SoftwareVersion})",
+                        appliances[i].Software[j]
+                    );
+                }
+            }
+        }
     }
 }

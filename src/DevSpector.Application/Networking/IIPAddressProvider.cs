@@ -5,6 +5,8 @@ namespace DevSpector.Application.Networking
 {
 	public interface IIPAddressProvider
 	{
+		List<IPAddress> GetAllIP();
+
 		List<IPAddress> GetFreeIP();
 
 		List<IPAddress> GetFreeIPSorted();

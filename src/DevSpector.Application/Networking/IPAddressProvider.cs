@@ -26,6 +26,9 @@ namespace DevSpector.Application.Networking
 			_ipRangeGenerator = ipRangeGenerator;
 		}
 
+		public List<IPAddress> GetAllIP() =>
+			_repo.Get<IPAddress>().ToList();
+
 		public List<IPAddress> GetFreeIP() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null

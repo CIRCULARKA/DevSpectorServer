@@ -8,6 +8,7 @@ using DevSpector.Domain;
 using DevSpector.Domain.Models;
 using DevSpector.Database;
 using DevSpector.Application.Networking;
+using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Devices
 {
@@ -31,7 +32,7 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsValidDevicesAmount()
         {
             // Act
-            var actualAmount = _provider.GetDevices().Count;
+            int actualAmount = _provider.GetDevices().Count;
 
             // Assert
             Assert.Equal(_context.Devices.Count(), actualAmount);
@@ -41,7 +42,7 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsValidDeviceTypesAmount()
         {
             // Act
-            var actualAmount = _provider.GetDeviceTypes().Count();
+            int actualAmount = _provider.GetDeviceTypes().Count();
 
             // Assert
             Assert.Equal(_context.DeviceTypes.Count(), actualAmount);
@@ -51,10 +52,10 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsDevice()
         {
             // Arrange
-            var expectedDevice = _context.Devices.First();
+            Device expectedDevice = _context.Devices.First();
 
             // Act
-            var actualDevice = _provider.GetDevice(expectedDevice.InventoryNumber);
+            Device actualDevice = _provider.GetDevice(expectedDevice.InventoryNumber);
 
             // Assert
             Assert.Equal(expectedDevice.InventoryNumber, actualDevice.InventoryNumber);
@@ -67,11 +68,11 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsIPs()
         {
             // Arrange
-            var targetDevice = _context.Devices.FirstOrDefault();
-            var expectedIps = _context.IPAddresses.Where(ip => ip.DeviceID == targetDevice.ID).ToList();
+            Device targetDevice = _context.Devices.FirstOrDefault();
+            List<IPAddress> expectedIps = _context.IPAddresses.Where(ip => ip.DeviceID == targetDevice.ID).ToList();
 
             // Act
-            var actualIPs = _provider.GetIPAddresses(targetDevice.ID).ToList();
+            List<IPAddress> actualIPs = _provider.GetIPAddresses(targetDevice.ID).ToList();
 
             // Assert
             Assert.Equal(expectedIps.Count, actualIPs.Count);
@@ -83,11 +84,11 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsSoftware()
         {
             // Arrange
-            var targetDevice = _context.Devices.FirstOrDefault();
-            var expectedSoftware = _context.DeviceSoftware.Where(s => s.DeviceID == targetDevice.ID).ToList();
+            Device targetDevice = _context.Devices.FirstOrDefault();
+            List<DeviceSoftware> expectedSoftware = _context.DeviceSoftware.Where(s => s.DeviceID == targetDevice.ID).ToList();
 
             // Act
-            var actualSoftware = _provider.GetDeviceSoftware(targetDevice.ID);
+            List<DeviceSoftware> actualSoftware = _provider.GetDeviceSoftware(targetDevice.ID);
 
             // Assert
             Assert.Equal(expectedSoftware.Count, actualSoftware.Count);
@@ -133,7 +134,7 @@ namespace DevSpector.Tests.Application.Devices
         public void DoesDeviceExistsTest()
         {
             // Arrange
-            var targetDevice = _context.Devices.FirstOrDefault();
+            Device targetDevice = _context.Devices.FirstOrDefault();
 
             // Assert
             Assert.True(_provider.DoesDeviceExist(targetDevice.InventoryNumber));
@@ -145,12 +146,12 @@ namespace DevSpector.Tests.Application.Devices
         public void ReturnsValidDeviceLocation()
         {
             // Arrange
-            var devicesCabinet = _context.DeviceCabinets.ToList();
+            List<DeviceCabinet> devicesCabinet = _context.DeviceCabinets.ToList();
 
             // Assert
             foreach (var deviceCabinet in devicesCabinet)
             {
-                var cabinet = _provider.GetDeviceCabinet(deviceCabinet.DeviceID);
+                Cabinet cabinet = _provider.GetDeviceCabinet(deviceCabinet.DeviceID);
                 Assert.Equal(deviceCabinet.Cabinet.Name, cabinet.Name);
                 Assert.Equal(deviceCabinet.Cabinet.Housing.Name, cabinet.Housing.Name);
             }
@@ -160,11 +161,11 @@ namespace DevSpector.Tests.Application.Devices
         public void HasIPTest()
         {
             // Arrange
-            var targetDevice = _context.Devices.FirstOrDefault();
-            var anotherDevice = _context.Devices.Skip(5).FirstOrDefault();
+            Device targetDevice = _context.Devices.FirstOrDefault();
+            Device anotherDevice = _context.Devices.Skip(5).FirstOrDefault();
 
-            var ips = _provider.GetIPAddresses(targetDevice.ID);
-            var anotherIps = _provider.GetIPAddresses(anotherDevice.ID);
+            List<IPAddress> ips = _provider.GetIPAddresses(targetDevice.ID);
+            List<IPAddress> anotherIps = _provider.GetIPAddresses(anotherDevice.ID);
 
             // Assert
             foreach (var ip in ips)
@@ -202,7 +203,7 @@ namespace DevSpector.Tests.Application.Devices
         public void IsNetworkNameUniqueTest()
         {
             // Arrange
-            var targetDevices = _provider.GetDevices();
+            List<Device> targetDevices = _provider.GetDevices();
 
             // Assert
             foreach (var device in targetDevices)
@@ -216,7 +217,7 @@ namespace DevSpector.Tests.Application.Devices
         public void DoesDeviceTypeExistsTest()
         {
             // Arrange
-            var types = _provider.GetDeviceTypes();
+            List<DeviceType> types = _provider.GetDeviceTypes();
 
             // Assert
             foreach (var type in types)
@@ -230,18 +231,18 @@ namespace DevSpector.Tests.Application.Devices
         public void GetDevicesAsAppliancesTest()
         {
             // Arrange
-            var devices = _provider.GetDevices();
+            List<Device> devices = _provider.GetDevices();
 
             // Act
-            var appliances = _provider.GetDevicesAsAppliances();
+            List<Appliance> appliances = _provider.GetDevicesAsAppliances();
 
             // Assert
             Assert.Equal(devices.Count, appliances.Count);
             for (int i = 0; i < devices.Count; i++)
             {
-                var ips = _provider.GetIPAddresses(devices[i].ID);
-                var soft = _provider.GetDeviceSoftware(devices[i].ID);
-                var cabinet = _provider.GetDeviceCabinet(devices[i].ID);
+                List<IPAddress> ips = _provider.GetIPAddresses(devices[i].ID);
+                List<DeviceSoftware> soft = _provider.GetDeviceSoftware(devices[i].ID);
+                Cabinet cabinet = _provider.GetDeviceCabinet(devices[i].ID);
 
                 Assert.Equal(devices[i].ID, appliances[i].ID);
                 Assert.Equal(devices[i].InventoryNumber, appliances[i].InventoryNumber);

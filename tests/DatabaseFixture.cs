@@ -2,7 +2,6 @@ using System;
 
 namespace DevSpector.Tests.Database
 {
-
     public class DatabaseFixture : IDisposable
     {
         private TestDbContext _context;

@@ -12,11 +12,11 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Devices
 {
-    public class DevicesEditorTests : DatabaseTestBase
+    public class DevicesEditorTests : DatabaseTestBase, IClassFixture<DatabaseFixture>
     {
         private readonly IDevicesEditor _editor;
 
-        public DevicesEditorTests()
+        public DevicesEditorTests(DatabaseFixture _) : base(_)
         {
             var ipValidator = new IPValidator();
 

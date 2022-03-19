@@ -12,11 +12,11 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Networking
 {
-    public class IPAddressProviderTests : DatabaseTestBase
+    public class IPAddressProviderTests : DatabaseTestBase, IClassFixture<DatabaseFixture>
     {
         private readonly IIPAddressProvider _provider;
 
-        public IPAddressProviderTests()
+        public IPAddressProviderTests(DatabaseFixture _) : base(_)
         {
             var ipValidator = new IPValidator();
 

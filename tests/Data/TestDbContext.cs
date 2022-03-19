@@ -106,15 +106,17 @@ namespace DevSpector.Tests.Database
         {
             _ipAddresses = new List<IPAddress>();
 
+            var currentIndex = 0;
             for (int i = 0; i < 50; i++)
             {
                 _ipAddresses.Add(new IPAddress {
                     Address = $"198.62.14.{i + 1}",
                     // Each device have 5 IP's
-                    DeviceID = _devices[i / 5].ID
+                    DeviceID = _devices[currentIndex / 5].ID
                 });
 
-                this.IPAddresses.Add(_ipAddresses[i]);
+                this.IPAddresses.Add(_ipAddresses[currentIndex]);
+                currentIndex++;
             }
 
             // Add some free IPs
@@ -125,7 +127,8 @@ namespace DevSpector.Tests.Database
                     DeviceID = null
                 });
 
-                this.IPAddresses.Add(_ipAddresses[i]);
+                this.IPAddresses.Add(_ipAddresses[currentIndex]);
+                currentIndex++;
             }
 
             this.SaveChanges();

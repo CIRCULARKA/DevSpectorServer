@@ -12,23 +12,38 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Networking
 {
-    public class IPAddressProviderTests
+    public class IPAddressProviderTests : DatabaseTestBase
     {
         private readonly IIPAddressProvider _provider;
 
-        private readonly TestDbContext _context;
-
         public IPAddressProviderTests()
         {
-            _context = new TestDbContext();
-            var repo = new Repository(_context);
             var ipValidator = new IPValidator();
 
             _provider = new IPAddressProvider(
-                repo,
+                base._repo,
                 ipValidator,
                 new IP4RangeGenerator(ipValidator)
             );
+        }
+
+        [Fact]
+        public void GetFreeIPTest()
+        {
+            // Arrange
+            List<IPAddress> expected =
+                _context.IPAddresses.Where(ip => ip.DeviceID == null).ToList();
+
+            // Act
+            List<IPAddress> actual = _provider.GetFreeIP();
+
+            // Assert
+            Assert.Equal(expected.Count, actual.Count);
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.Equal(expected[i].Address, actual[i].Address);
+                Assert.Equal(expected[i].DeviceID, actual[i].DeviceID);
+            }
         }
     }
 }

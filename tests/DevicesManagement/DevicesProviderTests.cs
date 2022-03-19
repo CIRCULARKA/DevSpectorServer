@@ -12,18 +12,14 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Devices
 {
-    public class DevicesProviderTests
+    public class DevicesProviderTests : DatabaseTestBase
     {
         private readonly IDevicesProvider _provider;
 
-        private readonly TestDbContext _context;
-
         public DevicesProviderTests()
         {
-            _context = new TestDbContext();
-
             _provider = new DevicesProvider(
-                new Repository(_context),
+                new Repository(base._context),
                 new IPValidator()
             );
         }

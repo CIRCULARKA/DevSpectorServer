@@ -12,7 +12,8 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Networking
 {
-    public class IPAddressProviderTests : DatabaseTestBase, IClassFixture<DatabaseFixture>
+    [Collection("DbCollection")]
+    public class IPAddressProviderTests : DatabaseTestBase
     {
         private readonly IIPAddressProvider _provider;
 

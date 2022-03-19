@@ -12,7 +12,8 @@ using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Devices
 {
-    public class DevicesProviderTests : DatabaseTestBase, IClassFixture<DatabaseFixture>
+    [Collection("DbCollection")]
+    public class DevicesProviderTests : DatabaseTestBase
     {
         private readonly IDevicesProvider _provider;
 

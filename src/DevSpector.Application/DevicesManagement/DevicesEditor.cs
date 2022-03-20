@@ -134,6 +134,9 @@ namespace DevSpector.Application.Devices
 
 		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
 		{
+			if (info.SoftwareName == null)
+				throw new ArgumentNullException("Software name must be specified");
+
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new ArgumentException("There is no device with specified inventory number");
 

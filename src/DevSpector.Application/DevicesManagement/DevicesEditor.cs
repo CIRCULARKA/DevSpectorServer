@@ -144,7 +144,7 @@ namespace DevSpector.Application.Devices
 
 			// Check if device already has software with the same name AND version
 			if (_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
-				throw new ArgumentException("Specified device already has software with specified version");
+				throw new InvalidOperationException("Specified device already has software with specified version");
 
 			var newDeviceSoftware = new DeviceSoftware {
 				DeviceID = targetDevice.ID,

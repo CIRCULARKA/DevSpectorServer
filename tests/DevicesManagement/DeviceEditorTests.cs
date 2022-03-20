@@ -262,9 +262,15 @@ namespace DevSpector.Tests.Application.Devices
                 SoftwareName = Guid.NewGuid().ToString(),
             };
 
+            var softInfo3 = new SoftwareInfo {
+                SoftwareName = softInfo1.SoftwareName,
+                SoftwareVersion = Guid.NewGuid().ToString()
+            };
+
             // Act
             _editor.AddSoftware(newDevice.InventoryNumber, softInfo1);
             _editor.AddSoftware(newDevice.InventoryNumber, softInfo2);
+            _editor.AddSoftware(newDevice.InventoryNumber, softInfo3);
 
             // Assert
             var firstResult = _context.DeviceSoftware.FirstOrDefault(ds =>
@@ -280,6 +286,49 @@ namespace DevSpector.Tests.Application.Devices
             Assert.NotNull(secondResult);
             Assert.Equal(softInfo2.SoftwareName, secondResult.SoftwareName);
             Assert.Null(secondResult.SoftwareVersion);
+
+            var lastResult = _context.DeviceSoftware.FirstOrDefault(
+                ds => (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo3.SoftwareName)  &&
+                    (ds.SoftwareVersion == softInfo3.SoftwareVersion)
+            );
+            Assert.NotNull(lastResult);
+            Assert.Equal(softInfo3.SoftwareName, lastResult.SoftwareName);
+            Assert.Equal(softInfo3.SoftwareVersion, lastResult.SoftwareVersion);
+        }
+
+        [Fact]
+        public void CantAddSoftware()
+        {
+            // Arrange
+            var newDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            _context.Devices.Add(newDevice);
+            _context.SaveChanges();
+
+            var validInfo = new SoftwareInfo {
+                SoftwareName = Guid.NewGuid().ToString()
+            };
+
+            var wrongInvNum = Guid.NewGuid().ToString();
+            var wrongInfo = new SoftwareInfo {
+                SoftwareName = null
+            };
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => _editor.AddSoftware(newDevice.InventoryNumber, wrongInfo));
+            Assert.Throws<ArgumentException>(() => _editor.AddSoftware(wrongInvNum, validInfo));
+            Assert.Throws<InvalidOperationException>(() => {
+                var sameSoft = new SoftwareInfo {
+                    SoftwareName = Guid.NewGuid().ToString(),
+                    SoftwareVersion = Guid.NewGuid().ToString()
+                };
+
+                _editor.AddSoftware(newDevice.InventoryNumber, sameSoft);
+                _editor.AddSoftware(newDevice.InventoryNumber, sameSoft);
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit;
 using DevSpector.Tests.Database;
@@ -55,6 +56,25 @@ namespace DevSpector.Tests.Application.Devices
             Assert.Equal(expected.ModelName, newDevice.ModelName);
             Assert.Equal(expected.NetworkName, newDevice.NetworkName);
             Assert.Equal(expected.TypeID, newDevice.TypeID);
+        }
+
+        [Fact]
+        public void CantCreateDevice()
+        {
+            // Arrange
+            var wrongDeviceData1 = new DeviceInfo {
+                InventoryNumber = "SomeInvNum",
+                TypeID = Guid.Empty,
+            };
+
+            var wrongDeviceData2 = new DeviceInfo {
+                InventoryNumber = null,
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => _editor.CreateDevice(wrongDeviceData1));
+            Assert.Throws<ArgumentNullException>(() => _editor.CreateDevice(wrongDeviceData2));
         }
     }
 }

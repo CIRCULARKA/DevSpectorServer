@@ -96,7 +96,6 @@ namespace DevSpector.Tests.Application.Devices
             };
 
             // Act
-
             _context.Devices.Add(new Device {
                 InventoryNumber = originalInfo.InventoryNumber,
                 TypeID = originalInfo.TypeID,
@@ -115,6 +114,39 @@ namespace DevSpector.Tests.Application.Devices
             Assert.Equal(updatedDevice.NetworkName, updatedInfo.NetworkName);
             Assert.Equal(updatedDevice.ModelName, updatedInfo.ModelName);
             Assert.Equal(updatedDevice.TypeID, updatedInfo.TypeID);
+        }
+
+        [Fact]
+        public void CantUpdateDevice()
+        {
+            // Arrange
+            var tempDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            var conflictDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.Skip(1).FirstOrDefault().ID
+            };
+
+            _context.Devices.Add(tempDevice);
+            _context.Devices.Add(conflictDevice);
+            _context.SaveChanges();
+
+            var wrongType = new DeviceInfo {
+                InventoryNumber = tempDevice.InventoryNumber,
+                TypeID = Guid.NewGuid()
+            };
+
+            var busyInventoryNumber = new DeviceInfo {
+                InventoryNumber = conflictDevice.InventoryNumber
+            };
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => _editor.UpdateDevice("wrongString", null));
+            Assert.Throws<ArgumentException>(() => _editor.UpdateDevice(tempDevice.InventoryNumber, wrongType));
+            Assert.Throws<ArgumentException>(() => _editor.UpdateDevice(tempDevice.InventoryNumber, busyInventoryNumber));
         }
     }
 }

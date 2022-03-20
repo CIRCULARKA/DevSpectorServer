@@ -76,5 +76,45 @@ namespace DevSpector.Tests.Application.Devices
             Assert.Throws<ArgumentException>(() => _editor.CreateDevice(wrongDeviceData1));
             Assert.Throws<ArgumentNullException>(() => _editor.CreateDevice(wrongDeviceData2));
         }
+
+        [Fact]
+        public void CanUpdateDevice()
+        {
+            // Arrange
+            var originalInfo = new DeviceInfo {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID,
+                NetworkName = Guid.NewGuid().ToString(),
+                ModelName = Guid.NewGuid().ToString()
+            };
+
+            var updatedInfo = new DeviceInfo {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.Skip(1).FirstOrDefault().ID,
+                NetworkName = Guid.NewGuid().ToString(),
+                ModelName = Guid.NewGuid().ToString()
+            };
+
+            // Act
+
+            _context.Devices.Add(new Device {
+                InventoryNumber = originalInfo.InventoryNumber,
+                TypeID = originalInfo.TypeID,
+                NetworkName = originalInfo.NetworkName,
+                ModelName = originalInfo.ModelName
+            });
+            _context.SaveChanges();
+
+            _editor.UpdateDevice(originalInfo.InventoryNumber, updatedInfo);
+
+            Device updatedDevice = _context.Devices.Single(d => d.InventoryNumber == updatedInfo.InventoryNumber);
+
+            // Assert
+            Assert.NotNull(updatedDevice);
+            Assert.Equal(updatedDevice.InventoryNumber, updatedInfo.InventoryNumber);
+            Assert.Equal(updatedDevice.NetworkName, updatedInfo.NetworkName);
+            Assert.Equal(updatedDevice.ModelName, updatedInfo.ModelName);
+            Assert.Equal(updatedDevice.TypeID, updatedInfo.TypeID);
+        }
     }
 }

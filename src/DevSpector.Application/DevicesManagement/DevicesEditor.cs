@@ -66,7 +66,7 @@ namespace DevSpector.Application.Devices
 
 		public void UpdateDevice(string inventoryNumber, DeviceInfo info)
 		{
-			if (!_devicesProvider.DoesDeviceExist(info.InventoryNumber))
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber)
 				throw new InvalidOperationException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);

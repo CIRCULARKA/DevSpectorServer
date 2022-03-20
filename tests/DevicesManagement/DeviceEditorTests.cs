@@ -148,5 +148,138 @@ namespace DevSpector.Tests.Application.Devices
             Assert.Throws<ArgumentException>(() => _editor.UpdateDevice(tempDevice.InventoryNumber, wrongType));
             Assert.Throws<ArgumentException>(() => _editor.UpdateDevice(tempDevice.InventoryNumber, busyInventoryNumber));
         }
+
+        [Fact]
+        public void CanDeleteDevice()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+
+            var deviceToDelete = new Device {
+                ID = id,
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            _context.Devices.Add(deviceToDelete);
+
+            _context.DeviceCabinets.Add(new DeviceCabinet {
+                DeviceID = deviceToDelete.ID,
+                CabinetID = _context.Cabinets.FirstOrDefault().ID
+            });
+
+            _context.DeviceSoftware.Add(new DeviceSoftware {
+                DeviceID = deviceToDelete.ID,
+                SoftwareName = Guid.NewGuid().ToString(),
+                SoftwareVersion = Guid.NewGuid().ToString()
+            });
+
+            _context.SaveChanges();
+
+            // Act
+            _editor.DeleteDevice(deviceToDelete.InventoryNumber);
+
+            // Assert
+            Assert.Null(_context.Devices.FirstOrDefault(d => d.InventoryNumber == deviceToDelete.InventoryNumber));
+            Assert.Null(_context.DeviceCabinets.FirstOrDefault(dc => dc.DeviceID == id));
+            Assert.Null(_context.DeviceSoftware.FirstOrDefault(ds => ds.DeviceID == id));
+        }
+
+        [Fact]
+        public void CantDeleteDevice()
+        {
+            // Arrange
+            var wrongInvNum = "mess";
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => _editor.DeleteDevice(wrongInvNum));
+        }
+
+        [Fact]
+        public void CanMoveDevice()
+        {
+            // Arrange
+            var newDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            _context.Devices.Add(newDevice);
+
+            var newDeviceCabinet = new DeviceCabinet {
+                DeviceID = newDevice.ID,
+                CabinetID = _context.Cabinets.FirstOrDefault().ID
+            };
+
+            _context.DeviceCabinets.Add(newDeviceCabinet);
+
+            _context.SaveChanges();
+
+            Guid targetDeviceCabinetID = _context.Cabinets.Skip(1).FirstOrDefault().ID;
+
+            // Act
+            _editor.MoveDevice(newDevice.InventoryNumber, targetDeviceCabinetID);
+
+            // Assert
+            Assert.Equal(1, _context.DeviceCabinets.Where(dc => dc.DeviceID == newDevice.ID).Count());
+            Assert.Equal(targetDeviceCabinetID, _context.DeviceCabinets.FirstOrDefault(dc => dc.DeviceID == newDevice.ID).CabinetID);
+        }
+
+        [Fact]
+        public void CantMoveDevice()
+        {
+            // Arrange
+            var wrongInvNum = "mess";
+            var existingInvNum = _context.Devices.FirstOrDefault().InventoryNumber;
+
+            var wrongCabinetID = Guid.Empty;
+            Guid existingCabinetID = _context.Cabinets.FirstOrDefault().ID;
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => _editor.MoveDevice(existingInvNum, wrongCabinetID));
+            Assert.Throws<ArgumentException>(() => _editor.MoveDevice(wrongInvNum, existingCabinetID));
+            Assert.Throws<ArgumentException>(() => _editor.MoveDevice(wrongInvNum, wrongCabinetID));
+        }
+
+        [Fact]
+        public void CanAddSoftware()
+        {
+            // Arrange
+            var newDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID
+            };
+
+            _context.Devices.Add(newDevice);
+            _context.SaveChanges();
+
+            var softInfo1 = new SoftwareInfo {
+                SoftwareName = Guid.NewGuid().ToString(),
+                SoftwareVersion = Guid.NewGuid().ToString()
+            };
+
+            var softInfo2 = new SoftwareInfo {
+                SoftwareName = Guid.NewGuid().ToString(),
+            };
+
+            // Act
+            _editor.AddSoftware(newDevice.InventoryNumber, softInfo1);
+            _editor.AddSoftware(newDevice.InventoryNumber, softInfo2);
+
+            // Assert
+            var firstResult = _context.DeviceSoftware.FirstOrDefault(ds =>
+                (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo1.SoftwareName)
+            );
+            Assert.NotNull(firstResult);
+            Assert.Equal(softInfo1.SoftwareName, firstResult.SoftwareName);
+            Assert.Equal(softInfo1.SoftwareVersion, firstResult.SoftwareVersion);
+
+            var secondResult = _context.DeviceSoftware.FirstOrDefault(
+                ds => (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo2.SoftwareName)
+            );
+            Assert.NotNull(secondResult);
+            Assert.Equal(softInfo2.SoftwareName, secondResult.SoftwareName);
+            Assert.Null(secondResult.SoftwareVersion);
+        }
     }
 }

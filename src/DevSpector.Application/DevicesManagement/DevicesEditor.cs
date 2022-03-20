@@ -35,6 +35,9 @@ namespace DevSpector.Application.Devices
 
 		public void CreateDevice(DeviceInfo info)
 		{
+			if (info.InventoryNumber == null)
+				throw new ArgumentNullException("Inventory number can not be null");
+
 			if (_devicesProvider.DoesDeviceExist(info.InventoryNumber))
 				throw new InvalidOperationException("Device with specified inventory number already exists");
 
@@ -128,7 +131,7 @@ namespace DevSpector.Application.Devices
 		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new InvalidOperationException("There is no device with specified ID");
+				throw new InvalidOperationException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 

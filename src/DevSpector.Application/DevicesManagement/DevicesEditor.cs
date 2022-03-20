@@ -93,6 +93,10 @@ namespace DevSpector.Application.Devices
 				targetDevice.NetworkName = info.NetworkName;
 			}
 
+			if (info.ModelName != null) {
+				targetDevice.ModelName = info.ModelName;
+			}
+
 			_repo.Update<Device>(targetDevice);
 			_repo.Save();
 		}

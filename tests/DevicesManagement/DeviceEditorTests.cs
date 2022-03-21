@@ -245,13 +245,7 @@ namespace DevSpector.Tests.Application.Devices
         public void CanAddSoftware()
         {
             // Arrange
-            var newDevice = new Device {
-                InventoryNumber = Guid.NewGuid().ToString(),
-                TypeID = _context.DeviceTypes.FirstOrDefault().ID
-            };
-
-            _context.Devices.Add(newDevice);
-            _context.SaveChanges();
+            Device newDevice = CreateDevice();
 
             var softInfo1 = new SoftwareInfo {
                 SoftwareName = Guid.NewGuid().ToString(),
@@ -300,13 +294,7 @@ namespace DevSpector.Tests.Application.Devices
         public void CantAddSoftware()
         {
             // Arrange
-            var newDevice = new Device {
-                InventoryNumber = Guid.NewGuid().ToString(),
-                TypeID = _context.DeviceTypes.FirstOrDefault().ID
-            };
-
-            _context.Devices.Add(newDevice);
-            _context.SaveChanges();
+            Device newDevice = CreateDevice();
 
             var validInfo = new SoftwareInfo {
                 SoftwareName = Guid.NewGuid().ToString()
@@ -329,6 +317,48 @@ namespace DevSpector.Tests.Application.Devices
                 _editor.AddSoftware(newDevice.InventoryNumber, sameSoft);
                 _editor.AddSoftware(newDevice.InventoryNumber, sameSoft);
             });
+        }
+
+        [Fact]
+        public void CanRemoveSoftware()
+        {
+            // Arrange
+            Device newDevice = CreateDevice();
+
+            var softInfo = new SoftwareInfo {
+                SoftwareName = Guid.NewGuid().ToString(),
+                SoftwareVersion = Guid.NewGuid().ToString()
+            };
+
+            _context.DeviceSoftware.Add(new DeviceSoftware {
+                DeviceID = newDevice.ID,
+                SoftwareName = softInfo.SoftwareName,
+                SoftwareVersion = softInfo.SoftwareVersion
+            });
+
+            _context.SaveChanges();
+
+            // Act
+            _editor.RemoveSoftware(newDevice.InventoryNumber, softInfo);
+
+            // Assert
+            var result = _context.DeviceSoftware.FirstOrDefault(ds => (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo.SoftwareName));
+            Assert.Null(result);
+        }
+
+        private Device CreateDevice()
+        {
+            var newDevice = new Device {
+                InventoryNumber = Guid.NewGuid().ToString(),
+                TypeID = _context.DeviceTypes.FirstOrDefault().ID,
+                NetworkName = Guid.NewGuid().ToString(),
+                ModelName = Guid.NewGuid().ToString()
+            };
+
+            _context.Devices.Add(newDevice);
+            _context.SaveChanges();
+
+            return newDevice;
         }
     }
 }

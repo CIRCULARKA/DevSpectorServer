@@ -342,8 +342,61 @@ namespace DevSpector.Tests.Application.Devices
             _editor.RemoveSoftware(newDevice.InventoryNumber, softInfo);
 
             // Assert
-            var result = _context.DeviceSoftware.FirstOrDefault(ds => (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo.SoftwareName));
+            DeviceSoftware result = _context.DeviceSoftware.FirstOrDefault(ds => (ds.DeviceID == newDevice.ID) && (ds.SoftwareName == softInfo.SoftwareName));
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void CanAddIP()
+        {
+            // Arrange
+            Device newDevice = CreateDevice();
+
+            IPAddress freeIP = GetFreeIP();
+
+            // Act
+            _editor.AddIPAddress(newDevice.InventoryNumber, freeIP.Address);
+            IPAddress addedIP = GetDeviceIP(newDevice.ID);
+
+            // Assert
+            Assert.NotNull(addedIP);
+            Assert.Equal(freeIP.Address, addedIP.Address);
+        }
+
+        [Fact]
+        public void CantAddIP()
+        {
+            // Arrange
+            Device newDevice = CreateDevice();
+
+            IPAddress busyIP = _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID != null);
+            IPAddress freeIP = GetFreeIP();
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => _editor.AddIPAddress(newDevice.InventoryNumber, "256.0.-1.0"));
+            Assert.Throws<ArgumentException>(() => _editor.AddIPAddress(null, freeIP.Address));
+            Assert.Throws<ArgumentException>(() => _editor.AddIPAddress("wrongInvNum", freeIP.Address));
+            Assert.Throws<ArgumentNullException>(() => _editor.AddIPAddress(newDevice.InventoryNumber, null));
+            Assert.Throws<InvalidOperationException>(() => _editor.AddIPAddress(newDevice.InventoryNumber, busyIP.Address));
+        }
+
+        [Fact]
+        public void CanRemoveIP()
+        {
+            // Arrange
+            Device newDevice = CreateDevice();
+
+            IPAddress addedIP = GetFreeIP();
+
+            addedIP.DeviceID = newDevice.ID;
+            _context.IPAddresses.Update(addedIP);
+            _context.SaveChanges();
+
+            // Act
+            _editor.RemoveIPAddress(newDevice.InventoryNumber, addedIP.Address);
+
+            // Assert
+            Assert.Null(GetDeviceIP(newDevice.ID));
         }
 
         private Device CreateDevice()
@@ -360,5 +413,11 @@ namespace DevSpector.Tests.Application.Devices
 
             return newDevice;
         }
+
+        private IPAddress GetFreeIP() =>
+            _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID == null);
+
+        private IPAddress GetDeviceIP(Guid deviceID) =>
+            _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID == deviceID);
     }
 }

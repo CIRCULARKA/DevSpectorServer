@@ -9,7 +9,7 @@ using DevSpector.Application.Networking;
 
 namespace DevSpector.Tests.Application.Devices
 {
-    [Collection("DbCollection")]
+    [Collection(nameof(DatabaseCollection))]
     public class DevicesEditorTests : DatabaseTestBase
     {
         private readonly IDevicesEditor _editor;

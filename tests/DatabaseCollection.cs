@@ -2,6 +2,6 @@ using Xunit;
 
 namespace DevSpector.Tests.Database
 {
-    [CollectionDefinition("DbCollection")]
+    [CollectionDefinition(nameof(DatabaseCollection))]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture> { }
 }

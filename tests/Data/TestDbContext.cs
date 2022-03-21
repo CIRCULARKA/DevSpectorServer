@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using DevSpector.Database;
@@ -7,17 +8,27 @@ namespace DevSpector.Tests.Database
 {
     public class TestDbContext : ApplicationContextBase
     {
+        private string _connectionString;
+
         private List<Device> _devices;
 
         private List<DeviceType> _deviceTypes;
 
         private List<DeviceSoftware> _deviceSoftware;
 
+        private List<DeviceCabinet> _deviceCabinets;
+
         private List<IPAddress> _ipAddresses;
 
-        public TestDbContext() :
+        private List<Housing> _housings;
+
+        private List<Cabinet> _cabinets;
+
+        public TestDbContext(string connectionString) :
             base(new DbContextOptions<TestDbContext>())
         {
+            _connectionString = connectionString;
+
             RecreateDatabase();
 
             InitializeTestData();
@@ -27,7 +38,7 @@ namespace DevSpector.Tests.Database
         {
             base.OnConfiguring(builder);
 
-            builder.UseSqlite("Data Source=./TestData.db");
+            builder.UseSqlite(_connectionString);
         }
 
         private void InitializeTestData()
@@ -36,6 +47,8 @@ namespace DevSpector.Tests.Database
             InitializeDevices();
             InitializeDeviceSoftware();
             InitializeIPAddresses();
+            InitializeCabinets();
+            AssignCabinetsToDevices();
         }
 
         private void InitializeDeviceTypes()
@@ -97,15 +110,93 @@ namespace DevSpector.Tests.Database
         {
             _ipAddresses = new List<IPAddress>();
 
+            var currentIndex = 0;
             for (int i = 0; i < 50; i++)
             {
                 _ipAddresses.Add(new IPAddress {
                     Address = $"198.62.14.{i + 1}",
                     // Each device have 5 IP's
-                    DeviceID = _devices[i / 5].ID
+                    DeviceID = _devices[currentIndex / 5].ID
                 });
 
-                this.IPAddresses.Add(_ipAddresses[i]);
+                this.IPAddresses.Add(_ipAddresses[currentIndex]);
+                currentIndex++;
+            }
+
+            // Add some free IPs
+            for (int i = 0; i < 25; i++)
+            {
+                _ipAddresses.Add(new IPAddress {
+                    Address = $"198.62.13.{i + 1}",
+                    DeviceID = null
+                });
+
+                this.IPAddresses.Add(_ipAddresses[currentIndex]);
+                currentIndex++;
+            }
+
+            this.SaveChanges();
+        }
+
+        private void InitializeCabinets()
+        {
+            _housings = new List<Housing>();
+            _cabinets = new List<Cabinet>();
+
+            var lastCabinetIndex = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                _housings.Add(new Housing {
+                    Name = $"TestHousing_{i + 1}"
+                });
+
+                this.Housings.Add(_housings[i]);
+
+                this.SaveChanges();
+
+                for (int j = 0; j < 5; j++)
+                {
+                    _cabinets.Add(new Cabinet {
+                        Name = $"TestCabinet_{lastCabinetIndex + 1}",
+                        HousingID = _housings[i].ID,
+                    });
+
+                    this.Cabinets.Add(_cabinets[lastCabinetIndex]);
+                    this.SaveChanges();
+
+                    ++lastCabinetIndex;
+                }
+            }
+
+            var naHousing = new Housing {
+                Name = "N/A"
+            };
+
+            _housings.Add(naHousing);
+            this.Housings.Add(naHousing);
+            this.SaveChanges();
+
+            var naCabinet = new Cabinet {
+                Name = "N/A",
+                HousingID = naHousing.ID
+            };
+            _cabinets.Add(naCabinet);
+            this.Cabinets.Add(naCabinet);
+            this.SaveChanges();
+        }
+
+        private void AssignCabinetsToDevices()
+        {
+            _deviceCabinets = new List<DeviceCabinet>();
+
+            for (int i = 0; i < _cabinets.Count - 1; i++)
+            {
+                _deviceCabinets.Add(new DeviceCabinet {
+                    DeviceID = _devices[i].ID,
+                    CabinetID = _cabinets[i].ID
+                });
+
+                this.DeviceCabinets.Add(_deviceCabinets[i]);
             }
 
             this.SaveChanges();

@@ -5,9 +5,11 @@ namespace DevSpector.Application.Networking
 {
 	public interface IIPAddressProvider
 	{
-		IEnumerable<IPAddress> GetFreeIP();
+		List<IPAddress> GetAllIP();
 
-		IEnumerable<IPAddress> GetFreeIPSorted();
+		List<IPAddress> GetFreeIP();
+
+		List<IPAddress> GetFreeIPSorted();
 
 		IPAddress GetIP(string address);
 

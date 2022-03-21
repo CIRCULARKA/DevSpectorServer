@@ -26,18 +26,22 @@ namespace DevSpector.Application.Networking
 			_ipRangeGenerator = ipRangeGenerator;
 		}
 
-		public IEnumerable<IPAddress> GetFreeIP() =>
+		public List<IPAddress> GetAllIP() =>
+			_repo.Get<IPAddress>().ToList();
+
+		public List<IPAddress> GetFreeIP() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
-			);
+			).ToList();
 
-		public IEnumerable<IPAddress> GetFreeIPSorted() =>
+		public List<IPAddress> GetFreeIPSorted() =>
 			_repo.Get<IPAddress>(
 				filter: ip => ip.DeviceID == null
 			).OrderBy(ip => int.Parse(ip.Address.Split(".")[0])).
 				ThenBy(ip => int.Parse(ip.Address.Split(".")[1])).
 				ThenBy(ip => int.Parse(ip.Address.Split(".")[2])).
-				ThenBy(ip => int.Parse(ip.Address.Split(".")[3]));
+				ThenBy(ip => int.Parse(ip.Address.Split(".")[3])).
+					ToList();
 
 		public IPAddress GetIP(string address) =>
 			_repo.GetSingle<IPAddress>(ip => ip.Address == address);

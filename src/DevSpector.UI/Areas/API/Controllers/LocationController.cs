@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using DevSpector.Application;
 using DevSpector.UI.Filters;
+using DevSpector.Application.Location;
 
 namespace DevSpector.UI.API.Controllers
 {

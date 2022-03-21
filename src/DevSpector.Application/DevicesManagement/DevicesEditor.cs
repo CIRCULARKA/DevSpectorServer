@@ -35,8 +35,11 @@ namespace DevSpector.Application.Devices
 
 		public void CreateDevice(DeviceInfo info)
 		{
+			if (info.InventoryNumber == null)
+				throw new ArgumentNullException("Inventory number can not be null");
+
 			if (_devicesProvider.DoesDeviceExist(info.InventoryNumber))
-				throw new InvalidOperationException("Device with specified inventory number already exists");
+				throw new ArgumentException("Device with specified inventory number already exists");
 
 			// Get N/A cabinet in N/A housing to put it as device's location
 			var defaultCabinetID = _repo.GetSingle<Cabinet>(
@@ -63,15 +66,15 @@ namespace DevSpector.Application.Devices
 
 		public void UpdateDevice(string inventoryNumber, DeviceInfo info)
 		{
-			if (!_devicesProvider.DoesDeviceExist(info.InventoryNumber))
-				throw new InvalidOperationException("There is no device with specified inventory number");
+			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
+				throw new ArgumentException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			if (info.TypeID != Guid.Empty)
 			{
 				if (!_devicesProvider.DoesDeviceTypeExist(info.TypeID))
-					throw new InvalidOperationException("There is no device type with specified ID");
+					throw new ArgumentException("There is no device type with specified ID");
 
 				targetDevice.TypeID = info.TypeID;
 			}
@@ -90,6 +93,10 @@ namespace DevSpector.Application.Devices
 				targetDevice.NetworkName = info.NetworkName;
 			}
 
+			if (info.ModelName != null) {
+				targetDevice.ModelName = info.ModelName;
+			}
+
 			_repo.Update<Device>(targetDevice);
 			_repo.Save();
 		}
@@ -97,7 +104,7 @@ namespace DevSpector.Application.Devices
 		public void DeleteDevice(string inventoryNumber)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new InvalidOperationException("There is no device with specified inventory number");
+				throw new ArgumentException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
@@ -108,7 +115,7 @@ namespace DevSpector.Application.Devices
 		public void MoveDevice(string inventoryNumber, Guid cabinetID)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new InvalidOperationException("There is no device with specified inventory number");
+				throw new ArgumentException("There is no device with specified inventory number");
 
 			var targetCabinet = _repo.GetByID<Cabinet>(cabinetID);
 			if (targetCabinet == null)
@@ -127,8 +134,11 @@ namespace DevSpector.Application.Devices
 
 		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
 		{
+			if (info.SoftwareName == null)
+				throw new ArgumentNullException("Software name must be specified");
+
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new InvalidOperationException("There is no device with specified ID");
+				throw new ArgumentException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
@@ -149,14 +159,14 @@ namespace DevSpector.Application.Devices
 		public void RemoveSoftware(string inventoryNumber, SoftwareInfo info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new InvalidOperationException("There is no device with specified inventory number");
+				throw new ArgumentException("There is no device with specified inventory number");
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
 			if (info.SoftwareVersion != null)
 			{
 				if (!_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
-					throw new InvalidOperationException("There is no software with specified name and version");
+					throw new ArgumentException("There is no software with specified name and version");
 
 				var targetSoftware = _devicesProvider.GetDeviceSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion);
 
@@ -166,7 +176,7 @@ namespace DevSpector.Application.Devices
 			else
 			{
 				if (!_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName))
-					throw new InvalidOperationException("There is no software with specified name");
+					throw new ArgumentException("There is no software with specified name");
 
 				IEnumerable<DeviceSoftware> targetSoftware = _devicesProvider.GetDeviceSoftware(targetDevice.ID, info.SoftwareName);
 
@@ -178,6 +188,9 @@ namespace DevSpector.Application.Devices
 
 		public void AddIPAddress(string inventoryNumber, string ipAddress)
 		{
+			if (ipAddress == null)
+				throw new ArgumentNullException("IP address should be specified");
+
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new ArgumentException("There is no device with specified inventory number");
 

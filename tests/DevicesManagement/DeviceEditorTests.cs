@@ -399,6 +399,25 @@ namespace DevSpector.Tests.Application.Devices
             Assert.Null(GetDeviceIP(newDevice.ID));
         }
 
+        [Fact]
+        public void CantRemoveIP()
+        {
+            // Arrange
+            Device newDevice = CreateDevice();
+
+            IPAddress busyIP = _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID != null);
+            IPAddress freeIP = GetFreeIP();
+            freeIP.DeviceID = newDevice.ID;
+            _context.IPAddresses.Update(freeIP);
+            _context.SaveChanges();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => _editor.RemoveIPAddress(newDevice.InventoryNumber, busyIP.Address));
+            Assert.Throws<ArgumentException>(() => _editor.RemoveIPAddress(null, freeIP.Address));
+            Assert.Throws<ArgumentException>(() => _editor.RemoveIPAddress("", freeIP.Address));
+            Assert.Throws<ArgumentNullException>(() => _editor.RemoveIPAddress(newDevice.InventoryNumber, null));
+        }
+
         private Device CreateDevice()
         {
             var newDevice = new Device {

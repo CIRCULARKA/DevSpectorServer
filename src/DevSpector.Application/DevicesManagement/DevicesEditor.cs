@@ -219,7 +219,7 @@ namespace DevSpector.Application.Devices
 				throw new ArgumentException("Specified IP address does not match IPv4 pattern");
 
 			if (!_devicesProvider.HasIP(targetDevice.ID, ipAddress))
-				throw new ArgumentException("Device doesn't have specified IP address");
+				throw new InvalidOperationException("Device doesn't have specified IP address");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 			targetIP.DeviceID = null;

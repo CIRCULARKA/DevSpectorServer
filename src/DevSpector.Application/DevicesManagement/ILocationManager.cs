@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using DevSpector.Domain.Models;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Location
 {
 	public interface ILocationManager
 	{
-		IEnumerable<Housing> Housings { get; }
+		List<Housing> Housings { get; }
 
-		IEnumerable<Cabinet> GetCabinets(Guid housingID);
+		List<Cabinet> GetCabinets(Guid housingID);
 	}
 }

@@ -2,6 +2,7 @@ using DevSpector.Domain;
 using DevSpector.Application;
 using DevSpector.Application.Devices;
 using DevSpector.Application.Networking;
+using DevSpector.Application.Location;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

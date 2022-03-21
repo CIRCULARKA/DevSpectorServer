@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 
-namespace DevSpector.Application
+namespace DevSpector.Application.Location
 {
 	public class LocationManager : ILocationManager
 	{
@@ -12,10 +13,10 @@ namespace DevSpector.Application
 		public LocationManager(IRepository repo) =>
 			_repo = repo;
 
-		public IEnumerable<Housing> Housings =>
-			_repo.Get<Housing>();
+		public List<Housing> Housings =>
+			_repo.Get<Housing>().ToList();
 
-		public IEnumerable<Cabinet> GetCabinets(Guid housingID)
+		public List<Cabinet> GetCabinets(Guid housingID)
 		{
 			var targetHousing = _repo.GetByID<Housing>(housingID);
 			if (targetHousing == null)
@@ -23,7 +24,7 @@ namespace DevSpector.Application
 
 			return _repo.Get<Cabinet>(
 				filter: c => c.HousingID == housingID
-			);
+			).ToList();
 		}
 	}
 }

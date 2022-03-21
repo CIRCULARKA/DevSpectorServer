@@ -198,7 +198,7 @@ namespace DevSpector.Application.Devices
 				throw new ArgumentException("Specified IP address does not match IPv4 pattern");
 
 			if (!_ipProvider.IsAddressFree(ipAddress))
-				throw new ArgumentException("Specified IP address is already in use or out of range");
+				throw new InvalidOperationException("Specified IP address is already in use or out of range");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);

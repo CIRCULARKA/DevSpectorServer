@@ -20,7 +20,7 @@ namespace DevSpector.Application.Location
 		{
 			var targetHousing = _repo.GetByID<Housing>(housingID);
 			if (targetHousing == null)
-				throw new ArgumentException("There is no housing with specified ID");
+				throw new InvalidOperationException("There is no housing with specified ID");
 
 			return _repo.Get<Cabinet>(
 				filter: c => c.HousingID == housingID

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using Xunit;
@@ -70,6 +71,12 @@ namespace DevSpector.Tests.Application.Location
                     Assert.NotNull(actual[i][j].Housing);
                 }
             }
+        }
+
+        [Fact]
+        public void CantGetCabinets()
+        {
+            Assert.Throws<InvalidOperationException>(() => _manager.GetCabinets(Guid.Empty));
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using DevSpector.Database;
 using DevSpector.Domain.Models;
 
@@ -23,6 +24,8 @@ namespace DevSpector.Tests.Database
         private List<Housing> _housings;
 
         private List<Cabinet> _cabinets;
+
+        private List<IdentityRole> _userRoles;
 
         public TestDbContext(string connectionString) :
             base(new DbContextOptions<TestDbContext>())
@@ -49,6 +52,7 @@ namespace DevSpector.Tests.Database
             InitializeIPAddresses();
             InitializeCabinets();
             AssignCabinetsToDevices();
+            InitializeUserRoles();
         }
 
         private void InitializeDeviceTypes()
@@ -197,6 +201,25 @@ namespace DevSpector.Tests.Database
                 });
 
                 this.DeviceCabinets.Add(_deviceCabinets[i]);
+            }
+
+            this.SaveChanges();
+        }
+
+        private void InitializeUserRoles()
+        {
+            _userRoles = new List<IdentityRole>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var roleName = $"TestRole_{i + 1}";
+
+                _userRoles.Add(new IdentityRole {
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper()
+                });
+
+                this.Roles.Add(_userRoles[i]);
             }
 
             this.SaveChanges();

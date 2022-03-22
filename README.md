@@ -1,4 +1,4 @@
-[![Known Vulnerabilities](https://snyk.io/test/github/CIRCULARKA/DevSpectorServer/badge.svg)]
+[![Known Vulnerabilities](https://snyk.io/test/github/CIRCULARKA/DevSpectorServer/badge.svg)](https://snyk.io/test/github/CIRCULARKA/DevSpectorServer)
 # For developers
 ```Appliance``` entity is simplyfied client side copy of ```Device``` class. It is made like that in order to resolve ambiguity between ```Device``` from server application layer and SDK's ```Device```.
 

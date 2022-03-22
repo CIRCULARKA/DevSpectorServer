@@ -53,8 +53,10 @@ namespace DevSpector.Application
 
 			var target = await this.FindByLoginAsync(targetUserLogin);
 
-			if (!string.IsNullOrWhiteSpace(updatedInfo.Login))
+			if (!string.IsNullOrWhiteSpace(updatedInfo.Login)) {
+				await ThrowIfUser(EntityExistance.Exists, updatedInfo.Login);
 				target.UserName = updatedInfo.Login;
+			}
 
 			if (!string.IsNullOrWhiteSpace(updatedInfo.FirstName))
 				target.FirstName = updatedInfo.FirstName;

@@ -33,7 +33,7 @@ namespace Microsoft.AspNetCore.Builder
             return @this;
         }
 
-        public async static Task<IApplicationBuilder> AddAdministratorAsync(
+        public async static Task<IApplicationBuilder> AddSuperUserAsync(
             this IApplicationBuilder @this,
             string login,
             string password
@@ -44,7 +44,7 @@ namespace Microsoft.AspNetCore.Builder
             if ((await context.FindByLoginAsync(login)) != null)
                 return @this;
 
-            var administratorGroup = context.GetGroup("Администратор");
+            var administratorGroup = context.GetGroup("Суперпользователь");
             var newUserInfo = new UserInfo {
                 Login = "root",
                 Password = password,
@@ -161,6 +161,21 @@ namespace Microsoft.AspNetCore.Builder
             }
 
             context.IPAddresses.AddRange(ipAddresses);
+            context.SaveChanges();
+
+            // Add 20 software to each device
+            foreach (var device in devices)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    context.DeviceSoftware.Add(new DeviceSoftware {
+                        DeviceID = device.ID,
+                        SoftwareName = $"TempSoftwareName:{Guid.NewGuid().ToString()}",
+                        SoftwareVersion = $"TempSoftwareVersion:{Guid.NewGuid().ToString()}"
+                    });
+                }
+            }
+
             context.SaveChanges();
 
             return @this;

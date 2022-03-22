@@ -107,9 +107,9 @@ namespace DevSpector.Application
 		public async Task<User> AuthorizeUser(string login, string password)
 		{
 			if (login == null)
-				throw new ArgumentException("In order to authorize user, user's login can't be null");
+				throw new ArgumentException("User's login can't be null");
 			if (password == null)
-				throw new ArgumentException("In order to authorize user, user's password can't be null");
+				throw new ArgumentException("User's password can't be null");
 
 			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
 

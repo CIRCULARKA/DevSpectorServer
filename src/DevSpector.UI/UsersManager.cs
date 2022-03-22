@@ -11,6 +11,7 @@ using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {
+	// I don't know how to test this class
 	public class UsersManager
 	{
 		private IRepository _repository;
@@ -162,8 +163,8 @@ namespace DevSpector.Application
 		public User FindByApi(string key) =>
 			_baseUsersManager.Users.FirstOrDefault(u => u.AccessKey == key);
 
-		public IEnumerable<IdentityRole> GetUserGroups() =>
-			_repository.Get<IdentityRole>();
+		public List<IdentityRole> GetUserGroups() =>
+			_repository.Get<IdentityRole>().ToList();
 
 		public IdentityRole GetGroup(Guid id) =>
 			_repository.

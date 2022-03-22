@@ -11,6 +11,7 @@ using DevSpector.Application.Enumerations;
 
 namespace DevSpector.Application
 {
+	// I don't know how to test this class
 	public class UsersManager
 	{
 		private IRepository _repository;

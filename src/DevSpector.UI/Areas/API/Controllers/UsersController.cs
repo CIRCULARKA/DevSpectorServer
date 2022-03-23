@@ -140,6 +140,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/users/groups")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
 		public JsonResult GetUserGroups() =>
 			Json(_usersManager.GetUserGroups().
 				Select(r => new {

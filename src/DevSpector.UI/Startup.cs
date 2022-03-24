@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,7 +46,10 @@ namespace DevSpector.UI
             );
 
             // services.AddControllers().AddFluentValidation();
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
+            });
 
             services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().

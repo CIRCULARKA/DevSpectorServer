@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +12,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.Domain.Models;
 using DevSpector.UI.Filters;
+using DevSpector.UI.Validators;
 
 namespace DevSpector.UI
 {
@@ -46,10 +50,13 @@ namespace DevSpector.UI
             );
 
             // services.AddControllers().AddFluentValidation();
-            services.AddControllers().AddJsonOptions(options => {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
-            });
+            services.AddControllers().
+                AddJsonOptions(options => {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    options.JsonSerializerOptions.Encoder =
+                        JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
+                }).
+                AddFluentValidation();
 
             services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().
@@ -64,7 +71,7 @@ namespace DevSpector.UI
                     options.Password.RequireNonAlphanumeric = false;
             });
 
-            // services.AddTransient<IValidator<Device>, DeviceValidator>();
+            services.AddTransient<IValidator<DeviceToAdd>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 
             services.AddApplicationServices();

@@ -1,5 +1,4 @@
 using System;
-using DevSpector.Database;
 using DevSpector.Database.DTO;
 
 namespace DevSpector.Application.Devices

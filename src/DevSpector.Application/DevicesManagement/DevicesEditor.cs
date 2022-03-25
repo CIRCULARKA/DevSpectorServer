@@ -241,9 +241,6 @@ namespace DevSpector.Application.Devices
 			if (!string.IsNullOrWhiteSpace(info.ModelName))
 				newDevice.ModelName = info.ModelName;
 
-			if (!string.IsNullOrWhiteSpace(info.ModelName))
-				newDevice.ModelName = info.ModelName;
-
 			if (info.TypeID != Guid.Empty)
 				newDevice.TypeID = info.TypeID;
 

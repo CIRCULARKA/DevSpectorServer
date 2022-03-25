@@ -19,7 +19,6 @@ namespace DevSpector.Tests.Controllers
         {
             // Arrange
             var expectedDevices = new List<DeviceToOutput>();
-            var expectedContentType = "application/json";
 
             for (int i = 0; i < 5; i++)
             {
@@ -57,10 +56,8 @@ namespace DevSpector.Tests.Controllers
 
             // Act
             var actualDevices = controller.GetDevices().Value as List<DeviceToOutput>;
-            var actualContentType = controller.GetDevices().ContentType;
 
             // Assert
-            Assert.Equal(expectedContentType, actualContentType);
             Assert.Equal(expectedDevices, actualDevices);
             Assert.Equal(expectedDevices.Count, actualDevices.Count);
             for (int i = 0; i < expectedDevices.Count; i++)

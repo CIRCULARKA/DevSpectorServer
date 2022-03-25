@@ -9,18 +9,22 @@ namespace DevSpector.UI.API.Controllers
 	[ServiceFilter(typeof(AuthorizationFilter))]
 	public class DevicesController : ApiController
 	{
-		private readonly IDevicesManager _devicesManager;
+		private readonly IDevicesProvider _devicesProvider;
+
+		private readonly IDevicesEditor _devicesEditor;
 
 		public DevicesController(
-			IDevicesManager devicesManager
+			IDevicesProvider provider,
+			IDevicesEditor editor
 		)
 		{
-			_devicesManager = devicesManager;
+			_devicesProvider = provider;
+			_devicesEditor = editor;
 		}
 
 		[HttpGet("api/devices")]
 		public JsonResult GetDevices() {
-			return Json(_devicesManager.GetDevicesToOutput());
+			return Json(_devicesProvider.GetDevicesToOutput());
 		}
 
 		[HttpPost("api/devices/add")]
@@ -28,7 +32,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.CreateDevice(newDeviceToAdd);
+				_devicesEditor.CreateDevice(newDeviceToAdd);
 
 				return Ok();
 			}
@@ -49,7 +53,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.UpdateDevice(targetInventoryNumber, updatedInfo);
+				_devicesEditor.UpdateDevice(targetInventoryNumber, updatedInfo);
 
 				return Ok();
 			}
@@ -70,7 +74,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.DeleteDevice(inventoryNumber);
+				_devicesEditor.DeleteDevice(inventoryNumber);
 
 				return Ok();
 			}
@@ -86,7 +90,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/devices/types")]
 		public JsonResult GetDeviceTypes() =>
-			Json(_devicesManager.GetDeviceTypes());
+			Json(_devicesProvider.GetDeviceTypes());
 
 		[HttpPut("api/devices/move")]
 		[RequireParameters("inventoryNumber", "cabinetID")]
@@ -94,7 +98,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.MoveDevice(inventoryNumber, cabinetID);
+				_devicesEditor.MoveDevice(inventoryNumber, cabinetID);
 
 				return Ok();
 			}
@@ -113,7 +117,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.AddSoftware(inventoryNumber, newSoftwareInfo);
+				_devicesEditor.AddSoftware(inventoryNumber, newSoftwareInfo);
 
 				return Ok();
 			}
@@ -132,7 +136,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.RemoveSoftware(inventoryNumber, softwareToRemove);
+				_devicesEditor.RemoveSoftware(inventoryNumber, softwareToRemove);
 
 				return Ok();
 			}
@@ -151,7 +155,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.AddIPAddress(inventoryNumber, ipAddress);
+				_devicesEditor.AddIPAddress(inventoryNumber, ipAddress);
 
 				return Ok();
 			}
@@ -170,7 +174,7 @@ namespace DevSpector.UI.API.Controllers
 		{
 			try
 			{
-				_devicesManager.RemoveIPAddress(inventoryNumber, ipAddress);
+				_devicesEditor.RemoveIPAddress(inventoryNumber, ipAddress);
 
 				return Ok();
 			}

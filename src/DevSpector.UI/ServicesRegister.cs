@@ -21,7 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
 		private static void AddDevicesManagementServices(IServiceCollection services)
 		{
-			services.AddTransient<IDevicesManager, DevicesManager>();
 			services.AddTransient<IDevicesProvider, DevicesProvider>();
 			services.AddTransient<IDevicesEditor, DevicesEditor>();
 			services.AddTransient<ILocationManager, LocationManager>();

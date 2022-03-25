@@ -52,6 +52,7 @@ namespace DevSpector.Application.Devices
 					InventoryNumber =  d.InventoryNumber,
 					Type = d.Type.Name,
 					NetworkName = d.NetworkName,
+					ModelName = d.ModelName,
 					Housing = deviceCabinet.Housing.Name,
 					Cabinet = deviceCabinet.Name,
 					IPAddresses = deviceIPs.Select(ip => ip.Address).ToList(),

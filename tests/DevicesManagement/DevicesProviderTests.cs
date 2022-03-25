@@ -243,6 +243,7 @@ namespace DevSpector.Tests.Application.Devices
                 Assert.Equal(devices[i].InventoryNumber, actualDevices[i].InventoryNumber);
                 Assert.Equal(devices[i].NetworkName, actualDevices[i].NetworkName);
                 Assert.Equal(devices[i].Type.Name, actualDevices[i].Type);
+                Assert.Equal(devices[i].ModelName, actualDevices[i].ModelName);
 
                 Assert.Equal(cabinet.Name, actualDevices[i].Cabinet);
                 Assert.Equal(cabinet.Housing.Name, actualDevices[i].Housing);

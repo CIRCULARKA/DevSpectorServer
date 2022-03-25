@@ -4,7 +4,7 @@ using Xunit;
 using DevSpector.Tests.Database;
 using DevSpector.Application.Devices;
 using DevSpector.Domain.Models;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.Application.Networking;
 
 namespace DevSpector.Tests.Application.Devices
@@ -33,7 +33,7 @@ namespace DevSpector.Tests.Application.Devices
             int countBefore = _context.Devices.Count();
 
             DeviceType expectedType = _context.DeviceTypes.FirstOrDefault();
-            var expected = new DeviceInfo {
+            var expected = new DeviceToAdd {
                 InventoryNumber = "newTestInvNum",
                 TypeID = expectedType.ID,
                 NetworkName = "newTestNetworkName",
@@ -58,12 +58,12 @@ namespace DevSpector.Tests.Application.Devices
         public void CantCreateDevice()
         {
             // Arrange
-            var wrongDeviceData1 = new DeviceInfo {
+            var wrongDeviceData1 = new DeviceToAdd {
                 InventoryNumber = "SomeInvNum",
                 TypeID = Guid.Empty,
             };
 
-            var wrongDeviceData2 = new DeviceInfo {
+            var wrongDeviceData2 = new DeviceToAdd {
                 InventoryNumber = null,
                 TypeID = _context.DeviceTypes.FirstOrDefault().ID
             };
@@ -77,14 +77,14 @@ namespace DevSpector.Tests.Application.Devices
         public void CanUpdateDevice()
         {
             // Arrange
-            var originalInfo = new DeviceInfo {
+            var originalInfo = new DeviceToAdd {
                 InventoryNumber = Guid.NewGuid().ToString(),
                 TypeID = _context.DeviceTypes.FirstOrDefault().ID,
                 NetworkName = Guid.NewGuid().ToString(),
                 ModelName = Guid.NewGuid().ToString()
             };
 
-            var updatedInfo = new DeviceInfo {
+            var updatedInfo = new DeviceToAdd {
                 InventoryNumber = Guid.NewGuid().ToString(),
                 TypeID = _context.DeviceTypes.Skip(1).FirstOrDefault().ID,
                 NetworkName = Guid.NewGuid().ToString(),
@@ -130,12 +130,12 @@ namespace DevSpector.Tests.Application.Devices
             _context.Devices.Add(conflictDevice);
             _context.SaveChanges();
 
-            var wrongType = new DeviceInfo {
+            var wrongType = new DeviceToAdd {
                 InventoryNumber = tempDevice.InventoryNumber,
                 TypeID = Guid.NewGuid()
             };
 
-            var busyInventoryNumber = new DeviceInfo {
+            var busyInventoryNumber = new DeviceToAdd {
                 InventoryNumber = conflictDevice.InventoryNumber
             };
 

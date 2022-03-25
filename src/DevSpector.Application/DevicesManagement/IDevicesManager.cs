@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
-using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
-using DevSpector.Database;
-using DevSpector.Application.Enumerations;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.Application.Devices
 {
 	public interface IDevicesManager
 	{
-		void CreateDevice(DeviceInfo info);
+		void CreateDevice(DeviceToAdd info);
 
-		void UpdateDevice(string targetDeviceInventoryNumber, DeviceInfo info);
+		void UpdateDevice(string targetDeviceInventoryNumber, DeviceToAdd info);
 
 		void DeleteDevice(string inventoryNumber);
 
@@ -33,7 +31,7 @@ namespace DevSpector.Application.Devices
 
 		IEnumerable<Device> GetDevices();
 
-		IEnumerable<Appliance> GetDevicesAsAppliances();
+		IEnumerable<DeviceToOutput> GetDevicesToOutput();
 
 		IEnumerable<DeviceType> GetDeviceTypes();
 	}

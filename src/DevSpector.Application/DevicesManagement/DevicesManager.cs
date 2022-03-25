@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DevSpector.Domain.Models;
-using DevSpector.SDK.Models;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.Application.Devices
 {
@@ -21,10 +20,10 @@ namespace DevSpector.Application.Devices
 			_devicesEditor = devicesEditor;
 		}
 
-		public void CreateDevice(DeviceInfo info) =>
+		public void CreateDevice(DeviceToAdd info) =>
 			_devicesEditor.CreateDevice(info);
 
-		public void UpdateDevice(string targetInventoryNumber, DeviceInfo info) =>
+		public void UpdateDevice(string targetInventoryNumber, DeviceToAdd info) =>
 			_devicesEditor.UpdateDevice(targetInventoryNumber, info);
 
 		public void DeleteDevice(string inventoryNumber) =>
@@ -48,8 +47,8 @@ namespace DevSpector.Application.Devices
 		public IEnumerable<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
 			_devicesProvider.GetDeviceSoftware(deviceID);
 
-		public IEnumerable<Appliance> GetDevicesAsAppliances() =>
-			_devicesProvider.GetDevicesAsAppliances();
+		public IEnumerable<DeviceToOutput> GetDevicesToOutput() =>
+			_devicesProvider.GetDevicesToOutput();
 
 		public IEnumerable<DeviceType> GetDeviceTypes() =>
 			_devicesProvider.GetDeviceTypes();

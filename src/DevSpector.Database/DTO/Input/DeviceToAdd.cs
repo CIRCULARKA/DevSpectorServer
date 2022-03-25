@@ -1,12 +1,12 @@
 using System;
 
-namespace DevSpector.Database
+namespace DevSpector.Database.DTO
 {
     /// <summary>
     /// This is the DTO object needed to provide information from HTTP request to controller's action methods
     /// Defines contract between clients and server
     /// </summary>
-    public class DeviceInfo
+    public class DeviceToAdd
     {
         public string InventoryNumber { get; set; }
 

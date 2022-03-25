@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using DevSpector.SDK.Models;
 using DevSpector.Domain.Models;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.Application.Devices
 {
@@ -15,7 +15,7 @@ namespace DevSpector.Application.Devices
 
 		List<DeviceSoftware> GetDeviceSoftware(Guid deviceID);
 
-		List<Appliance> GetDevicesAsAppliances();
+		List<DeviceToOutput> GetDevicesToOutput();
 
 		/// <summary>
 		/// Returns all versions of specified software name

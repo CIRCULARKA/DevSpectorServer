@@ -1,8 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using DevSpector.Application;
 using DevSpector.Application.Devices;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.UI.Filters;
 
 namespace DevSpector.UI.API.Controllers
@@ -21,15 +20,15 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/devices")]
 		public JsonResult GetDevices() {
-			return Json(_devicesManager.GetDevicesAsAppliances());
+			return Json(_devicesManager.GetDevicesToOutput());
 		}
 
 		[HttpPost("api/devices/add")]
-		public IActionResult CreateDevice([FromBody] DeviceInfo newDeviceInfo)
+		public IActionResult CreateDevice([FromBody] DeviceToAdd newDeviceToAdd)
 		{
 			try
 			{
-				_devicesManager.CreateDevice(newDeviceInfo);
+				_devicesManager.CreateDevice(newDeviceToAdd);
 
 				return Ok();
 			}
@@ -46,7 +45,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/update")]
 		[RequireParameters("targetInventoryNumber")]
-		public IActionResult UpdateDevice(string targetInventoryNumber, [FromBody] DeviceInfo updatedInfo)
+		public IActionResult UpdateDevice(string targetInventoryNumber, [FromBody] DeviceToAdd updatedInfo)
 		{
 			try
 			{

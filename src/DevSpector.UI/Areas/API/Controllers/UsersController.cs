@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.UI.Filters;
-using DevSpector.Domain.Models;
-using DevSpector.SDK.Models;
 using DevSpector.Application;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.UI.API.Controllers
 {
@@ -29,17 +27,20 @@ namespace DevSpector.UI.API.Controllers
 			Json(
 				_usersManager.GetAllUsers().
 					Select(
-						u => new DevSpector.SDK.Models.User(
-							u.AccessKey,
-							u.UserName,
-							_usersManager.GetUserGroup(u).Result
-						)
+						u => new UserToOutput {
+							AccessToken = u.AccessKey,
+							Login = u.UserName,
+							Group = _usersManager.GetUserGroup(u).Result,
+							FirstName = u.FirstName,
+							Surname = u.Surname,
+							Patronymic = u.Patronymic
+						}
 					)
 			);
 
         [HttpPost("api/users/create")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
-        public async Task<IActionResult> CreateUserAsync([FromBody] UserInfo info)
+        public async Task<IActionResult> CreateUserAsync([FromBody] UserToAdd info)
 		{
 			try
 			{
@@ -59,7 +60,7 @@ namespace DevSpector.UI.API.Controllers
 		[HttpPut("api/users/update")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("targetUserLogin")]
-		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserInfo info)
+		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserToAdd info)
 		{
 			try
 			{

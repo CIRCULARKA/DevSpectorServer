@@ -1,13 +1,14 @@
 using System;
 using DevSpector.Database;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.Application.Devices
 {
 	public interface IDevicesEditor
 	{
-		void CreateDevice(DeviceInfo info);
+		void CreateDevice(DeviceToAdd info);
 
-		void UpdateDevice(string targetDeviceInventoryNumber, DeviceInfo info);
+		void UpdateDevice(string targetDeviceInventoryNumber, DeviceToAdd info);
 
 		void DeleteDevice(string inventoryNumber);
 

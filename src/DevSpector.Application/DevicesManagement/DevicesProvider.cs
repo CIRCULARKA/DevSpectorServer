@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DevSpector.Database.DTO;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
-using DevSpector.SDK.Models;
 using DevSpector.Application.Networking;
 using DevSpector.Application.Enumerations;
 
@@ -41,24 +41,24 @@ namespace DevSpector.Application.Devices
 				ds => (ds.DeviceID == deviceID)
 			).ToList();
 
-		public List<Appliance> GetDevicesAsAppliances()
+		public List<DeviceToOutput> GetDevicesToOutput()
 		{
 			return GetDevices().Select(d => {
 				var deviceCabinet = GetDeviceCabinet(d.ID);
 				var deviceSoftware = GetDeviceSoftware(d.ID);
 				var deviceIPs = GetIPAddresses(d.ID);
-				return new Appliance(
-					d.ID,
-					d.InventoryNumber,
-					d.Type.Name,
-					d.NetworkName,
-					deviceCabinet.Housing.Name,
-					deviceCabinet.Name,
-					deviceIPs.Select(ip => ip.Address).ToList(),
-					deviceSoftware.Select(
+				return new DeviceToOutput {
+					ID = d.ID,
+					InventoryNumber =  d.InventoryNumber,
+					Type = d.Type.Name,
+					NetworkName = d.NetworkName,
+					Housing = deviceCabinet.Housing.Name,
+					Cabinet = deviceCabinet.Name,
+					IPAddresses = deviceIPs.Select(ip => ip.Address).ToList(),
+					Software = deviceSoftware.Select(
 						s => $"{s.SoftwareName} ({s.SoftwareVersion})"
 					).ToList()
-				);
+				};
 			}).ToList();
 		}
 

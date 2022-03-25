@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.Domain;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.Domain.Models;
 using DevSpector.Application.Enumerations;
 
@@ -33,22 +33,22 @@ namespace DevSpector.Application
 		public async Task<string> GetUserGroup(User user) =>
 			(await _baseUsersManager.GetRolesAsync(user)).FirstOrDefault();
 
-		public async Task CreateUserAsync(UserInfo newUserInfo)
+		public async Task CreateUserAsync(UserToAdd newUserToAdd)
 		{
-			await ThrowIfUser(EntityExistance.Exists, newUserInfo.Login);
+			await ThrowIfUser(EntityExistance.Exists, newUserToAdd.Login);
 
-			ThrowIfUserGroupNotExists(newUserInfo.GroupID);
+			ThrowIfUserGroupNotExists(newUserToAdd.GroupID);
 
-			var newUser = FormUserFrom(newUserInfo);
+			var newUser = FormUserFrom(newUserToAdd);
 
-			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserInfo.Password);
+			var creationResult = await _baseUsersManager.CreateAsync(newUser, newUserToAdd.Password);
 			if (!creationResult.Succeeded)
 				throw GenerateExceptionFromErrors(creationResult.Errors);
 
-			await ChangeUserGroup(newUserInfo.Login, newUserInfo.GroupID);
+			await ChangeUserGroup(newUserToAdd.Login, newUserToAdd.GroupID);
 		}
 
-		public async Task UpdateUserAsync(string targetUserLogin, UserInfo updatedInfo)
+		public async Task UpdateUserAsync(string targetUserLogin, UserToAdd updatedInfo)
 		{
 			await ThrowIfUser(EntityExistance.DoesNotExist, targetUserLogin);
 
@@ -194,7 +194,7 @@ namespace DevSpector.Application
 				throw new ArgumentException("User group with specified ID doesn't exists");
 		}
 
-		private User FormUserFrom(UserInfo updatedInfo)
+		private User FormUserFrom(UserToAdd updatedInfo)
 		{
 			var newUser = new User {
 				AccessKey = Guid.NewGuid().ToString()

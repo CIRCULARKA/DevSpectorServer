@@ -5,9 +5,8 @@ using Xunit;
 using DevSpector.Tests.Database;
 using DevSpector.Application.Devices;
 using DevSpector.Domain.Models;
-using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.Application.Networking;
-using DevSpector.SDK.Models;
 
 namespace DevSpector.Tests.Application.Devices
 {
@@ -224,42 +223,42 @@ namespace DevSpector.Tests.Application.Devices
         }
 
         [Fact]
-        public void GetDevicesAsAppliancesTest()
+        public void GetOutputDevicesTest()
         {
             // Arrange
             List<Device> devices = _provider.GetDevices();
 
             // Act
-            List<Appliance> appliances = _provider.GetDevicesAsAppliances();
+            List<DeviceToOutput> actualDevices = _provider.GetDevicesToOutput();
 
             // Assert
-            Assert.Equal(devices.Count, appliances.Count);
+            Assert.Equal(devices.Count, actualDevices.Count);
             for (int i = 0; i < devices.Count; i++)
             {
                 List<IPAddress> ips = _provider.GetIPAddresses(devices[i].ID);
                 List<DeviceSoftware> soft = _provider.GetDeviceSoftware(devices[i].ID);
                 Cabinet cabinet = _provider.GetDeviceCabinet(devices[i].ID);
 
-                Assert.Equal(devices[i].ID, appliances[i].ID);
-                Assert.Equal(devices[i].InventoryNumber, appliances[i].InventoryNumber);
-                Assert.Equal(devices[i].NetworkName, appliances[i].NetworkName);
-                Assert.Equal(devices[i].Type.Name, appliances[i].Type);
+                Assert.Equal(devices[i].ID, actualDevices[i].ID);
+                Assert.Equal(devices[i].InventoryNumber, actualDevices[i].InventoryNumber);
+                Assert.Equal(devices[i].NetworkName, actualDevices[i].NetworkName);
+                Assert.Equal(devices[i].Type.Name, actualDevices[i].Type);
 
-                Assert.Equal(cabinet.Name, appliances[i].Cabinet);
-                Assert.Equal(cabinet.Housing.Name, appliances[i].Housing);
+                Assert.Equal(cabinet.Name, actualDevices[i].Cabinet);
+                Assert.Equal(cabinet.Housing.Name, actualDevices[i].Housing);
 
                 // Compare IP addresses
-                Assert.Equal(ips.Count, appliances[i].IPAddresses.Count);
+                Assert.Equal(ips.Count, actualDevices[i].IPAddresses.Count);
                 for (int j = 0; j < ips.Count; j++)
-                    Assert.Equal(ips[j].Address, appliances[i].IPAddresses[j]);
+                    Assert.Equal(ips[j].Address, actualDevices[i].IPAddresses[j]);
 
                 // Compare software
-                Assert.Equal(soft.Count, appliances[i].Software.Count);
+                Assert.Equal(soft.Count, actualDevices[i].Software.Count);
                 for (int j = 0; j < soft.Count; j++)
                 {
                     Assert.Equal(
                         $"{soft[j].SoftwareName} ({soft[j].SoftwareVersion})",
-                        appliances[i].Software[j]
+                        actualDevices[i].Software[j]
                     );
                 }
             }

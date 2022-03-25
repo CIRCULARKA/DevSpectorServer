@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using DevSpector.Database.DTO;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
-using DevSpector.Database;
 using DevSpector.Application.Networking;
 using DevSpector.Application.Enumerations;
 
@@ -33,7 +33,7 @@ namespace DevSpector.Application.Devices
 			_ipValidator = ipValidator;
 		}
 
-		public void CreateDevice(DeviceInfo info)
+		public void CreateDevice(DeviceToAdd info)
 		{
 			if (info.InventoryNumber == null)
 				throw new ArgumentNullException("Inventory number can not be null");
@@ -64,7 +64,7 @@ namespace DevSpector.Application.Devices
 			_repo.Save();
 		}
 
-		public void UpdateDevice(string inventoryNumber, DeviceInfo info)
+		public void UpdateDevice(string inventoryNumber, DeviceToAdd info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new ArgumentException("There is no device with specified inventory number");
@@ -228,7 +228,7 @@ namespace DevSpector.Application.Devices
 			_repo.Save();
 		}
 
-		private Device FormDeviceFrom(DeviceInfo info)
+		private Device FormDeviceFrom(DeviceToAdd info)
 		{
 			var newDevice = new Device();
 

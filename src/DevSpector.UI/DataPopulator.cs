@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using DevSpector.Database;
+using DevSpector.Database.DTO;
 using DevSpector.Application;
 using DevSpector.Domain.Models;
 
@@ -45,13 +46,13 @@ namespace Microsoft.AspNetCore.Builder
                 return @this;
 
             var administratorGroup = context.GetGroup("Суперпользователь");
-            var newUserInfo = new UserInfo {
+            var newUserToAdd = new UserToAdd {
                 Login = "root",
                 Password = password,
                 GroupID = new Guid(administratorGroup.Id)
             };
 
-            await context.CreateUserAsync(newUserInfo);
+            await context.CreateUserAsync(newUserToAdd);
 
             return @this;
         }

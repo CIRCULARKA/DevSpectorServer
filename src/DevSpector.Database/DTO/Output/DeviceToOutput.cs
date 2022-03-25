@@ -13,6 +13,8 @@ namespace DevSpector.Database.DTO
 
 		public string NetworkName { get; init; }
 
+		public string ModelName { get; set; }
+
 		public string Housing { get; init; }
 
 		public string Cabinet { get; init; }

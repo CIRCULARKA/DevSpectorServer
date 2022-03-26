@@ -4,6 +4,7 @@ using System.Text.Unicode;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -57,6 +58,10 @@ namespace DevSpector.UI
                         JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
                 }).
                 AddFluentValidation();
+
+            // services.Configure<ApiBehaviorOptions>(options => {
+            //     options.SuppressModelStateInvalidFilter = true;
+            // });
 
             services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().

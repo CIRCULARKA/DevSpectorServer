@@ -28,8 +28,7 @@ namespace DevSpector.Tests.Application.Networking
         public void ReturnsFreeIP()
         {
             // Arrange
-            List<IPAddress> expected =
-                _context.IPAddresses.Where(ip => ip.DeviceID == null).ToList();
+            List<IPAddress> expected = GetFreeIP();
 
             // Act
             List<IPAddress> actual = _provider.GetFreeIP();
@@ -40,7 +39,6 @@ namespace DevSpector.Tests.Application.Networking
             {
                 Assert.True(_provider.IsAddressFree(expected[i].Address));
                 Assert.Equal(expected[i].Address, actual[i].Address);
-                Assert.Equal(expected[i].DeviceID, actual[i].DeviceID);
             }
         }
 
@@ -48,8 +46,7 @@ namespace DevSpector.Tests.Application.Networking
         public void ReturnsSortedFreeIP()
         {
             // Arrange
-            // Sort IP addresses by first byte, then by second, etc. up to fourth byte
-            List<IPAddress> expected = _context.IPAddresses.Where(ip => ip.DeviceID == null).ToList();
+            List<IPAddress> expected = GetFreeIP();
 
             // Act
             List<string> actual = _provider.GetFreeIPSorted().Select(ip => ip.Address).ToList();
@@ -73,40 +70,20 @@ namespace DevSpector.Tests.Application.Networking
             Assert.Null(_provider.GetIP("0.0.0.0"));
         }
 
-        [Fact]
-        public void CanGenerateIPRange()
+        public IPAddress GetFreeIPSingle()
         {
-            // Arrange
+			IEnumerable<IPAddress> allIps = _repo.Get<IPAddress>();
+			IEnumerable<IPAddress> busyIps = _repo.Get<DeviceIPAddress>().Select(di => di.IPAddress);
 
-            // Big changes to IPAddresses table which will be made by GenerateRange() method in database may break other tests
-            // so I decided to execute this particullar test in independent database
-            using (var localContext = new TestDbContext("Data Source=./IPRangeTest.db"))
-            {
-                var localRepo = new Repository(localContext);
-                var localProvider = new IPAddressProvider(
-                    localRepo,
-                    new IPValidator(),
-                    new IP4RangeGenerator(new IPValidator())
-                );
+			return allIps.Except(busyIps, new IPAddressComparer()).ToList().FirstOrDefault();
+        }
 
-                var expected = new string[] {
-                    "255.2.10.153",
-                    "255.2.10.154",
-                    "255.2.10.155",
-                    "255.2.10.156",
-                    "255.2.10.157",
-                    "255.2.10.158"
-                };
+        public List<IPAddress> GetFreeIP()
+        {
+			IEnumerable<IPAddress> allIps = _repo.Get<IPAddress>();
+			IEnumerable<IPAddress> busyIps = _repo.Get<DeviceIPAddress>().Select(di => di.IPAddress);
 
-                // Act
-                localProvider.GenerateRange("255.2.10.158", 29);
-                List<string> actual = localRepo.Get<IPAddress>().Select(ip => ip.Address).ToList();
-
-                // Assert
-                Assert.Equal(expected.Length, actual.Count);
-                for (int i = 0; i < expected.Length; i++)
-                    Assert.Contains(expected[i], actual);
-            }
+			return allIps.Except(busyIps, new IPAddressComparer()).ToList();
         }
     }
 }

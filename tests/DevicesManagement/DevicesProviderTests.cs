@@ -64,7 +64,9 @@ namespace DevSpector.Tests.Application.Devices
         {
             // Arrange
             Device targetDevice = _context.Devices.FirstOrDefault();
-            List<IPAddress> expectedIps = _context.IPAddresses.Where(ip => ip.DeviceID == targetDevice.ID).ToList();
+            List<IPAddress> expectedIps = _context.DeviceIPAddresses.
+                Where(ip => ip.DeviceID == targetDevice.ID).
+                    Select(di => di.IPAddress).ToList();
 
             // Act
             List<IPAddress> actualIPs = _provider.GetIPAddresses(targetDevice.ID).ToList();

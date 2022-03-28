@@ -162,11 +162,17 @@ namespace Microsoft.AspNetCore.Builder
             context.SaveChanges();
 
             // Add 10 ips to each device
+            var ipIterator = 0;
             for (int i = 0; i < devices.Count; i++)
-                context.DeviceIPAddresses.Add(new DeviceIPAddress {
-                    DeviceID = devices[i / 10].ID,
-                    IPAddressID = ipAddresses[i].ID
-                });
+            {
+                for (int j = 0; j < 10; j++, ipIterator++)
+                {
+                    context.DeviceIPAddresses.Add(new DeviceIPAddress {
+                        DeviceID = devices[i].ID,
+                        IPAddressID = ipAddresses[ipIterator].ID
+                    });
+                }
+            }
 
             context.SaveChanges();
 

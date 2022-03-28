@@ -447,8 +447,14 @@ namespace DevSpector.Tests.Application.Devices
 			return allIps.Except(busyIps, new IPAddressComparer()).ToList().FirstOrDefault();
         }
 
-        private IPAddress GetDeviceIP(Guid deviceID) =>
-            _context.DeviceIPAddresses.Include(di => di.IPAddress).
-                FirstOrDefault(ip => ip.DeviceID == deviceID).IPAddress;
+        private IPAddress GetDeviceIP(Guid deviceID)
+        {
+            DeviceIPAddress deviceIP = _context.DeviceIPAddresses.Include(di => di.IPAddress).
+                FirstOrDefault(ip => ip.DeviceID == deviceID);
+
+            if (deviceIP == null) return null;
+
+            return deviceIP.IPAddress;
+        }
     }
 }

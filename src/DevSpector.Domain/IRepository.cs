@@ -24,6 +24,8 @@ namespace DevSpector.Domain
 
         void Remove<T>(T entity) where T : class;
 
+        void RemoveRange<T>(IEnumerable<T> entities) where T : class;
+
         void Update<T>(T entity) where T : class;
 
         void Save();

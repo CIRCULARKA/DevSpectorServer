@@ -57,6 +57,17 @@ namespace DevSpector.Domain
             _context.Remove(entity);
         }
 
+        public virtual void RemoveRange<T>(IEnumerable<T> entities) where T : class
+        {
+            foreach (var entity in entities)
+            {
+                if (_context.Entry(entity).State == EntityState.Detached)
+                    _context.Set<T>().Attach(entity);
+            }
+
+            _context.RemoveRange(entities);
+        }
+
         public virtual void Update<T>(T entity) where T : class
         {
             _context.Set<T>().Attach(entity);

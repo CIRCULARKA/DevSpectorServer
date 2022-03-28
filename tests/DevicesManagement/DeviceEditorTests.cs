@@ -405,10 +405,15 @@ namespace DevSpector.Tests.Application.Devices
             // Arrange
             Device newDevice = CreateDevice();
 
-            IPAddress busyIP = _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID != null);
+            IPAddress busyIP = _context.DeviceIPAddresses.Include(di => di.IPAddress).
+                FirstOrDefault().IPAddress;
+
             IPAddress freeIP = GetFreeIP();
-            freeIP.DeviceID = newDevice.ID;
-            _context.IPAddresses.Update(freeIP);
+
+            _context.DeviceIPAddresses.Add(new DeviceIPAddress {
+                IPAddressID = freeIP.ID,
+                DeviceID = newDevice.ID
+            });
             _context.SaveChanges();
 
             // Assert

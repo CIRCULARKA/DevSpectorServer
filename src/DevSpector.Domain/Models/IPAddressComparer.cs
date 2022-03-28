@@ -9,10 +9,10 @@ namespace DevSpector.Domain.Models
 			if (ip1 == null && ip2 == null)
 				return true;
 
-			if (ip1 != null || ip2 != null)
-				return false;
+			if (ip1 != null && ip2 != null)
+				return ip1.Address == ip2.Address;
 
-			return ip1.Address == ip2.Address;
+			return false;
 		}
 
 		public int GetHashCode(IPAddress obj)

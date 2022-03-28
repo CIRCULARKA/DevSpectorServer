@@ -128,6 +128,7 @@ namespace Microsoft.AspNetCore.Builder
                             ID = Guid.NewGuid(),
                             NetworkName = $"TempNetworkName:{Guid.NewGuid()}",
                             InventoryNumber = $"TempInventoryNumber:{Guid.NewGuid()}",
+                            ModelName = $"TempModelName:{Guid.NewGuid()}",
                             TypeID = type.ID
                         }
                     );

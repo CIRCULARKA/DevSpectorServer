@@ -32,9 +32,10 @@ namespace DevSpector.Application.Devices
 			_repo.Get<DeviceType>().ToList();
 
 		public List<IPAddress> GetIPAddresses(Guid deviceID) =>
-			_repo.Get<IPAddress>(
-				filter: di => di.DeviceID == deviceID
-			).ToList();
+			_repo.Get<DeviceIPAddress>(
+				filter: di => di.DeviceID == deviceID).
+				Select(di => di.IPAddress).
+					ToList();
 
 		public List<DeviceSoftware> GetDeviceSoftware(Guid deviceID) =>
 			_repo.Get<DeviceSoftware>(
@@ -115,7 +116,7 @@ namespace DevSpector.Application.Devices
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
 				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
 
-			var deviceIp = _repo.GetSingle<IPAddress>(ip => (ip.DeviceID == deviceID) && (ip.Address == ipAddress));
+			var deviceIp = _repo.GetSingle<DeviceIPAddress>(ip => ip.DeviceID == deviceID);
 
 			return deviceIp != null;
 		}

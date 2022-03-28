@@ -56,8 +56,8 @@ namespace DevSpector.UI
                     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                     options.JsonSerializerOptions.Encoder =
                         JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
-                }).
-                AddFluentValidation();
+                });
+                // AddFluentValidation();
 
             // services.Configure<ApiBehaviorOptions>(options => {
             //     options.SuppressModelStateInvalidFilter = true;
@@ -76,7 +76,7 @@ namespace DevSpector.UI
                     options.Password.RequireNonAlphanumeric = false;
             });
 
-            services.AddTransient<IValidator<DeviceToAdd>, DeviceValidator>();
+            // services.AddTransient<IValidator<DeviceToAdd>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 
             services.AddApplicationServices();

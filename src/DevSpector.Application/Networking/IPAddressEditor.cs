@@ -45,6 +45,5 @@ namespace DevSpector.Application.Networking
 
 			_repo.Save();
 		}
-
 	}
 }

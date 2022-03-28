@@ -116,7 +116,8 @@ namespace DevSpector.Application.Devices
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
 				throw new ArgumentException("Specified IP address doesn't match IPv4 pattern");
 
-			var deviceIp = _repo.GetSingle<DeviceIPAddress>(ip => ip.DeviceID == deviceID);
+			var deviceIp = _repo.GetSingle<DeviceIPAddress>(ip => (ip.DeviceID == deviceID) &&
+				(ip.IPAddress.Address == ipAddress));
 
 			return deviceIp != null;
 		}

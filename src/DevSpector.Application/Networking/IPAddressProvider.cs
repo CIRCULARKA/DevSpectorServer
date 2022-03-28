@@ -47,33 +47,6 @@ namespace DevSpector.Application.Networking
 		public IPAddress GetIP(string address) =>
 			_repo.GetSingle<IPAddress>(ip => ip.Address == address);
 
-		public void GenerateRange(string networkAddress, int mask)
-		{
-			// Get ip addresses according to mask and put them into new IPAddress objects
-			var ips = _ipRangeGenerator.GenerateRange(networkAddress, mask);
-			var newIps = new IPAddress[ips.Count];
-			for (int i = 0; i < ips.Count; i++)
-			{
-				newIps[i] = new IPAddress {
-					Address = ips[i]
-				};
-			}
-
-			// Remove existing IP addresses from database
-			var busyIps = _repo.Get<DeviceIPAddress>();
-			_repo.RemoveRange(busyIps);
-			_repo.Save();
-
-			var existingIps = _repo.Get<IPAddress>();
-			_repo.RemoveRange(existingIps);
-
-			// Add newly generated IPs to database
-			foreach (var ip in newIps)
-				_repo.Add<IPAddress>(ip);
-
-			_repo.Save();
-		}
-
 		public bool IsAddressFree(string ipAddress)
 		{
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))

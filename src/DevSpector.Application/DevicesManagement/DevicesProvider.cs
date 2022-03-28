@@ -33,7 +33,8 @@ namespace DevSpector.Application.Devices
 
 		public List<IPAddress> GetIPAddresses(Guid deviceID) =>
 			_repo.Get<DeviceIPAddress>(
-				filter: di => di.DeviceID == deviceID).
+				filter: di => di.DeviceID == deviceID,
+				include: "IPAddress").
 				Select(di => di.IPAddress).
 					ToList();
 

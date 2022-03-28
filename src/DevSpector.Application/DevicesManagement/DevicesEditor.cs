@@ -108,7 +108,7 @@ namespace DevSpector.Application.Devices
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 
-			_repo.Remove<Device>(targetDevice.ID);
+			_repo.Remove<Device>(targetDevice);
 			_repo.Save();
 		}
 

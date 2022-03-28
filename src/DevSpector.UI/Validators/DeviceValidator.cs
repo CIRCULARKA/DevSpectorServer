@@ -1,16 +1,16 @@
 using FluentValidation;
-using DevSpector.Domain.Models;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.UI.Validators
 {
-    public class DeviceValidator : AbstractValidator<Device>
+    public class DeviceValidator : AbstractValidator<DeviceToAdd>
     {
         public DeviceValidator()
         {
+            RuleFor(d => d.InventoryNumber).NotEmpty().Length(3, 100);
+            RuleFor(d => d.ModelName).Length(2, 100);
+            RuleFor(d => d.NetworkName).Length(3, 50);
             RuleFor(d => d.TypeID).NotEmpty();
-            RuleFor(d => d.InventoryNumber).
-                Length(3, 20);
-            RuleFor(d => d.NetworkName).Length(3, 40);
         }
     }
 }

@@ -50,6 +50,7 @@ namespace DevSpector.Tests.Database
             InitializeDevices();
             InitializeDeviceSoftware();
             InitializeIPAddresses();
+            AssignIPToDevices();
             InitializeCabinets();
             AssignCabinetsToDevices();
             InitializeUserRoles();
@@ -115,24 +116,10 @@ namespace DevSpector.Tests.Database
             _ipAddresses = new List<IPAddress>();
 
             var currentIndex = 0;
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 75; i++)
             {
                 _ipAddresses.Add(new IPAddress {
-                    Address = $"198.62.14.{i + 1}",
-                    // Each device have 5 IP's
-                    DeviceID = _devices[currentIndex / 5].ID
-                });
-
-                this.IPAddresses.Add(_ipAddresses[currentIndex]);
-                currentIndex++;
-            }
-
-            // Add some free IPs
-            for (int i = 0; i < 25; i++)
-            {
-                _ipAddresses.Add(new IPAddress {
-                    Address = $"198.62.13.{i + 1}",
-                    DeviceID = null
+                    Address = $"198.62.14.{i + 1}"
                 });
 
                 this.IPAddresses.Add(_ipAddresses[currentIndex]);
@@ -141,6 +128,18 @@ namespace DevSpector.Tests.Database
 
             this.SaveChanges();
         }
+
+        private void AssignIPToDevices()
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                this.DeviceIPAddresses.Add(new DeviceIPAddress {
+                    IPAddressID = _ipAddresses[i].ID,
+                    DeviceID = _devices[i / 5].ID
+                });
+            }
+        }
+
 
         private void InitializeCabinets()
         {

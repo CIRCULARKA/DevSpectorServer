@@ -145,12 +145,8 @@ namespace Microsoft.AspNetCore.Builder
 
             var ipAddresses = new List<IPAddress>();
 
-            for (int i = 0, j = -1; i <= 255; i++)
-            {
-                // 10 addresses for each device
-                if (i % 11 == 0) j++;
-                ipAddresses.Add(new IPAddress { ID = Guid.NewGuid(), Address = $"198.33.12.{i}", DeviceID = devices[j].ID });
-            }
+            for (int i = 0; i <= 255; i++)
+                ipAddresses.Add(new IPAddress { ID = Guid.NewGuid(), Address = $"198.33.12.{i}" });
 
             // Some free IP's
             for (int i = 0; i < 100; i++)
@@ -163,6 +159,21 @@ namespace Microsoft.AspNetCore.Builder
             }
 
             context.IPAddresses.AddRange(ipAddresses);
+            context.SaveChanges();
+
+            // Add 10 ips to each device
+            var ipIterator = 0;
+            for (int i = 0; i < devices.Count; i++)
+            {
+                for (int j = 0; j < 10; j++, ipIterator++)
+                {
+                    context.DeviceIPAddresses.Add(new DeviceIPAddress {
+                        DeviceID = devices[i].ID,
+                        IPAddressID = ipAddresses[ipIterator].ID
+                    });
+                }
+            }
+
             context.SaveChanges();
 
             // Add 20 software to each device

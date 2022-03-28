@@ -23,22 +23,23 @@ namespace DevSpector.Application.Networking
 		{
 			// Get ip addresses according to mask and put them into new IPAddress objects
 			var ips = _ipRangeGenerator.GenerateRange(networkAddress, mask);
-
 			var newIps = new IPAddress[ips.Count];
 			for (int i = 0; i < ips.Count; i++)
 			{
 				newIps[i] = new IPAddress {
-					Address = ips[i],
-					DeviceID = null
+					Address = ips[i]
 				};
 			}
 
-			// Remove existing IP addresses from database and add new ones
-			var existingIps = _repo.Get<IPAddress>();
-			foreach (var ip in existingIps)
-				_repo.Remove<IPAddress>(ip);
+			// Remove existing IP addresses from database
+			var busyIps = _repo.Get<DeviceIPAddress>();
+			_repo.RemoveRange(busyIps);
 			_repo.Save();
 
+			var existingIps = _repo.Get<IPAddress>();
+			_repo.RemoveRange(existingIps);
+
+			// Add newly generated IPs to database
 			foreach (var ip in newIps)
 				_repo.Add<IPAddress>(ip);
 

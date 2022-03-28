@@ -64,7 +64,9 @@ namespace DevSpector.Tests.Application.Devices
         {
             // Arrange
             Device targetDevice = _context.Devices.FirstOrDefault();
-            List<IPAddress> expectedIps = _context.IPAddresses.Where(ip => ip.DeviceID == targetDevice.ID).ToList();
+            List<IPAddress> expectedIps = _context.DeviceIPAddresses.
+                Where(ip => ip.DeviceID == targetDevice.ID).
+                    Select(di => di.IPAddress).ToList();
 
             // Act
             List<IPAddress> actualIPs = _provider.GetIPAddresses(targetDevice.ID).ToList();
@@ -243,6 +245,7 @@ namespace DevSpector.Tests.Application.Devices
                 Assert.Equal(devices[i].InventoryNumber, actualDevices[i].InventoryNumber);
                 Assert.Equal(devices[i].NetworkName, actualDevices[i].NetworkName);
                 Assert.Equal(devices[i].Type.Name, actualDevices[i].Type);
+                Assert.Equal(devices[i].ModelName, actualDevices[i].ModelName);
 
                 Assert.Equal(cabinet.Name, actualDevices[i].Cabinet);
                 Assert.Equal(cabinet.Housing.Name, actualDevices[i].Housing);

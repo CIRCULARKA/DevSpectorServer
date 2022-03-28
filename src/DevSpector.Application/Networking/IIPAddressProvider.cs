@@ -13,8 +13,6 @@ namespace DevSpector.Application.Networking
 
 		IPAddress GetIP(string address);
 
-		void GenerateRange(string networkAddress, int mask);
-
 		bool IsAddressFree(string ipAddress);
 	}
 }

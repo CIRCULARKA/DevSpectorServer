@@ -6,10 +6,6 @@ namespace DevSpector.Domain.Models
 	{
 		public Guid ID { get; set; }
 
-		public Guid? DeviceID { get; set; }
-
-		public Device Device { get; set; }
-
 		public string Address { get; set; }
 	}
 }

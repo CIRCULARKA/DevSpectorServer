@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
 using DevSpector.Tests.Database;
 using DevSpector.Application.Devices;
 using DevSpector.Domain.Models;
@@ -365,7 +367,7 @@ namespace DevSpector.Tests.Application.Devices
             // Arrange
             Device newDevice = CreateDevice();
 
-            IPAddress busyIP = _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID != null);
+            IPAddress busyIP = _context.DeviceIPAddresses.Include(di => di.IPAddress).FirstOrDefault().IPAddress;
             IPAddress freeIP = GetFreeIP();
 
             // Assert
@@ -384,8 +386,10 @@ namespace DevSpector.Tests.Application.Devices
 
             IPAddress addedIP = GetFreeIP();
 
-            addedIP.DeviceID = newDevice.ID;
-            _context.IPAddresses.Update(addedIP);
+            _context.DeviceIPAddresses.Add(new DeviceIPAddress {
+                IPAddressID = addedIP.ID,
+                DeviceID = newDevice.ID
+            });
             _context.SaveChanges();
 
             // Act
@@ -401,10 +405,15 @@ namespace DevSpector.Tests.Application.Devices
             // Arrange
             Device newDevice = CreateDevice();
 
-            IPAddress busyIP = _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID != null);
+            IPAddress busyIP = _context.DeviceIPAddresses.Include(di => di.IPAddress).
+                FirstOrDefault().IPAddress;
+
             IPAddress freeIP = GetFreeIP();
-            freeIP.DeviceID = newDevice.ID;
-            _context.IPAddresses.Update(freeIP);
+
+            _context.DeviceIPAddresses.Add(new DeviceIPAddress {
+                IPAddressID = freeIP.ID,
+                DeviceID = newDevice.ID
+            });
             _context.SaveChanges();
 
             // Assert
@@ -429,10 +438,23 @@ namespace DevSpector.Tests.Application.Devices
             return newDevice;
         }
 
-        private IPAddress GetFreeIP() =>
-            _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID == null);
+        private IPAddress GetFreeIP()
+        {
 
-        private IPAddress GetDeviceIP(Guid deviceID) =>
-            _context.IPAddresses.FirstOrDefault(ip => ip.DeviceID == deviceID);
+			IEnumerable<IPAddress> allIps = _repo.Get<IPAddress>();
+			IEnumerable<IPAddress> busyIps = _repo.Get<DeviceIPAddress>().Select(di => di.IPAddress);
+
+			return allIps.Except(busyIps, new IPAddressComparer()).ToList().FirstOrDefault();
+        }
+
+        private IPAddress GetDeviceIP(Guid deviceID)
+        {
+            DeviceIPAddress deviceIP = _context.DeviceIPAddresses.Include(di => di.IPAddress).
+                FirstOrDefault(ip => ip.DeviceID == deviceID);
+
+            if (deviceIP == null) return null;
+
+            return deviceIP.IPAddress;
+        }
     }
 }

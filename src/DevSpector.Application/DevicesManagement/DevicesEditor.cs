@@ -201,10 +201,13 @@ namespace DevSpector.Application.Devices
 				throw new InvalidOperationException("Specified IP address is already in use or out of range");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
-			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
-			targetIP.DeviceID = targetDevice.ID;
 
-			_repo.Update<IPAddress>(targetIP);
+			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
+
+			_repo.Add(new DeviceIPAddress {
+				IPAddressID = targetIP.ID,
+				DeviceID = targetDevice.ID
+			});
 			_repo.Save();
 		}
 
@@ -221,10 +224,10 @@ namespace DevSpector.Application.Devices
 			if (!_devicesProvider.HasIP(targetDevice.ID, ipAddress))
 				throw new InvalidOperationException("Device doesn't have specified IP address");
 
-			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
-			targetIP.DeviceID = null;
+			DeviceIPAddress targetIP = _repo.GetSingle<DeviceIPAddress>(di => (di.DeviceID == targetDevice.ID) &&
+				(di.IPAddress.Address == ipAddress));
 
-			_repo.Update<IPAddress>(targetIP);
+			_repo.Remove(targetIP);
 			_repo.Save();
 		}
 

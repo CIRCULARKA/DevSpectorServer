@@ -29,15 +29,16 @@ namespace DevSpector.Application.Networking
 		public List<IPAddress> GetAllIP() =>
 			_repo.Get<IPAddress>().ToList();
 
-		public List<IPAddress> GetFreeIP() =>
-			_repo.Get<IPAddress>(
-				filter: ip => ip.DeviceID == null
-			).ToList();
+		public List<IPAddress> GetFreeIP()
+		{
+			IEnumerable<IPAddress> allIps = _repo.Get<IPAddress>();
+			IEnumerable<IPAddress> busyIps = _repo.Get<DeviceIPAddress>().Select(di => di.IPAddress);
+
+			return allIps.Except(busyIps, new IPAddressComparer()).ToList();
+		}
 
 		public List<IPAddress> GetFreeIPSorted() =>
-			_repo.Get<IPAddress>(
-				filter: ip => ip.DeviceID == null
-			).OrderBy(ip => int.Parse(ip.Address.Split(".")[0])).
+			GetFreeIP().OrderBy(ip => int.Parse(ip.Address.Split(".")[0])).
 				ThenBy(ip => int.Parse(ip.Address.Split(".")[1])).
 				ThenBy(ip => int.Parse(ip.Address.Split(".")[2])).
 				ThenBy(ip => int.Parse(ip.Address.Split(".")[3])).
@@ -45,32 +46,6 @@ namespace DevSpector.Application.Networking
 
 		public IPAddress GetIP(string address) =>
 			_repo.GetSingle<IPAddress>(ip => ip.Address == address);
-
-		public void GenerateRange(string networkAddress, int mask)
-		{
-			// Get ip addresses according to mask and put them into new IPAddress objects
-			var ips = _ipRangeGenerator.GenerateRange(networkAddress, mask);
-
-			var newIps = new IPAddress[ips.Count];
-			for (int i = 0; i < ips.Count; i++)
-			{
-				newIps[i] = new IPAddress {
-					Address = ips[i],
-					DeviceID = null
-				};
-			}
-
-			// Remove existing IP addresses from database and add new ones
-			var existingIps = _repo.Get<IPAddress>();
-			foreach (var ip in existingIps)
-				_repo.Remove<IPAddress>(ip);
-			_repo.Save();
-
-			foreach (var ip in newIps)
-				_repo.Add<IPAddress>(ip);
-
-			_repo.Save();
-		}
 
 		public bool IsAddressFree(string ipAddress)
 		{

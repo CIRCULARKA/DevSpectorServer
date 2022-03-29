@@ -17,7 +17,7 @@ namespace DevSpector.UI.API.Controllers
 		[HttpGet("api/location/housings")]
 		public JsonResult GetHousings() =>
 			Json(_manager.Housings.Select(
-				h => new { ID = h.ID, Name = h.Name }
+				h => new { HousingID = h.ID, HousingName = h.Name }
 			));
 
 		[HttpGet("api/location/cabinets")]

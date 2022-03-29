@@ -130,9 +130,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpDelete("api/devices/remove-software")]
+		[HttpPut("api/devices/remove-software")]
 		[RequireParameters("inventoryNumber")]
-		public IActionResult RemoveSoftware(string inventoryNumber, SoftwareInfo softwareToRemove)
+		public IActionResult RemoveSoftware(string inventoryNumber, [FromBody] SoftwareInfo softwareToRemove)
 		{
 			try
 			{

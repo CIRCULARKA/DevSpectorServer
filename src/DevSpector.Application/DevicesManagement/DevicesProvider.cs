@@ -46,9 +46,10 @@ namespace DevSpector.Application.Devices
 		public List<DeviceToOutput> GetDevicesToOutput()
 		{
 			return GetDevices().Select(d => {
-				var deviceCabinet = GetDeviceCabinet(d.ID);
-				var deviceSoftware = GetDeviceSoftware(d.ID);
-				var deviceIPs = GetIPAddresses(d.ID);
+				Cabinet deviceCabinet = GetDeviceCabinet(d.ID);
+				List<DeviceSoftware> deviceSoftware = GetDeviceSoftware(d.ID);
+				List<IPAddress> deviceIPs = GetIPAddresses(d.ID);
+
 				return new DeviceToOutput {
 					ID = d.ID,
 					InventoryNumber =  d.InventoryNumber,
@@ -59,7 +60,7 @@ namespace DevSpector.Application.Devices
 					Cabinet = deviceCabinet.Name,
 					IPAddresses = deviceIPs.Select(ip => ip.Address).ToList(),
 					Software = deviceSoftware.Select(
-						s => $"{s.SoftwareName} ({s.SoftwareVersion})"
+						s => new SoftwareInfo { SoftwareName = s.SoftwareName, SoftwareVersion = s.SoftwareVersion }
 					).ToList()
 				};
 			}).ToList();

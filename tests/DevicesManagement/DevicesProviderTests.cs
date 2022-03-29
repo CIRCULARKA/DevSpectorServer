@@ -259,10 +259,8 @@ namespace DevSpector.Tests.Application.Devices
                 Assert.Equal(soft.Count, actualDevices[i].Software.Count);
                 for (int j = 0; j < soft.Count; j++)
                 {
-                    Assert.Equal(
-                        $"{soft[j].SoftwareName} ({soft[j].SoftwareVersion})",
-                        actualDevices[i].Software[j]
-                    );
+                    Assert.Equal(soft[j].SoftwareName, actualDevices[i].Software[j].SoftwareName);
+                    Assert.Equal(soft[j].SoftwareVersion, actualDevices[i].Software[j].SoftwareVersion);
                 }
             }
         }

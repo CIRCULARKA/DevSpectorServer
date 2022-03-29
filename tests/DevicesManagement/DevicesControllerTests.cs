@@ -36,7 +36,7 @@ namespace DevSpector.Tests.Controllers
                         Guid.NewGuid().ToString()
                     },
                     Software = new List<SoftwareInfo> {
-                        new SoftwareInfo { SoftwareName = Guid.NewGuid().ToString(), SoftwareVersion = Guid.NewGuid().ToString() }
+                        new SoftwareInfo { SoftwareName = Guid.NewGuid().ToString(), SoftwareVersion = Guid.NewGuid().ToString() },
                         new SoftwareInfo { SoftwareName = Guid.NewGuid().ToString(), SoftwareVersion = Guid.NewGuid().ToString() }
                     }
                 });

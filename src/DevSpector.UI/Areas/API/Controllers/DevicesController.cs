@@ -94,11 +94,11 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/move")]
 		[RequireParameters("inventoryNumber", "cabinetID")]
-		public IActionResult MoveDevice(string inventoryNumber, Guid cabinetID)
+		public IActionResult MoveDevice(string inventoryNumber, string cabinetID)
 		{
 			try
 			{
-				_devicesEditor.MoveDevice(inventoryNumber, cabinetID);
+				_devicesEditor.MoveDevice(inventoryNumber, new Guid(cabinetID));
 
 				return Ok();
 			}
@@ -150,7 +150,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/add-ip")]
-		[RequireParameters("inventoryNumber", "ipAddress")]
+		[RequireParameters("inventoryNumber")]
 		public IActionResult AddIPAddress(string inventoryNumber, [FromBody] string ipAddress)
 		{
 			try
@@ -170,7 +170,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/remove-ip")]
 		[RequireParameters("inventoryNumber", "ipAddress")]
-		public IActionResult RemoveIPAddress(string inventoryNumber, [FromBody] string ipAddress)
+		public IActionResult RemoveIPAddress(string inventoryNumber, string ipAddress)
 		{
 			try
 			{

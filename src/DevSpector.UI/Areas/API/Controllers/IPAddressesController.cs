@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application;
 using DevSpector.UI.Filters;
@@ -23,9 +24,20 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/ip/free")]
-		public JsonResult GetFreeIP(bool sorted) =>
-			sorted ? Json(_ipAddressProvider.GetFreeIPSorted()) :
-				Json(_ipAddressProvider.GetFreeIP());
+		public JsonResult GetFreeIP(bool sorted)
+		{
+			if (sorted)
+				return Json(
+					_ipAddressProvider.GetFreeIPSorted().
+						Select(ip => ip.Address)
+				);
+
+			return Json(
+				_ipAddressProvider.GetFreeIP().
+					Select(ip => ip.Address)
+			);
+		}
+
 
 		[HttpPut("api/ip/generate")]
 		[RequireParameters("networkAddress", "mask")]

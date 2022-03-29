@@ -8,6 +8,8 @@ using DevSpector.Database;
 using DevSpector.Database.DTO;
 using DevSpector.Application;
 using DevSpector.Domain.Models;
+using DevSpector.Application.Networking;
+using DevSpector.Application.Devices;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -63,6 +65,7 @@ namespace Microsoft.AspNetCore.Builder
         {
             var context = GetService<ApplicationContextBase>(@this);
             var usersManager = GetService<UsersManager>(@this);
+            var ipEditor = GetService<IIPAddressEditor>(@this);
 
             if (context.Devices.Count() != 0) return @this;
 
@@ -143,23 +146,9 @@ namespace Microsoft.AspNetCore.Builder
                 );
             context.SaveChanges();
 
-            var ipAddresses = new List<IPAddress>();
+            ipEditor.GenerateRange("198.22.33.1", 24);
 
-            for (int i = 0; i <= 255; i++)
-                ipAddresses.Add(new IPAddress { ID = Guid.NewGuid(), Address = $"198.33.12.{i}" });
-
-            // Some free IP's
-            for (int i = 0; i < 100; i++)
-            {
-                ipAddresses.Add(
-                    new IPAddress {
-                        ID = Guid.NewGuid(),
-                        Address = $"198.33.{13 + (i / 10)}.{i}"
-                    });
-            }
-
-            context.IPAddresses.AddRange(ipAddresses);
-            context.SaveChanges();
+            List<IPAddress> ipAddresses = context.IPAddresses.ToList();
 
             // Add 10 ips to each device
             var ipIterator = 0;

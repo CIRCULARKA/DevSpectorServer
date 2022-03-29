@@ -169,8 +169,8 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpPut("api/devices/remove-ip")]
-		[RequireParameters("inventoryNumber", "ipAddress")]
-		public IActionResult RemoveIPAddress(string inventoryNumber, string ipAddress)
+		[RequireParameters("inventoryNumber")]
+		public IActionResult RemoveIPAddress(string inventoryNumber, [FromBody] string ipAddress)
 		{
 			try
 			{

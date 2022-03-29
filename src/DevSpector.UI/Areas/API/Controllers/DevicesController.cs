@@ -111,9 +111,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPost("api/devices/add-software")]
+		[HttpPut("api/devices/add-software")]
 		[RequireParameters("inventoryNumber")]
-		public IActionResult AddSoftware(string inventoryNumber, SoftwareInfo newSoftwareInfo)
+		public IActionResult AddSoftware(string inventoryNumber, [FromBody] SoftwareInfo newSoftwareInfo)
 		{
 			try
 			{
@@ -151,7 +151,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/add-ip")]
 		[RequireParameters("inventoryNumber", "ipAddress")]
-		public IActionResult AddIPAddress(string inventoryNumber, string ipAddress)
+		public IActionResult AddIPAddress(string inventoryNumber, [FromBody] string ipAddress)
 		{
 			try
 			{
@@ -170,7 +170,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/remove-ip")]
 		[RequireParameters("inventoryNumber", "ipAddress")]
-		public IActionResult RemoveIPAddress(string inventoryNumber, string ipAddress)
+		public IActionResult RemoveIPAddress(string inventoryNumber, [FromBody] string ipAddress)
 		{
 			try
 			{

@@ -7,13 +7,13 @@ using DevSpector.Application.Networking;
 namespace DevSpector.UI.API.Controllers
 {
 	[ServiceFilter(typeof(AuthorizationFilter))]
-	public class IPAddressController : ApiController
+	public class NetworkController : ApiController
 	{
 		private readonly IIPAddressEditor _ipAddressEditor;
 
 		private readonly IIPAddressProvider _ipAddressProvider;
 
-		public IPAddressController(
+		public NetworkController(
 			IIPAddressProvider ipProvider,
 			IIPAddressEditor ipEditor
 		)

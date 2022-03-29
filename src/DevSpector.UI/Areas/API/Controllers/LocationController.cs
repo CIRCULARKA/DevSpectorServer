@@ -26,7 +26,7 @@ namespace DevSpector.UI.API.Controllers
 			try
 			{
 				return Json(_manager.GetCabinets(housingID).Select(
-					c => new { ID = c.ID, Name = c.Name }
+					c => new { CabinetID = c.ID, CabinetName = c.Name }
 				));
 			}
 			catch (Exception e)

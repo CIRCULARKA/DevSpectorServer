@@ -85,7 +85,6 @@ namespace DevSpector.UI.API.Controllers
 					Description = e.Message
 				});
 			}
-
 		}
 
 		[HttpGet("api/devices/types")]
@@ -93,8 +92,8 @@ namespace DevSpector.UI.API.Controllers
 			Json(_devicesProvider.GetDeviceTypes());
 
 		[HttpPut("api/devices/move")]
-		[RequireParameters("inventoryNumber", "cabinetID")]
-		public IActionResult MoveDevice(string inventoryNumber, string cabinetID)
+		[RequireParameters("inventoryNumber")]
+		public IActionResult MoveDevice(string inventoryNumber, [FromBody] string cabinetID)
 		{
 			try
 			{

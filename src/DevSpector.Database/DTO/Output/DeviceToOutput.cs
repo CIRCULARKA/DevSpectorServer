@@ -21,6 +21,6 @@ namespace DevSpector.Database.DTO
 
 		public List<string> IPAddresses { get; init; }
 
-		public List<string> Software { get; init; }
+		public List<SoftwareInfo> Software { get; init; }
 	}
 }

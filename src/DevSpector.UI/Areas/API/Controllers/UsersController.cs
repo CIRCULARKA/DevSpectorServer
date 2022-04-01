@@ -134,7 +134,7 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
+				return Unauthorized(new {
 					Error = "Could not revoke API",
 					Description = e.Message
 				});

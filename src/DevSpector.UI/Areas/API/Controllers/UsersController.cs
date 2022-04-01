@@ -122,7 +122,7 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPut("api/users/revoke-api")]
+		[HttpGet("api/users/revoke-api")]
 		[RequireParameters("login", "password")]
 		public async Task<IActionResult> RevokeUserKey(string login, string password)
 		{

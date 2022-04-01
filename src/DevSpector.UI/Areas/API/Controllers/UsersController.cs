@@ -107,7 +107,10 @@ namespace DevSpector.UI.API.Controllers
 				return Ok(new {
 					Login = authorizedUser.UserName,
 					AccessToken = authorizedUser.AccessKey,
-					Group = await _usersManager.GetUserGroup(authorizedUser)
+					Group = await _usersManager.GetUserGroup(authorizedUser),
+					FirstName = authorizedUser.FirstName,
+					Surname = authorizedUser.Surname,
+					Patronymic = authorizedUser.Patronymic
 				});
 			}
 			catch (Exception e)

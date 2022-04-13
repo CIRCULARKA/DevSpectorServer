@@ -40,7 +40,6 @@ namespace DevSpector.UI.API.Controllers
 
 
 		[HttpPut("api/ip/generate")]
-		[RequireParameters("networkAddress", "mask")]
 		public IActionResult GenerateIPAddresses([FromBody] LANInfo info)
 		{
 			try

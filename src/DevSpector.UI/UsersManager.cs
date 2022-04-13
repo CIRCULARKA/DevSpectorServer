@@ -157,6 +157,21 @@ namespace DevSpector.Application
 			return targetUser.AccessKey;
 		}
 
+		public async Task ChangePasswordAsync(string login, string oldPassword, string newPassword)
+		{
+			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+
+			// If there is no user with specified login then throw the exception
+			var targetUser = await _baseUsersManager.FindByNameAsync(login);
+			if (targetUser == null)
+				throw wrongCredentialsException;
+
+			IdentityResult result = await _baseUsersManager.ChangePasswordAsync(targetUser, oldPassword, newPassword);
+
+			if (!result.Succeeded)
+				throw wrongCredentialsException;
+		}
+
 		public async Task<User> FindByLoginAsync(string login) =>
 			await _baseUsersManager.FindByNameAsync(login);
 

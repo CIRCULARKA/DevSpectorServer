@@ -107,7 +107,10 @@ namespace DevSpector.UI.API.Controllers
 				return Ok(new {
 					Login = authorizedUser.UserName,
 					AccessToken = authorizedUser.AccessKey,
-					Group = await _usersManager.GetUserGroup(authorizedUser)
+					Group = await _usersManager.GetUserGroup(authorizedUser),
+					FirstName = authorizedUser.FirstName,
+					Surname = authorizedUser.Surname,
+					Patronymic = authorizedUser.Patronymic
 				});
 			}
 			catch (Exception e)
@@ -119,22 +122,40 @@ namespace DevSpector.UI.API.Controllers
 			}
 		}
 
-		[HttpPut("api/users/revoke-api")]
+		[HttpGet("api/users/revoke-key")]
 		[RequireParameters("login", "password")]
-		public async Task<IActionResult> RevokeUserApi(string login, string password)
+		public async Task<IActionResult> RevokeUserKey(string login, string password)
 		{
 			try
 			{
 				var newKey = await _usersManager.RevokeUserAPIAsync(login, password);
 
-				return Ok(
-					new { NewKey = newKey }
-				);
+				return Ok(newKey);
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not revoke API",
+				return Unauthorized(new {
+					Error = "Could not revoke API key",
+					Description = e.Message
+				});
+			}
+		}
+
+		[HttpGet("api/users/change-pwd")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		[RequireParameters("login", "currentPassword", "newPassword")]
+		public async Task<IActionResult> ChangePassword(string login, string currentPassword, string newPassword)
+		{
+			try
+			{
+				await _usersManager.ChangePasswordAsync(login, currentPassword, newPassword);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return Unauthorized(new {
+					Error = "Could not change password",
 					Description = e.Message
 				});
 			}

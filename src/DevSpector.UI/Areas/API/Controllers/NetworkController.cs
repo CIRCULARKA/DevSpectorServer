@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using DevSpector.Application;
 using DevSpector.UI.Filters;
 using DevSpector.Application.Networking;
+using DevSpector.Database.DTO;
 
 namespace DevSpector.UI.API.Controllers
 {
@@ -40,12 +40,11 @@ namespace DevSpector.UI.API.Controllers
 
 
 		[HttpPut("api/ip/generate")]
-		[RequireParameters("networkAddress", "mask")]
-		public IActionResult GenerateIPAddresses(string networkAddress, int mask)
+		public IActionResult GenerateIPAddresses([FromBody] LANInfo info)
 		{
 			try
 			{
-				_ipAddressEditor.GenerateRange(networkAddress, mask);
+				_ipAddressEditor.GenerateRange(info.NetworkAddress, info.Mask);
 
 				return Ok();
 			}

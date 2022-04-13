@@ -18,8 +18,6 @@ namespace DevSpector.Database.DTO
 
         public string Password { get; init; }
 
-        public string AccessToken { get; init; }
-
         public Guid GroupID { get; init; }
     }
 }

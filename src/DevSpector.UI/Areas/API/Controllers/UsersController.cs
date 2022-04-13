@@ -135,7 +135,27 @@ namespace DevSpector.UI.API.Controllers
 			catch (Exception e)
 			{
 				return Unauthorized(new {
-					Error = "Could not revoke API",
+					Error = "Could not revoke API key",
+					Description = e.Message
+				});
+			}
+		}
+
+		[HttpGet("api/users/change-pwd")]
+		[ServiceFilter(typeof(AuthorizationFilter))]
+		[RequireParameters("login", "currentPassword", "newPassword")]
+		public async Task<IActionResult> ChangePassword(string login, string currentPassword, string newPassword)
+		{
+			try
+			{
+				await _usersManager.ChangePasswordAsync(login, currentPassword, newPassword);
+
+				return Ok();
+			}
+			catch (Exception e)
+			{
+				return Unauthorized(new {
+					Error = "Could not change password",
 					Description = e.Message
 				});
 			}

@@ -3,12 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using DevSpector.UI.Filters;
 using DevSpector.Application;
 using DevSpector.Database.DTO;
 
 namespace DevSpector.UI.API.Controllers
 {
+	// 				    Superuser
+	[Authorize(Roles = "Суперпользователь")]
 	public class UsersController : ApiController
 	{
         private readonly UsersManager _usersManager;
@@ -99,6 +102,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/users/authorize")]
 		[RequireParameters("login", "password")]
+		[AllowAnonymous]
 		public async Task<IActionResult> AuthorizeUser(string login, string password)
 		{
 			try
@@ -124,6 +128,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpGet("api/users/revoke-key")]
 		[RequireParameters("login", "password")]
+		[AllowAnonymous]
 		public async Task<IActionResult> RevokeUserKey(string login, string password)
 		{
 			try
@@ -144,6 +149,7 @@ namespace DevSpector.UI.API.Controllers
 		[HttpGet("api/users/change-pwd")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("login", "currentPassword", "newPassword")]
+		[AllowAnonymous]
 		public async Task<IActionResult> ChangePassword(string login, string currentPassword, string newPassword)
 		{
 			try

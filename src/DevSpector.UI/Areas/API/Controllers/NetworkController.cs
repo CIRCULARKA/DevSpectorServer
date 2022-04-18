@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using DevSpector.UI.Filters;
 using DevSpector.Application.Networking;
 using DevSpector.Database.DTO;
 
 namespace DevSpector.UI.API.Controllers
 {
+	[Authorize(Roles = "Суперпользователь,Администратор")]
 	[ServiceFilter(typeof(AuthorizationFilter))]
 	public class NetworkController : ApiController
 	{
@@ -40,6 +42,7 @@ namespace DevSpector.UI.API.Controllers
 
 
 		[HttpPut("api/ip/generate")]
+		[Authorize(Roles = "Суперпользователь")]
 		public IActionResult GenerateIPAddresses([FromBody] LANInfo info)
 		{
 			try

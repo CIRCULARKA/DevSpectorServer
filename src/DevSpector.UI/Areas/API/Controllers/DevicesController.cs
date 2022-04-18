@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using DevSpector.Application.Devices;
 using DevSpector.Database.DTO;
 using DevSpector.UI.Filters;
@@ -7,6 +8,7 @@ using DevSpector.UI.Filters;
 namespace DevSpector.UI.API.Controllers
 {
 	[ServiceFilter(typeof(AuthorizationFilter))]
+	[Authorize(Roles = "Суперпользователь,Администратор")]
 	public class DevicesController : ApiController
 	{
 		private readonly IDevicesProvider _devicesProvider;
@@ -23,6 +25,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/devices")]
+		[AllowAnonymous]
 		public JsonResult GetDevices() {
 			return Json(_devicesProvider.GetDevicesToOutput());
 		}
@@ -88,6 +91,7 @@ namespace DevSpector.UI.API.Controllers
 		}
 
 		[HttpGet("api/devices/types")]
+		[AllowAnonymous]
 		public JsonResult GetDeviceTypes() =>
 			Json(_devicesProvider.GetDeviceTypes());
 

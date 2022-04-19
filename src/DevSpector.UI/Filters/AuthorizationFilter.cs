@@ -20,8 +20,8 @@ namespace DevSpector.UI.Filters
             var request = context.HttpContext.Request;
             var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestError {
-                    Error = "Wrong API key",
-                    Description = new List<string> { "Provide access token" }
+                    Error = "Неверный ключ доступа",
+                    Description = new List<string> { "Передайте ключ доступа в запросе" }
                 }
             );
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.Application.Devices;
 using DevSpector.Database.DTO;
@@ -39,9 +40,9 @@ namespace DevSpector.UI.API.Controllers
 			catch (Exception e)
 			{
 				return BadRequest(
-					new {
-						Error = "Can't add device",
-						Description = e.Message
+					new BadRequestError {
+						Error = "Не удалось добавить устройство",
+						Description = new List<string> { e.Message }
 					}
 				);
 			}
@@ -60,9 +61,9 @@ namespace DevSpector.UI.API.Controllers
 			catch (Exception e)
 			{
 				return BadRequest(
-					new {
-						Error = "Can't update device",
-						Description = e.Message
+					new BadRequestError {
+						Error = "Не удалось обновить устройство",
+						Description = new List<string> { e.Message }
 					}
 				);
 			}
@@ -80,9 +81,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not remove device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось удалить устройство",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -103,9 +104,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not move device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось переместить устройство",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -122,9 +123,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not add software to device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось добавить ПО к устройству",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -141,9 +142,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not remove software from device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось убрать ПО у устройство",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -160,9 +161,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not add IP address to device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось добавить IP-адрес к устройству",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -179,9 +180,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Could not remove IP address from device",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось удалить IP-адрес устройства",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}

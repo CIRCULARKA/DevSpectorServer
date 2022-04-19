@@ -39,9 +39,9 @@ namespace DevSpector.UI.Filters
                 return;
 
             context.Result = new BadRequestObjectResult(
-                new {
-                    Error = "Some required parameters are missing",
-                    RequiredParameters = missingParameters
+                new BadRequestError {
+                    Error = "Не хватает требуемых параметров",
+                    Description = missingParameters
                 }
             );
         }

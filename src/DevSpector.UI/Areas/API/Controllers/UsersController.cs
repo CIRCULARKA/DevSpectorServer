@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using DevSpector.UI.Filters;
@@ -50,9 +51,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Failed to create new user",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось создать нового пользователя",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -70,9 +71,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Couldn't update the user",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось обновить пользователя",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -90,9 +91,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Can't delete user",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось удалить пользователя",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -115,9 +116,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Failed to authorize",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Ошибка авторизации",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -134,9 +135,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return Unauthorized(new {
-					Error = "Could not revoke API key",
-					Description = e.Message
+				return Unauthorized(new BadRequestError {
+					Error = "Не удалось обновить ключ доступа",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}
@@ -154,9 +155,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return Unauthorized(new {
-					Error = "Could not change password",
-					Description = e.Message
+				return Unauthorized(new BadRequestError {
+					Error = "Не удалось изменить пароль",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}

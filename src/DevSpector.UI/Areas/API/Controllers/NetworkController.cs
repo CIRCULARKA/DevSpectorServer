@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.UI.Filters;
 using DevSpector.Application.Networking;
@@ -51,8 +52,8 @@ namespace DevSpector.UI.API.Controllers
 			catch (Exception e)
 			{
 				return BadRequest(new BadRequestError {
-					Error = "Could not generate new range of IP addresses",
-					Description = e.Message
+					Error = "Не удалось обновить диапазон IP-адресов",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}

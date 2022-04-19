@@ -50,7 +50,7 @@ namespace DevSpector.Application.Networking
 		public bool IsAddressFree(string ipAddress)
 		{
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
-				throw new ArgumentException("IP address does not match IPv4 pattern");
+				throw new ArgumentException("IP-адрес не соответствует шаблону IPv4");
 
 			return GetFreeIP().Where(ip => ip.Address == ipAddress).Count() == 1;
 		}

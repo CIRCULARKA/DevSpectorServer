@@ -31,7 +31,7 @@ namespace DevSpector.Application.Networking
 		public IList<string> GenerateRange(string netwokAddress, int mask)
 		{
 			if (!_ipValidator.Matches(netwokAddress, IPProtocol.Version4))
-				throw new ArgumentException("Network address does not mathches IPv4 pattern");
+				throw new ArgumentException("Сетевой адрес не соответствует шаблону IPv4");
 
 			SetCurrentMask(mask);
 			SetCurrentLocalAddressBytes(mask);
@@ -62,7 +62,7 @@ namespace DevSpector.Application.Networking
 		private byte[] GetFirstHostBytes(string address)
 		{
 			if (!_ipValidator.Matches(address, IPProtocol.Version4))
-				throw new ArgumentException("Can't process first host - specified address doesn't match IPv4 pattern");
+				throw new ArgumentException("Невозможно получить первый хост диапазона - IP-адрес не соответствует шаблону IPv4");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);
 
@@ -77,7 +77,7 @@ namespace DevSpector.Application.Networking
 		private byte[] GetLastHostBytes(string address)
 		{
 			if (!_ipValidator.Matches(address, IPProtocol.Version4))
-				throw new ArgumentException("Can't process last host - specified address doesn't match IPv4 pattern");
+				throw new ArgumentException("Невозможно получить последний хост диапазона - IP-адрес не соответствует шаблону IPv4");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);
 
@@ -98,7 +98,7 @@ namespace DevSpector.Application.Networking
 		private byte[] GetOctetsFromAddress(string address)
 		{
 			if (!_ipValidator.Matches(address, IPProtocol.Version4))
-				throw new ArgumentException("IP address does not mathes IPv4 pattern");
+				throw new ArgumentException("IP-адрес не соответствует шаблону IPv4");
 
 			var addressParts = address.Split(".");
 			var result = new byte[_OctetsAmount];
@@ -141,7 +141,7 @@ namespace DevSpector.Application.Networking
 		private void ValidateMask(int mask)
 		{
 			if (mask < 20 || mask > 30)
-				throw new ArgumentException("Mask value must be between 20 and 30");
+				throw new ArgumentException("Значение макси должно быть между 20 и 30");
 		}
 	}
 }

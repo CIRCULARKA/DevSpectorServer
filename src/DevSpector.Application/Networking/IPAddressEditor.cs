@@ -1,3 +1,4 @@
+using System;
 using DevSpector.Domain;
 using DevSpector.Domain.Models;
 
@@ -21,6 +22,11 @@ namespace DevSpector.Application.Networking
 
 		public void GenerateRange(string networkAddress, int mask)
 		{
+			if (networkAddress == null)
+				throw new ArgumentNullException("Сетевой адрес не может быть пустым");
+			if (mask < 18 || mask > 31)
+				throw new ArgumentException("Значение маски подсети не должно превышать 31 и быть меньше 18");
+
 			// Get ip addresses according to mask and put them into new IPAddress objects
 			var ips = _ipRangeGenerator.GenerateRange(networkAddress, mask);
 			var newIps = new IPAddress[ips.Count];

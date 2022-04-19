@@ -20,6 +20,10 @@ namespace DevSpector.Application
 
 		private UserManager<User> _baseUsersManager;
 
+		private string _noUserWithLogin = "Пользователя с указанным логином не существует";
+
+		private string _loginOrPasswordWrong = "Логин или пароль введены неверно";
+
         public UsersManager(
 			IRepository repo,
 			SignInManager<User> signInManager,
@@ -96,7 +100,7 @@ namespace DevSpector.Application
 			// Check if user exists
 			var existingUser = await _baseUsersManager.FindByNameAsync(login);
 			if (existingUser == null)
-				throw new ArgumentException("There is no user with specified login");
+				throw new ArgumentException(_noUserWithLogin);
 
 			var deletionResult = await _baseUsersManager.DeleteAsync(existingUser);
 
@@ -110,11 +114,11 @@ namespace DevSpector.Application
 		public async Task<User> AuthorizeUser(string login, string password)
 		{
 			if (login == null)
-				throw new ArgumentException("User's login can't be null");
+				throw new ArgumentException("Логин не может быть пустым");
 			if (password == null)
-				throw new ArgumentException("User's password can't be null");
+				throw new ArgumentException("Пароль не может быть пустым");
 
-			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+			var wrongCredentialsException = new ArgumentException(_loginOrPasswordWrong);
 
 			var targetUser = await this.FindByLoginAsync(login);
 			if (targetUser == null)
@@ -138,7 +142,7 @@ namespace DevSpector.Application
 
 		public async Task<string> RevokeUserAPIAsync(string login, string password)
 		{
-			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+			var wrongCredentialsException = new ArgumentException(_loginOrPasswordWrong);
 
 			// If there is no user with specified login then throw the exception
 			var targetUser = await _baseUsersManager.FindByNameAsync(login);
@@ -159,7 +163,7 @@ namespace DevSpector.Application
 
 		public async Task ChangePasswordAsync(string login, string oldPassword, string newPassword)
 		{
-			var wrongCredentialsException = new ArgumentException("Login or password is wrong");
+			var wrongCredentialsException = new ArgumentException(_loginOrPasswordWrong);
 
 			// If there is no user with specified login then throw the exception
 			var targetUser = await _baseUsersManager.FindByNameAsync(login);
@@ -195,18 +199,18 @@ namespace DevSpector.Application
 
 			if (existance == EntityExistance.Exists) {
 				if (existingUser != null)
-					throw new ArgumentException("User with specified login already exists");
+					throw new ArgumentException("Пользователь с указанным логином уже существует");
 			}
 			else {
 				if (existingUser == null)
-					throw new ArgumentException("User with specified login does not exist");
+					throw new ArgumentException(_noUserWithLogin);
 			}
 		}
 
 		private void ThrowIfUserGroupNotExists(Guid groupID)
 		{
 			if (GetGroup(groupID) == null)
-				throw new ArgumentException("User group with specified ID doesn't exists");
+				throw new ArgumentException("Группа пользователей с указанным идентификатором не существует");
 		}
 
 		private User FormUserFrom(UserToAdd updatedInfo)
@@ -234,9 +238,9 @@ namespace DevSpector.Application
 		{
 			var builder = new StringBuilder();
 			foreach (var error in errors)
-				builder.AppendLine(error.Description);
+				builder.Append($"{error.Description} ");
 
-			var result = new ArgumentException($"Some errors have occured:\n{builder.ToString()}");
+			var result = new ArgumentException($"{builder.ToString()}");
 
 			return result;
 		}

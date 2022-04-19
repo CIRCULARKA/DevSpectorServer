@@ -12,7 +12,7 @@ namespace DevSpector.Application.Networking
 		public bool Matches(string value, IPProtocol protocolVersion)
         {
             if (protocolVersion != IPProtocol.Version4)
-                throw new NotImplementedException("Can't validate IP address - only IPv4 supported");
+                throw new InvalidOperationException("Can't validate IP address - only IPv4 supported");
 
             return MatchesIP4(value);
         }

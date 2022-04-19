@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -44,39 +43,44 @@ namespace DevSpector.UI
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
                         // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)
                         // My approach with docker where I use dotnet ef database update --connection <con-string> just ignored
+                        // That is why I getting connection string from variable and not from appsettings.json using Configuration class
                         var connectionString = System.Environment.GetEnvironmentVariable("CON_STR");
                         options.UseSqlServer(connectionString);
                     }
                 }
             );
 
-            // services.AddControllers().AddFluentValidation();
-            services.AddControllers().
-                AddJsonOptions(options => {
-                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                    options.JsonSerializerOptions.Encoder =
-                        JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
-                });
-                // AddFluentValidation();
+            services.AddControllers();
 
-            // services.Configure<ApiBehaviorOptions>(options => {
-            //     options.SuppressModelStateInvalidFilter = true;
-            // });
+            services.Configure<JsonOptions>(options => {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.Encoder =
+                    JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic);
+            });
+
+            services.Configure<ApiBehaviorOptions>(options => {
+                options.InvalidModelStateResponseFactory = context => {
+                    return new BadRequestObjectResult(new BadRequestError {
+                        Error = "Ошибка валидации",
+                        Description = context.ModelState.Values.FirstOrDefault().Errors.Select(e => e.ErrorMessage)
+                    });
+                };
+            });
 
             services.AddIdentity<User, IdentityRole>().
                 AddRoles<IdentityRole>().
                 AddEntityFrameworkStores<ApplicationContextBase>();
 
             services.Configure<IdentityOptions>(options => {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 3;
-                    options.Password.RequiredUniqueChars = 0;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
             });
 
-            // services.AddTransient<IValidator<DeviceToAdd>, DeviceValidator>();
+            services.AddTransient<IValidator<DeviceToAdd>, DeviceValidator>();
             services.AddTransient<AuthorizationFilter>();
 
             services.AddApplicationServices();

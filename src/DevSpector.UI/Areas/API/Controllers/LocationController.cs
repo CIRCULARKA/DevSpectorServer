@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using DevSpector.UI.Filters;
 using DevSpector.Application.Location;
@@ -31,9 +32,9 @@ namespace DevSpector.UI.API.Controllers
 			}
 			catch (Exception e)
 			{
-				return BadRequest(new {
-					Error = "Can't get cabinets from housing",
-					Description = e.Message
+				return BadRequest(new BadRequestError {
+					Error = "Не удалось получить список кабинетов",
+					Description = new List<string> { e.Message }
 				});
 			}
 		}

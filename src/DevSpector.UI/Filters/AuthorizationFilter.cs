@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using DevSpector.Application;
@@ -19,8 +20,8 @@ namespace DevSpector.UI.Filters
             var request = context.HttpContext.Request;
             var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestError {
-                    Error = "Wrong API key",
-                    Description = "Provide an API key as an API header or via api query"
+                    Error = "Неверный ключ доступа",
+                    Description = new List<string> { "Передайте ключ доступа в запросе" }
                 }
             );
 

@@ -8,11 +8,11 @@ namespace DevSpector.Database.DTO
     /// </summary>
     public class SoftwareInfo
     {
-        [Required(ErrorMessage = "Название ПО должно быть указано", AllowEmptyStrings = false)]
-        [StringLength(100, ErrorMessage = "Название ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
+        [Required(ErrorMessage = "название ПО должно быть указано", AllowEmptyStrings = false)]
+        [StringLength(100, ErrorMessage = "название ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
         public string SoftwareName { get; set; }
 
-        [StringLength(20, ErrorMessage = "Версия ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
+        [StringLength(20, ErrorMessage = "версия ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
         public string SoftwareVersion { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace DevSpector.Application.Devices
 			return GetDevices().Select(d => {
 				Cabinet deviceCabinet = GetDeviceCabinet(d.ID);
 				List<DeviceSoftware> deviceSoftware = GetDeviceSoftware(d.ID);
-				List<IPAddress> deviceIPs = GetIPAddresses(d.ID);
+				List<IPAddress> deviceIPs = IPAddress.SortIPs(GetIPAddresses(d.ID));
 
 				return new DeviceToOutput {
 					ID = d.ID,

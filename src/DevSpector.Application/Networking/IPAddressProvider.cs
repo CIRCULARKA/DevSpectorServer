@@ -38,11 +38,7 @@ namespace DevSpector.Application.Networking
 		}
 
 		public List<IPAddress> GetFreeIPSorted() =>
-			GetFreeIP().OrderBy(ip => int.Parse(ip.Address.Split(".")[0])).
-				ThenBy(ip => int.Parse(ip.Address.Split(".")[1])).
-				ThenBy(ip => int.Parse(ip.Address.Split(".")[2])).
-				ThenBy(ip => int.Parse(ip.Address.Split(".")[3])).
-					ToList();
+			IPAddress.SortIPs(GetFreeIP());
 
 		public IPAddress GetIP(string address) =>
 			_repo.GetSingle<IPAddress>(ip => ip.Address == address);

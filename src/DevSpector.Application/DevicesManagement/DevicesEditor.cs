@@ -81,7 +81,7 @@ namespace DevSpector.Application.Devices
 		public void UpdateDevice(string inventoryNumber, DeviceToUdpate info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
-				throw new ArgumentException("");
+				throw new ArgumentException(_noDeviceWithSuchID);
 
 			var targetDevice = _devicesProvider.GetDevice(inventoryNumber);
 

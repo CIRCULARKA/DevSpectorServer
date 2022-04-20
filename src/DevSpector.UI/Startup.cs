@@ -4,6 +4,7 @@ using System.Text.Unicode;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -62,7 +63,9 @@ namespace DevSpector.UI
                 options.InvalidModelStateResponseFactory = context => {
                     return new BadRequestObjectResult(new BadRequestError {
                         Error = "Ошибка валидации",
-                        Description = context.ModelState.Values.FirstOrDefault().Errors.Select(e => e.ErrorMessage)
+                        Description = context.ModelState.Values.
+                            Where(v => v.ValidationState == ModelValidationState.Invalid).
+                            FirstOrDefault().Errors.Select(e => e.ErrorMessage)
                     });
                 };
             });

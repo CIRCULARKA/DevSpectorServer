@@ -20,9 +20,9 @@ namespace DevSpector.Application
 
 		private UserManager<User> _baseUsersManager;
 
-		private string _noUserWithLogin = "Пользователя с указанным логином не существует";
+		private string _noUserWithLogin = "пользователя с указанным логином не существует";
 
-		private string _loginOrPasswordWrong = "Логин или пароль введены неверно";
+		private string _loginOrPasswordWrong = "логин или пароль введены неверно";
 
         public UsersManager(
 			IRepository repo,
@@ -114,9 +114,9 @@ namespace DevSpector.Application
 		public async Task<User> AuthorizeUser(string login, string password)
 		{
 			if (login == null)
-				throw new ArgumentException("Логин не может быть пустым");
+				throw new ArgumentException("логин не может быть пустым");
 			if (password == null)
-				throw new ArgumentException("Пароль не может быть пустым");
+				throw new ArgumentException("пароль не может быть пустым");
 
 			var wrongCredentialsException = new ArgumentException(_loginOrPasswordWrong);
 
@@ -199,7 +199,7 @@ namespace DevSpector.Application
 
 			if (existance == EntityExistance.Exists) {
 				if (existingUser != null)
-					throw new ArgumentException("Пользователь с указанным логином уже существует");
+					throw new ArgumentException("пользователь с указанным логином уже существует");
 			}
 			else {
 				if (existingUser == null)
@@ -210,7 +210,7 @@ namespace DevSpector.Application
 		private void ThrowIfUserGroupNotExists(Guid groupID)
 		{
 			if (GetGroup(groupID) == null)
-				throw new ArgumentException("Группа пользователей с указанным идентификатором не существует");
+				throw new ArgumentException("группа пользователей с указанным идентификатором не существует");
 		}
 
 		private User FormUserFrom(UserToAdd updatedInfo)

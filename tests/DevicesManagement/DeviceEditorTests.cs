@@ -86,7 +86,7 @@ namespace DevSpector.Tests.Application.Devices
                 ModelName = Guid.NewGuid().ToString()
             };
 
-            var updatedInfo = new DeviceToAdd {
+            var updatedInfo = new DeviceToUdpate {
                 InventoryNumber = Guid.NewGuid().ToString(),
                 TypeID = _context.DeviceTypes.Skip(1).FirstOrDefault().ID,
                 NetworkName = Guid.NewGuid().ToString(),
@@ -132,12 +132,12 @@ namespace DevSpector.Tests.Application.Devices
             _context.Devices.Add(conflictDevice);
             _context.SaveChanges();
 
-            var wrongType = new DeviceToAdd {
+            var wrongType = new DeviceToUdpate {
                 InventoryNumber = tempDevice.InventoryNumber,
                 TypeID = Guid.NewGuid()
             };
 
-            var busyInventoryNumber = new DeviceToAdd {
+            var busyInventoryNumber = new DeviceToUdpate {
                 InventoryNumber = conflictDevice.InventoryNumber
             };
 

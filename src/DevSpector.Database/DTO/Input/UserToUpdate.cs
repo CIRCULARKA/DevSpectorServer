@@ -21,7 +21,6 @@ namespace DevSpector.Database.DTO
         [StringLength(100, ErrorMessage = "длина логина должна находиться между {2} и {1} символами", MinimumLength = 2)]
         public string Login { get; init; }
 
-        [Required(ErrorMessage = "пароль не был предоставлен", AllowEmptyStrings = false)]
         [StringLength(100, ErrorMessage = "длина пароля должна находиться между {2} и {1} символами", MinimumLength = 5)]
         public string Password { get; init; }
 

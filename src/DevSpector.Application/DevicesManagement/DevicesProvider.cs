@@ -116,7 +116,7 @@ namespace DevSpector.Application.Devices
 		public bool HasIP(Guid deviceID, string ipAddress)
 		{
 			if (!_ipValidator.Matches(ipAddress, IPProtocol.Version4))
-				throw new ArgumentException("Указанный IP-адрес не соответствует шаблону IPv4");
+				throw new ArgumentException("указанный IP-адрес не соответствует шаблону IPv4");
 
 			var deviceIp = _repo.GetSingle<DeviceIPAddress>(ip => (ip.DeviceID == deviceID) &&
 				(ip.IPAddress.Address == ipAddress));

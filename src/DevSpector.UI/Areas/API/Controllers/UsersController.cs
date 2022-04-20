@@ -61,7 +61,7 @@ namespace DevSpector.UI.API.Controllers
 		[HttpPut("api/users/update")]
 		[ServiceFilter(typeof(AuthorizationFilter))]
 		[RequireParameters("targetUserLogin")]
-		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserToAdd info)
+		public async Task<IActionResult> UpdateUserAsync(string targetUserLogin, [FromBody] UserToUpdate info)
 		{
 			try
 			{

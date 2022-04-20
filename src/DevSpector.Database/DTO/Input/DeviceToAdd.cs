@@ -3,10 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DevSpector.Database.DTO
 {
-    /// <summary>
-    /// This is the DTO object needed to provide information from HTTP request to controller's action methods
-    /// Defines contract between clients and server
-    /// </summary>
     public class DeviceToAdd
     {
         [StringLength(70, ErrorMessage = "длина инвентарного номера должна быть между {2} и {1} символами", MinimumLength = 3)]

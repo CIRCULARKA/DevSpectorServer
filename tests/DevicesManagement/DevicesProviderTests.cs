@@ -253,7 +253,11 @@ namespace DevSpector.Tests.Application.Devices
                 // Compare IP addresses
                 Assert.Equal(ips.Count, actualDevices[i].IPAddresses.Count);
                 for (int j = 0; j < ips.Count; j++)
-                    Assert.Equal(ips[j].Address, actualDevices[i].IPAddresses[j]);
+                {
+                    List<string> expectedIPs = ips.Select(ip => ip.Address).ToList();
+                    List<string> actualIPs = actualDevices[i].IPAddresses;
+                    Assert.True(actualIPs.Contains(expectedIPs[j]));
+                }
 
                 // Compare software
                 Assert.Equal(soft.Count, actualDevices[i].Software.Count);

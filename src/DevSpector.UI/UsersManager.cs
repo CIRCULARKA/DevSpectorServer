@@ -52,7 +52,7 @@ namespace DevSpector.Application
 			await ChangeUserGroup(newUserToAdd.Login, newUserToAdd.GroupID);
 		}
 
-		public async Task UpdateUserAsync(string targetUserLogin, UserToAdd updatedInfo)
+		public async Task UpdateUserAsync(string targetUserLogin, UserToUpdate updatedInfo)
 		{
 			await ThrowIfUser(EntityExistance.DoesNotExist, targetUserLogin);
 

@@ -7,7 +7,7 @@ namespace DevSpector.Application.Devices
 	{
 		void CreateDevice(DeviceToAdd info);
 
-		void UpdateDevice(string targetDeviceInventoryNumber, DeviceToAdd info);
+		void UpdateDevice(string targetDeviceInventoryNumber, DeviceToUdpate info);
 
 		void DeleteDevice(string inventoryNumber);
 

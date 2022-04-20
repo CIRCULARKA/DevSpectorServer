@@ -31,7 +31,7 @@ namespace DevSpector.Application.Networking
 		public IList<string> GenerateRange(string netwokAddress, int mask)
 		{
 			if (!_ipValidator.Matches(netwokAddress, IPProtocol.Version4))
-				throw new ArgumentException("Сетевой адрес не соответствует шаблону IPv4");
+				throw new ArgumentException("сетевой адрес не соответствует шаблону IPv4");
 
 			SetCurrentMask(mask);
 			SetCurrentLocalAddressBytes(mask);
@@ -62,7 +62,7 @@ namespace DevSpector.Application.Networking
 		private byte[] GetFirstHostBytes(string address)
 		{
 			if (!_ipValidator.Matches(address, IPProtocol.Version4))
-				throw new ArgumentException("Невозможно получить первый хост диапазона - IP-адрес не соответствует шаблону IPv4");
+				throw new ArgumentException("невозможно получить первый хост диапазона - IP-адрес не соответствует шаблону IPv4");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);
 
@@ -77,7 +77,7 @@ namespace DevSpector.Application.Networking
 		private byte[] GetLastHostBytes(string address)
 		{
 			if (!_ipValidator.Matches(address, IPProtocol.Version4))
-				throw new ArgumentException("Невозможно получить последний хост диапазона - IP-адрес не соответствует шаблону IPv4");
+				throw new ArgumentException("невозможно получить последний хост диапазона - IP-адрес не соответствует шаблону IPv4");
 
 			var networkAddressOctets = GetOctetsFromAddress(address);
 
@@ -141,7 +141,7 @@ namespace DevSpector.Application.Networking
 		private void ValidateMask(int mask)
 		{
 			if (mask < 20 || mask > 30)
-				throw new ArgumentException("Значение макси должно быть между 20 и 30");
+				throw new ArgumentException("значение макси должно быть между 20 и 30");
 		}
 	}
 }

@@ -18,19 +18,19 @@ namespace DevSpector.Application.Devices
 
 		private IIPAddressProvider _ipProvider;
 
-		private string _noDeviceWithSuchID = "Устройства с указанным инвентарным номером не существует";
+		private string _noDeviceWithSuchID = "устройства с указанным инвентарным номером не существует";
 
-		private string _deviceWithSuchIDExists = "Устройство с указанным инвентарным номером уже существует";
+		private string _deviceWithSuchIDExists = "устройство с указанным инвентарным номером уже существует";
 
-		private string _deviceWithSuchNetworkNameExists = "Устройство с указанным сетевым именем уже существует";
+		private string _deviceWithSuchNetworkNameExists = "устройство с указанным сетевым именем уже существует";
 
-		private string _noDeviceTypeWithSuchID = "Типа устройства с указанным идентификатором не существует";
+		private string _noDeviceTypeWithSuchID = "типа устройства с указанным идентификатором не существует";
 
-		private string _invNumCantBeEmpty = "Инвентарный номер не может быть пустым";
+		private string _invNumCantBeEmpty = "инвентарный номер не может быть пустым";
 
-		private string _noCabinetWithSuchID = "Не удалось найти информацию о помещении по указанному идентификатору";
+		private string _noCabinetWithSuchID = "не удалось найти информацию о помещении по указанному идентификатору";
 
-		private string _ipNotValid = "Указанный IP-адрес не соответствует шаблону IPv4";
+		private string _ipNotValid = "указанный IP-адрес не соответствует шаблону IPv4";
 
 		public DevicesEditor(
 			IRepository repo,
@@ -78,7 +78,7 @@ namespace DevSpector.Application.Devices
 			_repo.Save();
 		}
 
-		public void UpdateDevice(string inventoryNumber, DeviceToAdd info)
+		public void UpdateDevice(string inventoryNumber, DeviceToUdpate info)
 		{
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new ArgumentException("");
@@ -149,7 +149,7 @@ namespace DevSpector.Application.Devices
 		public void AddSoftware(string inventoryNumber, SoftwareInfo info)
 		{
 			if (info.SoftwareName == null)
-				throw new ArgumentNullException("Название программного обеспечения должно быть указано");
+				throw new ArgumentNullException("название программного обеспечения должно быть указано");
 
 			if (!_devicesProvider.DoesDeviceExist(inventoryNumber))
 				throw new ArgumentException(_noDeviceWithSuchID);
@@ -158,7 +158,7 @@ namespace DevSpector.Application.Devices
 
 			// Check if device already has software with the same name AND version
 			if (_devicesProvider.HasSoftware(targetDevice.ID, info.SoftwareName, info.SoftwareVersion))
-				throw new InvalidOperationException("Выбранное устройство уже имеет ПО с указанной версией");
+				throw new InvalidOperationException("выбранное устройство уже имеет ПО с указанной версией");
 
 			var newDeviceSoftware = new DeviceSoftware {
 				DeviceID = targetDevice.ID,
@@ -212,7 +212,7 @@ namespace DevSpector.Application.Devices
 				throw new ArgumentException(_ipNotValid);
 
 			if (!_ipProvider.IsAddressFree(ipAddress))
-				throw new InvalidOperationException("Указанный IP-адрес уже занят или вне диапазона");
+				throw new InvalidOperationException("указанный IP-адрес уже занят или вне диапазона");
 
 			var targetIP = _repo.GetSingle<IPAddress>(ip => ip.Address == ipAddress);
 
@@ -236,7 +236,7 @@ namespace DevSpector.Application.Devices
 				throw new ArgumentException(_ipNotValid);
 
 			if (!_devicesProvider.HasIP(targetDevice.ID, ipAddress))
-				throw new InvalidOperationException("У устройства нет указанного IP-адреса");
+				throw new InvalidOperationException("у устройства нет указанного IP-адреса");
 
 			DeviceIPAddress targetIP = _repo.GetSingle<DeviceIPAddress>(di => (di.DeviceID == targetDevice.ID) &&
 				(di.IPAddress.Address == ipAddress));

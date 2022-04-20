@@ -50,7 +50,7 @@ namespace DevSpector.UI.API.Controllers
 
 		[HttpPut("api/devices/update")]
 		[RequireParameters("targetInventoryNumber")]
-		public IActionResult UpdateDevice(string targetInventoryNumber, [FromBody] DeviceToAdd updatedInfo)
+		public IActionResult UpdateDevice(string targetInventoryNumber, [FromBody] DeviceToUdpate updatedInfo)
 		{
 			try
 			{

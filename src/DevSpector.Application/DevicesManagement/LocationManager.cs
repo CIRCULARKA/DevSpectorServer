@@ -20,7 +20,7 @@ namespace DevSpector.Application.Location
 		{
 			var targetHousing = _repo.GetByID<Housing>(housingID);
 			if (targetHousing == null)
-				throw new InvalidOperationException("Корпуса с указанным идентификатором не обнаружено");
+				throw new InvalidOperationException("корпуса с указанным идентификатором не обнаружено");
 
 			return _repo.Get<Cabinet>(
 				filter: c => c.HousingID == housingID

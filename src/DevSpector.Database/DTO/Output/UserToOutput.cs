@@ -6,6 +6,8 @@ namespace DevSpector.Database.DTO
     /// </summary>
     public class UserToOutput
     {
+        public string ID { get; init; }
+
         public string FirstName { get; init; }
 
         public string Surname { get; init; }

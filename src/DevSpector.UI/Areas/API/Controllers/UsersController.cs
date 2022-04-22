@@ -29,6 +29,7 @@ namespace DevSpector.UI.API.Controllers
 				_usersManager.GetAllUsers().
 					Select(
 						u => new UserToOutput {
+							ID = u.Id,
 							AccessToken = u.AccessKey,
 							Login = u.UserName,
 							Group = _usersManager.GetUserGroup(u).Result,

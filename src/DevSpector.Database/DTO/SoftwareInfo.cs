@@ -12,7 +12,7 @@ namespace DevSpector.Database.DTO
         [StringLength(100, ErrorMessage = "название ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
         public string SoftwareName { get; set; }
 
-        [StringLength(50, ErrorMessage = "версия ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
+        [StringLength(100, ErrorMessage = "версия ПО должно быть длиной между {2} и {1} символов", MinimumLength = 1)]
         public string SoftwareVersion { get; set; }
     }
 }

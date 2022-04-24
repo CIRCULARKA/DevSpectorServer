@@ -75,7 +75,10 @@ namespace DevSpector.Application
 			if (updatedInfo.GroupID != Guid.Empty)
 				await ChangeUserGroup(targetUserLogin, updatedInfo.GroupID);
 
-			await _baseUsersManager.UpdateAsync(target);
+			IdentityResult result = await _baseUsersManager.UpdateAsync(target);
+
+			if (!result.Succeeded)
+				throw GenerateExceptionFromErrors(result.Errors);
 		}
 
 		public async Task ChangeUserGroup(string targetLogin, Guid groupID)

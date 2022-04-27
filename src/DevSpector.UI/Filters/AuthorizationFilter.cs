@@ -21,7 +21,7 @@ namespace DevSpector.UI.Filters
             var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestError {
                     Error = "Неверный ключ доступа",
-                    Description = new List<string> { "Передайте ключ доступа в запросе" }
+                    Description = new List<string> { "передайте ключ доступа в запросе" }
                 }
             );
 

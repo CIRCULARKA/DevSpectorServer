@@ -39,13 +39,19 @@ namespace DevSpector.UI
             services.AddDbContext<ApplicationContextBase, ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
+                    {
                         options.UseSqlite(Configuration["ConnectionString"]);
-                    else {
+                    }
+                    else
+                    {
+                        var connectionString = Configuration["ConnectionString"];
+                        if (!string.IsNullOrWhiteSpace(connectionString))
+                            connectionString = System.Environment.GetEnvironmentVariable("DEVSPECTOR_SERVER_CONNSTR");
+
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
                         // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)
                         // My approach with docker where I use dotnet ef database update --connection <con-string> just ignored
-                        // That is why I getting connection string from variable and not from appsettings.json using Configuration class
-                        var connectionString = System.Environment.GetEnvironmentVariable("CON_STR");
+                        // That is why I getting connection string from variable and not from appsettings.json using Configuration
                         options.UseSqlServer(connectionString);
                     }
                 }

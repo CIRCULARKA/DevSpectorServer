@@ -15,8 +15,11 @@ namespace DevSpector.UI
             }
             catch (Exception e)
             {
+                Directory.CreateDirectory("logs");
+                DateTime now = DateTime.Now;
+
                 File.AppendAllLines(
-                    "UnhandledLogs.txt",
+                    Path.Combine("logs", now.ToString("dd-MM-yyyy") + ".txt"),
                     new string[] {
                         $"[{DateTime.Now.ToString("HH:mm MMMM dd, yyyy")}]",
                         $"Message: {e.Message}",

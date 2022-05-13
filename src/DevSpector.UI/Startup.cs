@@ -60,7 +60,7 @@ namespace DevSpector.UI
                         if (string.IsNullOrWhiteSpace(connectionString))
                             throw new InvalidOperationException(
                                 "Не удалось найти строку подключения. Перередайте её" +
-                                $"через переменную среды \"{_ConnectionStringEnvVariableName}\"" +
+                                $" через переменную среды \"{_ConnectionStringEnvVariableName}\"" +
                                 " или задайте её в файле \"appsettings.json\" в корне программы"
                             );
 

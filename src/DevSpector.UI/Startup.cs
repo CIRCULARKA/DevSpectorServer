@@ -46,24 +46,22 @@ namespace DevSpector.UI
                 options => {
                     if (Environment.IsDevelopment())
                     {
-                        options.UseSqlite(Configuration["ConnectionString"]);
+                        options.UseSqlite(Configuration["LocalStorageConnectionString"]);
                     }
                     else
                     {
-                        var connectionString = Configuration["ConnectionString"];
                         // For automated CI cases:
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
                         // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)
                         // My approach with docker where I use 'dotnet ef database update --connection <con-string>' doesn't working
                         // That is why I am getting connection string from variable and not from appsettings.json using Configuration
-                        if (!string.IsNullOrWhiteSpace(connectionString))
-                            connectionString = System.Environment.GetEnvironmentVariable(_ConnectionStringEnvVariableName);
+                        string connectionString = System.Environment.GetEnvironmentVariable(_ConnectionStringEnvVariableName);
 
                         if (string.IsNullOrWhiteSpace(connectionString))
                             throw new InvalidOperationException(
                                 "Не удалось найти строку подключения. Перередайте её" +
                                 $" через переменную среды \"{_ConnectionStringEnvVariableName}\"" +
-                                " или задайте её в файле \"appsettings.json\" в корне программы"
+                                " или используйте локальное хранилище"
                             );
 
                         options.UseSqlServer(connectionString);

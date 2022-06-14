@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -24,6 +25,9 @@ namespace DevSpector.UI
     {
         private bool _doesDbNeedsPopulation = true;
 
+        private const string _ConnectionStringEnvVariableName =
+            "DEVSPECTOR_SERVER_CONNSTR";
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -41,13 +45,27 @@ namespace DevSpector.UI
             services.AddDbContext<ApplicationContextBase, ApplicationDbContext>(
                 options => {
                     if (Environment.IsDevelopment())
+                    {
                         options.UseSqlite(Configuration["ConnectionString"]);
-                    else {
+                    }
+                    else
+                    {
+                        var connectionString = Configuration["ConnectionString"];
+                        // For automated CI cases:
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
                         // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)
-                        // My approach with docker where I use dotnet ef database update --connection <con-string> just ignored
-                        // That is why I getting connection string from variable and not from appsettings.json using Configuration class
-                        var connectionString = System.Environment.GetEnvironmentVariable("CON_STR");
+                        // My approach with docker where I use 'dotnet ef database update --connection <con-string>' doesn't working
+                        // That is why I am getting connection string from variable and not from appsettings.json using Configuration
+                        if (!string.IsNullOrWhiteSpace(connectionString))
+                            connectionString = System.Environment.GetEnvironmentVariable(_ConnectionStringEnvVariableName);
+
+                        if (string.IsNullOrWhiteSpace(connectionString))
+                            throw new InvalidOperationException(
+                                "Не удалось найти строку подключения. Перередайте её" +
+                                $" через переменную среды \"{_ConnectionStringEnvVariableName}\"" +
+                                " или задайте её в файле \"appsettings.json\" в корне программы"
+                            );
+
                         options.UseSqlServer(connectionString);
                     }
                 }

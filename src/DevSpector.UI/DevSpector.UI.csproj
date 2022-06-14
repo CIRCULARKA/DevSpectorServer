@@ -10,6 +10,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
+    <PublishSingleFile>True</PublishSingleFile>
+    <DebugType>Embedded</DebugType>
+    <PublishDir>publish</PublishDir>
+    <AssemblyName>DevSpectorServer</AssemblyName>
   </PropertyGroup>
 
 </Project>

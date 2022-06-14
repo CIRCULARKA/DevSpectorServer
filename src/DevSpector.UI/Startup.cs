@@ -23,6 +23,8 @@ namespace DevSpector.UI
 {
     public class Startup
     {
+        private bool _doesDbNeedsPopulation = true;
+
         private const string _ConnectionStringEnvVariableName =
             "DEVSPECTOR_SERVER_CONNSTR";
 
@@ -111,18 +113,17 @@ namespace DevSpector.UI
         {
             MigrateDatabase(app);
 
-            app.AddUserGroup("Техник");
-            app.AddUserGroup("Администратор");
-            app.AddUserGroup("Суперпользователь");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.AddSuperUserAsync("root", "123Abc!").GetAwaiter().GetResult();
-                app.FillDbWithTemporaryDataAsync();
+                if (_doesDbNeedsPopulation)
+                    app.InitializeData("root", "123Abc!");
             }
             else
-                app.AddSuperUserAsync("root", System.Environment.GetEnvironmentVariable("ROOT_PWD")).GetAwaiter().GetResult();
+            {
+                if (_doesDbNeedsPopulation)
+                    app.InitializeData("root", System.Environment.GetEnvironmentVariable("ROOT_PWD"));
+            }
 
             app.UseRouting();
 
@@ -134,9 +135,14 @@ namespace DevSpector.UI
 
         private void MigrateDatabase(IApplicationBuilder builder)
         {
+            _doesDbNeedsPopulation = false;
+
             var context = GetService<ApplicationContextBase>(builder);
             if (context.Database.GetPendingMigrations().Any())
+            {
                 context.Database.Migrate();
+                _doesDbNeedsPopulation = true;
+            }
         }
 
         private T GetService<T>(IApplicationBuilder builder) =>

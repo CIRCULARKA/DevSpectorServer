@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using DevSpector.Application;
+using DevSpector.Domain.Models;
 
 namespace DevSpector.UI.Filters
 {
@@ -16,8 +17,8 @@ namespace DevSpector.UI.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var query = context.HttpContext.Request.Query;
             var request = context.HttpContext.Request;
+            var query = request.Query;
             var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestError {
                     Error = "Неверный ключ доступа",
@@ -27,9 +28,9 @@ namespace DevSpector.UI.Filters
 
             string api = query["api"].Count == 0 ? request.Headers["API"] : query["api"];
 
-            var callingUser = _usersManager.FindByApi(api);
+            User whoTryToLogin = _usersManager.FindByApi(api);
 
-            if (callingUser == null)
+            if (whoTryToLogin == null)
                 context.Result = unauthorizedResult;
         }
     }

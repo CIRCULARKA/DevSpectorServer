@@ -23,6 +23,9 @@ namespace Microsoft.AspNetCore.Builder
             var usersManager = GetService<UsersManager>(@this);
             var ipGenerator = GetService<IIPRangeGenerator>(@this);
 
+            // Check if something is in database. If so - return
+            if (context.IPAddresses.Count() > 0) return @this;
+
             //
             // Create user groups
             //

@@ -22,6 +22,8 @@ namespace DevSpector.UI
 {
     public class Startup
     {
+        private bool _doesDbNeedsPopulation = true;
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -96,10 +98,14 @@ namespace DevSpector.UI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.InitializeData("root", "123Abc!");
+                if (_doesDbNeedsPopulation)
+                    app.InitializeData("root", "123Abc!");
             }
             else
-                app.InitializeData("root", System.Environment.GetEnvironmentVariable("ROOT_PWD"));
+            {
+                if (_doesDbNeedsPopulation)
+                    app.InitializeData("root", System.Environment.GetEnvironmentVariable("ROOT_PWD"));
+            }
 
             app.UseRouting();
 
@@ -111,9 +117,14 @@ namespace DevSpector.UI
 
         private void MigrateDatabase(IApplicationBuilder builder)
         {
+            _doesDbNeedsPopulation = false;
+
             var context = GetService<ApplicationContextBase>(builder);
             if (context.Database.GetPendingMigrations().Any())
+            {
                 context.Database.Migrate();
+                _doesDbNeedsPopulation = true;
+            }
         }
 
         private T GetService<T>(IApplicationBuilder builder) =>

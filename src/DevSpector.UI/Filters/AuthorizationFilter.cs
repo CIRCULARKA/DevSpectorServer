@@ -16,8 +16,8 @@ namespace DevSpector.UI.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var query = context.HttpContext.Request.Query;
             var request = context.HttpContext.Request;
+            var query = request.Query;
             var unauthorizedResult = new UnauthorizedObjectResult(
                 new BadRequestError {
                     Error = "Неверный ключ доступа",

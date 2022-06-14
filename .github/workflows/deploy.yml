@@ -22,5 +22,5 @@ jobs:
         heroku_email: ${{secrets.MY_EMAIL}}
       env:
         HD_TARGET_ENV: Production
-        HD_CON_STR: ${{secrets.DB_PROD_CON_STR}}
+        HD_DEVSPECTOR_SERVER_CONNSTR: ${{secrets.DB_PROD_CON_STR}}
         HD_ROOT_PWD: ${{secrets.ROOT_PWD}}

@@ -93,18 +93,13 @@ namespace DevSpector.UI
         {
             MigrateDatabase(app);
 
-            app.AddUserGroup("Техник");
-            app.AddUserGroup("Администратор");
-            app.AddUserGroup("Суперпользователь");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.AddSuperUserAsync("root", "123Abc!").GetAwaiter().GetResult();
-                app.FillDbWithTemporaryDataAsync();
+                app.InitializeData("root", "123Abc!");
             }
             else
-                app.AddSuperUserAsync("root", System.Environment.GetEnvironmentVariable("ROOT_PWD")).GetAwaiter().GetResult();
+                app.InitializeData("root", System.Environment.GetEnvironmentVariable("ROOT_PWD"));
 
             app.UseRouting();
 

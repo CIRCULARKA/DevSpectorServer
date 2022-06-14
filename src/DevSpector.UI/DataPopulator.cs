@@ -13,9 +13,6 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class DataPopulator
     {
-        // Some default values that can be used while initializing another entities
-        private static Cabinet _naCabinet;
-
         public static IApplicationBuilder InitializeData(
             this IApplicationBuilder @this,
             string superUserLogin,
@@ -24,7 +21,7 @@ namespace Microsoft.AspNetCore.Builder
         {
             var context = GetService<ApplicationContextBase>(@this);
             var usersManager = GetService<UsersManager>(@this);
-            var ipGenerator = GetService<IP4RangeGenerator>(@this);
+            var ipGenerator = GetService<IIPRangeGenerator>(@this);
 
             //
             // Create user groups

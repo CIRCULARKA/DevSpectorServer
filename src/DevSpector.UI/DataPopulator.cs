@@ -95,6 +95,9 @@ namespace Microsoft.AspNetCore.Builder
                 "Камера"
             );
 
+            context.DeviceTypes.AddRange(deviceTypes);
+            context.SaveChanges();
+
             //
             // Set IP range
             //

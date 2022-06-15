@@ -10,7 +10,6 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!-- <RuntimeIdentifier>linux-x64</RuntimeIdentifier> -->
     <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
     <PublishSingleFile>True</PublishSingleFile>
     <DebugType>Embedded</DebugType>

@@ -44,12 +44,17 @@ namespace DevSpector.UI
 
             services.AddDbContext<ApplicationContextBase, ApplicationDbContext>(
                 options => {
+
+                    Console.WriteLine($"Environment name is: {Environment.EnvironmentName}");
                     if (Environment.IsDevelopment())
                     {
+                        Console.WriteLine("Entering development evnironment.");
+                        Console.WriteLine("Connection string: " + Configuration["LocalStorageConnectionString"]);
                         options.UseSqlite(Configuration["LocalStorageConnectionString"]);
                     }
                     else
                     {
+                        Console.WriteLine("Entering production evnironment.");
                         // For automated CI cases:
                         // I don't know how to deal with hidden appsettings.json: I can't load it to github actions
                         // because it checkouts my repo without that file as it is added to .gitignore (there is production connection string)

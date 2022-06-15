@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.405
+FROM mcr.microsoft.com/dotnet/sdk:6.0.300
 
 # ENV ASPNETCORE_ENVIRONMENT=${TARGET_ENV}
 ARG TARGET_ENV

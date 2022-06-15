@@ -39,7 +39,7 @@ namespace DevSpector.UI
             Host.CreateDefaultBuilder(args).
                 ConfigureWebHostDefaults(
                     webBuilder => {
-                        var port = Environment.GetEnvironmentVariable("PORT");
+                        var port = Environment.GetEnvironmentVariable("DEVSPECTOR_SERVER_PORT");
 
                         webBuilder.UseStartup<Startup>().
                             UseUrls($"http://*:{port}");

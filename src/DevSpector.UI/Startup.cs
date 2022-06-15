@@ -114,7 +114,9 @@ namespace DevSpector.UI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            MigrateDatabase(app);
+            // MigrateDatabase(app);
+            var context = GetService<ApplicationContextBase>(app);
+            context.Database.Migrate();
 
             if (env.IsDevelopment())
             {

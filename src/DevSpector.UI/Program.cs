@@ -41,6 +41,10 @@ namespace DevSpector.UI
                     webBuilder => {
                         var port = Environment.GetEnvironmentVariable("DEVSPECTOR_SERVER_PORT");
 
+                        if (string.IsNullOrWhiteSpace(port))
+                            // Heroku sets the port for applications via PORT variable
+                            port = Environment.GetEnvironmentVariable("PORT");
+
                         webBuilder.UseStartup<Startup>().
                             UseUrls($"http://*:{port}");
                     }

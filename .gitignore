@@ -8,6 +8,7 @@ Makefile
 .vimspector.json
 *.db-shm
 *.db-wal
+Publish
 
 # User-specific files
 *.rsuser

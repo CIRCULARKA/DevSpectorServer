@@ -10,10 +10,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
-    <PublishSingleFile>True</PublishSingleFile>
     <DebugType>Embedded</DebugType>
-    <PublishDir>publish</PublishDir>
     <AssemblyName>DevSpectorServer</AssemblyName>
   </PropertyGroup>
 
